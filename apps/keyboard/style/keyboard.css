@@ -1,0 +1,294 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-minus);
+  font-size: 10px;
+  font-family: -orchid-standard-font, system-ui, sans-serif;
+}
+
+[role="app"], [role="panel"] {
+  background-color: var(--background-minus);
+}
+
+#keyboard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#keyboard-container {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--safezone-width);
+  height: 100%;
+  translate: -50% 0;
+}
+
+#suggestions {
+  box-sizing: border-box;
+  display: flex;
+  flex-shrink: 0;
+  width: 100%;
+  height: 4.8rem;
+  padding: 0.6rem 0.5rem;
+  gap: 0.5rem;
+}
+
+#suggestions .suggestion {
+  width: 100%;
+  height: 3.6rem;
+  border-radius: 2rem;
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 3.6rem;
+  text-align: center;
+}
+
+#suggestions .suggestion:hover {
+  background-color: var(--item-hover);
+}
+
+#suggestions .suggestion:active {
+  background-color: var(--item-active);
+}
+
+#suggestions .suggestion.recommend {
+  background-color: var(--background-plus);
+  box-shadow: 0 0 0.6rem rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+}
+
+#keys {
+  box-sizing: border-box;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 0.25rem 0.5rem;
+  gap: 0.5rem;
+}
+
+#keys .keyboard-row {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  gap: 0.5rem;
+}
+
+#keys .keyboard-row .key {
+  display: flex;
+  flex-shrink: 0;
+  flex-shrink: 1;
+  align-items: center;
+  justify-content: center;
+  width: calc((100% - 4.5rem) / 10);
+  height: 100%;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--background-plus);
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+#keys .keyboard-row .key:active {
+  opacity: 0.5;
+}
+
+#keys .keyboard-row .key.special {
+  background-color: var(--item-plus);
+}
+
+#keys .keyboard-row .key.shift {
+  background-image: url(images/light/shift.png);
+  background-position: center;
+  background-size: 2rem;
+  background-repeat: no-repeat;
+  font-size: 0;
+}
+
+#keys .keyboard-row .key.backspace {
+  background-image: url(images/light/delete.png);
+  background-position: center;
+  background-size: 2rem;
+  background-repeat: no-repeat;
+  font-size: 0;
+}
+
+#keys .keyboard-row .key.shift.active {
+  background-image: url(images/light/shift_on.png);
+}
+
+#keys .keyboard-row .key.return {
+  background-image: url(images/dark/return.png);
+  background-position: center;
+  background-size: 2rem;
+  background-repeat: no-repeat;
+  background-color: var(--accent-color);
+  color: var(--accent-color-plus);
+  font-size: 0;
+}
+
+.alternate-indicator {
+  background-image: url(images/light/more.png);
+  background-position: center bottom 0.5rem;
+  background-size: 1.1rem 0.3rem;
+  background-repeat: no-repeat;
+}
+
+#toolbar {
+  box-sizing: border-box;
+  display: flex;
+  flex-shrink: 0;
+  width: 100%;
+  height: 5rem;
+  padding: 0.5rem 2rem;
+  gap: 0.5rem;
+}
+
+#toolbar > button {
+  width: 4rem;
+  height: 4rem;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+#toolbar > button:hover {
+  background-color: var(--item-hover);
+}
+
+#toolbar > button:active {
+  background-color: var(--item-active);
+}
+
+#layout-button {
+  margin-inline-end: auto;
+}
+
+#keyboard-voice-typing {
+  visibility: hidden;
+  position: absolute;
+  top: 4.8rem;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 4.8rem - 5rem);
+  background-color: var(--background-minus);
+}
+
+#keyboard-voice-typing > .toolbar {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+#soundwaves {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    to bottom,
+    transparent,
+    var(--item-plus),
+    transparent
+  );
+}
+
+#listen-button {
+  width: 8rem;
+  height: 8rem;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--background-plus);
+  box-shadow: 0 0 3rem rgba(0, 0, 0, 0.2), 0 0 1rem rgba(0, 0, 0, 0.2);
+  line-height: 8rem;
+}
+
+/* Icons */
+#voice-typing-button {
+  background: url(images/light/voice_typing.png) no-repeat center / 2.4rem;
+}
+
+#layout-button {
+  background: url(images/light/layouts.png) no-repeat center / 2.4rem;
+}
+
+#languages {
+  visibility: hidden;
+  z-index: 10;
+  position: absolute;
+  bottom: 4.5rem;
+  left: 1.5rem;
+  width: calc(100% - 3rem);
+  max-height: calc(100% - 5.5rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  transform: translateY(1.5rem);
+  border-radius: 1.5rem;
+  background-color: var(--background-plus);
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#languages.visible {
+  visibility: visible;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#languages-list {
+  width: 100%;
+  margin: 0;
+  padding: 0.5rem;
+  border-radius: 0;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  #keys .keyboard-row .key.backspace {
+    background-image: url(images/dark/delete.png);
+  }
+
+  #keys .keyboard-row .key.shift {
+    background-image: url(images/dark/shift.png);
+  }
+
+  #keys .keyboard-row .key.shift.active {
+    background-image: url(images/dark/shift_on.png);
+  }
+
+  #keys .keyboard-row .key.return {
+    background-image: url(images/light/return.png);
+  }
+
+  .alternate-indicator {
+    background-image: url(images/dark/more.png);
+  }
+
+  #voice-typing-button {
+    background: url(images/dark/voice_typing.png) no-repeat center / 2.4rem;
+  }
+
+  #layout-button {
+    background: url(images/dark/layouts.png) no-repeat center / 2.4rem;
+  }
+}

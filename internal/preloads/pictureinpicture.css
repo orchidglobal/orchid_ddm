@@ -1,0 +1,38 @@
+video-container .openorchid-pip-button {
+  visibility: hidden;
+  position: absolute;
+  right: 1rem;
+  bottom: 25%;
+  width: max-content;
+  min-width: 50px;
+  height: 50px;
+  transform: scale(0.9);
+  border: none;
+  border-radius: 25px;
+  outline: 10px solid transparent;
+  outline-offset: 10px;
+  backdrop-filter: blur(var(--blur-density)) saturate(180%);
+  background: rgba(51, 51, 51, 0.3) url(orchid://assets/picture-in-picture.svg) no-repeat center / 20px;
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+video-container:hover .openorchid-pip-button {
+  visibility: visible;
+  transform: scale(1);
+  opacity: 1;
+}
+
+video-container .openorchid-pip-button:hover {
+  background-color: rgba(67, 67, 67, 0.3);
+}
+
+video-container .openorchid-pip-button:active {
+  transform: scale(0.9);
+  background-color: rgba(83, 83, 83, 0.3);
+  transition: none;
+}
+
+video-container .openorchid-pip-button.enabled {
+  background-color: #0061e0;
+}

@@ -1,0 +1,285 @@
+#software-buttons {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  justify-content: center;
+  width: 100%;
+  height: var(--software-buttons-height);
+  transition: all 0.3s ease;
+}
+html[dir="ltr"] #software-buttons {
+  left: 0;
+}
+html[dir="rtl"] #software-buttons {
+  right: 0;
+}
+
+#software-buttons.hidden,
+#screen:not(.software-buttons-enabled) #software-buttons {
+  transform: translateY(100%);
+}
+
+#software-buttons .mobile,
+#software-buttons .desktop {
+  display: flex;
+}
+
+#screen.desktop #software-buttons .mobile,
+#screen:not(.desktop) #software-buttons .desktop {
+  display: none;
+}
+
+/* Mobile */
+#software-buttons .mobile > button {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: 8rem;
+  height: 100%;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+}
+
+#software-buttons .mobile > button::before {
+  width: 2rem;
+  height: 2rem;
+  background: transparent no-repeat center / 1.75rem;
+  content: '';
+  transition: all 0.5s cubic-bezier(0.2, 0.9, 0.1, 1);
+}
+
+#software-buttons .mobile > button::after {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 100%;
+  transform: translateX(-50%);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease, width 0.1s ease 0.3s;
+}
+
+#software-buttons .mobile > button:active:after {
+  width: calc(100% + 1rem);
+  opacity: 1;
+  transition: all 0.3s ease, opacity 0.1s ease;
+}
+
+#screen:not(.keyboard-visible) #software-buttons.light .mobile > button {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+#software-buttons #software-back-button::before {
+  background-image: url(images/back.svg);
+}
+html[dir="rtl"] #software-buttons #software-back-button::before {
+  transform: rotate(-180deg);
+}
+
+#screen.keyboard-visible #software-buttons #software-back-button::before {
+  transform: rotate(-90deg);
+}
+
+#software-buttons #software-home-button::before {
+  background-image: url(images/home.svg);
+}
+
+#software-buttons #software-recents-button::before {
+  background-image: url(images/recents.svg);
+}
+
+/* Desktop */
+#software-buttons .desktop {
+  display: flex;
+  height: var(--dock-height);
+}
+
+#software-buttons .desktop button {
+  position: relative;
+  width: calc(var(--dock-height) - 1rem);
+  height: calc(var(--dock-height) - 1rem);
+  margin: 0.5rem;
+  border-radius: 25%;
+  background: no-repeat center / cover;
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0, 1.1);
+}
+
+#software-buttons .desktop button:active {
+  filter: brightness(0.75);
+  transition: background-color 0.1s ease;
+}
+
+#software-buttons .desktop #software-launcher-button {
+  background-image: url(images/launcher.svg);
+}
+
+#software-buttons .desktop #software-search-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background-image: url(images/search.svg);
+  font-size: 0;
+}
+
+#software-buttons .desktop #software-search-button > span[data-icon] {
+  height: calc(var(--dock-height) - 1rem);
+}
+
+#software-buttons .desktop #software-search-button > span[data-icon]::before {
+  height: calc(var(--dock-height) - 1rem);
+  font-size: 0;
+  line-height: calc(var(--dock-height) - 1rem);
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0, 1.1);
+}
+
+#software-buttons .desktop #software-search-button.wide > span[data-icon]::before {
+  font-size: 2rem;
+}
+
+#software-buttons .desktop #software-search-button.wide {
+  width: 15rem;
+  border-radius: calc((var(--dock-height) - 1rem) / 2);
+  background: var(--background);
+  font-size: 1.6rem;
+}
+
+#software-buttons .desktop #software-search-button.wide:hover {
+  background: var(--item-hover);
+  transition: background-color 0.1s ease;
+}
+
+#software-buttons .desktop #software-search-button.wide:active {
+  background: var(--item-active);
+  transition: background-color 0.1s ease;
+}
+
+#software-buttons .desktop #software-cards-view-button {
+  background-image: url(images/cards_view.svg);
+}
+
+#software-buttons .desktop #software-dashboard-button {
+  background-image: url(images/dashboard.svg);
+}
+
+/* Dock */
+#dock {
+  display: flex;
+  height: var(--software-buttons-height);
+}
+
+#screen.desktop #dock {
+  height: var(--dock-height);
+}
+
+#dock:empty {
+  display: none;
+}
+
+#dock .icon {
+  position: relative;
+  width: calc(var(--software-buttons-height) - 1rem);
+  height: calc(var(--software-buttons-height) - 1rem);
+  margin: 0.5rem;
+  border-radius: 25%;
+}
+
+#screen.desktop #dock .icon {
+  width: calc(var(--dock-height) - 1rem);
+  height: calc(var(--dock-height) - 1rem);
+}
+
+#dock .icon.active {
+  outline: solid 0.2rem var(--accent-color);
+}
+
+#dock .icon.expand {
+  animation: dock-expand 0.5s cubic-bezier(0.2, 0.9, 0.1, 1) forwards;
+}
+
+@keyframes dock-expand {
+  from {
+    transform: scale(0.75);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+#dock .icon.shrink {
+  animation: dock-shrink 0.3s cubic-bezier(0.8, 0.1, 0.9, 0) forwards;
+}
+
+@keyframes dock-shrink {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.75);
+    opacity: 0;
+  }
+}
+
+#dock .icon > img {
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (orientation: landscape) and (max-width: 767px) {
+  #software-buttons {
+    flex-direction: column;
+    width: var(--software-buttons-height);
+    height: 100%;
+  }
+
+  #software-buttons .mobile {
+    flex-direction: column;
+  }
+
+  #software-buttons .mobile > button {
+    width: 100%;
+    height: 8rem;
+    padding: 1rem 0;
+  }
+
+  #software-buttons .mobile > button::after {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 0;
+    transform: translateY(-50%);
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.1, 1), height 0.1s ease 0.3s;
+  }
+
+  #software-buttons .mobile > button:active:after {
+    width: 100%;
+    height: calc(100% + 1rem);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #dock {
+    display: none;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  #screen.keyboard-visible #software-buttons .mobile > button {
+    filter: invert(1) hue-rotate(180deg);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  #screen.keyboard-visible #software-buttons .mobile > button {
+    filter: none;
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "name": "System",
+  "long_name": "Orchid System",
+  "description": "Orchid System",
+  "version": "1.0",
+  "role": "system",
+  "core": true,
+  "default_locale": "en",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "/style/icons/system_16.png",
+    "32": "/style/icons/system_32.png",
+    "48": "/style/icons/system_48.png",
+    "64": "/style/icons/system_64.png",
+    "128": "/style/icons/system_128.png",
+    "256": "/style/icons/system_256.png"
+  },
+  "developer": {
+    "name": "Orchid",
+    "url": "https://openorchid.github.io/"
+  },
+  "artwork": [],
+  "permissions": {
+    "environment": {},
+    "tasks-manage": {},
+    "ipc": {},
+    "bluetooth": {},
+    "settings": { "access": "readwrite" },
+    "storage": {},
+    "device-storage:audio": {},
+    "device-storage:books": {},
+    "device-storage:downloads": {},
+    "device-storage:movies": {},
+    "device-storage:music": {},
+    "device-storage:others": {},
+    "device-storage:photos": {},
+    "device-storage:home": {},
+    "webapps-manage": {},
+    "time": {},
+    "virtualization": {},
+    "child-process": {},
+    "power": {},
+    "fm-radio": {},
+    "users": {},
+    "wifi-manage": {},
+    "telephony": {},
+    "sms": {},
+    "display": {}
+  },
+  "activities": {
+    "webapp-launch": {
+      "filters": {
+        "manifestUrl": { "required": true }
+      },
+      "return_value": false
+    },
+    "webapp-install": {
+      "filters": {
+        "manifestUrl": { "required": true }
+      },
+      "return_value": false
+    },
+    "share-to": {
+      "filters": {
+        "blob": { "required": true },
+        "target": { "required": true }
+      },
+      "return_value": false
+    }
+  },
+  "serviceworker": {
+    "script_url": "sw-global.js"
+  }
+}

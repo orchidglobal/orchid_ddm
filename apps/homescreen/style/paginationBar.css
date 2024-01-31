@@ -1,0 +1,68 @@
+#paginationBar {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: calc(var(--software-buttons-height) + 7.8rem + 0.5rem);
+  left: 50%;
+  height: 2rem;
+  padding: 0.5rem;
+  translate: -50% 0;
+  border-radius: 2rem;
+  transition: all 0.3s ease 0.5s;
+}
+
+#app.hidden #paginationBar {
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+#paginationBar:hover {
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: var(--acrylic-background);
+}
+
+#paginationBar .search-button {
+  display: none;
+  visibility: hidden;
+  height: 1rem;
+  color: #fff;
+  line-height: 1rem;
+  opacity: 0.5;
+}
+
+#paginationBar .search-button[data-icon]::before {
+  margin-inline-end: 0.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+#paginationBar .dots {
+  box-sizing: border-box;
+  display: flex;
+  padding: 0.2rem;
+  gap: 0.5rem;
+}
+
+#paginationBar .dots > .dot {
+  width: calc(0.8rem + (0.8rem * var(--pagination-progress, 0)));
+  height: 0.8rem;
+  border-radius: 1rem;
+  background-color: #fff;
+  opacity: calc(0.5 + (0.5 * var(--pagination-progress, 0)));
+  transition: all 0.3s ease;
+}
+
+.light #paginationBar .dots > .dot {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+#paginationBar .dots > .dot.active {
+  width: 1.6rem;
+  opacity: 1;
+}
+
+@media screen and (orientation: landscape) and (max-width: 767px) {
+  #paginationBar {
+    bottom: calc(var(--software-buttons-height) + 0.5rem);
+  }
+}
+

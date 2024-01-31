@@ -1,0 +1,115 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  font-size: 10px;
+}
+
+.controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
+.controls menu[role='toolbar'] {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0.5rem;
+  gap: 0.5rem;
+}
+
+.controls menu[role='toolbar'] > button {
+  width: 100%;
+  height: 4rem;
+  border: none;
+  border-radius: 1rem;
+  background: transparent no-repeat center / 2rem;
+  transition: background-color 0.3s ease;
+}
+
+.controls menu[role='toolbar'] > button:hover {
+  background-color: rgba(0, 97, 224, 0.1);
+  transition: background-color 0.1s ease;
+}
+
+.controls menu[role='toolbar'] > button:active {
+  background-color: rgba(0, 97, 224, 0.2);
+  transition: background-color 0.1s ease;
+}
+
+#simulator-power-button {
+  background-image: url(light/power.png);
+}
+
+#simulator-volume-up-button {
+  background-image: url(light/volume-up.png);
+}
+
+#simulator-volume-down-button {
+  background-image: url(light/volume-down.png);
+}
+
+#simulator-shortcut-button {
+  background-image: url(light/shortcut.png);
+}
+
+#simulator-rotate-left-button {
+  background-image: url(light/rotate-left.png);
+}
+
+#simulator-rotate-right-button {
+  background-image: url(light/rotate-right.png);
+}
+
+#simulator-ring-button {
+  background-image: url(light/call.png);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  .controls {
+    background-color: #000;
+  }
+
+  .controls menu[role='toolbar'] > button:hover {
+    background-color: rgba(128, 194, 255, 0.1);
+  }
+
+  .controls menu[role='toolbar'] > button:active {
+    background-color: rgba(128, 194, 255, 0.2);
+  }
+
+  #simulator-power-button {
+    background-image: url(dark/power.png);
+  }
+
+  #simulator-volume-up-button {
+    background-image: url(dark/volume-up.png);
+  }
+
+  #simulator-volume-down-button {
+    background-image: url(dark/volume-down.png);
+  }
+
+  #simulator-shortcut-button {
+    background-image: url(dark/shortcut.png);
+  }
+
+  #simulator-rotate-left-button {
+    background-image: url(dark/rotate-left.png);
+  }
+
+  #simulator-rotate-right-button {
+    background-image: url(dark/rotate-right.png);
+  }
+
+  #simulator-ring-button {
+    background-image: url(dark/call.png);
+  }
+}

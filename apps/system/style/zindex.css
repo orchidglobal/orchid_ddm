@@ -1,0 +1,53 @@
+[data-z-index-layer="splashscreen"],
+[data-z-index-layer="loading-screen"] {
+  z-index: 65536;
+}
+
+[data-z-index-layer="statusbar"] {
+  z-index: 32769;
+}
+
+[data-z-index-layer="windows"] {
+  z-index: 1024;
+}
+
+[data-z-index-layer="card-panel"] {
+  z-index: 1192;
+}
+
+[data-z-index-layer="keyboards"] {
+  z-index: 2048;
+}
+
+[data-z-index-layer="lockscreen"] {
+  z-index: 32768;
+}
+
+[data-z-index-layer="utility-tray"],
+[data-z-index-layer="launcher"] {
+  z-index: 4096;
+}
+
+[data-z-index-layer="notification-toaster"] {
+  z-index: 8192;
+}
+
+[data-z-index-layer="cards-view"] {
+  z-index: 512;
+}
+
+[data-z-index-layer="modal-dialogs"] {
+  z-index: 6145;
+}
+
+[data-z-index-layer="software-buttons"] {
+  z-index: 32767;
+}
+
+[data-z-index-layer="system-overlays"] {
+  z-index: 65534;
+}
+
+[data-z-index-layer="gesture-panel"] {
+  z-index: 65535;
+}

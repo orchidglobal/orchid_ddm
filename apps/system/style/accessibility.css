@@ -1,0 +1,62 @@
+.accessibility-invert {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+#accessibility-captions-box {
+  visibility: hidden;
+  position: fixed;
+  bottom: var(--software-buttons-height);
+  left: calc(15% - 0.5rem);
+  width: 70%;
+  margin: 0 auto;
+  padding: 0.5rem;
+  transform: translateY(1rem);
+  border-radius: 0.5rem 0.5rem 0 0;
+  background-color: rgba(0,0,0,0.8);
+  color: #fff;
+  font-size: 1.6rem;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 1s ease;
+}
+
+#accessibility-captions-box.visible {
+  visibility: visible;
+  transform: translateY(0);
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+#accessibility-quicknav {
+  visibility: hidden;
+  position: absolute;
+  padding: 0;
+}
+
+#accessibility-quicknav.visible {
+  visibility: visible;
+}
+
+#accessibility-quicknav-container,
+#accessibility-quicknav-container > section,
+#accessibility-quicknav-container > section > ul {
+  height: 100%;
+  max-height: inherit;
+}
+
+#accessibility-quicknav-container > section > ul {
+  display: flex;
+  flex-direction: column;
+}
+
+#accessibility-quicknav-container > section > ul > li {
+  flex-grow: 1;
+}
+
+#accessibility-quicknav-container > section > ul > li > label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}

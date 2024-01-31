@@ -1,0 +1,25 @@
+html, body, [role="app"], [role="panel"] {
+  overflow: hidden;
+  background-color: transparent !important;
+  user-select: none;
+}
+
+#home {
+  filter: none;
+}
+
+#drop-indicator {
+  visibility: hidden;
+  position: absolute;
+  border-radius: 1rem;
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(1, 0, 0, 1);
+}
+
+#drop-indicator.visible {
+  visibility: visible;
+  opacity: 1;
+}

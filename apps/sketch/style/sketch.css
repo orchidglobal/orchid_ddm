@@ -1,0 +1,85 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--background);
+  font-size: 10px;
+}
+
+section[role="panel"] header:first-child::before,
+section[role="panel"] header:first-child::after {
+  display: none;
+}
+
+section[role="panel"] .content {
+  display: flex;
+  flex-direction: column;
+}
+
+.controls {
+  box-sizing: border-box;
+  display: flex;
+  z-index: 1;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem;
+  gap: 1rem;
+  background-image: linear-gradient(to bottom, transparent, var(--background) calc(100% - var(--software-buttons-height)));
+}
+
+.controls-row {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+
+.controls-row input[type="color"] {
+  flex-shrink: 0;
+  width: 3.2rem;
+  height: 3.2rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  line-height: 3.2rem;
+}
+
+.controls-row input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.controls-row input[type="color"]::-webkit-color-swatch {
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+}
+
+.controls-row button,
+.controls-row select {
+  height: 3.2rem;
+  line-height: 3.2rem;
+}
+
+.controls-row button,
+.controls-row select,
+.controls-row input {
+  margin: 0;
+}
+
+.controls-row span[data-icon] {
+  flex-shrink: 0;
+  width: 3.2rem;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.controls-row span[data-icon]::before {
+  font-size: 2.4rem;
+}
+
+canvas {
+  flex-grow: 1;
+  min-width: 100%;
+  height: 100%;
+  border-radius: 1.5rem;
+  background-color: #fff;
+}

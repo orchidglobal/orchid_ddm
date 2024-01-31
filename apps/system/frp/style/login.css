@@ -1,0 +1,34 @@
+#app {
+  --statusbar-height: 0rem;
+  --safezone-width: 60rem;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 2.4rem;
+}
+
+[role="panel"] > header:first-child.compact {
+  height: 6.5rem !important;
+  padding: 1.5rem 1rem 0;
+}
+
+[role="panel"] > section {
+  padding-bottom: calc(8rem + var(--software-buttons-height));
+}
+
+[role="panel"] > [role="buttons"] {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin-bottom: 0;
+  background-color: var(--background-minus);
+}
+
+[role="panel"] > [role="buttons"] button {
+  max-width: var(--safezone-width);
+  margin: 0 auto;
+  padding: 0 3rem;
+}

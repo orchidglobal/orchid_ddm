@@ -1,0 +1,76 @@
+@font-face {
+  src: url(/fonts/ReadexPro-VariableFont_HEXP.ttf);
+  font-family: 'Orchid Brand';
+}
+
+section[role="panel"]#root > header:first-child {
+  height: calc(5rem + (3.5rem * (1 - var(--progress, 0))));
+  padding: 0 1rem;
+}
+
+section[role="panel"]#root > header:first-child h1 {
+  font-weight: 600;
+  font-family: 'Orchid Brand';
+  text-align: center;
+}
+
+.homepage-header {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 1.5rem;
+  padding-top: 3rem;
+}
+
+.homepage-header .logo-holder {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: calc(var(--safezone-width) - 3rem);
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+}
+
+.homepage-header .logo-holder > .logo {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 1rem;
+  opacity: calc(1 - var(--progress, 0));
+}
+
+.homepage-header .logo-holder > .logo .wordmark {
+  margin-inline-end: 0.25em;
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 4rem;
+  font-family: 'Orchid Brand';
+}
+
+.homepage-row {
+  width: calc(100% - 3rem);
+  max-width: calc(var(--safezone-width) - 3rem);
+  margin: 0 auto;
+  margin-bottom: 1.5rem;
+}
+
+.homepage-row > header {
+  box-sizing: border-box;
+  width: 100%;
+  height: 3rem;
+  padding: 0 0.5rem;
+  color: var(--text-color-faded);
+  font-weight: bold;
+  font-size: 1.6rem;
+  line-height: 3rem;
+  text-transform: uppercase;
+}
+
+.homepage-row > div {
+  width: 100%;
+}

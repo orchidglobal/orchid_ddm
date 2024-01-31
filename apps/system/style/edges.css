@@ -1,0 +1,97 @@
+#top-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2rem;
+}
+
+#left-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2rem;
+  height: 100%;
+}
+
+#right-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2rem;
+  height: 100%;
+}
+
+#bottom-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2.5rem;
+  transition: opacity 0.3s ease;
+}
+
+#screen.lockscreen-visible #bottom-panel {
+  transform: translateY(calc(-1.5rem + (1.5rem - var(--motion-progress, 1))));
+  opacity: var(--motion-progress, 1);
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#screen.lockscreen-visible #bottom-panel.transitioning {
+  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.1, 1), opacity 0.3s ease 0.2s;
+}
+
+#screen:not(.lockscreen-visible, .cards-view-visible) #bottom-panel.homescreen {
+  opacity: 0;
+}
+
+#screen.software-buttons-enabled #bottom-panel {
+  visibility: hidden;
+  opacity: 0;
+}
+
+#bottom-panel::before {
+  position: absolute;
+  bottom: 1rem;
+  left: calc(50% - 5rem);
+  width: 10rem;
+  height: 0.5rem;
+  border-radius: 1rem;
+  background-color: #e7e7e7;
+  content: '';
+  transition: transform 0.3s cubic-bezier(0.5, 0.8, 0, 1.5), width 0.3s cubic-bezier(0.5, 0.8, 0, 1.5), background-color 0.3s ease;
+}
+
+#bottom-panel.fullscreen::before {
+  background-color: rgba(232, 232, 232, 0.3);
+}
+
+html[data-red-light-point="true"] #bottom-panel::before {
+  background-color: red;
+}
+
+#bottom-panel:active::before {
+  transform: scaleX(0.8);
+  background-color: rgba(232, 232, 232, 0.5);
+}
+
+html[data-red-light-point="true"] #bottom-panel:active::before {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+#screen:not(.desktop, .cards-view-visible) #bottom-panel.light::before {
+  background-color: #333;
+}
+
+@media (prefers-color-scheme: light) {
+  #screen.keyboard-visible:not(.desktop, .cards-view-visible) #bottom-panel::before {
+    background-color: #333;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  #screen.keyboard-visible:not(.desktop, .cards-view-visible) #bottom-panel::before {
+    background-color: #fff;
+  }
+}

@@ -1,0 +1,166 @@
+!(function (exports) {
+  'use strict';
+
+  const Bootstrap = {
+    screen: null,
+    frimwareScreen: null,
+
+    isFrimware: false,
+
+    settings: [
+      'audio.volume.music',
+      'ftu.enabled',
+      'general.lang.code',
+      'general.software_buttons.enabled',
+      'video.dark_mode.enabled',
+      'video.reader_mode.enabled',
+      'video.warm_colors.enabled'
+    ],
+    SETTINGS_AUDIO_VOLUME_MUSIC: 0,
+    SETTINGS_FTU_ENABLED: 1,
+    SETTINGS_GENERAL_LANG_CODE: 2,
+    SETTINGS_GENERAL_SOFTWARE_BUTTONS: 3,
+    SETTINGS_VIDEO_DARK_MODE: 4,
+    SETTINGS_VIDEO_READER_MODE: 5,
+    SETTINGS_VIDEO_WARM_COLORS: 6,
+
+    init: function () {
+      // Handle Orchid frimware UI loading
+      this.frimwareScreen = document.getElementById('frimware');
+      if (this.isFrimware) {
+        this.frimwareScreen.classList.add('visible');
+        // Load up charging battery UI if device is off and charging
+        // This only works on natively supported OpenOrchid
+        LazyLoader.load('js/frimware/charging_battery_icon.js');
+        LazyLoader.load('js/frimware/charging_battery_canvas.js');
+        return;
+      }
+
+      this.screen = document.getElementById('screen');
+
+      Settings.getValue(this.settings[this.SETTINGS_GENERAL_LANG_CODE]).then(this.handleLanguage.bind(this));
+      Settings.getValue(this.settings[this.SETTINGS_GENERAL_SOFTWARE_BUTTONS]).then(this.handleSoftwareButtons.bind(this));
+      Settings.getValue(this.settings[this.SETTINGS_VIDEO_WARM_COLORS]).then(this.handleWarmColors.bind(this));
+      Settings.getValue(this.settings[this.SETTINGS_VIDEO_READER_MODE]).then(this.handleReaderMode.bind(this));
+
+      Settings.addObserver(this.settings[this.SETTINGS_AUDIO_VOLUME_MUSIC], this.handleMusicVolume.bind(this));
+      Settings.addObserver(this.settings[this.SETTINGS_GENERAL_LANG_CODE], this.handleLanguageChange.bind(this));
+      Settings.addObserver(this.settings[this.SETTINGS_VIDEO_DARK_MODE], this.handleColorScheme.bind(this));
+      Settings.addObserver(this.settings[this.SETTINGS_GENERAL_SOFTWARE_BUTTONS], this.handleSoftwareButtons.bind(this));
+      Settings.addObserver(this.settings[this.SETTINGS_VIDEO_WARM_COLORS], this.handleWarmColors.bind(this));
+      Settings.addObserver(this.settings[this.SETTINGS_VIDEO_READER_MODE], this.handleReaderMode.bind(this));
+
+      // Load with AppsManager to ensure existing webapps.json and correct
+      // load time that isnt too early and is low with loading overhead
+      AppsManager.getAll().then(() => {
+        LazyLoader.load('js/lockscreen/clock.js');
+        LazyLoader.load('js/lockscreen/date.js');
+        // TODO: Implement a multi-user system
+        // LazyLoader.load('js/lockscreen/login.js');
+        LazyLoader.load('js/lockscreen/motion.js');
+        LazyLoader.load('js/lockscreen/pin_lock.js');
+
+        // TODO: Implement working achievements
+        // LazyLoader.load('js/achievements.js');
+
+        LazyLoader.load('js/alarms_handler.js');
+        LazyLoader.load('js/keybinds.js');
+        LazyLoader.load('js/message_handler.js');
+        LazyLoader.load('js/music_controller.js', () => {
+          Settings.getValue(this.settings[this.SETTINGS_AUDIO_VOLUME_MUSIC]).then(this.handleMusicVolume.bind(this));
+          Settings.getValue(this.settings[this.SETTINGS_FTU_ENABLED]).then(this.handleFirstLaunch.bind(this));
+
+          MusicController.play('/resources/music/bg.mp3', true);
+        });
+        LazyLoader.load('js/platform_classifier.js');
+        LazyLoader.load('js/utility_tray.js', () => {
+          LazyLoader.load('js/utility_tray_motion.js');
+          LazyLoader.load('js/network_button.js');
+        });
+        LazyLoader.load('js/webapps.js');
+
+        if (window.deviceType === 'desktop') {
+          LazyLoader.load('js/app_launcher.js');
+        }
+
+        // Enable more complex visuals when specifications are met
+        if (navigator.hardwareConcurrency > 2) {
+          if (navigator.deviceMemory >= 2) {
+            this.screen.classList.add('gpu-capable');
+          }
+          if (navigator.hardwareConcurrency > 4) {
+            if (navigator.deviceMemory > 4) {
+              this.screen.classList.add('gpu-fully-capable');
+            }
+          }
+        }
+
+        // Hide splash screen when everything is loaded and done
+        Splashscreen.hide();
+      });
+
+      window.addEventListener('orchid-services-ready', this.onServicesLoad.bind(this));
+    },
+
+    handleMusicVolume: function (value) {
+      MusicController.setVolume(value / 100, 1);
+    },
+
+    handleLanguage: function (value) {
+      L10n.currentLanguage = value;
+    },
+
+    handleLanguageChange: function (value) {
+      if (L10n.currentLanguage === value) {
+        return;
+      }
+
+      LoadingScreen.show();
+      LoadingScreen.element.textContent = L10n.get('changingLanguage');
+      LoadingScreen.element.addEventListener('transitionend', () => {
+        L10n.currentLanguage = value;
+        LoadingScreen.element.textContent = L10n.get('changingLanguage');
+        LoadingScreen.hide();
+      });
+    },
+
+    handleColorScheme: function (value) {
+      const targetTheme = value ? 'dark' : 'light';
+      IPC.send('change-theme', targetTheme);
+    },
+
+    handleSoftwareButtons: function (value) {
+      this.screen.classList.toggle('software-buttons-enabled', value);
+    },
+
+    handleWarmColors: function (value) {
+      this.screen.classList.toggle('warm-colors', value);
+    },
+
+    handleReaderMode: function (value) {
+      this.screen.classList.toggle('reader-mode', value);
+    },
+
+    handleFirstLaunch: function (value) {
+      if (value) {
+        LockscreenMotion.hideMotionElement();
+        const appWindow = new AppWindow('http://ftu.localhost:8081/manifest.json', {});
+      } else {
+        LazyLoader.load('js/homescreen_launcher.js');
+      }
+    },
+
+    onServicesLoad: function () {
+      // Ensuring your device is fingerprinted into your Orchid account
+      _os.devices.ensureDevice();
+
+      // TODO: Make this send and recieve files
+      // It won't be added to load until that TODO is done
+      // LazyLoader.load('js/remote/p2p.js');
+      LazyLoader.load('js/syncing_data.js');
+      LazyLoader.load('js/tray_devices.js');
+    }
+  };
+
+  window.addEventListener('load', () => Bootstrap.init());
+})(window);

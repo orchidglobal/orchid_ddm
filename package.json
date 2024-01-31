@@ -1,0 +1,154 @@
+{
+  "name": "orchidui",
+  "private": true,
+  "product_name": "orchid_dm",
+  "description": "Open source OrchidOS user interface",
+  "author": {
+    "name": "Orchid Organization",
+    "email": "mortcodesweb+orchidorg@proton.me"
+  },
+  "version": "1.0.111",
+  "main": "build_ts/src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && electron-builder",
+    "watch": "tsc -w",
+    "start": "tsc && electron ./build_ts/src/main.js",
+    "dev": "tsc && electron ./build_ts/src/debug.js",
+    "dist": "tsc && electron-builder --publish always",
+    "build-linux-arm": "tsc && electron-builder --linux --armv7l",
+    "build-linux-arm64": "tsc && electron-builder --linux --arm64",
+    "build-linux-ia32": "tsc && electron-builder --linux --ia32",
+    "build-linux-x64": "tsc && electron-builder --linux --x64",
+    "build-win-arm64": "tsc && electron-builder --win --arm64",
+    "build-win-ia32": "tsc && electron-builder --win --ia32",
+    "build-win-x64": "tsc && electron-builder --win --x64",
+    "build-mac-arm64": "tsc && electron-builder --mac --arm64",
+    "build-mac-x64": "tsc && electron-builder --mac --x64"
+  },
+  "license": "GPL-2.0",
+  "dependencies": {
+    "adm-zip": "^0.5.10",
+    "archiver": "^5.3.1",
+    "bluetooth": "^3.0.0",
+    "copy": "^0.3.2",
+    "del": "^7.0.0",
+    "dotenv": "^16.3.1",
+    "download": "^8.0.0",
+    "easy-volume": "^1.1.0",
+    "env": "^0.0.2",
+    "express": "^4.18.2",
+    "mime": "^3.0.0",
+    "mkdirp": "^3.0.1",
+    "moment": "^2.29.4",
+    "mv": "^2.1.1",
+    "noble": "^1.9.1",
+    "node-brightness": "^0.2.1",
+    "node-nlp": "^4.27.0",
+    "node-wifi": "^2.0.16",
+    "rimraf": "^5.0.5",
+    "running-apps": "^1.0.2",
+    "translate": "^2.0.2",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.5",
+    "@types/archiver": "^6.0.2",
+    "@types/copy": "^0.3.5",
+    "@types/electron": "^1.6.10",
+    "@types/express": "^4.17.21",
+    "@types/mime": "^3.0.4",
+    "@types/mv": "^2.1.4",
+    "@types/noble": "^0.0.44",
+    "@types/node": "^20.11.5",
+    "@types/node-wifi": "^2.0.2",
+    "@types/uuid": "^9.0.7",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "csslint": "^1.0.5",
+    "debug": "^4.3.4",
+    "electron": "^28.1.4",
+    "electron-builder": "^24.4.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.28.0",
+    "eslint-plugin-n": "^16.0.1",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-promise": "^6.1.1",
+    "glob": "^10.3.4",
+    "jsdoc": "^4.0.2",
+    "svg-to-png": "^4.0.0",
+    "typescript": "^5.3.3"
+  },
+  "build": {
+    "appId": "org.orchid.ui",
+    "productName": "orchid_dm",
+    "directories": {
+      "output": "dist",
+      "buildResources": "res"
+    },
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "icon": "internal/branding/browser/browser_256.png",
+      "publish": [
+        "github"
+      ]
+    },
+    "mac": {
+      "target": [
+        "zip",
+        "dmg"
+      ],
+      "icon": "internal/branding/browser/browser_256.png",
+      "publish": [
+        "github"
+      ]
+    },
+    "linux": {
+      "target": [
+        "tar.gz"
+      ],
+      "icon": "internal/branding/browser/browser_256.png",
+      "publish": [
+        "github"
+      ]
+    },
+    "files": [
+      "build_ts",
+      "internal",
+      "src",
+      ".env",
+      ".gitignore",
+      ".gitmodules",
+      ".jsdocrc",
+      ".npmrc",
+      "CONTRIBUTING.md",
+      "LICENSE",
+      "package.json",
+      "README.md",
+      "tsconfig.json"
+    ],
+    "extraFiles": [
+      {
+        "from": "build/package/*",
+        "to": "./"
+      },
+      "defaults",
+      {
+        "from": "apps",
+        "to": "webapps"
+      },
+      {
+        "from": "internal/fonts",
+        "to": "fonts"
+      },
+      {
+        "from": "build/environment/production.env",
+        "to": ".env"
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+* {
+  appearance: none;
+}
+
+/* *:focus { */
+  /* box-shadow: 0 0 0 3px var(--accent-color, #0061e0), 0 0 0 5px rgba(var(--accent-color-r, 0), var(--accent-color-g, 97), var(--accent-color-b, 224), 0.5); */
+  /* outline: dotted 1px currentColor; */
+/* } */
+
+::-webkit-scrollbar {
+  width: 0 /* 8px */;
+  height: 0 /* 8px */;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 8px;
+  height: 8px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background-clip: content-box;
+  background-color: #858585;
+}
+
+::selection {
+  background-color: var(--item-active-plus, rgba(0, 97, 224, 0.3));
+}

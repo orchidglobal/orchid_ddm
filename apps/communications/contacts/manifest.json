@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "name": "Contacts",
+  "description": "",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "/style/icons/contacts_16.png",
+    "32": "/style/icons/contacts_32.png",
+    "48": "/style/icons/contacts_48.png",
+    "64": "/style/icons/contacts_64.png",
+    "128": "/style/icons/contacts_128.png",
+    "256": "/style/icons/contacts_256.png"
+  },
+  "developer": {
+    "name": "Orchid Org.",
+    "url": "https://openorchid.github.io/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait-primary",
+  "background_color": "#f0f6ff",
+  "theme_color": "#60ff80",
+  "permissions": {
+    "nodeintegration": {}
+  },
+  "statusbar": "overlay"
+}

@@ -1,0 +1,390 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  font-size: 10px;
+  font-family: -orchid-standard-font, system-ui, sans-serif;
+}
+
+:focus {
+  outline: none;
+}
+
+#app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+[role="panel"] {
+  position: absolute;
+  top: 8rem;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 8rem);
+  background-color: transparent;
+}
+
+html[dir="ltr"] [role="panel"].previous {
+  transform: translateX(-25%);
+}
+html[dir="rtl"] [role="panel"].previous {
+  transform: translateX(25%);
+}
+
+html[dir="ltr"] [role="panel"].next {
+  transform: translateX(25%);
+}
+html[dir="rtl"] [role="panel"].next {
+  transform: translateX(-25%);
+}
+
+html[dir="ltr"] [role="panel"].visible,
+html[dir="rtl"] [role="panel"].visible {
+  transform: translateX(0);
+}
+
+#background,
+#foreground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#foreground {
+  z-index: 1;
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+#content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#statusbar {
+  box-sizing: border-box;
+  display: flex;
+  z-index: 10;
+  position: absolute;
+  align-items: center;
+  width: 100%;
+  height: 8rem;
+  margin: 0;
+  padding: 0 5vw;
+}
+
+#statusbar > div {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  width: 100%;
+  gap: 1.5rem;
+}
+
+#statusbar > .right {
+  justify-content: end;
+}
+
+#statusbar .toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+#statusbar button {
+  box-sizing: border-box;
+  width: 4rem;
+  height: 4rem;
+  padding: 0 0.8rem;
+  border: none;
+  border-radius: 4rem;
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(255,255,255,0.1);
+  color: #fff;
+  font-weight: normal;
+  font-size: 2rem;
+  line-height: 4rem;
+  transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.1, 1);
+}
+
+#statusbar button:hover,
+#statusbar button:focus {
+  transform: scale(1.1);
+  background-color: rgba(255,255,255,0.2);
+}
+
+#statusbar button:active {
+  transform: scale(0.9);
+  background-color: rgba(255,255,255,0.3);
+}
+
+#statusbar button[data-icon]::before {
+  height: 4rem;
+  font-size: 2.4rem;
+  line-height: 4rem;
+}
+
+#statusbar .searchbox {
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  width: 15rem;
+  height: 4rem;
+  padding: 0 0.8rem;
+  gap: 1rem;
+  border: none;
+  border-radius: 4rem;
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.5);
+  font-weight: normal;
+  font-size: 1.8rem;
+  line-height: 4rem;
+}
+
+.searchbox:hover,
+.searchbox:focus {
+  background-color: rgba(255,255,255,0.2);
+}
+
+#statusbar .searchbox[data-icon]::before {
+  height: 4rem;
+  font-size: 2rem;
+  line-height: 4rem;
+}
+
+.tabs {
+  display: flex;
+  height: 4rem;
+  margin: 0;
+  padding: 0;
+  gap: 1.5rem;
+}
+
+.tabs > .tab {
+  box-sizing: border-box;
+  height: 4rem;
+  margin: 0;
+  padding: 0 2rem;
+  border-radius: 4rem;
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(255,255,255,0.1);
+  color: #fff;
+  font-weight: normal;
+  font-size: 2rem;
+  line-height: 4rem;
+  list-style: none;
+  transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.1, 1);
+}
+
+.tabs > .tab:hover,
+.tabs > .tab:focus {
+  transform: scale(1.1);
+  background-color: rgba(255,255,255,0.2);
+}
+
+.tabs > .tab:active {
+  transform: scale(0.9);
+  background-color: rgba(255,255,255,0.3);
+}
+
+.tabs > .tab.selected {
+  background-color: #fff;
+  color: #333;
+}
+
+#statusbar .time {
+  color: #fff;
+  font-weight: normal;
+  font-size: 2.4rem;
+}
+
+.account-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.account-button > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.content-row {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  padding: 0 5vw;
+}
+
+.content-row > header {
+  box-sizing: border-box;
+  height: 4rem;
+  padding: 0 1rem;
+  color: #fff;
+  font-weight: normal;
+  font-size: 2.4rem;
+  line-height: 4rem;
+}
+
+#webapps-list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 1.5rem;
+}
+
+#webapps-list > .webapp {
+  position: relative;
+  flex-shrink: 0;
+  aspect-ratio: 4 / 3;
+  height: 30vh;
+  overflow: hidden;
+  border-radius: 2rem;
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(255,255,255,0.1);
+  list-style: none;
+}
+
+#webapps-list > .webapp::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 25rem;
+  height: 50vh;
+  translate: -50% -50%;
+  background-image: linear-gradient(to right, transparent, #fff, transparent);
+  content: '';
+  animation: focus-shine 8s linear infinite;
+}
+
+@keyframes focus-shine {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#webapps-list > .webapp > .artwork-holder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 2rem;
+  transition: all 0.3s cubic-bezier(0.5, 0.8, 0, 1);
+}
+
+#webapps-list > .webapp:hover > .artwork-holder,
+#webapps-list > .webapp:focus > .artwork-holder {
+  top: 0.4rem;
+  left: 0.4rem;
+  width: calc(100% - 0.8rem);
+  height: calc(100% - 0.8rem);
+  border-radius: 1.6rem;
+}
+
+#webapps-list > .webapp > .artwork-holder .artwork {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#webapps-list > .webapp > .name {
+  box-sizing: border-box;
+  z-index: 1;
+  position: absolute;
+  bottom: 0.4rem;
+  left: 0.4rem;
+  width: calc(100% - 0.8rem);
+  padding: 1rem 1.5rem;
+  border-radius: 0 0 1.6rem 1.6rem;
+  color: #fff;
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  transition: all 0.5s cubic-bezier(0.5, 0.8, 0, 1.5);
+}
+
+#webapps-list > .webapp:hover > .name,
+#webapps-list > .webapp:focus > .name {
+  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3));
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 2.6rem;
+}
+
+.selected-card-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 50vh;
+}
+
+.selected-card-panel h1 {
+  margin: 0;
+  color: #fff;
+  font-weight: normal;
+  font-size: 5rem;
+}
+
+.selected-card-panel p {
+  margin: 0;
+  color: rgba(255,255,255,0.5);
+  font-weight: normal;
+  font-size: 2rem;
+}
+
+.selected-card-panel nav {
+  display: flex;
+  margin-top: 1.5rem;
+  gap: 1.5rem;
+}
+
+.selected-card-panel nav > a {
+  box-sizing: border-box;
+  display: inline-block;
+  height: 4rem;
+  padding: 0 2rem;
+  border-radius: 4rem;
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(255,255,255,0.1);
+  color: #fff;
+  font-weight: normal;
+  font-size: 2rem;
+  line-height: 4rem;
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.1, 1);
+}
+
+.selected-card-panel nav > a:hover,
+.selected-card-panel nav > a:focus {
+  transform: scale(1.1);
+  background-color: rgba(255,255,255,0.2);
+}
+
+.selected-card-panel nav > a:active {
+  transform: scale(0.9);
+  background-color: rgba(255,255,255,0.3);
+}

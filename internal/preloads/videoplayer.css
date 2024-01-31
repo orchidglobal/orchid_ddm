@@ -1,0 +1,8 @@
+video-container {
+  display: inline-block;
+  position: relative;
+}
+
+video-container video {
+  background-color: #a6a6a6;
+}

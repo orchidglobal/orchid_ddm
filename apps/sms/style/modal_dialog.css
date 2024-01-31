@@ -1,0 +1,40 @@
+#modal-dialog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#modal-dialog-alert,
+#modal-dialog-confirm,
+#modal-dialog-prompt,
+#modal-dialog-permission-request,
+#modal-dialog-value-selector,
+#modal-dialog-greetings,
+#modal-dialog-patch-logs {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(0.9);
+  background-color: rgba(0,0,0,0.3);
+  opacity: 0;
+  pointer-events: all;
+  transition: all 0.3s ease;
+}
+
+#modal-dialog-alert.visible,
+#modal-dialog-confirm.visible,
+#modal-dialog-prompt.visible,
+#modal-dialog-permission-request.visible,
+#modal-dialog-value-selector.visible,
+#modal-dialog-greetings.visible,
+#modal-dialog-patch-logs.visible {
+  visibility: visible;
+  transform: scale(1);
+  opacity: 1;
+}

@@ -1,0 +1,155 @@
+#shortcuts {
+  visibility: hidden;
+  z-index: 50;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+#shortcuts.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+#shortcuts-fake-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5.6rem;
+  height: 5.6rem;
+}
+
+#shortcuts-menu {
+  position: absolute;
+  width: max-content;
+  transform: scale(0.75);
+  transform-origin: 0 0;
+  border-radius: 1.5rem;
+  background-color: var(--acrylic-background-plus);
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.1, 1.1);
+}
+
+#shortcuts.visible #shortcuts-menu {
+  transform: scale(1);
+}
+
+#shortcuts-menu > ul {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0.5rem;
+  border-bottom: solid 0.5rem var(--item-plus);
+}
+
+#shortcuts-menu > ul:last-child {
+  border-bottom: none;
+}
+
+#shortcuts-menu > ul li {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  height: 4rem;
+  margin: 0;
+  padding: 0 1rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 4rem;
+  list-style: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#shortcuts-menu > ul li:hover {
+  background: var(--item-hover);
+}
+
+#shortcuts-menu > ul li:active {
+  background: var(--item-active);
+}
+
+#shortcuts-menu > ul li::after {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  width: calc(100% - 3rem);
+  height: 100%;
+  border-top: solid 0.1rem var(--separator-color);
+  content: '';
+  pointer-events: none;
+}
+
+#shortcuts-menu > ul li:hover::after,
+#shortcuts-menu > ul li:active::after,
+#shortcuts-menu > ul li:hover + li::after,
+#shortcuts-menu > ul li:active + li::after,
+#shortcuts-menu > ul li:first-child::after,
+#context-menu-content .separator + li::after {
+  border-top: none !important;
+}
+
+#shortcuts-menu > ul li[disabled] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+#shortcuts-menu > ul li[data-icon] {
+  -moz-padding-start: 4rem;
+  padding-inline-start: 4rem;
+}
+
+#shortcuts-menu > ul li[data-icon]:before {
+  position: absolute;
+  top: 0;
+  width: 2rem;
+  height: 100%;
+  font-size: 2rem;
+}
+html[dir='ltr'] #shortcuts-menu > ul li[data-icon]:before {
+  left: 1rem;
+}
+html[dir='rtl'] #shortcuts-menu > ul li[data-icon]:before {
+  right: 1rem;
+}
+
+#shortcuts-menu > #shortcuts-menu-options li {
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  gap: 1rem;
+  line-height: 5rem;
+}
+
+#shortcuts-menu > #shortcuts-menu-options li > .icon-holder {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  height: 100%;
+  padding: 0.5rem 0;
+}
+
+#shortcuts-menu > #shortcuts-menu-options li > .icon-holder > img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 25%;
+}
+
+#shortcuts-menu > #shortcuts-menu-options li > .name {
+  box-sizing: border-box;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem 0;
+  line-height: 2.2rem;
+}

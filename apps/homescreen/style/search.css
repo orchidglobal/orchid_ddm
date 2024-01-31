@@ -1,0 +1,58 @@
+#search {
+  filter: none;
+  transition: all 0.3s ease;
+}
+
+#search::before {
+  content: '';
+  background-color: rgba(var(--headerbar-r), var(--headerbar-g), var(--headerbar-b), calc(var(--motion-progress, 0) * 0.6));
+  backdrop-filter: blur(calc(20px * var(--motion-progress, 0))) saturate(calc(100% + (80% * var(--motion-progress, 0))));
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#search .headerbar {
+  background-color: transparent;
+  backdrop-filter: blur(calc(20px * var(--progress, 0))) saturate(calc(100% + (80% * var(--progress, 0))));
+  transform: translateY(calc((-3rem * (1 - var(--motion-progress, 0))) + (13.5rem * var(--overscroll-progress, 0))));
+  --background: transparent;
+  background-image: none;
+  height: calc(6rem + var(--statusbar-height));
+  mask-image: linear-gradient(to bottom, white, white calc(100% - 1.5rem), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, white, white calc(100% - 1.5rem), transparent);
+  transition: all 0.3s ease;
+}
+
+#app.transitioning #search .headerbar {
+  transition: all 0.5s ease;
+}
+
+#search-results {
+  background-color: var(--item-plus);
+  opacity: var(--motion-progress, 0);
+}
+
+#search-results li {
+  flex-direction: row;
+  align-items: center;
+}
+
+#search-results li > img {
+  width: 3.6rem;
+  height: 3.6rem;
+  background-color: #fff;
+  border-radius: 25%;
+  outline: solid 0.1rem var(--separator-color);
+  flex-shrink: 0;
+}
+
+#search-results li > div {
+  width: 100%;
+  flex-grow: 1;
+  padding-inline-start: 1rem;
+  display: flex;
+  flex-direction: column;
+}

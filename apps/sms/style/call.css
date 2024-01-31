@@ -1,0 +1,38 @@
+#activecall {
+  display: none;
+  position: relative;
+  width: 100%;
+  max-width: var(--safezone-width);
+  height: 40vh;
+  margin: 0 auto;
+  border-radius: 0 0 1.5rem 1.5rem;
+  background-color: var(--background-minus);
+}
+
+#activecall > menu {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin: 1.5rem 0;
+  padding: 0;
+  gap: 1rem;
+  translate: -50% 0;
+}
+
+#activecall > menu button {
+  width: 5rem;
+  height: 5rem;
+  margin: 0;
+  padding: 0 1.3rem;
+  border-radius: 50%;
+  line-height: 5rem;
+}
+
+#activecall > menu button[data-icon]::before {
+  position: static;
+  width: 2.4rem;
+  height: 5rem;
+  font-size: 2.4rem;
+  line-height: 5rem;
+}

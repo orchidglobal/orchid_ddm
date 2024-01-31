@@ -1,0 +1,110 @@
+#text-selection {
+  box-sizing: border-box;
+  display: flex;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4rem;
+  padding: 0.5rem;
+  transform: translateY(1.5rem);
+  border-radius: 2rem;
+  background-color: var(--background-plus);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2);
+  direction: ltr;
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#text-selection.visible {
+  visibility: visible;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#text-selection > button {
+  position: relative;
+  width: max-content;
+  height: 3rem;
+  margin: 0;
+  padding: 0 1rem;
+  overflow: visible;
+  border-radius: 1.5rem;
+  background-color: transparent;
+  color: var(--text-color);
+  font-size: 1.4rem;
+  line-height: 3rem;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#text-selection > button:hover {
+  background-color: var(--item-hover);
+  transition: none;
+}
+
+#text-selection > button:active {
+  background-color: var(--item-active);
+  transition: none;
+}
+
+#text-selection > button[data-icon]::before {
+  position: static;
+  height: 3rem;
+  font-size: 2rem;
+  line-height: 3rem;
+}
+
+#text-selection > button::after {
+  position: absolute;
+  top: 0.5rem;
+  left: 0;
+  width: 0.1rem;
+  height: 2rem;
+  border-radius: 0.1rem;
+  background-color: var(--item-plus);
+  content: '';
+}
+
+#text-selection > button:first-child::after,
+#text-selection > button:hover::after,
+#text-selection > button:active::after,
+#text-selection > button:hover + button::after,
+#text-selection > button:active + button::after {
+  display: none;
+}
+
+#text-selection-gripper-start {
+  visibility: hidden;
+  position: absolute;
+  width: 2.4rem;
+  height: 2.4rem;
+  transform: scale(0.75);
+  transform-origin: top right;
+  translate: -100% 0;
+  border-radius: 2.4rem 0 2.4rem 2.4rem;
+  background-color: var(--accent-color);
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.5, 0.8, 0, 1.5), opacity 0.3s cubic-bezier(0.5, 0.8, 0, 1.5), visibility 0.3s cubic-bezier(0.5, 0.8, 0, 1.5);
+}
+
+#text-selection-gripper-end {
+  visibility: hidden;
+  position: absolute;
+  width: 2.4rem;
+  height: 2.4rem;
+  transform: scale(0.75);
+  transform-origin: top left;
+  border-radius: 0 2.4rem 2.4rem 2.4rem;
+  background-color: var(--accent-color);
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.5, 0.8, 0, 1.5), opacity 0.3s cubic-bezier(0.5, 0.8, 0, 1.5), visibility 0.3s cubic-bezier(0.5, 0.8, 0, 1.5);
+}
+
+#text-selection-gripper-start.visible,
+#text-selection-gripper-end.visible {
+  visibility: visible;
+  transform: scale(1);
+  opacity: 1;
+}

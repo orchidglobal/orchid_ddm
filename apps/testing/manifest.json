@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "name": "Testing",
+  "description": "",
+  "launch_path": "/index.html",
+  "icons": {
+    "48": "/style/icons/test.png"
+  },
+  "developer": {
+    "name": "Orchid Team",
+    "url": "https://openorchid.github.io/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait-primary",
+  "permissions": {
+    "nodeintegration": {}
+  }
+}

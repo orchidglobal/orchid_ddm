@@ -1,0 +1,73 @@
+#picture-in-picture {
+  visibility: hidden;
+  position: absolute;
+  top: var(--statusbar-height);
+  left: 1.5rem;
+  width: 29rem;
+  overflow: hidden;
+  transform: scale(0.75);
+  border-radius: 1.5rem;
+  background-color: #000;
+  box-shadow: 0 1.5rem 3rem rgba(0,0,0,0.25);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+#picture-in-picture.visible {
+  visibility: visible;
+  transform: scale(1);
+  opacity: 1;
+}
+
+#picture-in-picture-video {
+  width: 100%;
+  height: 100%;
+}
+
+#picture-in-picture-close-button {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  width: 3.2rem;
+  height: 3.2rem;
+  margin: 0;
+  padding: 0 0.6rem;
+  border-radius: 0;
+  background-color: transparent;
+  color: #fff;
+  line-height: 3.2rem;
+}
+
+#picture-in-picture-close-button[data-icon]::before {
+  position: static;
+  font-size: 1.6rem;
+}
+
+#picture-in-picture .controls {
+  box-sizing: border-box;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+  gap: 1rem;
+  direction: ltr;
+}
+
+#picture-in-picture .controls > button {
+  width: 4rem;
+  height: 4rem;
+  margin: 0;
+  padding: 0 1rem;
+  border-radius: 0;
+  background-color: transparent;
+  color: #fff;
+  line-height: 4rem;
+}
+
+#picture-in-picture .controls > button[data-icon]::before {
+  position: static;
+  font-size: 2rem;
+}

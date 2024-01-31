@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "name": "Facebook",
+  "description": "",
+  "start_url": "https://www.facebook.com/",
+  "icons": {
+    "48": "/icons/facebook.png"
+  },
+  "developer": {
+    "name": "Meta",
+    "url": "https://www.facebook.com/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait-primary",
+  "permissions": {}
+}

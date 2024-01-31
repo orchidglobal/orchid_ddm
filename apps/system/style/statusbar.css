@@ -1,0 +1,383 @@
+#statusbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: var(--statusbar-height);
+  transition: all 0.3s cubic-bezier(0.5, 0.8, 0, 1), transform 0.5s cubic-bezier(0.5, 0.8, 0, 1.1);
+}
+html[dir='ltr'] #statusbar {
+  right: 0;
+}
+html[dir='rtl'] #statusbar {
+  left: 0;
+}
+
+#screen:not(.desktop) #statusbar.hidden {
+  transform: translateY(-100%);
+}
+
+#statusbar.transitioning {
+  transition: all 0.5s cubic-bezier(0.5, 0.8, 0, 1), transform 0.5s cubic-bezier(0.5, 0.8, 0, 1.1);
+}
+
+#screen.close-reach #statusbar {
+  transform: translateY(40vh);
+}
+
+#screen.close-reach #statusbar.hidden {
+  visibility: hidden;
+  transform: scale(0.9);
+  opacity: 0;
+}
+
+#screen:not(.desktop) #statusbar.utility-tray-motion {
+  transform: translateY(calc((var(--statusbar-height) * var(--motion-progress, 0)) + (1rem * var(--overscroll-progress))));
+  transition: transform 0.3s ease;
+}
+
+#screen:not(.desktop).close-reach #statusbar.utility-tray-motion {
+  transform: translateY(calc(40vh + ((1rem * var(--overscroll-progress)))));
+}
+
+#screen:not(.desktop) #statusbar.hidden.utility-tray-motion {
+  transform: translateY(
+    calc((var(--statusbar-height) * -1) + (calc((var(--statusbar-height) * var(--motion-progress, 0)) + (1rem * var(--overscroll-progress)))))
+  );
+}
+
+#screen:not(.desktop) #statusbar.hidden.utility-tray-motion {
+  transform: translateY(
+    calc((var(--statusbar-height) * -1) + (((var(--statusbar-height) * 2) * var(--motion-progress)) + (1rem * var(--overscroll-progress))))
+  );
+  opacity: var(--motion-progress, 0);
+}
+
+#screen:not(.desktop) #statusbar.utility-tray-motion.transitioning {
+  transition: transform 0.5s cubic-bezier(0.5, 0.8, 0, 1.1);
+}
+
+.statusbar-icons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(
+    100% - calc((var(--statusbar-padding-left) * (1 - var(--motion-progress, 0))) + (3rem * var(--motion-progress, 0))) -
+      calc((var(--statusbar-padding-right) * (1 - var(--motion-progress, 0))) + (3rem * var(--motion-progress, 0)))
+  );
+  height: 100%;
+  margin-right: calc((var(--statusbar-padding-right) * (1 - var(--motion-progress, 0))) + (3rem * var(--motion-progress, 0)));
+  margin-left: calc((var(--statusbar-padding-left) * (1 - var(--motion-progress, 0))) + (3rem * var(--motion-progress, 0)));
+  pointer-events: none;
+}
+
+.statusbar-icons > .left {
+  display: flex;
+  position: absolute;
+  top: 0;
+  align-items: center;
+  justify-content: start;
+  width: 50%;
+  height: 100%;
+}
+html[dir='ltr'] .statusbar-icons > .left {
+  left: 0;
+}
+html[dir='rtl'] .statusbar-icons > .left {
+  right: 0;
+}
+
+.statusbar-icons > .right {
+  display: flex;
+  position: absolute;
+  top: 0;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: end;
+  width: 50%;
+  height: 100%;
+}
+html[dir='ltr'] .statusbar-icons > .right {
+  left: 50%;
+}
+html[dir='rtl'] .statusbar-icons > .right {
+  right: 50%;
+}
+
+.statusbar-icons > .left div,
+.statusbar-icons > .right div {
+  min-width: 2rem;
+  height: 2rem;
+  margin: 0 0.2rem;
+  color: #fff;
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  text-align: center;
+  transition: opacity 0.3s cubic-bezier(0.2, 0.9, 0.1, 1.25) 0.3s, transform 0.3s cubic-bezier(0.2, 0.9, 0.1, 1.25) 0.3s,
+    visibility 0.3s cubic-bezier(0.2, 0.9, 0.1, 1.25) 0.3s, margin 0.3s cubic-bezier(0.2, 0.9, 0.1, 1.25);
+}
+
+html[data-red-light-point="true"] .statusbar-icons > .left div,
+html[data-red-light-point="true"] .statusbar-icons > .right div {
+  color: red;
+}
+
+#screen:not(.desktop, .cards-view-visible) #statusbar:not(.utility-tray-motion).light .statusbar-icons > .left div,
+#screen:not(.desktop, .cards-view-visible) #statusbar:not(.utility-tray-motion).light .statusbar-icons > .right div {
+  color: #333;
+}
+
+html[data-red-light-point="true"] #screen:not(.desktop, .cards-view-visible) #statusbar:not(.utility-tray-motion).light .statusbar-icons > .left div,
+html[data-red-light-point="true"] #screen:not(.desktop, .cards-view-visible) #statusbar:not(.utility-tray-motion).light .statusbar-icons > .right div {
+  color: #000;
+}
+
+#screen.desktop .statusbar-icons > .left div,
+#screen.desktop .statusbar-icons > .right div {
+  color: var(--text-color);
+}
+
+.statusbar-icons > .left .hidden,
+.statusbar-icons > .right .hidden {
+  visibility: hidden;
+  margin: 0 var(--hide-margin, -1rem);
+  transform: scale(0.2);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+#statusbar-notifications::before {
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.8rem;
+  line-height: 2rem;
+}
+
+#statusbar-playing::before {
+  font-size: 1.8rem;
+}
+
+#statusbar-camera,
+#statusbar-microphone,
+#statusbar-video {
+  box-sizing: border-box;
+  height: 2.4rem;
+  padding: 0.2rem 1.5rem;
+  border-radius: 3rem;
+}
+
+#statusbar-camera.hidden,
+#statusbar-microphone.hidden,
+#statusbar-video.hidden {
+  margin: 0 -2.4rem;
+}
+
+#statusbar-camera {
+  background-color: #ffc000;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+#statusbar-microphone {
+  background-color: #40a060;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+#statusbar-video {
+  background-color: #ff6040;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+#statusbar-camera::before,
+#statusbar-microphone::before,
+#statusbar-video::before {
+  font-size: 1.8rem;
+}
+
+#statusbar .timedate {
+  display: flex;
+}
+
+#screen.desktop #statusbar .timedate {
+  flex-direction: column;
+  align-items: end;
+  height: 2.8rem;
+}
+
+#screen.desktop #statusbar #statusbar-time {
+  height: 1.4rem;
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+}
+
+#statusbar-date {
+  box-sizing: border-box;
+  visibility: hidden;
+  margin: 0 var(--hide-margin, -1rem);
+  padding-inline-start: 0.2rem;
+  transform: scale(0.2);
+  font-size: 1.4rem;
+  opacity: 0;
+}
+
+#statusbar.utility-tray-motion #statusbar-date {
+  visibility: visible;
+  margin: 0 calc(var(--hide-margin, -1rem) * (1 - var(--motion-progress, 0)));
+  transform: scale(calc(0.2 + (0.8 * var(--motion-progress, 0))));
+  opacity: calc(var(--motion-progress, 0) / 2);
+  transition: all 0.3s ease;
+}
+
+#screen.desktop #statusbar #statusbar-date {
+  visibility: visible;
+  height: 1.4rem;
+  margin: 0 0.2rem;
+  transform: none;
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  filter: none;
+  opacity: 1;
+  transition: none;
+}
+
+#statusbar-battery::before {
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.8rem;
+  line-height: 2rem;
+}
+
+#statusbar-battery.charging {
+  position: relative;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+#screen:not(.desktop, .cards-view-visible) #statusbar:not(.utility-tray-motion).light #statusbar-battery.charging {
+  color: rgba(51, 51, 51, 0.5);
+}
+
+#screen.desktop #statusbar-battery.charging {
+  color: var(--text-color-faded);
+}
+
+#statusbar-battery-percentage {
+  box-sizing: border-box;
+  visibility: hidden;
+  margin: 0 var(--hide-margin, -1rem);
+  padding-inline-start: 0.2rem;
+  transform: scale(0.2);
+  font-size: 1.4rem;
+  opacity: 0;
+}
+
+#statusbar.utility-tray-motion #statusbar-battery-percentage {
+  visibility: visible;
+  margin: 0 calc(var(--hide-margin, -1rem) * (1 - var(--motion-progress, 0)));
+  transform: scale(calc(0.2 + (0.8 * var(--motion-progress, 0))));
+  opacity: var(--motion-progress, 0);
+  transition: all 0.3s ease;
+}
+
+#screen.desktop #statusbar #statusbar-battery-percentage {
+  display: none;
+}
+
+#statusbar-cellular-signal {
+  position: relative;
+}
+
+#statusbar-cellular-signal::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.8rem;
+  line-height: 2rem;
+}
+
+#statusbar-data::before {
+  font-size: 1.8rem;
+}
+
+#statusbar-airplane-mode::before {
+  font-size: 1.8rem;
+}
+
+#statusbar-wifi {
+  position: relative;
+}
+
+#statusbar-wifi::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.8rem;
+  line-height: 2rem;
+}
+
+#statusbar-bluetooth::before {
+  font-size: 1.8rem;
+}
+
+#statusbar-warm-colors::before {
+  font-size: 1.8rem;
+}
+
+@media screen and (min-width: 768px) {
+  #screen.mobile #statusbar-date,
+  #screen.mobile #statusbar.utility-tray-motion #statusbar-date {
+    visibility: visible;
+    position: relative;
+    margin: 0 0.2rem;
+    padding-inline-start: 1rem;
+    transform: scale(1);
+    font-size: 1.6rem;
+    filter: none;
+    opacity: 1;
+  }
+
+  #screen.mobile #statusbar-date::after {
+    position: absolute;
+    top: 0.8rem;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background-color: currentColor;
+    content: '';
+    opacity: 0.5;
+  }
+  html[dir='ltr'] #statusbar-date::after {
+    left: 0.2rem;
+  }
+  html[dir='rtl'] #statusbar-date::after {
+    right: 0.2rem;
+  }
+
+  #screen.mobile #statusbar-battery-percentage,
+  #screen.mobile #statusbar.utility-tray-motion #statusbar-battery-percentage {
+    visibility: visible;
+    margin: 0 0.2rem;
+    padding-inline-start: 1rem;
+    transform: scale(1);
+    font-size: 1.6rem;
+    filter: none;
+    opacity: 1;
+  }
+}
+
+@media screen and (orientation: landscape) and (max-width: 767px) {
+  #screen.software-buttons-enabled #statusbar {
+    left: unset;
+    width: calc(100% - var(--software-buttons-height));
+  }
+  html[dir='ltr'] #screen.software-buttons-enabled #statusbar {
+    right: 0;
+  }
+  html[dir='rtl'] #screen.software-buttons-enabled #statusbar {
+    left: 0;
+  }
+}

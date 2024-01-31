@@ -1,0 +1,49 @@
+.bb-video {
+  display: block;
+  position: relative;
+  background-color: #000;
+}
+
+.bb-video > .controls {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  align-items: center;
+  width: max-content;
+  translate: -50% -50%;
+}
+
+.bb-video > .controls button {
+  width: 4rem;
+  height: 4rem;
+  margin: 0;
+  padding: 0 1rem;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #fff;
+  line-height: 4rem;
+  text-align: center;
+}
+
+.bb-video > .controls button[data-icon]::before {
+  position: static;
+  height: 4rem;
+  line-height: 4rem;
+}
+
+.bb-video > .controls .playpause-button {
+  width: 6rem;
+  height: 6rem;
+  margin: 0 1rem;
+  padding: 0 1rem;
+  background-color: var(--accent-color);
+  color: var(--accent-color-plus);
+  line-height: 4rem;
+  text-align: center;
+}
+
+.bb-video > .controls .playpause-button[data-icon]::before {
+  height: 6rem;
+  line-height: 6rem;
+}
