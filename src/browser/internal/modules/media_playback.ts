@@ -45,4 +45,4 @@ const MediaPlayback = {
   }
 };
 
-export default MediaPlayback.init;
+export default MediaPlayback;

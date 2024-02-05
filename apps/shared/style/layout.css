@@ -9,8 +9,8 @@ html, body {
 }
 
 :root {
-  --statusbar-height: 4rem;
-  --software-buttons-height: 2.5rem;
+  --statusbar-height: 0rem;
+  --software-buttons-height: 0rem;
   --safezone-width: 75rem;
 }
 
@@ -90,7 +90,7 @@ section[role="panel"] > section {
 
 section[role="panel"] > section > .scroll-content {
   width: 100%;
-  min-height: 100%;
+  height: 100%;
 }
 
 section[role="panel"] > section > *:not(.scroll-content, .scrollbar-track, .bb-emptyscreen),

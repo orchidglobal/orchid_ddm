@@ -18,9 +18,9 @@
   "default_locale": "en",
   "orientation": "portrait-primary",
   "permissions": {
-    "nodeintegration": {}
+    "settings": {}
   },
-  "statusbar": "overlay",
+  "display": "immersive",
   "homescreen": {
     "dynamic_icon": {
       "start_url": "/dynamic/icon.html"

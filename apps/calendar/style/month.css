@@ -1,0 +1,69 @@
+#month {
+  transform: translateX(0) !important;
+  transition: all 0.5s ease;
+}
+
+#month > section > *:not(.scroll-content, .scrollbar-track, .bb-emptyscreen),
+#month > section > .scroll-content > *:not(.bb-emptyscreen) {
+  visibility: visible;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#month #month-grid {
+  width: 100%;
+  position: relative;
+}
+
+#month #month-grid > .week {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  margin: 0 0 0.5rem;
+  padding: 0 1rem;
+  gap: 0.5rem;
+}
+
+#month #month-grid > .week > span {
+  flex-grow: 1;
+  width: 100%;
+  height: 2rem;
+  color: var(--text-color-faded);
+  font-weight: bold;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  text-align: center;
+}
+
+#month #month-grid tr {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  padding: 0 1rem;
+  gap: 0.5rem;
+}
+
+#month #month-grid tr > td {
+  box-sizing: border-box;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  padding: 0;
+  border-radius: 50%;
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.6rem;
+}
+
+#month #month-grid tr > td.prev-month,
+#month #month-grid tr > td.next-month {
+  color: var(--text-color-faded);
+}
+
+#month #month-grid tr > td.current-day {
+  background-color: var(--accent-color);
+  color: var(--accent-color-plus);
+}

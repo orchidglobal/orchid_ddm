@@ -11,6 +11,8 @@ section[role="panel"] > header:first-child > img {
 section[role="panel"] > header:first-child .searchbox {
   box-sizing: border-box;
   display: flex;
+  z-index: 1;
+  position: relative;
   width: 100%;
   max-width: 40rem;
   height: 4rem;
@@ -18,8 +20,6 @@ section[role="panel"] > header:first-child .searchbox {
   margin-inline-start: auto;
   margin-inline-end: 0.5rem;
   padding: 0 0.5rem;
-  z-index: 1;
-  position: relative;
   gap: 0.5rem;
   border-radius: 2rem;
   background-color: var(--item-plus);
@@ -65,4 +65,8 @@ section[role="panel"] > header:first-child .searchbox .avatar {
 
 section[role="panel"] > header:first-child .searchbox .avatar > img {
   margin: 0;
+}
+
+#notifications {
+  z-index: 15;
 }

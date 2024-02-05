@@ -30,11 +30,13 @@
     OPEN_ANIMATION: 'expand',
     CLOSE_ANIMATION: 'shrink',
     CLOSE_TO_HOMESCREEN_ANIMATION: 'shrink-to-homescreen',
+    MINIMIZE_ANIMATION: 'shrink-to-dock',
     DOCK_ICON_SIZE: 40,
     SPLASH_ICON_SIZE: 60,
     UNDRAGGABLE_ELEMENTS: ['A', 'BUTTON', 'INPUT', 'LI', 'WEBVIEW'],
 
     element: null,
+    dockIcon: null,
     chrome: null,
     manifest: null,
     namespaceID: null,
@@ -48,6 +50,8 @@
     startHeight: null,
     offsetX: null,
     offsetY: null,
+    startOffsetX: null,
+    startOffsetY: null,
 
     getFocusedWindow: function () {
       return focusedWindow;
@@ -205,19 +209,19 @@
     },
 
     createDockIcon: function (manifestUrl, icons) {
-      const icon = document.createElement('div');
-      icon.classList.add('icon');
-      icon.dataset.manifestUrl = manifestUrl;
-      icon.onclick = () => this.focus();
-      this.dock.appendChild(icon);
+      this.dockIcon = document.createElement('div');
+      this.dockIcon.classList.add('icon');
+      this.dockIcon.dataset.manifestUrl = manifestUrl;
+      this.dockIcon.onclick = () => this.focus();
+      this.dock.appendChild(this.dockIcon);
 
       // Add icon image
       const iconImage = document.createElement('img');
       this.addIconImage(iconImage, icons, this.DOCK_ICON_SIZE, manifestUrl);
-      icon.appendChild(iconImage);
+      this.dockIcon.appendChild(iconImage);
 
       // Add animation class
-      this.addAnimationClass(icon, this.OPEN_ANIMATION);
+      this.addAnimationClass(this.dockIcon, this.OPEN_ANIMATION);
     },
 
     createWindowContainer: function (fragment, manifest, namespaceID, animationVariables) {
@@ -272,10 +276,11 @@
 
     createWindowedWindow: function (windowDiv, manifest, namespaceID, options) {
       windowDiv.classList.add('window');
-      windowDiv.style.left = manifest.window_bounds?.left || '3.6rem';
-      windowDiv.style.top = manifest.window_bounds?.top || '2.4rem';
-      windowDiv.style.width = manifest.window_bounds?.width || '76.8rem';
-      windowDiv.style.height = manifest.window_bounds?.height || '60rem';
+      this.offsetX = manifest.window_bounds?.left || 36;
+      this.offsetY = manifest.window_bounds?.top || 24
+      windowDiv.style.setProperty('--window-translate', `${manifest.window_bounds?.left || 36}px ${manifest.window_bounds?.top || 24}px`);
+      windowDiv.style.setProperty('--window-width', (manifest.window_bounds?.width || 768) + 'px');
+      windowDiv.style.setProperty('--window-height', (manifest.window_bounds?.height || 600) + 'px');
 
       // Create titlebar and its buttons
       this.createTitlebar(windowDiv, namespaceID);
@@ -419,7 +424,6 @@
       if (this.isDragging) {
         return;
       }
-      const dockIcon = this.dock.querySelector(`[data-manifest-url="${this.manifestUrl}"]`);
 
       if (this.element) {
         this.element.style.transform = '';
@@ -479,8 +483,8 @@
       } else {
         this.element.classList.add('active');
       }
-      if (dockIcon) {
-        dockIcon.classList.add('active');
+      if (this.dockIcon) {
+        this.dockIcon.classList.add('active');
       }
       focusedWindow = this;
 
@@ -530,26 +534,23 @@
         return;
       }
 
-      const dockIcon = this.dock.querySelector(`[data-manifest-url="${this.manifestUrl}"]`);
-      this.dockIcon = dockIcon;
-
       if (isFast) {
         this.element.remove();
-        if (dockIcon) {
-          dockIcon.remove();
+        if (this.dockIcon) {
+          this.dockIcon.remove();
         }
       } else {
         this.element.classList.add(this.CLOSE_ANIMATION);
-        if (dockIcon) {
-          dockIcon.classList.add(this.CLOSE_ANIMATION);
+        if (this.dockIcon) {
+          this.dockIcon.classList.add(this.CLOSE_ANIMATION);
         }
         this.element.addEventListener('animationend', () => {
           this.element.style.transform = '';
           this.element.classList.remove(this.CLOSE_ANIMATION);
           this.element.remove();
-          if (dockIcon) {
-            dockIcon.classList.remove(this.CLOSE_ANIMATION);
-            dockIcon.remove();
+          if (this.dockIcon) {
+            this.dockIcon.classList.remove(this.CLOSE_ANIMATION);
+            this.dockIcon.remove();
           }
           HomescreenLauncher.homescreenWindow.focus();
         });
@@ -564,22 +565,31 @@
         return;
       }
 
-      const dockIcon = this.dock.querySelector(`[data-manifest-url="${this.manifestUrl}"]`);
+      if (window.deviceType === 'desktop') {
+        this.element.classList.add(this.MINIMIZE_ANIMATION);
 
-      HomescreenLauncher.homescreenWindow.focus();
-      this.element.classList.add(this.CLOSE_TO_HOMESCREEN_ANIMATION);
-      if (dockIcon) {
-        dockIcon.classList.add('minimized');
-      }
-      this.element.addEventListener('animationend', () => {
+        if (this.dockIcon) {
+          const x = this.dockIcon.clientLeft - this.offsetX;
+          const y = this.dockIcon.clientTop - this.offsetY;
+          this.element.style.transformOrigin = `${x}px ${y}px`;
+        }
+      } else {
         HomescreenLauncher.homescreenWindow.focus();
-      });
-      // Focus plays a 0.5s switch animation which could mess up the close animation timer
-      this.timeoutID = setTimeout(() => {
-        this.element.style.transform = '';
-        this.element.classList.remove('active');
-        this.element.classList.remove(this.CLOSE_TO_HOMESCREEN_ANIMATION);
-      }, 1000);
+        this.element.classList.add(this.CLOSE_TO_HOMESCREEN_ANIMATION);
+        if (this.dockIcon) {
+          this.dockIcon.classList.add('minimized');
+        }
+        this.element.addEventListener('animationend', () => {
+          HomescreenLauncher.homescreenWindow.focus();
+        });
+
+        // Focus plays a 0.5s switch animation which could bug out with animationend
+        this.timeoutID = setTimeout(() => {
+          this.element.style.transform = '';
+          this.element.classList.remove('active');
+          this.element.classList.remove(this.CLOSE_TO_HOMESCREEN_ANIMATION);
+        }, 1000);
+      }
     },
 
     unminimize: function () {
@@ -590,21 +600,33 @@
         return;
       }
 
-      const dockIcon = this.dock.querySelector(`[data-manifest-url="${this.manifestUrl}"]`);
+      if (window.deviceType === 'desktop') {
+        this.element.classList.remove(this.MINIMIZE_ANIMATION);
 
-      if (this.element === this.focusedWindow) {
-        return;
-      }
+        if (this.dockIcon) {
+          const x = this.dockIcon.clientLeft - this.offsetX;
+          const y = this.dockIcon.clientTop - this.offsetY;
+          this.element.style.transformOrigin = `${x}px ${y}px`;
 
-      if (dockIcon) {
-        dockIcon.classList.remove('minimized');
-      }
-      this.focus();
-      this.element.classList.add(this.OPEN_ANIMATION);
-      this.element.addEventListener('animationend', () => {
-        this.element.classList.remove(this.OPEN_ANIMATION);
+          this.element.addEventListener('animationend', () => {
+            this.element.style.transformOrigin = null;
+          });
+        }
+      } else {
+        if (this.element === this.focusedWindow) {
+          return;
+        }
+
+        if (this.dockIcon) {
+          this.dockIcon.classList.remove('minimized');
+        }
         this.focus();
-      });
+        this.element.classList.add(this.OPEN_ANIMATION);
+        this.element.addEventListener('animationend', () => {
+          this.element.classList.remove(this.OPEN_ANIMATION);
+          this.focus();
+        });
+      }
     },
 
     maximize: function () {
@@ -680,17 +702,13 @@
       this.element.addEventListener('transitionend', () => this.element.classList.remove('transitioning'));
       this.element.classList.add('dragging');
 
-      // Get initial position
-      const initialX = event.pageX || event.touches[0].pageX;
-      const initialY = event.pageY || event.touches[0].pageY;
+      // Store initial pointer position
+      this.startX = event.clientX || event.touches[0].clientX;
+      this.startY = event.clientY || event.touches[0].clientY;
 
-      // Get initial window position
-      const initialWindowX = this.element.offsetLeft;
-      const initialWindowY = this.element.offsetTop;
-
-      // Calculate the offset between the initial position and the window position
-      this.offsetX = initialX - initialWindowX;
-      this.offsetY = initialY - initialWindowY;
+      // Store initial element position
+      this.startOffsetX = this.offsetX;
+      this.startOffsetY = this.offsetY;
 
       // this.element.style.transformOrigin = `${offsetX}px ${offsetY}px`;
     },
@@ -704,16 +722,16 @@
       }
 
       event.preventDefault();
-      const x = event.pageX || event.touches[0].pageX;
-      const y = event.pageY || event.touches[0].pageY;
+      // Calculate the movement based on the difference between initial and current positions
+      const movementX = (event.clientX || event.touches[0].clientX) - this.startX;
+      const movementY = (event.clientY || event.touches[0].clientY) - this.startY;
 
       // Calculate the new position of the window
-      const newWindowX = x - this.offsetX;
-      const newWindowY = Math.max(0, Math.min(window.innerHeight - 64 - 32, y - this.offsetY));
+      this.offsetX = this.startOffsetX + movementX;
+      this.offsetY = Math.max(0, Math.min(window.innerHeight - 64 - 32, this.startOffsetY + movementY));
 
       // Set the new position of the window
-      this.element.style.left = newWindowX + 'px';
-      this.element.style.top = newWindowY + 'px';
+      this.element.style.setProperty('--window-translate', `${this.offsetX}px ${this.offsetY}px`);
 
       this.element.classList.remove('snapped');
       if (event.clientX < 15) {
@@ -781,28 +799,24 @@
       this.snapOverlay.classList.remove('top-right');
       this.snapOverlay.classList.remove('visible');
       if (event.clientX < 15) {
-        this.element.style.left = '0';
-        this.element.style.top = '0';
-        this.element.style.width = '50%';
-        this.element.style.height = 'calc(100% - var(--dock-height) - 2rem)';
+        this.element.style.setProperty('--window-translate', '0 0');
+        this.element.style.setProperty('--window-width', '50%');
+        this.element.style.setProperty('--window-height', 'calc(100% - var(--dock-height) - 2rem)');
         this.element.classList.add('snapped');
       } else if (event.clientX > window.innerWidth - 15) {
-        this.element.style.left = '50%';
-        this.element.style.top = '0';
-        this.element.style.width = '50%';
-        this.element.style.height = 'calc(100% - var(--dock-height) - 2rem)';
+        this.element.style.setProperty('--window-translate', '50% 0');
+        this.element.style.setProperty('--window-width', '50%');
+        this.element.style.setProperty('--window-height', 'calc(100% - var(--dock-height) - 2rem)');
         this.element.classList.add('snapped');
       } else if (event.clientX < window.innerWidth / 3 && event.clientY < 15) {
-        this.element.style.left = '0';
-        this.element.style.top = '0';
-        this.element.style.width = '50%';
-        this.element.style.height = 'calc((100% - var(--dock-height) - 2rem) / 2)';
+        this.element.style.setProperty('--window-translate', '0 0');
+        this.element.style.setProperty('--window-width', '50%');
+        this.element.style.setProperty('--window-height', 'calc((100% - var(--dock-height) - 2rem) / 2)');
         this.element.classList.add('snapped');
       } else if (event.clientX > (window.innerWidth / 3) * 2 && event.clientY < 15) {
-        this.element.style.left = '50%';
-        this.element.style.top = '0';
-        this.element.style.width = '50%';
-        this.element.style.height = 'calc((100% - var(--dock-height) - 2rem) / 2)';
+        this.element.style.setProperty('--window-translate', '50% 0');
+        this.element.style.setProperty('--window-width', '50%');
+        this.element.style.setProperty('--window-height', 'calc((100% - var(--dock-height) - 2rem) / 2)');
         this.element.classList.add('snapped');
       } else if (event.clientX < (window.innerWidth / 3) * 2 && event.clientX > window.innerWidth / 3 && event.clientY < 15) {
         this.maximize();

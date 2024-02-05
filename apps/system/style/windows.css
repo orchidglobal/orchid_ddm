@@ -7,6 +7,14 @@
   transition: transform 0.5s cubic-bezier(0.5, 0.8, 0, 1.1);
 }
 
+#windows.tiling-enabled {
+  box-sizing: border-box;
+  display: flex;
+  padding: 1rem;
+  padding-bottom: calc(2rem + var(--dock-height));
+  gap: 1rem;
+}
+
 #screen.close-reach #windows {
   height: 60%;
   transform: translateY(40vh);
@@ -21,14 +29,23 @@
   transition: transform 0.3s ease;
 }
 
-.appframe {
+.workspace {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.appframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--window-width, 100%);
+  height: var(--window-height, 100%);
   overflow: hidden;
   transform: translateY(100%);
+  translate: var(--window-translate, 0 0);
   background-color: var(--theme-color, var(--background));
 }
 
@@ -154,6 +171,22 @@
   width: 100%;
   height: 100%;
   object-fit: fill;
+}
+
+.appframe.shrink-to-dock {
+  border-radius: var(--screen-radius);
+  animation: shrink-to-dock 0.3s ease forwards;
+}
+
+@keyframes shrink-to-dock {
+  from {
+    transform: scale(var(--scale, 1)) translateY(var(--offset-y, 0));
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.75);
+    opacity: 0;
+  }
 }
 
 .appframe:not(.window).from-left {
@@ -289,32 +322,43 @@
   box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
 }
 
+#windows.tiling-enabled .appframe.window {
+  position: relative;
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  translate: 0 0;
+  border-radius: 0;
+}
+
 .appframe.window.active {
   box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.2);
 }
 
 .appframe.window.maximized {
-  position: absolute;
-  top: var(--statusbar-height) !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: calc(100% - var(--statusbar-height) - var(--software-buttons-height)) !important;
+  width: 100%;
+  height: calc(100% - var(--statusbar-height) - var(--software-buttons-height));
+  translate: var(--statusbar-height) 0;
   box-shadow: none;
 }
 
 #screen.desktop .appframe.window.maximized {
-  top: 0 !important;
-  height: calc(100% - var(--dock-height) - 2rem) !important;
-  border-radius: 0 !important;
+  height: calc(100% - var(--dock-height) - 2rem);
+  translate: 0 0;
+  border-radius: 0;
+}
+
+#screen.desktop .appframe.window.snapped {
+  border-radius: 0;
+  box-shadow: none;
 }
 
 #screen.desktop .appframe.window.fullscreen {
   position: absolute;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 0 !important;
+  width: 100%;
+  height: 100%;
+  translate: 0 0;
+  border-radius: 0;
   box-shadow: none;
 }
 

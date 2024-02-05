@@ -199,7 +199,6 @@
           iconContainer.onerror = () => {
             iconContainer.src = '/images/default.svg';
           };
-          DirectionalScale.init(iconContainer);
           iconHolder.appendChild(iconContainer);
 
           const entries = Object.entries(app.manifest.icons);

@@ -23,16 +23,8 @@
 #screen.desktop #utility-tray-wifi,
 #screen.desktop #utility-tray-bluetooth {
   bottom: calc(var(--software-buttons-height) + 2rem);
-  width: calc(100% - 8rem);
-}
-html[dir="ltr"] #screen.desktop #utility-tray-wifi,
-html[dir="ltr"] #screen.desktop #utility-tray-bluetooth {
-  right: calc(50% - 2.5rem);
-  left: unset;
-}
-html[dir="rtl"] #screen.desktop #utility-tray-wifi,
-html[dir="rtl"] #screen.desktop #utility-tray-bluetooth {
   left: calc(50% - 2.5rem);
+  width: calc(100% - 8rem);
 }
 
 #utility-tray-wifi.visible,

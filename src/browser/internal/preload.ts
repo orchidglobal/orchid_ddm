@@ -25,19 +25,19 @@ import appConfig from '../../../package.json';
 import dotenv from 'dotenv';
 dotenv.config();
 
-import initKeyboard from './modules/keyboard';
-import initMediaPlayback from './modules/media_playback';
-import initNarrator from './modules/narrator';
 // import initPrivacyIndicators from './modules/privacy_indicators';
-// // import initInputs from './modules/seekbars_and_switches';
-import initSettingsHandler from './modules/settings_handler';
-// // import initVideos from './modules/videoplayer';
-// // import initPIP from './modules/picture_in_picture';
-import initWebviews from './modules/webview_handler';
-import initKeybinds from './modules/keybinds';
+// import initInputs from './modules/seekbars_and_switches';
+// import initVideos from './modules/videoplayer';
+// import initPIP from './modules/picture_in_picture';
+// import initVisibility from './modules/visibility_state';
 import OrchidNotification from './vanilla/notifications';
 import ModalDialogs from './vanilla/modal_dialogs';
-// import initVisibility from './modules/visibility_state';
+import Narrator from './modules/narrator';
+import SettingsHandler from './modules/settings_handler';
+import MediaPlayback from './modules/media_playback';
+import WebviewHandler from './modules/webview_handler';
+import Keybinds from './modules/keybinds';
+import Keyboard from './modules/keyboard';
 
 const Environment = {
   type: process.env.ORCHID_ENVIRONMENT,
@@ -193,12 +193,12 @@ const InternalPreload = {
   },
 
   handleDOMContentLoaded: function () {
-    initNarrator();
-    initSettingsHandler();
-    initMediaPlayback();
-    initWebviews();
-    initKeybinds();
-    initKeyboard();
+    Narrator.init();
+    SettingsHandler.init();
+    MediaPlayback.init();
+    WebviewHandler.init();
+    Keybinds.init();
+    Keyboard.init();
   },
 
   updateTextSelection: function () {

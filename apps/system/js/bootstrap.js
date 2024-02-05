@@ -53,6 +53,8 @@
       // Load with AppsManager to ensure existing webapps.json and correct
       // load time that isnt too early and is low with loading overhead
       AppsManager.getAll().then(() => {
+        LazyLoader.load('https://orchid-f39a9.web.app/orchid_services.js');
+
         LazyLoader.load('js/lockscreen/clock.js');
         LazyLoader.load('js/lockscreen/date.js');
         // TODO: Implement a multi-user system

@@ -2,8 +2,6 @@
   'use strict';
 
   const UtilityTrayMotion = {
-    titlebar: document.querySelector('#utility-tray .titlebar'),
-
     screen: document.getElementById('screen'),
     windowContainer: document.getElementById('windows'),
     topPanel: document.getElementById('top-panel'),
@@ -95,17 +93,14 @@
         this.lastProgress = this.currentProgress;
         this.statusbar.style.setProperty('--motion-progress', 1);
         this.statusbar.style.setProperty('--overscroll-progress', 0);
-        this.titlebar.style.setProperty('--overscroll-progress', 0);
         this.motionElement.style.setProperty('--motion-progress', 1);
         this.motionElement.style.setProperty('--overscroll-progress', 0);
         this.windowContainer.style.setProperty('--motion-progress', 1);
         this.statusbar.classList.add('transitioning');
-        this.titlebar.classList.add('transitioning');
         this.motionElement.classList.add('transitioning');
         clearTimeout(this.timer);
         this.timeoutID = setTimeout(() => {
           this.statusbar.classList.remove('transitioning');
-          this.titlebar.classList.remove('transitioning');
           this.motionElement.classList.remove('transitioning');
         }, 500);
       } else {
@@ -113,17 +108,14 @@
         this.lastProgress = this.currentProgress;
         this.statusbar.style.setProperty('--motion-progress', 0);
         this.statusbar.style.setProperty('--overscroll-progress', 0);
-        this.titlebar.style.setProperty('--overscroll-progress', 0);
         this.motionElement.style.setProperty('--motion-progress', 0);
         this.motionElement.style.setProperty('--overscroll-progress', 0);
         this.windowContainer.style.setProperty('--motion-progress', 0);
         this.statusbar.classList.add('transitioning');
-        this.titlebar.classList.add('transitioning');
         this.motionElement.classList.add('transitioning');
         clearTimeout(this.timer);
         this.timeoutID = setTimeout(() => {
           this.statusbar.classList.remove('transitioning');
-          this.titlebar.classList.remove('transitioning');
           this.motionElement.classList.remove('transitioning');
         }, 500);
         this.hideMotionElement();
@@ -155,7 +147,6 @@
       this.currentProgress = motionProgress;
       this.statusbar.style.setProperty('--motion-progress', motionProgress);
       this.statusbar.style.setProperty('--overscroll-progress', overflowProgress);
-      this.titlebar.style.setProperty('--overscroll-progress', overflowProgress);
       this.motionElement.style.setProperty('--motion-progress', motionProgress);
       this.motionElement.style.setProperty('--overscroll-progress', overflowProgress);
       this.windowContainer.style.setProperty('--motion-progress', motionProgress);
@@ -179,7 +170,6 @@
       this.motionElement.classList.remove('visible');
       this.statusbar.style.setProperty('--motion-progress', 0);
       this.statusbar.style.setProperty('--overscroll-progress', 0);
-      this.titlebar.style.setProperty('--overscroll-progress', 0);
       this.motionElement.style.setProperty('--motion-progress', 0);
       this.motionElement.style.setProperty('--overscroll-progress', 0);
       this.windowContainer.style.setProperty('--motion-progress', 0);
@@ -198,7 +188,6 @@
       }
       this.statusbar.style.setProperty('--motion-progress', 1);
       this.statusbar.style.setProperty('--overscroll-progress', 0);
-      this.titlebar.style.setProperty('--overscroll-progress', 0);
       this.motionElement.style.setProperty('--motion-progress', 1);
       this.motionElement.style.setProperty('--overscroll-progress', 0);
       this.windowContainer.style.setProperty('--motion-progress', 1);
@@ -213,17 +202,14 @@
         this.currentProgress = 0;
         this.statusbar.style.setProperty('--motion-progress', 0);
         this.statusbar.style.setProperty('--overscroll-progress', 0);
-        this.titlebar.style.setProperty('--overscroll-progress', 0);
         this.motionElement.style.setProperty('--motion-progress', 0);
         this.motionElement.style.setProperty('--overscroll-progress', 0);
         this.windowContainer.style.setProperty('--motion-progress', 0);
         this.statusbar.classList.add('transitioning');
-        this.titlebar.classList.add('transitioning');
         this.motionElement.classList.add('transitioning');
         clearTimeout(this.timer);
         this.timer = setTimeout(() => {
           this.statusbar.classList.remove('transitioning');
-          this.titlebar.classList.remove('transitioning');
           this.motionElement.classList.remove('transitioning');
         }, 500);
       }

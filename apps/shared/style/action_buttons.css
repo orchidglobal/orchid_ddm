@@ -27,7 +27,7 @@ html[dir="rtl"] .bb-actions {
   color: var(--text-color);
   font-size: 2.4rem;
   line-height: 5rem;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.5, 0.8, 0, 2);
 }
 
 .bb-actions > button:hover {
@@ -37,7 +37,6 @@ html[dir="rtl"] .bb-actions {
 .bb-actions > button:active {
   transform: scale(0.9);
   background: var(--background-plus) linear-gradient(0deg, var(--item-active), var(--item-active));
-  transition: transform 0.1s ease;
 }
 
 .bb-actions > button.recommend {
@@ -60,10 +59,9 @@ html[dir="rtl"] .bb-actions {
   height: 5rem;
   font-size: 2.4rem;
   line-height: 5rem;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.5, 0.8, 0, 2);
 }
 
 .bb-actions > button[data-icon]:active::before {
   transform: scale(1.2);
-  transition: transform 0.1s ease;
 }

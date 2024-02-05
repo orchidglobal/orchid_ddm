@@ -8,9 +8,6 @@ import systemJson from '../system.json';
 import Settings from '../settings';
 import Main from '../main';
 
-import dotenv from 'dotenv';
-dotenv.config();
-
 type SimulatorConfig = {
   [key: string]: {
     id: string;
@@ -21,7 +18,7 @@ type SimulatorConfig = {
 };
 
 const OrchidUI = {
-  DEBUG: (process.env.ORCHID_ENVIRONMENT === 'development'),
+  DEBUG: Main.DEBUG,
 
   edition: 'desktop',
   editionConfig: {

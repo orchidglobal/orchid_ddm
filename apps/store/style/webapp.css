@@ -8,7 +8,7 @@
 .banner-container > img {
   -webkit-mask-image: linear-gradient(to bottom, white, transparent);
   display: block;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 2 / 1;
   width: 100%;
   max-width: var(--safezone-width);
   transform: translateY(calc(8rem * var(--progress, 0)));

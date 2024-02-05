@@ -159,7 +159,7 @@ const SettingsHandler = {
       const originalG2 = g2;
       const originalB2 = b2;
 
-      if (luminance1 < 0.3 && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      if (luminance1 < 0.1 && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         // Brighten the color
         r1 = r1 * 2;
         g1 = g1 * 2;
@@ -181,7 +181,7 @@ const SettingsHandler = {
         }
       }
 
-      if (luminance2 < 0.3 && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      if (luminance2 < 0.1 && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         // Brighten the color
         r2 = r2 * 2;
         g2 = g2 * 2;
@@ -290,4 +290,4 @@ const SettingsHandler = {
   }
 };
 
-export default SettingsHandler.init;
+export default SettingsHandler;

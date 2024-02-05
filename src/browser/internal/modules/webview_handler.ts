@@ -33,4 +33,4 @@ const WebviewHandler = {
   }
 };
 
-export default WebviewHandler.init;
+export default WebviewHandler;

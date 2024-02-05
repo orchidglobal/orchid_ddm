@@ -94,6 +94,7 @@
       this.urlbarSSLButton.addEventListener('click', this.handleUrlbarSSLButton.bind(this));
       this.tabsViewCloseButton.addEventListener('click', this.handleTabsViewCloseButton.bind(this));
       this.tabsViewAddButton.addEventListener('click', this.openNewTab.bind(this));
+      window.addEventListener('orchid-services-ready', this.onServicesLoad.bind(this));
 
       LazyLoader.load('js/download_manager.js');
       LazyLoader.load('js/media_playback.js');
@@ -147,16 +148,6 @@
         CardPanel.init();
       }
       this.openNewTab(false, this.url);
-
-      const avatarImage = this.profileButton.querySelector('.avatar');
-      if ('OrchidServices' in window) {
-        if (await OrchidServices.isUserLoggedIn()) {
-          this.profileButton.classList.add('logged-in');
-          OrchidServices.getWithUpdate(`profile/${await OrchidServices.userId()}`, function (data) {
-            avatarImage.src = data.profile_picture;
-          });
-        }
-      }
 
       if (this.statusbar) {
         this.statusbar.addEventListener('dblclick', this.handleStatusbarDoubleClick.bind(this));
@@ -429,6 +420,7 @@
       splitView.addEventListener('did-start-navigation', this.handleNavigation.bind(this));
       splitView.addEventListener('did-change-theme-color', this.handleThemeColorUpdated.bind(this));
 
+      this.focusTab(tab, gridTab, browserView, webview);
       tab.addEventListener('click', () => this.focusTab(tab, gridTab, browserView, webview));
       tab.addEventListener('mouseover', () => this.handleTabHover(tab, webview, favicon.src));
       tab.addEventListener('mouseleave', this.handleTabUnhover.bind(this));
@@ -439,6 +431,7 @@
 
       webview.addEventListener('did-start-loading', () => {
         this.navbarReloadButton.classList.add('stop');
+        this.isLoading = true;
         favicons.classList.add('loading');
         favicons.classList.remove('dom-loading');
 
@@ -461,7 +454,6 @@
       });
 
       webview.addEventListener('dom-ready', () => {
-        this.focusTab(tab, gridTab, browserView, webview);
         favicons.classList.add('loading');
         favicons.classList.add('dom-loading');
 
@@ -473,6 +465,7 @@
 
       webview.addEventListener('did-stop-loading', () => {
         this.navbarReloadButton.classList.remove('stop');
+        this.isLoading = false;
         favicons.classList.remove('loading');
         favicons.classList.remove('dom-loading');
 
@@ -613,36 +606,37 @@
         const browserView = browserViews[index];
         browserView.classList.remove('active');
 
-        const webviews = browserView.querySelectorAll('.browser');
-        for (let index1 = 0; index1 < webviews.length; index1++) {
-          const webview1 = webviews[index1];
+        // TODO: Tell website/webapp if app is visible or not
+        // const webviews = browserView.querySelectorAll('.browser');
+        // for (let index1 = 0; index1 < webviews.length; index1++) {
+        //   const webview1 = webviews[index1];
 
-          try {
-            const webContentsId = webview1.getWebContentsId();
-            if (webview || (!webview && TasksManager.getThrottle(webContentsId))) {
-              continue;
-            }
-            TasksManager.setThrottle(webContentsId, true);
-            webview1.send('visibilitystate', 'hidden');
-          } catch (error) {
-            // console.error(error);
-          }
-        }
+        //   try {
+        //     const webContentsId = webview1.getWebContentsId();
+        //     if (webview || (!webview && TasksManager.getThrottle(webContentsId))) {
+        //       continue;
+        //     }
+        //     TasksManager.setThrottle(webContentsId, true);
+        //     webview1.send('visibilitystate', 'hidden');
+        //   } catch (error) {
+        //     // console.error(error);
+        //   }
+        // }
       }
 
       tab.classList.add('active');
       gridTab.classList.add('active');
       browserView.classList.add('active');
 
-      const webContentsId = webview.getWebContentsId();
-      try {
-        if (!TasksManager.getThrottle(webContentsId)) {
-          TasksManager.setThrottle(webContentsId, false);
-          webview.send('visibilitystate', 'visible');
-        }
-      } catch (error) {
-        // console.error(error);
-      }
+      // const webContentsId = webview.getWebContentsId();
+      // try {
+      //   if (!TasksManager.getThrottle(webContentsId)) {
+      //     TasksManager.setThrottle(webContentsId, false);
+      //     webview.send('visibilitystate', 'visible');
+      //   }
+      // } catch (error) {
+      //   // console.error(error);
+      // }
 
       requestAnimationFrame(() => {
         this.handleNavigation();
@@ -1416,56 +1410,24 @@
         }
       } else {
         webview.dataset.themeColor = null;
+        this.chromeElement.parentElement.dataset.themeColor = null;
         this.chromeElement.parentElement.style.setProperty('--theme-color', null);
-        this.toolbar.style.setProperty('--theme-color', null);
 
-        if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-          this.chromeElement.classList.remove('dark');
-          this.chromeElement.parentElement.classList.remove('dark');
-          if (this.statusbar) {
-            this.statusbar.classList.remove('dark');
-          }
-          if (this.softwareButtons) {
-            this.softwareButtons.classList.remove('dark');
-          }
-          if (this.bottomPanel) {
-            this.bottomPanel.classList.remove('dark');
-          }
-          this.chromeElement.classList.add('light');
-          this.chromeElement.parentElement.classList.add('light');
-          if (this.statusbar) {
-            this.statusbar.classList.add('light');
-          }
-          if (this.softwareButtons) {
-            this.softwareButtons.classList.add('light');
-          }
-          if (this.bottomPanel) {
-            this.bottomPanel.classList.add('light');
-          }
-        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          // Otherwise, remove 'light' class
-          this.chromeElement.classList.remove('light');
-          this.chromeElement.parentElement.classList.remove('light');
-          if (this.statusbar) {
-            this.statusbar.classList.remove('light');
-          }
-          if (this.softwareButtons) {
-            this.softwareButtons.classList.remove('light');
-          }
-          if (this.bottomPanel) {
-            this.bottomPanel.classList.remove('light');
-          }
-          this.chromeElement.classList.add('dark');
-          this.chromeElement.parentElement.classList.add('dark');
-          if (this.statusbar) {
-            this.statusbar.classList.add('dark');
-          }
-          if (this.softwareButtons) {
-            this.softwareButtons.classList.add('dark');
-          }
-          if (this.bottomPanel) {
-            this.bottomPanel.classList.add('dark');
-          }
+        this.chromeElement.classList.remove('dark');
+        this.chromeElement.parentElement.classList.remove('dark');
+        this.chromeElement.classList.remove('light');
+        this.chromeElement.parentElement.classList.remove('light');
+        if (this.statusbar) {
+          this.statusbar.classList.remove('dark');
+          this.statusbar.classList.remove('light');
+        }
+        if (this.softwareButtons) {
+          this.softwareButtons.classList.remove('dark');
+          this.softwareButtons.classList.remove('light');
+        }
+        if (this.bottomPanel) {
+          this.bottomPanel.classList.remove('dark');
+          this.bottomPanel.classList.remove('light');
         }
       }
     },
@@ -1593,6 +1555,16 @@
       targetPanel.classList.toggle('visible');
       targetPanel.classList.toggle('previous', selectedPanel.dataset.index <= targetPanel.dataset.index);
       targetPanel.classList.toggle('next', selectedPanel.dataset.index >= targetPanel.dataset.index);
+    },
+
+    onServicesLoad: async function () {
+      const avatarImage = this.profileButton.querySelector('.avatar');
+      if (await _os.isLoggedIn()) {
+        this.profileButton.classList.add('logged-in');
+        _os.auth.getLiveAvatar(null, function (data) {
+          avatarImage.src = data;
+        });
+      }
     }
   };
 

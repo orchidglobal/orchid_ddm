@@ -10,8 +10,6 @@ const Narrator = {
   SETTINGS_ACCESSIBILITY_NARRATOR: 0,
 
   init: function () {
-    console.log(document, SpeechSynthesisUtterance);
-
     this.message = new SpeechSynthesisUtterance();
     this.triggerEvents.forEach((event) => {
       document.addEventListener(event, this.handleNarration.bind(this));
@@ -49,4 +47,4 @@ const Narrator = {
   }
 };
 
-export default Narrator.init;
+export default Narrator;

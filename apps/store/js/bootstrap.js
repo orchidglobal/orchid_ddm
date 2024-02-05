@@ -14,10 +14,11 @@
     });
   }
 
-  window.addEventListener('load', function () {
+  document.addEventListener('DOMContentLoaded', function () {
     LazyLoader.load('js/webapps.js');
     LazyLoader.load('js/slideshow.js');
 
     LazyLoader.load('js/pages/root/main.js');
+    LazyLoader.load('js/pages/publish/main.js');
   });
 })(window);

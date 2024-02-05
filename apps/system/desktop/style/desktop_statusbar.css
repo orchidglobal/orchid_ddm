@@ -30,7 +30,6 @@ html[dir="rtl"] #screen.desktop #statusbar {
   -webkit-mask: url(images/chevron.svg) no-repeat center / cover;
   position: absolute;
   top: calc(50% - 0.9rem);
-  left: 1rem;
   width: 1.8rem;
   height: 1.8rem;
   background-color: var(--text-color);
@@ -39,9 +38,11 @@ html[dir="rtl"] #screen.desktop #statusbar {
   transition: transform 0.5s cubic-bezier(1, 0.8, 0, 1);
 }
 html[dir="ltr"] #screen.desktop #statusbar::before {
+  left: 1rem;
   transform: rotate(-90deg);
 }
 html[dir="rtl"] #screen.desktop #statusbar::before {
+  right: 1rem;
   transform: rotate(90deg);
 }
 

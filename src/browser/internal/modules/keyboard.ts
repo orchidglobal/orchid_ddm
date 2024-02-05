@@ -35,4 +35,4 @@ const Keyboard = {
   }
 };
 
-export default Keyboard.init;
+export default Keyboard;

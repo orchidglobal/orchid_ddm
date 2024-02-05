@@ -12,4 +12,4 @@ const Keybinds = {
   }
 };
 
-export default Keybinds.init;
+export default Keybinds;

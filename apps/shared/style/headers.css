@@ -54,7 +54,7 @@ section[role="panel"] > header:first-child h1 {
   transform: translateY(calc((3.6rem * (1 - var(--progress, 0))) + (15rem * var(--overscroll-progress, 0))));
   color: var(--text-color);
   font-weight: normal;
-  font-weight: calc(350 + (250 * (1 - var(--progress, 0))));
+  font-weight: calc(400 + (200 * (1 - var(--progress, 0))));
   font-size: calc(2rem + (0.4rem * (1 - var(--progress, 0))) + (0.6rem * var(--overscroll-progress, 0)));
   line-height: 3.6rem;
   text-overflow: ellipsis;

@@ -1,12 +1,23 @@
+.bb-tablist-views {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 6.5rem);
+}
+
 .bb-tablist {
   z-index: 5;
   position: absolute;
   bottom: 0;
-  left: 0;
   width: 100%;
   height: 6.5rem;
   padding-bottom: var(--software-buttons-height);
   background-color: var(--background-minus);
+}
+html[dir="ltr"] .bb-tablist {
+  left: 0;
+}
+html[dir="rtl"] .bb-tablist {
+  right: 0;
 }
 
 .bb-tablist ul {
@@ -27,6 +38,44 @@
   margin: 0.5rem 0;
   overflow: hidden;
   list-style: none;
+}
+
+@media screen and (orientation: landscape) {
+  .bb-tablist-views {
+    position: absolute;
+    width: calc(100% - 9rem);
+    height: 100%;
+  }
+  html[dir="ltr"] .bb-tablist-views {
+    left: 9rem;
+  }
+  html[dir="rtl"] .bb-tablist-views {
+    right: 9rem;
+  }
+
+  .bb-tablist {
+    box-sizing: border-box;
+    width: 9rem;
+    height: 100%;
+    padding-top: var(--statusbar-height);
+    padding-bottom: var(--software-buttons-height);
+  }
+
+  .bb-tablist ul {
+    box-sizing: border-box;
+    flex-direction: column;
+    width: 9rem;
+    max-width: unset;
+    height: 100%;
+    padding: 0.5rem 0;
+    gap: 1rem;
+  }
+
+  .bb-tablist ul li {
+    flex-grow: 0;
+    height: 6rem;
+    margin: 0 0.5rem;
+  }
 }
 
 .bb-tablist ul li > a {

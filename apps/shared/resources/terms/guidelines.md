@@ -9,7 +9,7 @@ Treat every member with respect and kindness. Discrimination, hate speech, or ha
 Promotion of gambling or related activities is not permitted within this community.
 
 - **Safety and Well-being**\
-Discussions or activities promoting self-harm, explicit content, scams, or fraudulent behavior are strictly prohibited.
+Discussions or activities promoting self-harm, overly explicit content, scams, or fraudulent behavior are strictly prohibited.
 
 - **Inclusivity and Fairness**\
 Avoid belittling others or seeking special treatment based on any personal attribute, including sexuality, race, or religion.
@@ -21,7 +21,7 @@ Engaging in scams, fraudulent activities, or knowingly supporting fraudulent beh
 Be genuine in your interactions. Avoid spreading false information or engaging in behavior that contradicts the community's principles.
 
 - **Safety of Minors**\
-Sharing explicit or inappropriate content with minors is banned and will be reported to the authorities.
+Sharing explicit or inappropriate content with minors is prohibited and will be reported to the authorities.
 
 - **Following Age Ratings**\
 Follow your Orchid Age Rating guidelines of the age rating of your published content.

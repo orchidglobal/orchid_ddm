@@ -8,6 +8,7 @@ import OrchidUI from './browser/orchidui';
 import webapps from './browser/webapps';
 
 import dotenv from 'dotenv';
+import checkDefaultFiles from './browser/default_presets';
 dotenv.config();
 
 export const Main = {
@@ -49,6 +50,7 @@ export const Main = {
       fs.mkdirSync(this.profilePath, {
         recursive: true
       });
+      checkDefaultFiles();
     }
 
     this.overrideDialogs();
