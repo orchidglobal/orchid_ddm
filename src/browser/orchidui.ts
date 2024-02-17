@@ -76,7 +76,6 @@ const OrchidUI = {
       autoHideMenuBar: true,
       backgroundColor: '#000000',
       tabbingIdentifier: 'openorchid',
-      frame: false,
       kiosk: !Main.DEBUG
     });
   },
