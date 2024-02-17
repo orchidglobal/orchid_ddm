@@ -18,8 +18,6 @@ type SimulatorConfig = {
 };
 
 const OrchidUI = {
-  DEBUG: Main.DEBUG,
-
   edition: 'desktop',
   editionConfig: {
     'desktop': {
@@ -52,7 +50,7 @@ const OrchidUI = {
       this.loadSystem();
     });
 
-    Menu.setApplicationMenu(null);
+    // Menu.setApplicationMenu(null);
   },
 
   defineEdition: async function () {
@@ -69,8 +67,8 @@ const OrchidUI = {
       title: `OrchidUI ${app.getVersion()} ${this.editionConfig[this.edition].agent_type}`,
       width:
         process.platform !== 'win32'
-          ? this.editionConfig[this.edition].simulator_width + (this.DEBUG ? 50 : 0)
-          : this.editionConfig[this.edition].simulator_width + (this.DEBUG ? 50 : 0) + 14,
+          ? this.editionConfig[this.edition].simulator_width + (Main.DEBUG ? 50 : 0)
+          : this.editionConfig[this.edition].simulator_width + (Main.DEBUG ? 50 : 0) + 14,
       height:
         process.platform !== 'win32'
           ? this.editionConfig[this.edition].simulator_height
@@ -78,7 +76,8 @@ const OrchidUI = {
       autoHideMenuBar: true,
       backgroundColor: '#000000',
       tabbingIdentifier: 'openorchid',
-      kiosk: !this.DEBUG
+      frame: false,
+      kiosk: !Main.DEBUG
     });
   },
 
@@ -106,8 +105,7 @@ const OrchidUI = {
         disableDialogs: true,
         defaultEncoding: 'utf-8',
         preload: path.join(__dirname, 'internal', 'preload.js'),
-        enableBlinkFeatures: 'OverlayScrollbar',
-        devTools: this.DEBUG
+        devTools: Main.DEBUG
       }
     });
 
@@ -119,7 +117,7 @@ const OrchidUI = {
     this.window.addBrowserView(this.webview);
 
     const { width, height } = this.window.getContentBounds();
-    if (this.DEBUG) {
+    if (Main.DEBUG) {
       this.webview.setBounds({ x: 0, y: 0, width: width - 50, height });
     } else {
       this.webview.setBounds({ x: 0, y: 0, width, height });
@@ -130,7 +128,7 @@ const OrchidUI = {
     ipcMain.on('change-theme', this.handleThemeChange.bind(this));
 
     registerEvents();
-    if (this.DEBUG) {
+    if (Main.DEBUG) {
       this.webview.webContents.openDevTools({ mode: 'detach' });
       registerControls(this.window);
     }

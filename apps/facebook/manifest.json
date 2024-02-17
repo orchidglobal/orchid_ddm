@@ -4,7 +4,12 @@
   "description": "",
   "start_url": "https://www.facebook.com/",
   "icons": {
-    "48": "/icons/facebook.png"
+    "16": "/icons/facebook_16.png",
+    "32": "/icons/facebook_32.png",
+    "48": "/icons/facebook_48.png",
+    "64": "/icons/facebook_64.png",
+    "128": "/icons/facebook_128.png",
+    "256": "/icons/facebook_256.png"
   },
   "developer": {
     "name": "Meta",

@@ -41,7 +41,6 @@
         }
       });
 
-      this.notificationsBadge.addEventListener('click', this.handleNotificationsBadgeClick.bind(this));
       document.addEventListener('keyup', this.onKeyPress.bind(this));
 
       this.motionElement.addEventListener('dblclick', this.onDoubleTap.bind(this));
@@ -54,11 +53,6 @@
       DirectionalScale.init(this.flashlightButton);
 
       this.showMotionElement();
-    },
-
-    handleNotificationsBadgeClick: function (event) {
-      this.notifications.classList.add('visible');
-      this.notificationsBadge.classList.add('hidden');
     },
 
     onKeyPress: function (event) {
@@ -198,6 +192,7 @@
           this.SOUND_LOCK.play();
         }
       }
+      this.motionElement.classList.remove('notifications-visible');
       this.notifications.classList.remove('visible');
       this.notificationsBadge.classList.remove('hidden');
 

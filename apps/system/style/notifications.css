@@ -5,7 +5,7 @@
   width: calc(100% - 2rem);
   margin: 0 1rem;
   transform: translateY(calc(-100% - var(--statusbar-height) - 4.5rem));
-  background-color: var(--translucent-background-plus);
+  background-color: var(--notification-background);
   box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.2);
   transition: all 0.5s cubic-bezier(0.8, 0.1, 0.9, 0);
 }
@@ -23,13 +23,13 @@
 #notifications-container {
   position: absolute;
   top: calc(5rem + (6rem * var(--overflow-progress)));
-  left: 1rem;
-  width: calc(100% - 2rem);
-  height: calc(100% - 2.5rem - (5rem + (6rem * var(--overflow-progress))));
+  left: 1.5rem;
+  width: calc(100% - 3rem);
+  height: 100%;
   margin: 0;
   padding: 0;
   overflow-y: auto;
-  border-radius: 2rem;
+  border-radius: 2.5rem;
 }
 
 #screen.software-buttons-enabled #notifications-container {
@@ -52,7 +52,7 @@
   width: 100%;
   margin: 0 0 1rem;
   list-style: none;
-  transition: all 0.3s ease, translate 0ms;
+  transition: all 0.3s ease;
 }
 
 #notifications-container .notification.transitioning {
@@ -70,9 +70,19 @@
 }
 
 .notification {
+  --notification-background: rgba(255, 255, 255, 0.6);
+  --notification-text-color: #333;
   width: 100%;
   margin: 0 0 1rem;
-  border-radius: 2rem;
+  border-radius: 2.5rem;
+  background-color: var(--notification-background);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  .notification {
+    --notification-background: rgba(0, 0, 0, 0.5);
+    --notification-text-color: #fff;
+  }
 }
 
 .notification .titlebar {
@@ -80,10 +90,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  margin: 0 0 0.5rem;
-  padding: 1rem 1.5rem;
-  border-radius: 2rem 2rem 1rem 1rem;
-  background-color: var(--tray-button-background);
+  padding: 1rem 1.5rem 0;
 }
 
 .notification .titlebar .badge {
@@ -99,7 +106,7 @@
   height: 2rem;
   margin-inline-end: 1rem;
   overflow: hidden;
-  color: var(--text-color);
+  color: var(--notification-text-color);
   font-size: 1.4rem;
   line-height: 2rem;
   text-overflow: ellipsis;
@@ -112,8 +119,6 @@
   align-items: center;
   width: 100%;
   padding: 1rem 1.5rem;
-  border-radius: 1rem 1rem 2rem 2rem;
-  background-color: var(--tray-button-background);
 }
 
 .notification .content .icon {
@@ -129,13 +134,13 @@
   flex-direction: column;
   width: 100%;
   overflow: hidden;
-  color: var(--text-color);
+  color: var(--notification-text-color);
 }
 
 .notification .content .text-holder .title {
   width: 100%;
   overflow: hidden;
-  color: var(--text-color);
+  color: var(--notification-text-color);
   font-size: 1.6rem;
   line-height: 2.2rem;
   text-overflow: ellipsis;
@@ -145,11 +150,10 @@
 .notification .content .text-holder .detail {
   width: 100%;
   overflow: hidden;
-  color: var(--text-color);
+  color: var(--notification-text-color);
   font-size: 1.4rem;
   line-height: 2rem;
   text-overflow: ellipsis;
-  white-space: nowrap;
   opacity: 0.5;
 }
 
@@ -198,17 +202,19 @@
   align-items: center;
   width: 100%;
   padding: 0 1.5rem 1rem;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .notification .actions button {
   box-sizing: border-box;
+  width: max-content;
   height: 3rem;
+  margin: 0;
   padding: 0 1.5rem;
   border: none;
   border-radius: 1.5rem;
   background-color: transparent;
-  color: var(--text-color);
+  color: var(--notification-text-color);
   font-size: 1.6rem;
   line-height: 3rem;
 }

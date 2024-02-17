@@ -39,6 +39,12 @@
       const runningWebapps = Webapps.runningWebapps;
       this.cardsContainer.innerHTML = '';
       const fragment = document.createDocumentFragment();
+
+      if (runningWebapps.length === 0) {
+        this.element.classList.add('visible');
+        this.screen.classList.add('cards-view-visible');
+      }
+
       for (let index = 0, length = runningWebapps.length; index < length; index++) {
         const runningWebapp = runningWebapps[index];
         if (runningWebapp.namespaceID === 'homescreen') {

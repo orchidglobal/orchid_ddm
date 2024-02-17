@@ -694,7 +694,7 @@
         return;
       }
 
-      event.preventDefault();
+      // event.preventDefault();
       this.containerElement.classList.add('dragging');
       this.isDragging = true;
 
@@ -721,7 +721,7 @@
         return;
       }
 
-      event.preventDefault();
+      // event.preventDefault();
       // Calculate the movement based on the difference between initial and current positions
       const movementX = (event.clientX || event.touches[0].clientX) - this.startX;
       const movementY = (event.clientY || event.touches[0].clientY) - this.startY;
@@ -783,7 +783,7 @@
       if (window.deviceType !== 'desktop') {
         return;
       }
-      event.preventDefault();
+      // event.preventDefault();
       this.containerElement.classList.remove('dragging');
 
       this.element.classList.add('transitioning');
@@ -824,7 +824,7 @@
     },
 
     startResize: function (event) {
-      event.preventDefault();
+      // event.preventDefault();
       this.isResizing = true;
       this.containerElement.classList.add('dragging');
       this.resizingWindow = this.element;
@@ -837,7 +837,7 @@
     },
 
     resize: function (event, gripper) {
-      event.preventDefault();
+      // event.preventDefault();
       if (!this.isResizing) {
         return;
       }
@@ -894,7 +894,7 @@
     },
 
     stopResize: function (event) {
-      event.preventDefault();
+      // event.preventDefault();
       this.isResizing = false;
       this.containerElement.classList.remove('dragging');
     }

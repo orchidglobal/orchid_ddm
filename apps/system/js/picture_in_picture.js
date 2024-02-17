@@ -52,7 +52,7 @@
 
     // Attach event listeners for mouse/touch events to handle dragging
     startDrag: function (event) {
-      event.preventDefault();
+      // event.preventDefault();
       AppWindow.containerElement.classList.add('dragging');
 
       this.element.classList.add('transitioning-bouncy');
@@ -83,7 +83,7 @@
 
       // Function to handle dragging
       function dragWindow(event) {
-        event.preventDefault();
+        // event.preventDefault();
         const x = event.pageX || event.touches[0].pageX;
         const y = event.pageY || event.touches[0].pageY;
 
@@ -98,7 +98,7 @@
 
       // Function to stop dragging
       function stopDrag(event) {
-        event.preventDefault();
+        // event.preventDefault();
         AppWindow.containerElement.classList.remove('dragging');
 
         that.element.classList.add('transitioning-bouncy');

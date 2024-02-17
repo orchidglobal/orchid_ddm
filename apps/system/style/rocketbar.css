@@ -1,0 +1,31 @@
+#rocketbar {
+  display: flex;
+  visibility: hidden;
+  position: absolute;
+  bottom: calc(var(--dock-height) + 2rem);
+  left: calc(50% - 28rem);
+  flex-direction: column;
+  width: 56rem;
+  height: 48rem;
+  overflow: hidden;
+  transform: translateY(calc(100% + var(--dock-height) + 2rem));
+  border-radius: 2rem;
+  background-color: var(--background-plus);
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s cubic-bezier(0.5, 0.2, 1, 0), visibility 0.5s ease;
+}
+
+#screen.gpu-capable #rocketbar {
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: var(--acrylic-background-plus);
+}
+
+#rocketbar.shortcuts-visible {
+  background-color: var(--background-plus);
+}
+
+#rocketbar.visible {
+  visibility: visible;
+  transform: translateY(0);
+  transition: transform 0.5s cubic-bezier(0.5, 0.8, 0, 1), visibility 0.5s ease;
+}

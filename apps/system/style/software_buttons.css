@@ -105,6 +105,7 @@ html[dir="rtl"] #software-buttons #software-back-button::before {
   width: calc(var(--dock-height) - 1rem);
   height: calc(var(--dock-height) - 1rem);
   margin: 0.5rem;
+  border: none;
   border-radius: 25%;
   background: no-repeat center / cover;
   transition: all 0.3s cubic-bezier(0.2, 0.9, 0, 1.1);
@@ -187,7 +188,7 @@ html[dir="rtl"] #software-buttons #software-back-button::before {
   width: calc(var(--software-buttons-height) - 1rem);
   height: calc(var(--software-buttons-height) - 1rem);
   margin: 0.5rem;
-  border-radius: 25%;
+  border-radius: 30%;
 }
 
 #screen.desktop #dock .icon {
@@ -196,7 +197,8 @@ html[dir="rtl"] #software-buttons #software-back-button::before {
 }
 
 #dock .icon.active {
-  outline: solid 0.2rem var(--accent-color);
+  outline: solid 0.3rem var(--accent-color);
+  outline-offset: -0.3rem;
 }
 
 #dock .icon.expand {

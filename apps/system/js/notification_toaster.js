@@ -17,9 +17,10 @@
     actionsElement: document.getElementById('notification-actions'),
 
     lockscreenNotifications: document.getElementById('lockscreen-notifications'),
-    lockscreenNotificationBadge: document.getElementById('lockscreen-notification-badge'),
+    lockscreenNotificationBadge: document.getElementById('lockscreen-notifications-badge'),
 
     isDragging: false,
+    timeoutID: null,
     startX: 0,
     currentX: 0,
     threshold: 0.5,
@@ -84,8 +85,6 @@
         if (progress || progress === 0) {
           progressElement.style.setProperty('--progress', Math.min(100, progress) / 100);
           this.progressElement.style.setProperty('--progress', Math.min(100, progress) / 100);
-          progressElement.style.display = 'block';
-          this.progressElement.style.display = 'block';
         } else {
           progressElement.style.display = 'none';
           this.progressElement.style.display = 'none';
@@ -94,9 +93,7 @@
         const badgeElement = notification.querySelector('.badge');
         if (badge) {
           badgeElement.src = badge;
-          badgeElement.style.display = 'block';
           this.badgeElement.src = badge;
-          this.badgeElement.style.display = 'block';
         } else {
           badgeElement.style.display = 'none';
           this.badgeElement.style.display = 'none';
@@ -109,9 +106,7 @@
         const iconElement = notification.querySelector('.icon');
         if (icon) {
           iconElement.src = icon;
-          iconElement.style.display = 'block';
           this.iconElement.src = icon;
-          this.iconElement.style.display = 'block';
         } else {
           iconElement.style.display = 'none';
           this.iconElement.style.display = 'none';
@@ -138,8 +133,6 @@
             imgElement.src = src;
             this.mediaElement.appendChild(imgElement);
           }
-          mediaElement.style.display = 'block';
-          this.mediaElement.style.display = 'block';
         } else {
           mediaElement.style.display = 'none';
           this.mediaElement.style.display = 'none';
@@ -168,8 +161,6 @@
             }
             this.actionsElement.appendChild(buttonElement);
           }
-          actionsElement.style.display = 'block';
-          this.actionsElement.style.display = 'block';
         } else {
           actionsElement.style.display = 'none';
           this.actionsElement.style.display = 'none';
@@ -181,16 +172,16 @@
         this.SOUND_NOTIFIER.play();
       }
 
+      this.notificationsContainer.appendChild(fragment);
+      setTimeout(() => {
+        this.lockscreenNotifications.appendChild(notification.cloneNode(true));
+      }, 16);
+
       this.notificationElement.classList.add('visible');
-      clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => {
+      clearTimeout(this.timeoutID);
+      this.timeoutID = setTimeout(() => {
         this.notificationElement.classList.remove('visible');
       }, 3000);
-
-      requestAnimationFrame(() => {
-        this.lockscreenNotifications.appendChild(fragment.cloneNode(true));
-      });
-      this.notificationsContainer.appendChild(fragment);
     },
 
     hideNotification: function () {
@@ -208,7 +199,7 @@
       if (!this.isDragging) {
         return;
       }
-      event.preventDefault();
+      // event.preventDefault();
       event.stopPropagation();
       this.currentX = event.clientX;
 

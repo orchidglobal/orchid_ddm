@@ -9,6 +9,8 @@ import webapps from './browser/webapps';
 
 import dotenv from 'dotenv';
 import checkDefaultFiles from './browser/default_presets';
+import OrchidUIDock from './shell_mode/dock';
+import OrchidUIDesktop from './shell_mode/desktop';
 dotenv.config();
 
 export const Main = {
@@ -82,7 +84,10 @@ export const Main = {
     this.startProtocolRouting();
 
     webapps(app);
-    OrchidUI.init();
+    // OrchidUI.init();
+
+    OrchidUIDesktop.init();
+    OrchidUIDock.init();
   },
 
   parseLaunchOptions: function () {

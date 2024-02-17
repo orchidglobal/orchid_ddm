@@ -41,49 +41,16 @@
     },
 
     init: function () {
-      if ('OrchidServices' in window) {
-        OrchidServices.list('webapps').then((array) => {
-          for (let index = 0; index < array.length; index++) {
-            const element = array[index];
-            Webapps.populate(element);
-          }
-        });
-      }
+      window.addEventListener('orchid-services-ready', this.handleServicesLoad.bind(this));
     },
 
-    initializeCategory: function (categoryId) {
-      const categoryExists = document.getElementById(`category-${categoryId}`);
-      if (categoryExists) {
-        return categoryExists.querySelector('.list');
-      }
-
-      const category = document.createElement('div');
-      category.classList.add('category');
-      category.id = `category-${categoryId}`;
-      this.webapps.appendChild(category);
-
-      const header = document.createElement('div');
-      header.classList.add('header');
-      category.appendChild(header);
-
-      const headerLabel = document.createElement('h1');
-      headerLabel.textContent = categoryId;
-      header.appendChild(headerLabel);
-
-      const headerExpand = document.createElement('a');
-      headerExpand.href = '#';
-      headerExpand.dataset.icon = 'chevron-down';
-      headerExpand.textContent = L10n.get('seeMore');
-      headerExpand.onclick = () => {
-        category.classList.toggle('expanded');
-      };
-      header.appendChild(headerExpand);
-
-      const list = document.createElement('ul');
-      list.classList.add('list');
-      category.appendChild(list);
-
-      return list;
+    handleServicesLoad: function () {
+      _os.store.getRelavantApps().then((array) => {
+        for (let index = 0; index < array.length; index++) {
+          const element = array[index];
+          this.populate(element);
+        }
+      });
     },
 
     populate: function (data) {
@@ -131,6 +98,41 @@
       ageRating.classList.add('ageRating');
       ageRating.textContent = data.ageRating.split('-')[1] + '+';
       stats.appendChild(ageRating);
+    },
+
+    initializeCategory: function (categoryId) {
+      const categoryExists = document.getElementById(`category-${categoryId}`);
+      if (categoryExists) {
+        return categoryExists.querySelector('.list');
+      }
+
+      const category = document.createElement('div');
+      category.classList.add('category');
+      category.id = `category-${categoryId}`;
+      this.webapps.appendChild(category);
+
+      const header = document.createElement('div');
+      header.classList.add('header');
+      category.appendChild(header);
+
+      const headerLabel = document.createElement('h1');
+      headerLabel.textContent = categoryId;
+      header.appendChild(headerLabel);
+
+      const headerExpand = document.createElement('a');
+      headerExpand.href = '#';
+      headerExpand.dataset.icon = 'chevron-down';
+      headerExpand.textContent = L10n.get('seeMore');
+      headerExpand.onclick = () => {
+        category.classList.toggle('expanded');
+      };
+      header.appendChild(headerExpand);
+
+      const list = document.createElement('ul');
+      list.classList.add('list');
+      category.appendChild(list);
+
+      return list;
     },
 
     openPanel: function (element, data) {

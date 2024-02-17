@@ -37,7 +37,7 @@ html[dir='rtl'] .appframe .titlebar {
 
 .appframe.chrome-visible:not(.fullscreen) .titlebar {
   width: max-content;
-  padding: 1.25rem 1.5rem;
+  height: var(--chrome-titlebar-height);
 }
 
 .appframe .titlebar > .titlebar-grippy {

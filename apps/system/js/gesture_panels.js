@@ -27,7 +27,7 @@
     },
 
     handleBottomPanel: function (event) {
-      event.preventDefault();
+      // event.preventDefault();
       this.startX = event.clientX;
       this.startY = event.clientY;
       this.isDragging = true;
@@ -36,7 +36,7 @@
 
     // Add the following event handler for touchmove and pointermove events on the grippy bar
     handlePointerMove: function (event) {
-      event.preventDefault();
+      // event.preventDefault();
       if (this.isDragging) {
         const currentXPosition = event.clientX;
         const currentYPosition = event.clientY;
@@ -72,7 +72,7 @@
     },
 
     handlePointerUp: function (event) {
-      event.preventDefault();
+      // event.preventDefault();
       if (this.isDragging) {
         const currentXPosition = event.clientX;
         const currentYPosition = event.clientY;

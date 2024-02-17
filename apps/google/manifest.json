@@ -4,7 +4,12 @@
   "description": "Search the web.",
   "start_url": "https://www.google.com/",
   "icons": {
-    "48": "/icons/google.png"
+    "16": "/icons/google_16.png",
+    "32": "/icons/google_32.png",
+    "48": "/icons/google_48.png",
+    "64": "/icons/google_64.png",
+    "128": "/icons/google_128.png",
+    "256": "/icons/google_256.png"
   },
   "developer": {
     "name": "Google",

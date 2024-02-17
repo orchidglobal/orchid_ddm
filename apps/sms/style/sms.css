@@ -18,6 +18,23 @@
   background-color: transparent;
 }
 
+#add-friend-notice {
+  display: none;
+  margin: 1rem 0 0;
+}
+
+#add-friend-notice.visible {
+  display: block;
+}
+
+#add-friend-notice.error {
+  color: #c00040;
+}
+
+#add-friend-notice.alert {
+  color: var(--accent-color);
+}
+
 .messages {
   box-sizing: border-box;
   flex-grow: 1;

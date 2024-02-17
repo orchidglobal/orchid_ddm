@@ -11,6 +11,7 @@
     SOUND_BOOT_UP: new Audio('/resources/sounds/startup.wav'),
 
     isBooting: true,
+    isL10nReady: false,
     isFirstTime: false,
     audioTimeoutID: null,
 
@@ -28,23 +29,31 @@
         };
       }
 
-      this.splashElement.classList.add('safety-warning');
-      setTimeout(() => {
-        this.splashElement.classList.remove('safety-warning');
+      document.addEventListener('localized', () => {
+        if (this.isL10nReady) {
+          return;
+        }
+        this.isL10nReady = true;
 
+        this.splashElement.classList.add('safety-warning');
         setTimeout(() => {
-          this.SOUND_BOOT_UP.play();
-          this.SOUND_BOOT_UP.ontimeupdate = () => {
-            if (this.isBooting && this.SOUND_BOOT_UP.currentTime >= 1.65) {
-              this.SOUND_BOOT_UP.playbackRate = this.SOUND_BOOT_UP.playbackRate * 0.2;
-            }
-          };
+          this.splashElement.classList.remove('safety-warning');
+          this.splashElement.classList.add('logo');
 
-          if (this.videoElement) {
-            this.videoElement.play();
-          }
-        }, 300);
-      }, 3000);
+          setTimeout(() => {
+            this.SOUND_BOOT_UP.play();
+            this.SOUND_BOOT_UP.ontimeupdate = () => {
+              if (this.isBooting && this.SOUND_BOOT_UP.currentTime >= 1.65) {
+                this.SOUND_BOOT_UP.playbackRate = this.SOUND_BOOT_UP.playbackRate * 0.2;
+              }
+            };
+
+            if (this.videoElement) {
+              this.videoElement.play();
+            }
+          }, 300);
+        }, 3000);
+      });
     },
 
     hide: function () {

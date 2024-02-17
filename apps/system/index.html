@@ -72,6 +72,8 @@
   <link rel="stylesheet" type="text/css" href="style/utility_tray_panels.css">
   <link rel="stylesheet" type="text/css" href="style/charging_overlay.css">
   <link rel="stylesheet" type="text/css" href="style/window_snap.css">
+  <link rel="stylesheet" type="text/css" href="style/app_switcher.css">
+  <link rel="stylesheet" type="text/css" href="style/rocketbar.css">
 
   <!-- Stylesheets - Desktop -->
   <link rel="stylesheet" type="text/css" href="desktop/style/desktop_system.css">
@@ -87,7 +89,7 @@
   <link rel="stylesheet" type="text/css" href="style/frimware/charging_battery.css">
 
   <!-- Online scripts -->
-  <!-- <script type="module" src="https://orchid-f39a9.web.app/orchid_services.js"></script> -->
+  <script type="module" src="https://orchid-f39a9.web.app/orchid_services.js"></script>
 
   <!-- Shared scripts -->
   <script defer type="text/javascript" src="http://shared.localhost:8081/js/external/smooth-scrollbar.js"></script>
@@ -282,12 +284,13 @@
             </menu>
           </div>
           <div class="utility-tray-content">
-            
+
           <div class="control-center-row">
             <div id="media-playback">
               <div class="content">
-                <div id="media-playback-title"></div>
-                <div id="media-playback-artist"></div>
+                <img src="" alt="" id="media-playback-artwork">
+                <div id="media-playback-title">Media Title</div>
+                <div id="media-playback-artist">Media Artist</div>
                 <div class="buttons">
                   <button id="media-playback-previous" data-l10n-id="mediaPlayback-skipBackward">
                     <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -487,7 +490,7 @@
           <div class="control-center-row">
             <div id="devices">
               <header>
-                <h1>Devices</h1>
+                <h1 data-l10n-id="devices"></h1>
                 <button id="devices-reload-button" data-icon="reload"></button>
                 <button data-icon="add"></button>
               </header>
@@ -510,7 +513,7 @@
           </div>
         </div>
 
-        <div id="utility-tray-wifi" class="panel">
+        <div id="utility-tray-wifi" class="tray-panel">
           <div class="header">
             <a href="#" id="utility-tray-wifi-back-button" data-icon="chevron-back"></a>
             <h1 data-l10n-id="wifi"></h1>
@@ -518,7 +521,7 @@
           <div class="content"></div>
           <div class="buttons"><button data-l10n-id="settings"></button></div>
         </div>
-        <div id="utility-tray-bluetooth" class="panel">
+        <div id="utility-tray-bluetooth" class="tray-panel">
           <div class="header">
             <a href="#" id="utility-tray-bluetooth-back-button" data-icon="chevron-back"></a>
             <h1 data-l10n-id="bluetooth"></h1>
@@ -769,6 +772,10 @@
     </div>
 
     <div id="system-overlays" data-z-index-layer="system-overlays">
+      <div id="app-switcher">
+        <div id="app-switcher-list"></div>
+      </div>
+
       <div id="picture-in-picture">
         <video src="" id="picture-in-picture-video"></video>
         <button id="picture-in-picture-close-button" data-icon="close"></button>
@@ -837,7 +844,9 @@
     <div id="top-panel" data-z-index-layer="gesture-panel"></div>
     <div id="left-panel" data-z-index-layer="gesture-panel"></div>
     <div id="right-panel" data-z-index-layer="gesture-panel"></div>
-    <div id="bottom-panel" data-z-index-layer="gesture-panel"></div>
+    <div id="bottom-panel" data-z-index-layer="gesture-panel">
+      <div class="text">Swipe up to unlock</div>
+    </div>
   </div>
   <div id="frimware" class="screen">
     <div id="charging-battery">

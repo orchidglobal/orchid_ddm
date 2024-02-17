@@ -17,7 +17,7 @@
       this.logo.addEventListener('dblclick', this.onDoubleClick.bind(this));
 
       this.hostname.textContent = DeviceInformation.getHostname();
-      this.systemName.textContent = navigator.mozL10n.get('brandShortName');
+      this.systemName.textContent = L10n.get('brandShortName');
       this.systemVersion.textContent = Environment.version;
       this.hardwareId.textContent = DeviceInformation.getHardwareId();
       this.arch.textContent = DeviceInformation.getArch();

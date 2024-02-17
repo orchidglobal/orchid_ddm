@@ -3,12 +3,13 @@
   --statusbar-padding-left: 3rem;
   --statusbar-padding-right: 3rem;
   --software-buttons-height: 4rem;
-  --dock-height: 4.4rem;
-  --titlebar-height: 4rem;
+  --dock-height: 4.8rem;
+  --titlebar-height: 3.6rem;
   --screen-radius: 4rem;
 
+  --chrome-titlebar-height: 4.6rem;
   --chrome-toolbar-gap: 0.5rem;
   --chrome-tablist-height: 3.6rem;
   --chrome-navbar-height: 3.6rem;
-  --safezone-width: 32rem;
+  --safezone-width: 40rem;
 }

@@ -328,7 +328,7 @@
   width: 100%;
   height: 100%;
   translate: 0 0;
-  border-radius: 0;
+  border-radius: 0 !important;
 }
 
 .appframe.window.active {
@@ -345,11 +345,11 @@
 #screen.desktop .appframe.window.maximized {
   height: calc(100% - var(--dock-height) - 2rem);
   translate: 0 0;
-  border-radius: 0;
+  border-radius: 0 !important;
 }
 
 #screen.desktop .appframe.window.snapped {
-  border-radius: 0;
+  border-radius: 0 !important;
   box-shadow: none;
 }
 
@@ -358,125 +358,16 @@
   width: 100%;
   height: 100%;
   translate: 0 0;
-  border-radius: 0;
+  border-radius: 0 !important;
   box-shadow: none;
-}
-
-.appframe .chrome .browser-container > .browser-view {
-  position: absolute;
-  top: var(--statusbar-height);
-  left: 0;
-  width: 100%;
-  height: calc(100% - var(--statusbar-height) - 2.5rem);
 }
 
 #screen.context-menu-visible .appframe .chrome .browser-container > .browser-view {
   pointer-events: none;
 }
 
-.appframe:not(.fullscreen) .chrome.visible .browser-view {
-  top: calc(
-    var(--statusbar-height) + var(--chrome-tablist-height) + var(--chrome-navbar-height) +
-      (var(--chrome-toolbar-gap) * 2)
-  );
-  height: calc(
-    100% - var(--statusbar-height) - 2.5rem - var(--chrome-tablist-height) - var(--chrome-navbar-height) -
-      (var(--chrome-toolbar-gap) * 2)
-  );
-}
-
-.appframe:not(.fullscreen) .chrome.side-tabs.visible .browser-view {
-  top: calc(var(--statusbar-height) + var(--chrome-navbar-height) + (var(--chrome-toolbar-gap) * 2));
-  height: calc(100% - var(--statusbar-height) - 2.5rem - var(--chrome-navbar-height) - (var(--chrome-toolbar-gap) * 2));
-}
-
-.appframe.window:not(.fullscreen) .chrome.side-tabs.visible .browser-view {
-  top: calc(var(--chrome-navbar-height) + (var(--chrome-toolbar-gap) * 2));
-}
-
-.appframe:not(.fullscreen) .chrome.bottom.visible .browser-view {
-  top: var(--statusbar-height);
-}
-
-#screen.software-buttons-enabled .appframe .chrome .browser-container > .browser-view {
-  height: calc(100% - var(--statusbar-height) - var(--software-buttons-height));
-}
-
-.appframe.window .chrome .browser-container > .browser-view {
-  height: calc(100% - var(--statusbar-height));
-}
-
-.appframe.window.chrome-visible .chrome .browser-container > .browser-view {
-  top: calc(var(--chrome-tablist-height) + (var(--chrome-toolbar-gap) * 2));
-  height: calc(100% - (var(--chrome-tablist-height) + (var(--chrome-toolbar-gap) * 2)));
-}
-
-#screen .appframe.window.fullscreen .chrome .browser-container > .browser-view,
-#screen .appframe.window.immersive .chrome .browser-container > .browser-view {
-  height: calc(100% + var(--software-buttons-height));
-}
-
-#screen.software-buttons-enabled .appframe:not(.fullscreen) .chrome.visible .browser-view {
-  top: calc(
-    var(--statusbar-height) + var(--chrome-tablist-height) + var(--chrome-navbar-height) +
-      (var(--chrome-toolbar-gap) * 2)
-  );
-  height: calc(
-    100% - var(--statusbar-height) - var(--software-buttons-height) - var(--chrome-tablist-height) -
-      var(--chrome-navbar-height) - (var(--chrome-toolbar-gap) * 2)
-  );
-}
-
-@media screen and (max-width: 767px) and (orientation: landscape) {
-  #screen.software-buttons-enabled .appframe:not(.fullscreen) .chrome.visible .browser-view {
-    top: calc(var(--statusbar-height) + var(--chrome-navbar-height) + var(--chrome-toolbar-gap));
-    height: calc(100% - var(--statusbar-height) - var(--chrome-navbar-height) - (var(--chrome-toolbar-gap) * 2));
-  }
-}
-
-#screen .appframe.window .chrome:not(.side-tabs).visible .browser-view {
-  top: calc(var(--chrome-tablist-height) + var(--chrome-navbar-height) + (var(--chrome-toolbar-gap) * 3));
-  height: calc(100% - var(--chrome-tablist-height) - var(--chrome-navbar-height) - (var(--chrome-toolbar-gap) * 3));
-}
-
-#screen.software-buttons-enabled .appframe .chrome.bottom.visible .browser-view {
-  top: var(--statusbar-height);
-}
-
-.appframe.sb-overlay .chrome .browser-view {
-  top: 0;
-  height: calc(100% - 2.5rem);
-}
-
-#screen.software-buttons-enabled .appframe.sb-overlay .chrome .browser-view {
-  height: calc(100% - var(--software-buttons-height));
-}
-
-#screen.software-buttons-enabled .appframe.fullscreen .chrome .browser-view,
-#screen.software-buttons-enabled .appframe.immersive .chrome .browser-view,
-.appframe.fullscreen .chrome .browser-view,
-.appframe.immersive .chrome .browser-view {
-  top: 0;
-  height: 100%;
-}
-
 .appframe.window.immersive #screen.software-buttons-enabled .appframe.window.immersive {
   height: calc(100% + var(--software-buttons-height));
-}
-
-@media screen and (max-width: 767px) and (orientation: portrait) {
-  .appframe:not(.fullscreen) .chrome.visible .browser-view {
-    top: calc(var(--statusbar-height) + var(--chrome-navbar-height) + var(--chrome-toolbar-gap));
-    height: calc(100% - var(--statusbar-height) - 2.5rem - var(--chrome-navbar-height) - var(--chrome-toolbar-gap));
-  }
-
-  #screen.software-buttons-enabled .appframe:not(.fullscreen) .chrome.visible .browser-view {
-    top: calc(var(--statusbar-height) + var(--chrome-navbar-height) + var(--chrome-toolbar-gap));
-    height: calc(
-      100% - var(--statusbar-height) - var(--software-buttons-height) - var(--chrome-navbar-height) -
-        var(--chrome-toolbar-gap)
-    );
-  }
 }
 
 .appframe .splashscreen {

@@ -239,6 +239,9 @@ const InternalPreload = {
   },
 
   onMouseOver: function (event: MouseEvent) {
+    if (deviceType && deviceType !== 'desktop') {
+      return;
+    }
     const targetElement = event.target as HTMLElement;
 
     if (targetElement && targetElement.nodeName !== 'WEBVIEW' && targetElement.getAttribute('title')) {

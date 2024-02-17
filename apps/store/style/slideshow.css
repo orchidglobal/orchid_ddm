@@ -80,27 +80,39 @@
   height: 100%;
   padding: 0 5rem;
 }
+html[dir="ltr"] #slideshow > .slideshow .text-holder {
+  background: linear-gradient(to right, var(--slideshow-accent, #000) 20%, transparent);
+}
+html[dir="rtl"] #slideshow > .slideshow .text-holder {
+  background: linear-gradient(to left, var(--slideshow-accent, #000) 20%, transparent);
+}
 
 #slideshow > .slideshow .text-holder h1 {
   width: 100%;
   max-width: 40rem;
   margin: 0;
-  overflow: hidden;
-  color: #fff;
-  font-weight: bold;
-  font-size: 3.6rem;
+  color: #e7e7e7;
+  font-weight: 600;
+  font-size: 4rem;
+  font-family: 'Orchid Brand';
   text-overflow: ellipsis;
+  text-shadow: 0 0.4rem 1.6rem var(--slideshow-accent, #000);
 }
 
 #slideshow > .slideshow .text-holder p {
   width: 100%;
   max-width: 40rem;
   margin: 0;
-  overflow: hidden;
-  color: #fff;
+  color: #e7e7e7;
   font-weight: normal;
   font-size: 1.6rem;
   text-overflow: ellipsis;
+  text-shadow: 0 0.4rem 1.6rem var(--slideshow-accent, #000);
+}
+
+#slideshow > .slideshow.light .text-holder h1,
+#slideshow > .slideshow.light .text-holder p {
+  color: #333;
 }
 
 #slideshow > .slideshow .text-holder nav {
@@ -117,27 +129,31 @@
   height: 4rem;
   padding: 0 1.5rem;
   border-radius: 2rem;
-  backdrop-filter: blur(20px) saturate(180deg);
-  background-color: rgba(51, 51, 51, 0.3);
-  color: #fff;
+  /* backdrop-filter: blur(20px) saturate(180%); */
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #e7e7e7;
   font-weight: normal;
   font-size: 1.6rem;
   line-height: 4rem;
   text-decoration: none;
-  transition: transform 0.3s ease;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease;
+}
+
+#slideshow > .slideshow.light .text-holder nav a {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #333;
 }
 
 #slideshow > .slideshow .text-holder nav a:hover {
   outline: none;
   background-color: var(--item-hover);
-  transition: background-color 0.1s ease, box-shadow 0.1s ease;
+  transition: box-shadow 0.1s ease;
 }
 
 #slideshow > .slideshow .text-holder nav a:active {
   outline: none;
   background-color: var(--item-active);
-  transition: background-color 0.1s ease, box-shadow 0.1s ease;
+  transition: box-shadow 0.1s ease;
 }
 
 #slideshow > .slideshow .text-holder nav a.recommend {
@@ -175,6 +191,10 @@
   transition: background-color 0.3s cubic-bezier(0.5, 0.8, 0, 1), width 0.3s cubic-bezier(0.5, 0.8, 0, 1);
 }
 
+#slideshow-dots > .dot:hover {
+  background-color: var(--accent-color);
+}
+
 #slideshow-dots > .dot.active {
   width: 4rem;
   background-color: var(--text-color);
@@ -189,6 +209,7 @@
   margin: 0;
   padding: 0;
   background-color: transparent;
+  color: #858585;
   line-height: 10rem;
 }
 

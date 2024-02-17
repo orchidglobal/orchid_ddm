@@ -1,3 +1,8 @@
+@font-face {
+  src: url(/fonts/ReadexPro-VariableFont_HEXP.ttf);
+  font-family: 'Orchid Brand';
+}
+
 section[role="panel"] > header:first-child > img {
   display: none;
 }
@@ -69,4 +74,10 @@ section[role="panel"] > header:first-child .searchbox .avatar > img {
 
 #notifications {
   z-index: 15;
+}
+
+#searchbox {
+  z-index: 1;
+  position: relative;
+  margin: 0.5rem 0;
 }

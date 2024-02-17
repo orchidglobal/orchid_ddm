@@ -31,6 +31,7 @@ ul {
   width: 100%;
   height: 100%;
   background-color: var(--background);
+  user-select: none;
 }
 
 section[role="panel"] {
@@ -83,7 +84,7 @@ section[role="panel"] > section {
   flex-grow: 1;
   width: 100%;
   height: 100%;
-  padding-bottom: var(--software-buttons-height);
+  padding-bottom: calc(var(--software-buttons-height) + 1.5rem);
   overflow-y: auto;
   scrollbar-width: none;
 }
@@ -94,17 +95,17 @@ section[role="panel"] > section > .scroll-content {
 }
 
 section[role="panel"] > section > *:not(.scroll-content, .scrollbar-track, .bb-emptyscreen),
-section[role="panel"] > section > .scroll-content > *:not(.bb-emptyscreen) {
+section[role="panel"] > section > .scroll-content > *:not(.scroll-content, .bb-emptyscreen) {
   visibility: hidden;
-  transform: translateY(3rem);
+  transform: translateY(-100%);
   opacity: 0;
   transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.1, 1) 0.5s, opacity 0.5s cubic-bezier(0.2, 0.9, 0.1, 1) 0.5s, visibility 0.5s ease 0.5s;
 }
 
 section[role="panel"].visible > section > *:not(.scroll-content, .scrollbar-track, .bb-emptyscreen),
 section[role="panel"].will-be-visible > section > *:not(.scroll-content, .scrollbar-track, .bb-emptyscreen),
-section[role="panel"].visible > section > .scroll-content > *:not(.bb-emptyscreen),
-section[role="panel"].will-be-visible > section > .scroll-content > *:not(.bb-emptyscreen) {
+section[role="panel"].visible > section > .scroll-content > *:not(.scroll-content, .bb-emptyscreen),
+section[role="panel"].will-be-visible > section > .scroll-content > *:not(.scroll-content, .bb-emptyscreen) {
   visibility: visible;
   transform: translateY(0);
   opacity: 1;

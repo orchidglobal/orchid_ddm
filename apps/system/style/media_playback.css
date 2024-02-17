@@ -3,7 +3,7 @@
   flex-grow: 1;
   width: 100%;
   min-height: 6.5rem;
-  border-radius: 2rem;
+  border-radius: 2.5rem;
   background-color: var(--tray-button-background);
   transition: all 0.3s ease;
 }
@@ -15,37 +15,52 @@
 #media-playback .content {
   box-sizing: border-box;
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 100%;
+  height: 100%;
   padding: 1rem;
-  color: var(--text-color);
+  color: var(--tray-button-text-color);
+}
+
+#media-playback-artwork {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: 0.5rem;
+  border-radius: 1rem;
+  background-color: #858585;
 }
 
 #media-playback-title {
   box-sizing: border-box;
+  width: 100%;
   padding: 0 0.5rem;
-  color: var(--text-color);
-  font-size: 1.5rem;
-  line-height: 2.1rem;
+  overflow: hidden;
+  color: var(--tray-button-text-color);
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 #media-playback-artist {
   box-sizing: border-box;
+  width: 100%;
   padding: 0 0.5rem;
-  color: var(--text-color);
-  font-size: 1.3rem;
-  line-height: 1.9rem;
+  overflow: hidden;
+  color: var(--tray-button-text-color);
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   opacity: 0.5;
 }
 
 #media-playback .content .buttons {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   width: 100%;
   height: 3.2rem;
-  margin: 0.5rem 0 0;
-  padding: 0;
   gap: 0.8rem;
   direction: ltr;
 }
@@ -60,7 +75,7 @@
   border: none;
   border-radius: 1.6rem;
   background-color: transparent;
-  color: var(--text-color);
+  color: var(--tray-button-text-color);
   /* line-height: 3.2rem; */
   text-align: center;
   transition: all 0.3s ease;
@@ -68,12 +83,10 @@
 
 #media-playback .content .buttons button:hover {
   transform: scale(1.1);
-  transition: all 0.1s ease;
 }
 
 #media-playback .content .buttons button:active {
   transform: scale(0.9);
-  transition: all 0.1s ease;
 }
 
 #media-playback .content .buttons button[data-icon]::before {

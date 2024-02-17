@@ -1,4 +1,10 @@
 #lockscreen {
+  --accent-color-primary-r: var(--lockscreen-accent-color-primary-r);
+  --accent-color-primary-g: var(--lockscreen-accent-color-primary-g);
+  --accent-color-primary-b: var(--lockscreen-accent-color-primary-b);
+  --accent-color-secondary-r: var(--lockscreen-accent-color-secondary-r);
+  --accent-color-secondary-g: var(--lockscreen-accent-color-secondary-g);
+  --accent-color-secondary-b: var(--lockscreen-accent-color-secondary-b);
   visibility: hidden;
   position: absolute;
   top: 0;
@@ -87,13 +93,13 @@
 }
 
 #lockscreen.transitioning #lockscreen-container,
-#lockscreen.transitioning #lockscreen-notification-badge,
+#lockscreen.transitioning #lockscreen-notifications-badge,
 #lockscreen.transitioning #lockscreen-toolbar {
   transition: all 0.5s ease;
 }
 
 #screen.close-reach #lockscreen-container,
-#screen.close-reach #lockscreen-notification-badge,
+#screen.close-reach #lockscreen-notifications-badge,
 #screen.close-reach #lockscreen-toolbar {
   transform: translateY(calc(40vh + (-100vh * (1 - var(--motion-progress, 1)))));
 }
@@ -169,12 +175,16 @@
   translate: -50% -50%;
 }
 
+#lockscreen.notifications-visible .clock {
+  top: 30%;
+}
+
 #lockscreen-clock {
   width: var(--lockscreen-clock-width);
   height: 1.8em;
   transform: scale(calc(0.75 + (0.25 * var(--motion-progress, 1))));
   color: #fff;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 10rem;
   line-height: 0.9em;
   text-align: center;
@@ -182,7 +192,7 @@
   transition: all 0.3s ease;
 }
 
-#lockscreen.low-power #lockscreen-clock {
+#lockscreen.notifications-visible #lockscreen-clock {
   width: calc(var(--lockscreen-clock-hours-width) + var(--lockscreen-clock-mins-width) + 0.3em);
   height: 0.9em;
   font-size: 8.5rem;
@@ -202,7 +212,7 @@
   text-align: center;
 }
 
-#lockscreen.low-power #lockscreen-clock > #lockscreen-clock-hours {
+#lockscreen.notifications-visible #lockscreen-clock > #lockscreen-clock-hours {
   width: unset;
 }
 
@@ -216,7 +226,7 @@
   transition: all 0.3s ease;
 }
 
-#lockscreen.low-power #lockscreen-clock > #lockscreen-clock-mins {
+#lockscreen.notifications-visible #lockscreen-clock > #lockscreen-clock-mins {
   width: unset;
   transform: translateX(calc(var(--lockscreen-clock-hours-width) + 0.3em));
 }
@@ -232,9 +242,19 @@
   transition: all 0.3s ease;
 }
 
-#lockscreen.low-power #lockscreen-clock > .seperator {
+#lockscreen.notifications-visible #lockscreen-clock > .seperator {
   visibility: visible;
+  animation: clock-seperator 1s ease infinite;
   opacity: 0.5;
+}
+
+@keyframes clock-seperator {
+  0%, 100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 #lockscreen-date {
@@ -325,16 +345,16 @@
   visibility: hidden;
   z-index: 2;
   position: absolute;
-  top: 40%;
+  top: 45%;
   left: 1rem;
   width: calc(100% - 2rem);
-  height: calc(60% - 10rem);
+  height: calc(45% - 3rem);
   margin: 0;
   padding: 0;
   overflow-y: auto;
-  transform: scale(0.25);
-  transform-origin: top;
-  border-radius: 2rem;
+  transform: scale(0.75);
+  transform-origin: bottom;
+  border-radius: 2.5rem;
   opacity: 0;
   transition: all 0.3s ease;
 }
@@ -366,12 +386,12 @@
   list-style: none;
 }
 
-#lockscreen-notification-badge {
+#lockscreen-notifications-badge {
   box-sizing: border-box;
   display: flex;
   z-index: 2;
   position: absolute;
-  top: 40%;
+  top: 75%;
   left: 50%;
   align-items: center;
   padding: 1rem 1.5rem;
@@ -386,17 +406,17 @@
   transition: all 0.3s ease;
 }
 
-#lockscreen:not(.low-power) #lockscreen-notification-badge.hidden {
+#lockscreen:not(.low-power) #lockscreen-notifications-badge.hidden {
   visibility: hidden;
   transform: scale(1.5);
   opacity: 0;
 }
 
-#lockscreen.low-power #lockscreen-notification-badge {
+#lockscreen.low-power #lockscreen-notifications-badge {
   background-color: var(--item-plus);
   color: #fff;
 }
 
-#lockscreen-notification-badge[data-icon]::before {
+#lockscreen-notifications-badge[data-icon]::before {
   font-size: 2rem;
 }

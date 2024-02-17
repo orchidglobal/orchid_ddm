@@ -4,15 +4,17 @@ body {
   padding: 0;
   background-color: transparent;
   font-size: 10px;
+  user-select: none;
 }
 
 .controls {
+  -webkit-app-region: drag;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  background-color: #f0f6ff;
 }
 
 .controls menu[role='toolbar'] {
@@ -26,6 +28,7 @@ body {
 }
 
 .controls menu[role='toolbar'] > button {
+  -webkit-app-region: none;
   width: 100%;
   height: 4rem;
   border: none;

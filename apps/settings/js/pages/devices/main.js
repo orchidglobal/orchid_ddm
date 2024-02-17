@@ -81,30 +81,31 @@
         let firstName;
         let deviceType;
 
-        const userData = await OrchidServices.get(`profile/${await OrchidServices.userID()}`);
-        const deviceData = await OrchidServices.get(`devices/${device.token}`);
+        const deviceID = device.token;
 
-        if (userData.username.includes(' ')) {
-          return userData.username.split(' ')[0];
+        const username = await _os.auth.getUsername();
+        if (username.includes(' ')) {
+          return username.split(' ')[0];
         } else {
           // If username is in camelCase, extract the first word
-          const camelCaseMatch = userData.username.match(/[A-Z]?[a-z]+/g);
+          const camelCaseMatch = username.match(/[A-Z]?[a-z]+/g);
           if (camelCaseMatch) {
             firstName = camelCaseMatch[0];
           } else {
-            firstName = userData.username; // Return the username if no spaces or camelCase found
+            firstName = username; // Return the username if no spaces or camelCase found
           }
         }
 
-        if (deviceData.user_agent.includes('Mobile')) {
+        const userAgent = await _os.devices.getUserAgent(deviceID);
+        if (userAgent.includes('Mobile')) {
           deviceType = 'Phone';
-        } else if (deviceData.user_agent.includes('Smart TV')) {
+        } else if (userAgent.includes('Smart TV')) {
           deviceType = 'Smart TV';
-        } else if (deviceData.user_agent.includes('VR')) {
+        } else if (userAgent.includes('VR')) {
           deviceType = 'VR Headset';
-        } else if (deviceData.user_agent.includes('Homepad')) {
+        } else if (userAgent.includes('Homepad')) {
           deviceType = 'Homepad';
-        } else if (deviceData.user_agent.includes('Wear')) {
+        } else if (userAgent.includes('Wear')) {
           deviceType = 'Smartwatch';
         } else {
           deviceType = 'PC';
@@ -140,7 +141,7 @@
         wifi.classList.add('wifi');
         statusbar.appendChild(wifi);
 
-        OrchidServices.getWithUpdate(`devices/${device.token}`, (data) => {
+        _os.devices.getLiveDevice(deviceID, (data) => {
           name.textContent = data.device_name || `${firstName}'s ${deviceType}`;
 
           battery.dataset.icon =

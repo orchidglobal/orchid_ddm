@@ -2,5 +2,15 @@
   "system.blank.url": "http://system.localhost:8081/blank.html",
   "system.main.url": "http://system.localhost:8081/index.html",
   "system.net_error.url": "http://system.localhost:8081/net_error.html",
-  "system.edition": "mobile"
+  "system.edition": "desktop",
+
+  "system.shell_mode.dock.url": "http://system.localhost:8081/shell_mode/dock.html",
+  "system.shell_mode.desktop.url": "http://system.localhost:8081/shell_mode/desktop.html",
+  "system.shell_mode.splash.url": "http://system.localhost:8081/shell_mode/splash.html",
+  "system.shell_mode.notification.url": "http://system.localhost:8081/shell_mode/notification.html",
+  "system.shell_mode.popover.url": "http://system.localhost:8081/shell_mode/popover.html",
+  "system.shell_mode.menu.url": "http://system.localhost:8081/shell_mode/menu.html",
+  "system.shell_mode.dropdown-menu.url": "http://system.localhost:8081/shell_mode/dropdown-menu.html",
+  "system.shell_mode.tooltip.url": "http://system.localhost:8081/shell_mode/tooltip.html",
+  "system.shell_mode.sheet.url": "http://system.localhost:8081/shell_mode/sheet.html"
 }

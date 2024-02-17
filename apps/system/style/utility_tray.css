@@ -1,8 +1,10 @@
 #utility-tray {
-  --tray-button-background: var(--acrylic-background-plus);
-  --tray-button-background-plus: rgba(0, 0, 0, 0.05);
-  --tray-button-text-color: var(--text-color);
-
+  --tray-button-background: rgba(255, 255, 255, 0.5);
+  --tray-button-background-minus: rgba(255, 255, 255, 0.3);
+  --tray-button-background-plus: rgba(51, 51, 51, 0.1);
+  --tray-button-active: rgba(51, 51, 51, 0.5);
+  --tray-button-text-color: #333;
+  --tray-button-text-color-faded: rgba(51, 51, 51, 0.5);
   position: fixed;
   top: 0;
   left: 0;
@@ -14,8 +16,12 @@
 
 @media screen and (prefers-color-scheme: dark) {
   #utility-tray {
-    --tray-button-background: rgba(0, 0, 0, 0.4);
+    --tray-button-background: rgba(0, 0, 0, 0.5);
+    --tray-button-background-minus: rgba(0, 0, 0, 0.3);
     --tray-button-background-plus: rgba(255, 255, 255, 0.1);
+    --tray-button-active: rgba(255, 255, 255, 0.5);
+    --tray-button-text-color: #fff;
+    --tray-button-text-color-faded: rgba(255, 255, 255, 0.5);
   }
 }
 
@@ -44,27 +50,13 @@
   transition: backdrop-filter 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
 }
 
-#utility-tray.brightness-changing #utility-tray-motion {
-  background-color: transparent;
-}
-
-#screen:not(.desktop) #utility-tray.brightness-changing #utility-tray-motion {
-  background-image: linear-gradient(
-    to bottom,
-    rgba(51, 51, 51, 0.8),
-    rgba(51, 51, 51, 0.8) calc(var(--statusbar-height) * 2),
-    transparent calc(var(--statusbar-height) * 3),
-    transparent
-  );
-}
-
 #utility-tray-motion.visible {
   visibility: visible;
   opacity: 1;
 }
 
 #screen.gpu-capable #utility-tray.brightness-changing #utility-tray-motion.visible {
-  backdrop-filter: blur(0px) saturate(100%);
+  backdrop-filter: blur(10px) saturate(100%);
 }
 
 #utility-tray-motion::-webkit-scrollbar {
@@ -74,11 +66,11 @@
 .utility-tray-header {
   box-sizing: border-box;
   display: flex;
+  flex-shrink: 0;
   width: 100%;
   height: 5rem;
   padding: 0 1.5rem;
   transform: scale(calc(0.9 + (0.1 * var(--motion-progress, 0)))) translateY(calc(1.5rem * var(--overscroll-progress)));
-  filter: blur(calc(20px * (1 - var(--motion-progress, 0))));
   opacity: var(--motion-progress, 0);
   transition: transform 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
 }
@@ -141,19 +133,39 @@
 }
 
 .utility-tray-content {
+  box-sizing: border-box;
+  flex-grow: 1;
   width: 100%;
-  height: calc(100% - 5rem - var(--statusbar-height) - var(--software-buttons-height));
+  height: 100%;
+  padding-bottom: 2.5rem;
+  overflow: auto;
+  transform: scale(calc(0.9 + (0.1 * var(--motion-progress, 0)))) translateY(calc(2.5rem * var(--overscroll-progress)));
+  transition: transform 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
+}
+
+#utility-tray-motion.transitioning .utility-tray-content {
+  transition: transform 0.5s ease, filter 0.5s ease, opacity 0.5s ease;
+}
+
+#screen.software-buttons-enabled .utility-tray-content {
+  padding-bottom: var(--software-buttons-height);
+}
+
+#screen.desktop .utility-tray-content {
+  padding-bottom: 0;
 }
 
 #control-center,
 #notifications {
   box-sizing: border-box;
+  display: flex;
   position: absolute;
   top: 0;
   left: 0;
+  flex-direction: column;
   width: 100%;
   height: 100%;
-  padding: calc(var(--statusbar-height) * 2) 0 2.5rem;
+  padding: calc(var(--statusbar-height) * 2) 0 0;
   overflow-x: hidden;
   overflow-y: scroll;
   perspective: 100vw;
@@ -195,43 +207,16 @@
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.control-center-row #media-playback,
-.control-center-row #connection-settings > *,
-.control-center-row #quick-settings,
-.control-center-row #devices {
-  transform: scale(calc(0.9 + (0.1 * var(--motion-progress, 0))));
-  transition: transform 0.3s ease;
-}
-
-.control-center-row #connection-settings > li:last-child {
-  transform: scale(calc(0.9 + (0.1 * var(--motion-progress, 0)))) translateY(calc(0.5rem * var(--overscroll-progress)));
-}
-
-.control-center-row:nth-child(2) {
-  transform: translateY(calc(2rem * var(--overscroll-progress)));
-}
-
-.control-center-row:nth-child(3) {
-  transform: translateY(calc(3rem * var(--overscroll-progress)));
-}
-
-.control-center-row:nth-child(4) {
-  transform: translateY(calc(4rem * var(--overscroll-progress)));
-}
-
 #utility-tray-motion.transitioning .control-center-row {
   transition: transform 0.5s ease calc(50ms * var(--transition-order)), opacity 0.5s ease calc(50ms * var(--transition-order)),
     visibility 0.5s ease calc(50ms * var(--transition-order));
 }
 
 #notifications-container {
-  transition: transform 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.3s ease;
 }
 
-#screen:not(.desktop) #utility-tray-motion .hidden #notifications-container,
-#screen:not(.desktop) #utility-tray-motion.fade-out #notifications-container {
-  visibility: hidden;
-  transform: scale(0.9);
+#utility-tray.brightness-changing #notifications-container {
   opacity: 0;
 }
 

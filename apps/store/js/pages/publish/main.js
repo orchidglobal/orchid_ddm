@@ -2,6 +2,8 @@
   'use strict';
 
   const Publish = {
+    confirmButton: document.getElementById('publish-confirm-button'),
+
     publishOptions: document.getElementById('publish-options'),
     webappFileForm: document.getElementById('publish-webapp-file-form'),
     webappFileInput: document.getElementById('publish-webapp-file-input'),
@@ -39,7 +41,13 @@
 
       this.categoriesEditable = new Tags(this.categoriesInput);
       this.tagsEditable = new Tags(this.tagsInput);
+
+      this.confirmButton.addEventListener('click', this.handleConfirmButton.bind(this));
     },
+
+    handleConfirmButton: function () {
+      _os.store.publish({});
+    }
 
     uploadApp: async function () {
       await uploadAppIcon();

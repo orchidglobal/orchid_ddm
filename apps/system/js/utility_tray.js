@@ -144,13 +144,13 @@
 
     handleBluetoothButtonHold: function () {
       Transitions.scale(this.bluetoothButton.parentElement, this.bluetoothPanel);
-      this.controlCenter.classList.add('hidden');
+      this.element.classList.add('panel-open');
       this.bluetoothPanel.classList.add('visible');
     },
 
     handleBluetoothBackButton: function () {
       Transitions.scale(this.bluetoothPanel, this.bluetoothButton.parentElement);
-      this.controlCenter.classList.remove('hidden');
+      this.element.classList.remove('panel-open');
       this.bluetoothPanel.classList.remove('visible');
     },
 

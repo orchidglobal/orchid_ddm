@@ -4,6 +4,7 @@ const SettingsHandler = {
   appElement: null as HTMLElement | null,
 
   deviceType: '',
+  wallpaperUrl: '',
 
   settings: [
     'general.lang.code',
@@ -137,6 +138,7 @@ const SettingsHandler = {
       return;
     }
     const scrollingElement = document.scrollingElement as HTMLElement | null;
+    this.wallpaperUrl = value;
 
     this.getImageDominantColor(value, { colors: 2, brightness: 1 }).then(async (color: any) => {
       // Convert the color to RGB values
@@ -146,6 +148,15 @@ const SettingsHandler = {
       let r2 = color[1].r;
       let g2 = color[1].g;
       let b2 = color[1].b;
+
+      if (location.hostname === 'system.localhost') {
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-r', r1);
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-g', g1);
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-b', b1);
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-r', r2);
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-g', g2);
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-b', b2);
+      }
 
       // Calculate relative luminance
       const luminance1 = (0.2126 * r1 + 0.7152 * g1 + 0.0722 * b1) / 255;
@@ -236,6 +247,24 @@ const SettingsHandler = {
     }
     const scrollingElement = document.scrollingElement as HTMLElement | null;
 
+    if (this.wallpaperUrl && location.hostname === 'system.localhost') {
+      this.getImageDominantColor(this.wallpaperUrl, { colors: 2, brightness: 1 }).then((color: any) => {
+        let r1 = color[0].r;
+        let g1 = color[0].g;
+        let b1 = color[0].b;
+        let r2 = color[1].r;
+        let g2 = color[1].g;
+        let b2 = color[1].b;
+
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-r', r1);
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-g', g1);
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-b', b1);
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-r', r2);
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-g', g2);
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-b', b2);
+      });
+    }
+
     scrollingElement?.style.setProperty('--accent-color-primary-r', value.primary.r);
     scrollingElement?.style.setProperty('--accent-color-primary-g', value.primary.g);
     scrollingElement?.style.setProperty('--accent-color-primary-b', value.primary.b);
@@ -264,6 +293,8 @@ const SettingsHandler = {
 
     if (this.deviceType === 'featurephone' || this.deviceType === 'qwertyphone') {
       this.appElement.style.setProperty('--statusbar-height', '3.2rem');
+    } else if (this.deviceType === 'desktop') {
+      this.appElement.style.setProperty('--statusbar-height', '3.6rem');
     } else {
       this.appElement.style.setProperty('--statusbar-height', '4rem');
     }

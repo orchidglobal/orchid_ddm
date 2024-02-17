@@ -47,6 +47,7 @@
 
       window.addEventListener('orchid-services-ready', this.handleServicesLoad.bind(this));
       document.addEventListener('click', this.onClick.bind(this));
+      document.addEventListener('keydown', this.handleMetaKey.bind(this));
       this.launcherButton.addEventListener('click', this.handleLauncherButtonClick.bind(this));
       this.maximizeButton.addEventListener('click', this.handleLauncherMaximizeButtonClick.bind(this));
       this.gridElement.addEventListener('pointerdown', this.onPointerDown.bind(this));
@@ -81,8 +82,34 @@
       window.removeEventListener('orchid-services-ready', this.handleServicesLoad.bind(this));
     },
 
+    handleMetaKey: function (event) {
+      if (event.isMetaKey && !event.repeat) {
+        event.preventDefault();
+
+        if (this.isVisible) {
+          this.hide();
+        } else {
+          this.show();
+        }
+      }
+    },
+
     handleLauncherButtonClick: function (event) {
-      this.element.classList.toggle('visible');
+      if (this.isVisible) {
+        this.hide();
+      } else {
+        this.show();
+      }
+    },
+
+    show: function () {
+      this.isVisible = true;
+      this.element.classList.add('visible');
+    },
+
+    hide: function () {
+      this.isVisible = false;
+      this.element.classList.remove('visible');
     },
 
     handleLauncherMaximizeButtonClick: function (event) {

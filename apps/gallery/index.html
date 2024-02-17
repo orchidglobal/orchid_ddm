@@ -41,7 +41,7 @@
 
 <body>
   <main id="app" role="app">
-    <div class="bb-tablist">
+    <nav class="bb-tablist">
       <ul>
         <li><a href="#library" class="selected" data-page-id="library">
             <span data-icon="library"></span>
@@ -58,58 +58,50 @@
       </ul>
     </nav>
 
-    <div id="views">
+    <div id="views" class="bb-tablist-views">
       <section id="library" class="visible" role="panel">
         <header>
-          <div class="safezone">
-            <h1 data-l10n-id="title"></h1>
-            <menu role="toolbar">
-              <a href="#" data-icon="options"></a>
-            </menu>
-          </div>
+          <h1 data-l10n-id="library"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="options"></a>
+          </menu>
         </header>
-        <div class="content">
+        <section>
           <div id="images-container"></div>
-        </div>
+        </section>
       </section>
 
       <section id="folders" role="panel">
         <header>
-          <div class="safezone">
-            <h1 data-l10n-id="folders"></h1>
-            <menu role="toolbar">
-              <a href="#" data-icon="options"></a>
-            </menu>
-          </div>
+          <h1 data-l10n-id="folders"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="options"></a>
+          </menu>
         </header>
-        <div class="content"></div>
+        <section></section>
       </section>
 
       <section id="memories" role="panel">
         <header>
-          <div class="safezone">
-            <h1 data-l10n-id="memories"></h1>
-            <menu role="toolbar">
-              <a href="#" data-icon="options"></a>
-            </menu>
-          </div>
+          <h1 data-l10n-id="memories"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="options"></a>
+          </menu>
         </header>
-        <div class="content"></div>
+        <section></section>
       </section>
     </div>
 
     <section id="image-viewer" role="panel">
       <header class="compact">
-        <div class="safezone">
-          <h1 id="image-viewer-title"></h1>
-          <menu role="toolbar">
-            <a href="#" data-icon="help"></a>
-          </menu>
-        </div>
+        <h1 id="image-viewer-title"></h1>
+        <menu role="toolbar">
+          <a href="#" data-icon="help"></a>
+        </menu>
       </header>
-      <div class="content">
+      <section>
         <div id="images-container"></div>
-      </div>
+      </section>
       <div class="toolbar">
         <div class="safezone">
           <button id="image-viewer-camera" data-icon="camera"></button>

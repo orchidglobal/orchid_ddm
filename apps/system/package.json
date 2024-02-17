@@ -1,0 +1,18 @@
+{
+  "name": "system",
+  "version": "1.0.0",
+  "description": "The system webapp is a crucial part for OrchidOS' web-based UI to display and function.",
+  "main": "webpack.dev.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.90.1",
+    "webpack-cli": "^5.1.4"
+  }
+}

@@ -1,9 +1,11 @@
 #devices {
+  display: flex;
   position: relative;
   flex-grow: 1;
+  flex-direction: column;
   width: 100%;
-  border-radius: 2rem;
-  /* background-color: var(--tray-button-background); */
+  overflow: hidden;
+  border-radius: 2.5rem;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
@@ -16,55 +18,61 @@
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  height: 4rem;
-  padding: 0 1rem;
-  padding-inline-end: 0.5rem;
+  height: 4.5rem;
+  padding: 0 1.5rem;
+  padding-inline-end: 1rem;
   gap: 1rem;
+  border-radius: 1rem;
+  background-color: var(--tray-button-background);
 }
 
 #devices > header h1 {
   flex-grow: 1;
   width: 100%;
-  height: 4rem;
+  height: 4.5rem;
   margin: 0;
-  color: #fff;
+  color: var(--tray-button-text-color);
   font-weight: normal;
   font-size: 1.6rem;
-  line-height: 4rem;
+  line-height: 4.5rem;
 }
 
 #devices > header button {
-  width: 4rem;
-  height: 4rem;
+  width: 4.5rem;
+  height: 4.5rem;
   margin: 0;
   padding: 0;
   border: none;
   border-radius: 0;
   background-color: transparent;
-  color: #fff;
-  line-height: 4rem;
+  color: var(--tray-button-text-color);
+  line-height: 4.5rem;
 }
 
 #devices > header button[data-icon]::before {
   position: static;
+  height: 4.5rem;
   font-size: 2rem;
 }
 
 #devices-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(29rem, 1fr));
+  gap: 0.5rem;
+}
+
+#devices-list:not(:empty) {
+  margin-top: 0.5rem;
 }
 
 .device {
   box-sizing: border-box;
   position: relative;
-  aspect-ratio: 1 / 1;
   width: 100%;
   height: 100%;
   padding-bottom: 4.6rem;
   overflow: hidden;
-  border-radius: 1.5rem;
+  border-radius: 1rem;
   background-color: var(--tray-button-background);
   list-style: none;
 }
@@ -96,17 +104,17 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
 }
 
 .device .text-holder .name {
-  color: var(--text-color);
+  color: var(--tray-button-text-color);
   font-weight: normal;
   font-size: 1.6rem;
 }
 
 .device .text-holder .type {
-  color: var(--text-color-faded);
+  color: var(--tray-button-text-color-faded);
   font-weight: normal;
   font-size: 1.4rem;
 }
@@ -129,7 +137,7 @@
 .device .statusbar > div {
   width: 2rem;
   height: 2rem;
-  color: var(--text-color);
+  color: var(--tray-button-text-color);
 }
 
 .device .statusbar > div[data-icon]::before {

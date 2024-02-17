@@ -24,12 +24,12 @@
   left: 50%;
   object-fit: cover;
   translate: -50% -50%;
+  opacity: 0;
   transition: opacity 0.5s ease;
 }
 
-#splashscreen.hidden #splashscreen-video,
-#splashscreen.safety-warning #splashscreen-video {
-  opacity: 0;
+#splashscreen.logo #splashscreen-video {
+  opacity: 1;
 }
 
 #splashscreen .safety-warning {
@@ -80,10 +80,10 @@
   height: 12rem;
   translate: -50% -50%;
   background: url(http://shared.localhost:8081/resources/branding/official/oslogo.svg) no-repeat center / contain;
+  opacity: 0;
   transition: opacity 0.5s ease;
 }
 
-#splashscreen.hidden .os-logo,
-#splashscreen.safety-warning .os-logo {
-  opacity: 0;
+#splashscreen.logo .os-logo {
+  opacity: 1;
 }

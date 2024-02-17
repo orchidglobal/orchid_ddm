@@ -7,7 +7,7 @@
     "name": "Orchid Organization",
     "email": "mortcodesweb+orchidorg@proton.me"
   },
-  "version": "1.0.111",
+  "version": "1.0.112",
   "main": "build_ts/src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,13 +16,13 @@
     "start": "tsc && electron ./build_ts/src/main.js",
     "dev": "tsc && electron ./build_ts/src/debug.js",
     "dist": "tsc && electron-builder --publish always",
-    "build-linux-arm": "tsc && electron-builder --linux --armv7l",
-    "build-linux-arm64": "tsc && electron-builder --linux --arm64",
-    "build-linux-x64": "tsc && electron-builder --linux --x64",
-    "build-win-arm64": "tsc && electron-builder --win --arm64",
-    "build-win-x64": "tsc && electron-builder --win --x64",
-    "build-mac-arm64": "tsc && electron-builder --mac --arm64",
-    "build-mac-x64": "tsc && electron-builder --mac --x64"
+    "build-linux-armv7h": "tsc && electron-builder --linux --armv7l",
+    "build-linux-aarch64": "tsc && electron-builder --linux --arm64",
+    "build-linux-x86_64": "tsc && electron-builder --linux --x64",
+    "build-win-aarch64": "tsc && electron-builder --win --arm64",
+    "build-win-x86_64": "tsc && electron-builder --win --x64",
+    "build-mac-aarch64": "tsc && electron-builder --mac --arm64",
+    "build-mac-x86_64": "tsc && electron-builder --mac --x64"
   },
   "license": "GPL-2.0",
   "dependencies": {

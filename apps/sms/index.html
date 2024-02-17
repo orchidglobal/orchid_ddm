@@ -33,6 +33,8 @@
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/seekbars.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/input_areas.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/empty_screen.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/empty_screen/account.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/empty_screen/messages.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/menus.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/transitions.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/skeletons.css" />
@@ -97,9 +99,16 @@
 
         <div id="empty-screen-no-contacts" class="bb-emptyscreen">
           <div class="container">
-            <div class="image-holder">
-              <img src="style/images/empty_messages.svg" alt="">
+            <div class="illustration-holder">
+              <div class="illustration messages">
+                <div class="app">
+                  <div class="app-header"></div>
+                  <div class="app-footer"></div>
+                  <div class="timeline"></div>
+                </div>
+              </div>
             </div>
+
             <div class="content">
               <div class="text-holder">
                 <p data-l10n-id="noContacts"></p>
@@ -113,9 +122,18 @@
 
         <div id="empty-screen-no-account" class="bb-emptyscreen">
           <div class="container">
-            <div class="image-holder">
-              <img src="style/images/empty_messages.svg" alt="">
+            <div class="illustration-holder">
+              <div class="illustration account">
+                <div class="computer">
+                  <div class="pin-input"></div>
+                  <div class="pin"></div>
+                  <div class="check-bg"></div>
+                  <div class="check-circle"></div>
+                  <div class="check"></div>
+                </div>
+              </div>
             </div>
+
             <div class="content">
               <div class="text-holder">
                 <h1 data-l10n-id="orchidAccount"></h1>
@@ -176,9 +194,12 @@
     </section>
 
     <section id="add-friend" role="panel">
-      <header class="compact">
+      <header>
         <a href="#" data-icon="arrow-back" data-page-id="root"></a>
         <h1 data-l10n-id="addFriend"></h1>
+        <menu role="toolbar">
+          <a href="#" id="add-friend-confirm-button" data-icon="tick"></a>
+        </menu>
       </header>
 
       <section class="lists">
@@ -188,6 +209,7 @@
             <form action="" id="add-friend-form">
               <input type="text" name="" id="add-friend-form-input" data-l10n-id="addFriendHandleInput" />
             </form>
+            <p id="add-friend-notice" data-l10n-id="addFriendAdded"></p>
           </li>
         </ul>
       </section>

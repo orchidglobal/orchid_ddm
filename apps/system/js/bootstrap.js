@@ -53,14 +53,13 @@
       // Load with AppsManager to ensure existing webapps.json and correct
       // load time that isnt too early and is low with loading overhead
       AppsManager.getAll().then(() => {
-        LazyLoader.load('https://orchid-f39a9.web.app/orchid_services.js');
-
         LazyLoader.load('js/lockscreen/clock.js');
         LazyLoader.load('js/lockscreen/date.js');
         // TODO: Implement a multi-user system
         // LazyLoader.load('js/lockscreen/login.js');
         LazyLoader.load('js/lockscreen/motion.js');
         LazyLoader.load('js/lockscreen/pin_lock.js');
+        LazyLoader.load('js/lockscreen/notifications.js');
 
         // TODO: Implement working achievements
         // LazyLoader.load('js/achievements.js');
@@ -75,6 +74,7 @@
           MusicController.play('/resources/music/bg.mp3', true);
         });
         LazyLoader.load('js/platform_classifier.js');
+        LazyLoader.load('js/rocketbar.js');
         LazyLoader.load('js/utility_tray.js', () => {
           LazyLoader.load('js/utility_tray_motion.js');
           LazyLoader.load('js/network_button.js');
@@ -82,6 +82,7 @@
         LazyLoader.load('js/webapps.js');
 
         if (window.deviceType === 'desktop') {
+          LazyLoader.load('js/app_switcher.js');
           LazyLoader.load('js/app_launcher.js');
         }
 
@@ -99,6 +100,26 @@
 
         // Hide splash screen when everything is loaded and done
         Splashscreen.hide();
+
+        if (Environment.type === 'development') {
+          LazyLoader.load('js/notification_toaster.js', () => {
+            NotificationToaster.showNotification('Development Environment', {
+              body: 'OrchidOS has detected a active development environment so we wish you a happy straightforward development :D',
+              source: 'System',
+              badge: '/style/icons/system_64.png',
+              icon: 'http://shared.localhost:8081/icons/shared_64.png',
+              actions: [
+                {
+                  label: 'Thanks',
+                  recommend: true
+                },
+                {
+                  label: 'Orchid Docs'
+                }
+              ]
+            })
+          });
+        }
       });
 
       window.addEventListener('orchid-services-ready', this.onServicesLoad.bind(this));
@@ -161,6 +182,24 @@
       // LazyLoader.load('js/remote/p2p.js');
       LazyLoader.load('js/syncing_data.js');
       LazyLoader.load('js/tray_devices.js');
+
+      LazyLoader.load('js/notification_toaster.js', () => {
+        NotificationToaster.showNotification('Orchid is ready to use!', {
+          body: 'Orchid Services have loaded successfully.',
+          source: 'System',
+          badge: '/style/icons/system_64.png',
+          icon: 'http://orchidservices.localhost:8081/style/icons/orchidsuite_64.png',
+          actions: [
+            {
+              label: 'Okay',
+              recommend: true
+            },
+            {
+              label: 'Learn More'
+            }
+          ]
+        })
+      });
     }
   };
 

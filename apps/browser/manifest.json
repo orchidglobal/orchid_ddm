@@ -28,12 +28,14 @@
     "navigation": true
   },
   "window_bounds": {
-    "left": "calc(50% - 512px)",
-    "top": "calc(50% - (640px + var(--software-buttons-height) + 2rem) / 2)",
-    "width": "1024px",
-    "height": "640px"
+    "left": 32,
+    "top": 24,
+    "width": 1024,
+    "height": 640
   },
   "platforms": [
+    "desktop",
+    "mobile",
     "smart_tv"
   ]
 }

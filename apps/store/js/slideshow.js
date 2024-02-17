@@ -4,7 +4,39 @@
   const Slideshow = {
     slides: [
       {
-        title: 'Try OrchidOS!',
+        artwork: '/images/orchid.png',
+        title: 'OrchidOS',
+        detail: 'Get the latest version of our brand new web operating system using the OrchidOS Installer webapp',
+        links: [
+          {
+            href: '#',
+            recommend: true,
+            label: 'Get'
+          },
+          {
+            href: '#',
+            label: 'Learn More'
+          }
+        ]
+      },
+      {
+        artwork: '/images/foss.png',
+        title: 'Best Of FOSS',
+        detail: 'Check out free open source webapps approved with Orchid\'s quality standards and guidelines to give a unmatched open source experience',
+        links: [
+          {
+            href: '#',
+            recommend: true,
+            label: 'FOSS Webapps'
+          },
+          {
+            href: '#',
+            label: 'Learn More'
+          }
+        ]
+      },
+      {
+        title: 'Tears Of Mother',
         detail: 'Check out OrchidOS beta',
         links: [
           {
@@ -19,12 +51,20 @@
         ]
       },
       {
-        title: 'Get OrchidOS!',
-        detail: 'Check out OrchidOS beta'
-      },
-      {
-        title: 'Code for OrchidOS!',
-        detail: 'Check out OrchidOS beta'
+        artwork: '/images/creator.png',
+        title: 'Editor\'s Pick',
+        detail: 'A list of well-rated selection of Orchid webapps picked by the Orchid team itself that you may want to look into',
+        links: [
+          {
+            href: '#',
+            label: 'Editor\'s Pick',
+            recommend: true
+          },
+          {
+            href: '#',
+            label: 'Learn More'
+          }
+        ]
       }
     ],
 
@@ -49,13 +89,31 @@
         const element = document.createElement('div');
         element.classList.add('slideshow');
 
-        const artwork = document.createElement('div');
+        const artwork = document.createElement('img');
+        artwork.src = slide.artwork;
         artwork.classList.add('artwork');
         element.appendChild(artwork);
 
         const textHolder = document.createElement('div');
         textHolder.classList.add('text-holder');
         element.appendChild(textHolder);
+
+        artwork.onload = () => {
+          ColorPicker(slide.artwork, { colors: 2 }).then(colors => {
+            const r = colors[0].r;
+            const g = colors[0].g;
+            const b = colors[0].b;
+
+            // Calculate relative luminance
+            const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+            if (luminance > 0.5) {
+              element.classList.add('light');
+            }
+
+            const rgb = `rgb(${r}, ${g}, ${b})`;
+            textHolder.style.setProperty('--slideshow-accent', rgb);
+          });
+        };
 
         const title = document.createElement('h1');
         title.classList.add('title');
