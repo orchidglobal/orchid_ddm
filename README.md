@@ -8,7 +8,7 @@ To try this simulator you'll need to clone this source code using the following 
 <pre><code>git clone --recurse-submodules https://github.com/OptiFlex-Co/OptiOS-Simulator --depth 1</code></pre>
 Then, you'll need to install node.js and npm.
 You can download it from this website: https://nodejs.org/en/download.
-After that, you need to open the cloned folder of the OptiOS Simulator on a terminal and run 2 commands:  
+After that, you need to open the cloned folder of the OptiOS Simulator on a terminal and run this command:  
 <pre><code>npm install && npm start</code></pre>
 
 Thanks for giving us a visit and we hope you enjoy OptiOS!
