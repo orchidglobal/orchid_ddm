@@ -2,7 +2,7 @@
   "system.blank.url": "http://system.localhost:8081/blank.html",
   "system.main.url": "http://system.localhost:8081/index.html",
   "system.net_error.url": "http://system.localhost:8081/net_error.html",
-  "system.edition": "desktop",
+  "system.edition": "mobile",
 
   "system.shell_mode.dock.url": "http://system.localhost:8081/shell_mode/dock.html",
   "system.shell_mode.desktop.url": "http://system.localhost:8081/shell_mode/desktop.html",
