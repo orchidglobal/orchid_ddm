@@ -12,5 +12,5 @@ After that, you need to open the cloned folder of the OptiOS Simulator on a term
 <pre><code>npm install</code></pre>
 And then this command to run the simulator:
 <pre><code>npm start</code></pre>
-Thanks for giving us a visit and we hope you enjoy OptiOS!
-:D
+Thanks for reading.
+Sincerely, Abhi.
