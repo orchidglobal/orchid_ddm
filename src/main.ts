@@ -84,10 +84,10 @@ export const Main = {
     this.startProtocolRouting();
 
     webapps(app);
-    // OrchidUI.init();
+    OrchidUI.init();
 
-    OrchidUIDesktop.init();
-    OrchidUIDock.init();
+    // OrchidUIDesktop.init();
+    // OrchidUIDock.init();
   },
 
   parseLaunchOptions: function () {
