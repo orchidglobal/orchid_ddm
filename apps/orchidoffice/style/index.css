@@ -1,0 +1,44 @@
+[role="app"] {
+  --safezone-width: 9999rem;
+}
+
+#searchbox {
+  max-width: 40rem;
+  margin: 0.5rem 0;
+  margin-inline-start: auto;
+}
+
+.documents {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  width: 100%;
+  max-width: calc(--safezone-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  gap: 1rem;
+}
+
+.document {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.document .preview-holder {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.document .preview-holder > .preview {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  border-radius: 1.5rem;
+  background-color: var(--background-plus);
+}
+
+.document .text-holder {
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.6rem;
+}

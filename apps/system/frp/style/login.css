@@ -1,34 +1,53 @@
+@font-face {
+  src: url(/fonts/ReadexPro-VariableFont_HEXP.ttf);
+  font-family: 'Orchid Brand';
+}
+
+.logo {
+  font-weight: 600 !important;
+  font-family: 'Orchid Brand';
+}
+
 #app {
-  --statusbar-height: 0rem;
-  --safezone-width: 60rem;
+  --safezone-width: 48rem;
 }
 
-h1 {
-  margin: 0;
-  padding: 0;
-  font-size: 2.4rem;
+section[role="panel"] > section {
+  padding-bottom: 1.5rem;
 }
 
-[role="panel"] > header:first-child.compact {
-  height: 6.5rem !important;
-  padding: 1.5rem 1rem 0;
+section[role="panel"] > section h1 {
+  box-sizing: border-box;
+  margin: 0 0 1rem;
+  padding: 0 2rem;
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 3rem;
 }
 
-[role="panel"] > section {
-  padding-bottom: calc(8rem + var(--software-buttons-height));
-}
+@media screen and (min-width: 768px) {
+  #app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--background-minus);
+  }
 
-[role="panel"] > [role="buttons"] {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  margin-bottom: 0;
-  background-color: var(--background-minus);
-}
+  section[role="panel"] {
+    --statusbar-height: 0rem;
+    --software-buttons-height: 0rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--safezone-width);
+    height: max-content;
+    max-height: 100%;
+    translate: -50% -50%;
+    border-radius: 2rem;
+    box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.1);
+  }
 
-[role="panel"] > [role="buttons"] button {
-  max-width: var(--safezone-width);
-  margin: 0 auto;
-  padding: 0 3rem;
+  section[role="panel"] > section {
+    padding-bottom: 0.5rem;
+  }
 }

@@ -79,7 +79,7 @@
 
       for (let index = 0, length = runningWebapps.length; index < length; index++) {
         const runningWebapp = runningWebapps[index];
-        if (runningWebapp.namespaceID === 'homescreen') {
+        if (runningWebapp.instanceID === 'homescreen') {
           continue;
         }
         this.createWindow(runningWebapp, index - 1, fragment);
@@ -96,7 +96,7 @@
           return;
         }
         event.stopPropagation();
-        Webapps.getWindowById(runningWebapp.appWindow.namespaceID).focus();
+        Webapps.getWindowById(runningWebapp.appWindow.instanceID).focus();
         this.hide();
       });
       parentElement.appendChild(card);

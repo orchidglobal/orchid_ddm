@@ -1,0 +1,27 @@
+app-window {
+  --titlebar-height: 5rem;
+}
+
+app-window .titlebar {
+  pointer-events: none !important;
+}
+
+app-window .titlebar-buttons {
+  pointer-events: all;
+}
+
+app-window .titlebar-grippy {
+  flex-grow: unset;
+  width: calc(100% - 61rem);
+  margin-inline-start: 4rem;
+  margin-inline-end: auto;
+  pointer-events: all;
+}
+
+app-window.active:not(.dragging) webview {
+  pointer-events: all;
+}
+
+app-window .toolbar {
+  display: none;
+}

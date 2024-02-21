@@ -5,7 +5,6 @@ section[role="panel"] > header:first-child {
   position: relative;
   flex-shrink: 0;
   width: 100%;
-  width: 100%;
   max-width: var(--safezone-width);
   height: calc(var(--statusbar-height) + 5rem + (3.5rem * (1 - var(--progress, 0))));
   margin: 0 auto;
@@ -14,8 +13,18 @@ section[role="panel"] > header:first-child {
   background-color: var(--background);
 }
 
-section[role="panel"] > header:first-child.compact {
+section[role="panel"] > header.csd:first-child {
+  height: calc(5rem + (3.5rem * (1 - var(--progress, 0))));
+  padding: 0 1rem;
+  padding-inline-end: 12rem;
+}
+
+section[role="panel"] > header.compact:first-child {
   height: calc(var(--statusbar-height) + 5rem);
+}
+
+section[role="panel"] > header.csd.compact:first-child {
+  height: 5rem;
 }
 
 section[role="panel"] > header::before {

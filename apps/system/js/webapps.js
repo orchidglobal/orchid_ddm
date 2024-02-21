@@ -12,7 +12,7 @@
       let targetWindow;
       for (let index = 0, length = this.runningWebapps.length; index < length; index++) {
         const runningWebapp = this.runningWebapps[index];
-        if (runningWebapp.namespaceID === id) {
+        if (runningWebapp.instanceID === id) {
           targetWindow = runningWebapp.appWindow;
         }
       }

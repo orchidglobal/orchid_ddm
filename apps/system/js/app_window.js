@@ -39,7 +39,7 @@
     dockIcon: null,
     chrome: null,
     manifest: null,
-    namespaceID: null,
+    instanceID: null,
     timeoutID: null,
     isDragging: false,
     isResizing: false,
@@ -87,13 +87,13 @@
         console.log(this.manifest);
       }
 
-      this.namespaceID = this.manifest.role === 'homescreen' ? 'homescreen' :`appframe${_id}`;
+      this.instanceID = this.manifest.role === 'homescreen' ? 'homescreen' :`appframe${_id}`;
       _id++;
 
       const fragment = document.createDocumentFragment();
 
       // Create and initialize the window container
-      const windowDiv = this.createWindowContainer(fragment, this.manifest, this.namespaceID, options.animationVariables);
+      const windowDiv = this.createWindowContainer(fragment, this.manifest, this.instanceID, options.animationVariables);
       windowDiv.dataset.manifestUrl = manifestUrl;
       windowDiv.addEventListener('mousedown', () => this.focus());
       windowDiv.addEventListener('touchstart', () => this.focus());
@@ -109,7 +109,7 @@
       this.createSplashScreen(windowDiv, this.manifest.icons, manifestUrl);
 
       if (window.deviceType === 'desktop') {
-        this.createWindowedWindow(windowDiv, this.manifest, this.namespaceID, options);
+        this.createWindowedWindow(windowDiv, this.manifest, this.instanceID, options);
       }
 
       const url = new URL(manifestUrl);
@@ -224,9 +224,9 @@
       this.addAnimationClass(this.dockIcon, this.OPEN_ANIMATION);
     },
 
-    createWindowContainer: function (fragment, manifest, namespaceID, animationVariables) {
+    createWindowContainer: function (fragment, manifest, instanceID, animationVariables) {
       const windowDiv = document.createElement('div');
-      windowDiv.id = namespaceID;
+      windowDiv.id = instanceID;
       windowDiv.classList.add('appframe');
 
       if (manifest.role === 'homescreen') {
@@ -274,7 +274,7 @@
       this.addIconImage(splashScreenIcon, icons, this.SPLASH_ICON_SIZE, manifestUrl);
     },
 
-    createWindowedWindow: function (windowDiv, manifest, namespaceID, options) {
+    createWindowedWindow: function (windowDiv, manifest, instanceID, options) {
       windowDiv.classList.add('window');
       this.offsetX = manifest.window_bounds?.left || 36;
       this.offsetY = manifest.window_bounds?.top || 24
@@ -283,13 +283,13 @@
       windowDiv.style.setProperty('--window-height', (manifest.window_bounds?.height || 600) + 'px');
 
       // Create titlebar and its buttons
-      this.createTitlebar(windowDiv, namespaceID);
+      this.createTitlebar(windowDiv, instanceID);
 
       // Create resize handlers
       this.createResizeHandlers(windowDiv);
     },
 
-    createTitlebar: function (windowDiv, namespaceID) {
+    createTitlebar: function (windowDiv, instanceID) {
       const titlebar = document.createElement('div');
       titlebar.classList.add('titlebar');
       windowDiv.appendChild(titlebar);
@@ -369,17 +369,41 @@
       return chromeContainer;
     },
 
-    initializeBrowser: function (chromeContainer, startUrl, isChromeEnabled) {
+    initializeBrowser: async function (chromeContainer, startUrl, isChromeEnabled) {
       const browser = new Chrome(chromeContainer, startUrl, isChromeEnabled);
       this.chrome = browser;
+
       Webapps.append({
         appWindow: this,
         chrome: this.chrome,
-        namespaceID: this.namespaceID,
+        instanceID: this.instanceID,
         isChromeEnabled,
         manifestUrl: this.manifestUrl,
         startUrl
       });
+
+      if (this.manifest && this.manifest.chrome && this.manifest.chrome.style_path) {
+        const url = new URL(this.manifestUrl);
+        const styleUrl = url.origin + this.manifest.chrome.style_path;
+
+        try {
+          const response = await fetch(styleUrl);
+          if (!response.ok) {
+            throw new Error(`Failed to fetch manifest: ${response.status}`);
+          }
+          const data = await response.text();
+
+          const styleElement = document.createElement('style');
+          styleElement.innerText = data.replaceAll('app-window', `#${this.instanceID}`);
+          this.element.appendChild(styleElement);
+        } catch (error) {
+          console.error('Error fetching manifest:', error);
+        }
+      }
+
+      if (this.manifest && this.manifest.chrome && this.manifest.chrome.titlebar) {
+        this.element
+      }
 
       chromeContainer.addEventListener('mousedown', this.onPointerDown.bind(this));
       chromeContainer.addEventListener('touchstart', this.onPointerDown.bind(this));
@@ -438,7 +462,7 @@
         return;
       }
 
-      if (this.namespaceID !== 'homescreen') {
+      if (this.instanceID !== 'homescreen') {
         this.wallpapersContainer.classList.add('app-open');
         this.bottomPanel.classList.remove('homescreen');
       } else {
@@ -530,7 +554,7 @@
       if (this.isDragging) {
         return;
       }
-      if (this.namespaceID === 'homescreen') {
+      if (this.instanceID === 'homescreen') {
         return;
       }
 
@@ -561,7 +585,7 @@
       if (this.isDragging) {
         return;
       }
-      if (this.namespaceID === 'homescreen') {
+      if (this.instanceID === 'homescreen') {
         return;
       }
 
@@ -596,7 +620,7 @@
       if (this.isDragging) {
         return;
       }
-      if (this.namespaceID === 'homescreen') {
+      if (this.instanceID === 'homescreen') {
         return;
       }
 
@@ -630,7 +654,7 @@
     },
 
     maximize: function () {
-      if (this.namespaceID === 'homescreen') {
+      if (this.instanceID === 'homescreen') {
         return;
       }
       this.element.classList.add('transitioning');

@@ -47,7 +47,7 @@
 
       for (let index = 0, length = runningWebapps.length; index < length; index++) {
         const runningWebapp = runningWebapps[index];
-        if (runningWebapp.namespaceID === 'homescreen') {
+        if (runningWebapp.instanceID === 'homescreen') {
           continue;
         }
         this.createCard(runningWebapp, index - 1, fragment);
@@ -100,11 +100,11 @@
           return;
         }
         event.stopPropagation();
-        Webapps.getWindowById(runningWebapp.appWindow.namespaceID).focus();
+        Webapps.getWindowById(runningWebapp.appWindow.instanceID).focus();
         this.hide();
       });
-      card.addEventListener('mousedown', (event) => this.onPointerDown(event, card, runningWebapp.appWindow.namespaceID));
-      card.addEventListener('touchstart', (event) => this.onPointerDown(event, card, runningWebapp.appWindow.namespaceID));
+      card.addEventListener('mousedown', (event) => this.onPointerDown(event, card, runningWebapp.appWindow.instanceID));
+      card.addEventListener('touchstart', (event) => this.onPointerDown(event, card, runningWebapp.appWindow.instanceID));
       cardArea.appendChild(card);
 
       let manifest;

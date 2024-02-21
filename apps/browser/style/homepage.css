@@ -52,6 +52,12 @@ section[role="panel"]#root > header:first-child h1 {
   font-family: 'Orchid Brand';
 }
 
+.homepage-header .searchbox {
+  width: calc(100% - 3rem);
+  max-width: calc(var(--safezone-width) - 3rem);
+  margin: 0 auto;
+}
+
 .homepage-row {
   width: calc(100% - 3rem);
   max-width: calc(var(--safezone-width) - 3rem);

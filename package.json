@@ -19,8 +19,8 @@
     "build-linux-armv7h": "tsc && electron-builder --linux --armv7l",
     "build-linux-aarch64": "tsc && electron-builder --linux --arm64",
     "build-linux-x86_64": "tsc && electron-builder --linux --x64",
-    "build-win-aarch64": "tsc && electron-builder --win --arm64",
-    "build-win-x86_64": "tsc && electron-builder --win --x64",
+    "build-windows-aarch64": "tsc && electron-builder --win --arm64",
+    "build-windows-x86_64": "tsc && electron-builder --win --x64",
     "build-mac-aarch64": "tsc && electron-builder --mac --arm64",
     "build-mac-x86_64": "tsc && electron-builder --mac --x64"
   },

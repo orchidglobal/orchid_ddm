@@ -20,5 +20,15 @@
   "orientation": "portrait-primary",
   "permissions": {
     "settings": {}
+  },
+  "display": "immersive",
+  "chrome": {
+    "style_path": "/chrome.css"
+  },
+  "window_bounds": {
+    "left": 32,
+    "top": 24,
+    "width": 1024,
+    "height": 640
   }
 }

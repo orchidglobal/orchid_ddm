@@ -19,12 +19,12 @@
         return;
       }
 
-      if ('OrchidServices' in window) {
-        OrchidServices.auth.signUp({
+      if ('_os' in window) {
+        _os.auth.signUp({
           username: this.usernameInput.value,
           handleName: this.handleNameInput.value,
           email: this.emailInput.value,
-          password: this.passwordInput.value
+          password: this.passwordInput.value,
           birthDate: this.birthDateInput.value
         });
       }
