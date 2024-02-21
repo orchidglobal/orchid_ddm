@@ -170,7 +170,7 @@
 
 #lockscreen .clock {
   position: absolute;
-  top: 50%;
+  top: 40rem;
   left: 50%;
   translate: -50% -50%;
 }
