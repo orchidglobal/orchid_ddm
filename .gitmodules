@@ -1,6 +1,3 @@
-[submodule "webapps/sms"]
-	path = webapps/sms
-	url = https://github.com/openorchid/messages
 [submodule "webapps/shared/style"]
 	path = webapps/shared/style
 	url = https://github.com/openorchid/CSS-Building-Blocks
