@@ -69,6 +69,7 @@
 #lockscreen-statusbar {
   --statusbar-icon-color: rgb(calc(223 + ((var(--accent-color-secondary-r) / 255) * 32)), calc(223 + ((var(--accent-color-secondary-g) / 255) * 32)), calc(223 + ((var(--accent-color-secondary-b) / 255) * 32)));
   --statusbar-icon-color-faded: rgb(calc(223 + ((var(--accent-color-secondary-r) / 255) * 32)), calc(223 + ((var(--accent-color-secondary-g) / 255) * 32)), calc(223 + ((var(--accent-color-secondary-b) / 255) * 32)), 0.5);
+  z-index: 10;
 }
 
 .light #lockscreen-statusbar {
