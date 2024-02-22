@@ -7,7 +7,7 @@
     "name": "Orchid Organization",
     "email": "mortcodesweb+orchidorg@proton.me"
   },
-  "version": "1.0.124",
+  "version": "1.0.127",
   "main": "build_ts/src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

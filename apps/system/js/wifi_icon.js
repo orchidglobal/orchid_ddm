@@ -7,6 +7,8 @@
     }
 
     initialize () {
+      this.element.dataset.icon = `web`;
+
       this.update();
     }
 

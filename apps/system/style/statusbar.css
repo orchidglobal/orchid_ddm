@@ -125,7 +125,7 @@ html[dir='rtl'] .statusbar-icons > .right {
   height: 2rem;
   margin: 0 0.2rem;
   color: var(--statusbar-icon-color);
-  font-weight: normal;
+  font-weight: 300;
   font-size: 1.6rem;
   line-height: 2rem;
   text-align: center;
@@ -143,8 +143,8 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
   color: #000;
 }
 
-.screen.desktop #statusbar-icons > .left div,
-.screen.desktop #statusbar-icons > .right div {
+.screen.desktop .statusbar-icons > .left div,
+.screen.desktop .statusbar-icons > .right div {
   color: var(--text-color);
 }
 
@@ -157,14 +157,10 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
   transition: all 0.3s ease;
 }
 
-.statusbar-notifications::before {
+.statusbar-icons > .left div[data-icon]::before,
+.statusbar-icons > .right div[data-icon]::before {
   width: 2rem;
   height: 2rem;
-  font-size: 1.8rem;
-  line-height: 2rem;
-}
-
-.statusbar-playing::before {
   font-size: 1.8rem;
 }
 
@@ -198,12 +194,6 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
   color: rgba(0, 0, 0, 0.75);
 }
 
-.statusbar-camera::before,
-.statusbar-microphone::before,
-.statusbar-video::before {
-  font-size: 1.8rem;
-}
-
 .statusbar .timedate {
   display: flex;
 }
@@ -221,7 +211,7 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
   line-height: 1.4rem;
 }
 
-.statusbar-date {
+.statusbar-icons > .left .statusbar-date {
   box-sizing: border-box;
   visibility: hidden;
   margin: 0 var(--hide-margin, -1rem);
@@ -231,7 +221,7 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
   opacity: 0;
 }
 
-.statusbar.utility-tray-motion .statusbar-date {
+.statusbar.utility-tray-motion .statusbar-icons > .left .statusbar-date {
   visibility: visible;
   margin: 0 calc(var(--hide-margin, -1rem) * (1 - var(--motion-progress, 0)));
   transform: scale(calc(0.2 + (0.8 * var(--motion-progress, 0))));
@@ -252,13 +242,6 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
   transition: none;
 }
 
-.statusbar-battery::before {
-  width: 2rem;
-  height: 2rem;
-  font-size: 1.8rem;
-  line-height: 2rem;
-}
-
 .statusbar-battery.charging {
   position: relative;
   color: var(--statusbar-icon-color-faded);
@@ -268,7 +251,6 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
   color: var(--text-color-faded);
 }
 
-.statusbar-icons > .left .statusbar-battery-percentage,
 .statusbar-icons > .right .statusbar-battery-percentage {
   box-sizing: border-box;
   visibility: hidden;
@@ -299,18 +281,6 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
   position: absolute;
   top: 0;
   left: 0;
-  width: 2rem;
-  height: 2rem;
-  font-size: 1.8rem;
-  line-height: 2rem;
-}
-
-.statusbar-data::before {
-  font-size: 1.8rem;
-}
-
-.statusbar-airplane-mode::before {
-  font-size: 1.8rem;
 }
 
 .statusbar-wifi {
@@ -321,18 +291,6 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
   position: absolute;
   top: 0;
   left: 0;
-  width: 2rem;
-  height: 2rem;
-  font-size: 1.8rem;
-  line-height: 2rem;
-}
-
-.statusbar-bluetooth::before {
-  font-size: 1.8rem;
-}
-
-.statusbar-warm-colors::before {
-  font-size: 1.8rem;
 }
 
 @media screen and (min-width: 768px) {

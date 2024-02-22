@@ -72,7 +72,11 @@
           'js/statusbar_icon.js',
           'js/time_icon.js',
           'js/battery_icon.js',
-          'js/wifi_icon.js'
+          'js/cellular_data_icon.js',
+          'js/wifi_icon.js',
+          'js/data_icon.js',
+          'js/warm_colors_icon.js',
+          'js/reader_mode_icon.js'
         ], () => {
           new Statusbar(this.statusbar);
         });

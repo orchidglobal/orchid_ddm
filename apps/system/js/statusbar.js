@@ -26,8 +26,11 @@
 
       this.timeIcon = new StatusbarTimeIcon(this.leftIconHolder);
       this.batteryIcon = new StatusbarBatteryIcon(this.rightIconHolder);
-      // this.dataIcon = new StatusbarDataIcon(this.rightIconHolder);
+      this.cellularIcon = new StatusbarCellularDataIcon(this.rightIconHolder);
       this.wifiIcon = new StatusbarWifiIcon(this.rightIconHolder);
+      this.dataIcon = new StatusbarDataIcon(this.rightIconHolder);
+      this.warmColorsIcon = new StatusbarWarmColorsIcon(this.leftIconHolder);
+      this.readerModeIcon = new StatusbarReaderModeIcon(this.leftIconHolder);
     }
   }
 

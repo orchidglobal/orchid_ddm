@@ -87,20 +87,20 @@ html[dir='rtl'] .appframe .titlebar {
 }
 
 .appframe .titlebar .close-button::before {
-  -webkit-mask: url(images/close.png) no-repeat center / 1.6rem;
+  mask: url(images/close.png) no-repeat center / 1.6rem;
 }
 
 .appframe .titlebar .resize-button::before {
-  -webkit-mask: url(images/maximize.png) no-repeat center / 1.6rem;
+  mask: url(images/maximize.png) no-repeat center / 1.6rem;
 }
 
 .appframe.maximized .titlebar .resize-button::before {
-  -webkit-mask: url(images/restore.png) no-repeat center / 1.6rem;
   transform: rotate(360deg);
+  mask: url(images/restore.png) no-repeat center / 1.6rem;
 }
 
 .appframe .titlebar .minimize-button::before {
-  -webkit-mask: url(images/minimize.png) no-repeat center / 1.6rem;
+  mask: url(images/minimize.png) no-repeat center / 1.6rem;
 }
 
 .appframe.light .titlebar button::before {
