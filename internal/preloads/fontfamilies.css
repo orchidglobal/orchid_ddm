@@ -1,11 +1,11 @@
 @font-face {
-  src: url(orchid://fonts/Rubik-VariableFont_wght.ttf);
+  src: url(orchid://fonts/Montserrat-VariableFont_wght.ttf);
   font-family: -orchid-standard-font;
 }
 
 @font-face {
   font-style: italic;
-  src: url(orchid://fonts/Rubik-Italic-VariableFont_wght.ttf);
+  src: url(orchid://fonts/Montserrat-Italic-VariableFont_wght.ttf);
   font-family: -orchid-standard-font;
 }
 

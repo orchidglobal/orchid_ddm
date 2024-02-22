@@ -1,13 +1,13 @@
 {
-  "name": "orchid_ddm",
+  "name": "OptiOS Simulator",
   "private": true,
-  "product_name": "orchid_ddm",
-  "description": "Open source OrchidOS user interface",
+  "product_name": "OptiOS Simulator",
+  "description": "Official OptiOS Simulator.",
   "author": {
-    "name": "Orchid Organization",
-    "email": "mortcodesweb+orchidorg@proton.me"
+    "name": "OptiFlex Co.",
+    "email": "abhiflex912@gmail.com"
   },
-  "version": "1.0.127",
+  "version": "0.1",
   "main": "build_ts/src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
