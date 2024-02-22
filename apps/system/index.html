@@ -110,12 +110,11 @@
   <script defer type="text/javascript" src="js/splashscreen.js"></script>
   <script defer type="text/javascript" src="js/event_listener.js"></script>
   <script defer type="text/javascript" src="js/loading_screen.js"></script>
-  <script defer type="text/javascript" src="js/time_icon.js"></script>
-  <script defer type="text/javascript" src="js/battery_icon.js"></script>
-  <script defer type="text/javascript" src="js/data_icon.js"></script>
-  <script defer type="text/javascript" src="js/cellular_data_icon.js"></script>
-  <script defer type="text/javascript" src="js/network_icon.js"></script>
-  <script defer type="text/javascript" src="js/bluetooth_icon.js"></script>
+  <!-- <script defer type="text/javascript" src="js/time_icon.js"></script> -->
+  <!-- <script defer type="text/javascript" src="js/battery_icon.js"></script> -->
+  <!-- <script defer type="text/javascript" src="js/data_icon.js"></script> -->
+  <!-- <script defer type="text/javascript" src="js/wifi_icon.js"></script> -->
+  <!-- <script defer type="text/javascript" src="js/bluetooth_icon.js"></script> -->
   <script defer type="text/javascript" src="js/app_window.js"></script>
   <!-- <script defer type="text/javascript" src="js/notification_toaster.js"></script> -->
   <!-- <script defer type="text/javascript" src="js/utility_tray_motion.js"></script> -->
@@ -191,7 +190,7 @@
       <div class="blur-overlay"></div>
     </div>
 
-    <div id="statusbar" data-z-index-layer="statusbar">
+    <div id="statusbar" class="statusbar" data-z-index-layer="statusbar">
       <div class="statusbar-icons">
         <div class="left">
           <div id="statusbar-notifications" class="hidden" data-icon="notifications"></div>
@@ -228,6 +227,9 @@
 
     <div id="lockscreen" data-z-index-layer="lockscreen" class="visible">
       <div id="lockscreen-background"></div>
+
+      <div id="lockscreen-statusbar"></div>
+
       <div id="lockscreen-container">
         <div class="icon-container">
           <span id="lockscreen-icon" class="icon"></span>
@@ -240,10 +242,12 @@
           </div>
           <div id="lockscreen-date"></div>
         </div>
-        <div id="lockscreen-notifications-badge"></div>
+        <div id="lockscreen-notifications-badge" data-l10n-id="lockscreenNotificationsCount"></div>
         <div id="lockscreen-charging"></div>
       </div>
+
       <div id="lockscreen-notifications"></div>
+
       <div id="lockscreen-toolbar">
         <button id="lockscreen-camera-button" data-icon="camera"></button>
         <button id="lockscreen-flashlight-button" data-icon="flashlight"></button>
@@ -845,7 +849,7 @@
     <div id="left-panel" data-z-index-layer="gesture-panel"></div>
     <div id="right-panel" data-z-index-layer="gesture-panel"></div>
     <div id="bottom-panel" data-z-index-layer="gesture-panel">
-      <div class="text">Swipe up to unlock</div>
+      <div class="text" data-l10n-id="lockscreenSwipeUpTip"></div>
     </div>
   </div>
   <div id="frimware" class="screen">
