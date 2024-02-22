@@ -69,7 +69,7 @@
     applyParallaxEffect: function (element) {
       // Get the dimensions of the screen
       const screenWidth = window.innerWidth;
-      const screenHeight = window.innerHeight;
+      const screenHeight = window.innerHeight - 80;
 
       // Calculate the center of the screen
       const centerX = screenWidth / 2;
@@ -210,6 +210,14 @@
           iconContainer.src = '/images/default.svg';
         };
         iconHolder.appendChild(iconContainer);
+
+        const fakeIconContainer = document.createElement('img');
+        fakeIconContainer.classList.add('appicon');
+        fakeIconContainer.src = '/images/default.svg';
+        iconContainer.onload = () => {
+          fakeIconContainer.classList.add('hidden');
+        };
+        iconHolder.appendChild(fakeIconContainer);
       }
 
       const notificationBadge = document.createElement('span');

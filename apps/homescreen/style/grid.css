@@ -45,7 +45,7 @@
   height: 100%;
   overflow: hidden;
   list-style: none;
-  transition: all 0.75s cubic-bezier(0.5, 0.8, 0, 1.1) 0.5s;
+  transition: all 0.75s cubic-bezier(0.5, 0.8, 0, 1) 0.5s;
 }
 
 .icon.dragging {
@@ -61,24 +61,30 @@
 
 .icon .icon-holder {
   position: relative;
-  width: max-content;
+  width: 5.6rem;
+  height: 5.6rem;
   margin: 0 auto;
   padding-top: 0.4rem;
 }
 
 .icon .icon-holder > .appicon {
   display: block;
+  position: absolute;
   width: 5.6rem;
   height: 5.6rem;
   border: none;
   image-rendering: optimizeSpeed;
   pointer-events: none;
-  transition: filter 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.icon .icon-holder > .appicon.hidden {
+  opacity: 0;
 }
 
 .icon .icon-holder > .appicon:active {
   transform: scale(1.1);
-  transition: filter 0.3s ease, transform 1s ease;
+  transition: opacity 0.3s ease, transform 1s ease;
 }
 
 .icon.dragging .icon-holder > .appicon {
