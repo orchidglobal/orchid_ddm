@@ -3,6 +3,7 @@
 
   const Bootstrap = {
     screen: null,
+    statusbar: null,
     frimwareScreen: null,
 
     isFrimware: false,
@@ -37,6 +38,7 @@
       }
 
       this.screen = document.getElementById('screen');
+      this.statusbar = document.getElementById('statusbar');
 
       Settings.getValue(this.settings[this.SETTINGS_GENERAL_LANG_CODE]).then(this.handleLanguage.bind(this));
       Settings.getValue(this.settings[this.SETTINGS_GENERAL_SOFTWARE_BUTTONS]).then(this.handleSoftwareButtons.bind(this));
@@ -53,16 +55,27 @@
       // Load with AppsManager to ensure existing webapps.json and correct
       // load time that isnt too early and is low with loading overhead
       AppsManager.getAll().then(() => {
+        LazyLoader.load('js/lockscreen/lockscreen.js');
+        LazyLoader.load('js/lockscreen/motion.js');
         LazyLoader.load('js/lockscreen/clock.js');
         LazyLoader.load('js/lockscreen/date.js');
+        LazyLoader.load('js/lockscreen/notifications.js');
+        LazyLoader.load('js/lockscreen/pin_lock.js');
         // TODO: Implement a multi-user system
         // LazyLoader.load('js/lockscreen/login.js');
-        LazyLoader.load('js/lockscreen/motion.js');
-        LazyLoader.load('js/lockscreen/pin_lock.js');
-        LazyLoader.load('js/lockscreen/notifications.js');
 
         // TODO: Implement working achievements
         // LazyLoader.load('js/achievements.js');
+
+        LazyLoader.load([
+          'js/statusbar.js',
+          'js/statusbar_icon.js',
+          'js/time_icon.js',
+          'js/battery_icon.js',
+          'js/wifi_icon.js'
+        ], () => {
+          new Statusbar(this.statusbar);
+        });
 
         LazyLoader.load('js/alarms_handler.js');
         LazyLoader.load('js/keybinds.js');

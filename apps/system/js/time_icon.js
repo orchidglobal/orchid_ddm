@@ -1,25 +1,33 @@
 !(function (exports) {
   'use strict';
 
-  const TimeIcon = {
-    iconElement: document.getElementById('statusbar-time'),
-    dateElement: document.getElementById('statusbar-date'),
-    is12HourFormat: true,
+  class StatusbarTimeIcon extends StatusbarIcon {
+    constructor (parent) {
+      super('timedate', parent);
+    }
 
-    init: function () {
-      this.iconElement.classList.remove('hidden');
+    initialize () {
+      this.element.classList.add('timedate');
 
-      this.intervalID = setInterval(this.updateTime.bind(this), 1000);
-    },
+      this.timeLabel = document.createElement('div');
+      this.timeLabel.classList.add('statusbar-time');
+      this.element.appendChild(this.timeLabel);
 
-    updateTime: function () {
+      this.dateLabel = document.createElement('div');
+      this.dateLabel.classList.add('statusbar-date');
+      this.element.appendChild(this.dateLabel);
+
+      this.update();
+    }
+
+    update () {
       const currentTime = new Date();
       const langCode =
         L10n.currentLanguage === 'ar'
           ? 'ar-SA'
           : L10n.currentLanguage;
 
-      this.iconElement.innerText = currentTime
+      this.timeLabel.innerText = currentTime
         .toLocaleTimeString(langCode, {
           hour12: this.is12HourFormat,
           hour: 'numeric',
@@ -27,19 +35,20 @@
         })
         .split(' ')[0];
 
-      this.dateElement.innerText = currentTime
+      this.dateLabel.innerText = currentTime
         .toLocaleDateString(langCode, {
           day: 'numeric',
           month: 'short'
         });
-      this.dateElement.style.setProperty(
+      this.dateLabel.style.setProperty(
         '--hide-margin',
-        `-${this.dateElement.offsetWidth / 2}px`
+        `-${this.dateLabel.offsetWidth / 2}px`
       );
+
+      clearTimeout(this.timeoutID);
+      this.timeoutID = setTimeout(this.update.bind(this), 1000);
     }
-  };
+  }
 
-  TimeIcon.init();
-
-  exports.TimeIcon = TimeIcon;
+  exports.StatusbarTimeIcon = StatusbarTimeIcon;
 })(window);

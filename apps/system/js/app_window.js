@@ -259,6 +259,10 @@
 
       fragment.appendChild(windowDiv);
 
+      const statusbar = document.createElement('div');
+      this.statusbar = new Statusbar(statusbar);
+      windowDiv.appendChild(statusbar);
+
       // Add animation class
       this.addAnimationClass(windowDiv, this.OPEN_ANIMATION);
       return windowDiv;
@@ -452,10 +456,10 @@
       if (this.element) {
         this.element.style.transform = '';
         if (this.element.classList.contains('fullscreen')) {
-          this.statusbar.classList.add('hidden');
+          this.statusbar.element.classList.add('hidden');
           this.softwareButtons.classList.add('hidden');
         } else {
-          this.statusbar.classList.remove('hidden');
+          this.statusbar.element.classList.remove('hidden');
           this.softwareButtons.classList.remove('hidden');
         }
       } else {
@@ -677,21 +681,21 @@
 
         // If the color is light (luminance > 0.5), add 'light' class to the status bar
         if (luminance > 0.5) {
-          this.statusbar.classList.remove('dark');
+          this.statusbar.element.classList.remove('dark');
           this.softwareButtons.classList.remove('dark');
-          this.statusbar.classList.add('light');
+          this.statusbar.element.classList.add('light');
           this.softwareButtons.classList.add('light');
         } else {
           // Otherwise, remove 'light' class
-          this.statusbar.classList.remove('light');
+          this.statusbar.element.classList.remove('light');
           this.softwareButtons.classList.remove('light');
-          this.statusbar.classList.add('dark');
+          this.statusbar.element.classList.add('dark');
           this.softwareButtons.classList.add('dark');
         }
       } else {
-        this.statusbar.classList.remove('light');
+        this.statusbar.element.classList.remove('light');
         this.softwareButtons.classList.remove('light');
-        this.statusbar.classList.add('dark');
+        this.statusbar.element.classList.add('dark');
         this.softwareButtons.classList.add('dark');
       }
     },

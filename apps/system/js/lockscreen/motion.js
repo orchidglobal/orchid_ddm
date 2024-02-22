@@ -157,7 +157,6 @@
       this.motionElement.classList.remove('visible');
       this.motionElement.classList.remove('pin-lock-visible');
       this.bottomPanel.classList.add('transitioning');
-      TimeIcon.iconElement.classList.remove('hidden');
 
       clearTimeout(this.timeoutID);
       this.timeoutID = setTimeout(() => {
@@ -176,7 +175,6 @@
       this.motionElement.classList.add('transitioning');
       this.motionElement.classList.add('pin-lock-visible');
       this.bottomPanel.classList.add('transitioning');
-      TimeIcon.iconElement.classList.remove('hidden');
 
       clearTimeout(this.timeoutID);
       this.timeoutID = setTimeout(() => {
@@ -199,7 +197,6 @@
       this.screen.classList.add('lockscreen-visible');
       this.motionElement.classList.add('visible');
       this.motionElement.classList.remove('transitioning');
-      TimeIcon.iconElement.classList.add('hidden');
 
       IPC.send('message', {
         type: 'lockscreen',

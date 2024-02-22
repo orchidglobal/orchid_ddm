@@ -57,7 +57,7 @@ html[dir="rtl"] #screen.desktop.utility-tray-visible #statusbar::before {
   transform: none;
 }
 
-#screen.desktop .statusbar-icons {
+#screen.desktop #statusbar .statusbar-icons {
   display: flex;
   position: static;
   flex-direction: row-reverse;
@@ -68,11 +68,11 @@ html[dir="rtl"] #screen.desktop.utility-tray-visible #statusbar::before {
   margin-inline-end: 1rem;
 }
 
-#screen.desktop .statusbar-icons > div {
+#screen.desktop #statusbar .statusbar-icons > div {
   position: static;
   width: max-content;
 }
 
-#screen.desktop #statusbar-time {
+#screen.desktop #statusbar .statusbar-time {
   margin-inline-start: 1rem;
 }
