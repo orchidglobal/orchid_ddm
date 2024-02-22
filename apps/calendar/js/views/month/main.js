@@ -9,15 +9,23 @@
     gridBody: document.getElementById('month-grid-body'),
 
     init: function () {
-      const dateLabel = new Date().toLocaleDateString('en-US', {
+      this.monthCalendarGrid = new MonthCalendarGrid(this.gridBody, new Date().getFullYear(), new Date().getMonth());
+
+      document.addEventListener('localized', this.handleLocalization.bind(this));
+      this.tabButton.addEventListener('click', this.handleTabButton.bind(this));
+    },
+
+    handleLocalization: function () {
+      const langCode =
+        L10n.currentLanguage === 'ar'
+          ? 'ar-SA'
+          : L10n.currentLanguage;
+      const dateLabel = new Date().toLocaleDateString(langCode, {
         year: 'numeric',
         month: 'long'
       });
 
       this.label.textContent = dateLabel;
-      this.monthCalendarGrid = new MonthCalendarGrid(this.gridBody, new Date().getFullYear(), new Date().getMonth());
-
-      this.tabButton.addEventListener('click', this.handleTabButton.bind(this));
     },
 
     handleTabButton: function () {

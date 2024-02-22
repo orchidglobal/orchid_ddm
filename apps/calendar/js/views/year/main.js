@@ -8,14 +8,22 @@
     grid: document.getElementById('year-grid'),
 
     init: function () {
-      const dateLabel = new Date().toLocaleDateString('en-US', {
+      this.createMonths();
+
+      document.addEventListener('localized', this.handleLocalization.bind(this));
+      this.tabButton.addEventListener('click', this.handleTabButton.bind(this));
+    },
+
+    handleLocalization: function () {
+      const langCode =
+        L10n.currentLanguage === 'ar'
+          ? 'ar-SA'
+          : L10n.currentLanguage;
+      const dateLabel = new Date().toLocaleDateString(langCode, {
         year: 'numeric'
       });
 
       this.label.textContent = dateLabel;
-      this.createMonths();
-
-      this.tabButton.addEventListener('click', this.handleTabButton.bind(this));
     },
 
     handleTabButton: function () {

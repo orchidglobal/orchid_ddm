@@ -25,24 +25,29 @@
   position: relative;
   width: 100%;
   height: max-content;
+  overflow: hidden;
 }
 
 #year #year-grid .grid > .week {
   display: flex;
   width: 100%;
   margin: 0 0 0.5rem;
+  overflow: hidden;
   gap: 0.5rem;
 }
 
 #year #year-grid .grid > .week > span {
-  flex-grow: 1;
+  flex-shrink: 1;
   width: 100%;
   height: 0.6rem;
+  overflow: hidden;
   color: var(--text-color-faded);
   font-weight: bold;
   font-size: 0.45rem;
   line-height: 0.6rem;
   text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 #year #year-grid .grid tr {

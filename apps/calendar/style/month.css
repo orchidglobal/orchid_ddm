@@ -11,8 +11,8 @@
 }
 
 #month #month-grid {
-  width: 100%;
   position: relative;
+  width: 100%;
 }
 
 #month #month-grid > .week {
@@ -28,6 +28,7 @@
   flex-grow: 1;
   width: 100%;
   height: 2rem;
+  overflow: hidden;
   color: var(--text-color-faded);
   font-weight: bold;
   font-size: 1.4rem;
