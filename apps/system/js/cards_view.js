@@ -31,6 +31,12 @@
     show: function () {
       this.isVisible = true;
 
+      const focusedWindow = new AppWindow().getFocusedWindow().element;
+      focusedWindow.classList.add('to-cards-view');
+      focusedWindow.addEventListener('animationend', () => {
+        focusedWindow.classList.remove('to-cards-view');
+      });
+
       if ('MusicController' in window) {
         // MusicController.applyMuffleEffect();
       }
