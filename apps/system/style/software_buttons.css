@@ -15,7 +15,7 @@ html[dir="rtl"] #software-buttons {
 }
 
 #software-buttons.hidden,
-#screen:not(.software-buttons-enabled) #software-buttons {
+.screen:not(.software-buttons-enabled) #software-buttons {
   transform: translateY(100%);
 }
 
@@ -24,8 +24,8 @@ html[dir="rtl"] #software-buttons {
   display: flex;
 }
 
-#screen.desktop #software-buttons .mobile,
-#screen:not(.desktop) #software-buttons .desktop {
+.screen.desktop #software-buttons .mobile,
+.screen:not(.desktop) #software-buttons .desktop {
   display: none;
 }
 
@@ -71,7 +71,7 @@ html[dir="rtl"] #software-buttons {
   transition: all 0.3s ease, opacity 0.1s ease;
 }
 
-#screen:not(.keyboard-visible) #software-buttons.light .mobile > button {
+.screen:not(.keyboard-visible) #software-buttons.light .mobile > button {
   filter: invert(1) hue-rotate(180deg);
 }
 
@@ -82,7 +82,7 @@ html[dir="rtl"] #software-buttons #software-back-button::before {
   transform: rotate(-180deg);
 }
 
-#screen.keyboard-visible #software-buttons #software-back-button::before {
+.screen.keyboard-visible #software-buttons #software-back-button::before {
   transform: rotate(-90deg);
 }
 
@@ -175,7 +175,7 @@ html[dir="rtl"] #software-buttons #software-back-button::before {
   height: var(--software-buttons-height);
 }
 
-#screen.desktop #dock {
+.screen.desktop #dock {
   height: var(--dock-height);
 }
 
@@ -191,7 +191,7 @@ html[dir="rtl"] #software-buttons #software-back-button::before {
   border-radius: 30%;
 }
 
-#screen.desktop #dock .icon {
+.screen.desktop #dock .icon {
   width: calc(var(--dock-height) - 1rem);
   height: calc(var(--dock-height) - 1rem);
 }
@@ -275,13 +275,13 @@ html[dir="rtl"] #software-buttons #software-back-button::before {
 }
 
 @media (prefers-color-scheme: light) {
-  #screen.keyboard-visible #software-buttons .mobile > button {
+  .screen.keyboard-visible #software-buttons .mobile > button {
     filter: invert(1) hue-rotate(180deg);
   }
 }
 
 @media (prefers-color-scheme: dark) {
-  #screen.keyboard-visible #software-buttons .mobile > button {
+  .screen.keyboard-visible #software-buttons .mobile > button {
     filter: none;
   }
 }

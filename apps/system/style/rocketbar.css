@@ -15,7 +15,7 @@
   transition: transform 0.5s cubic-bezier(0.5, 0.2, 1, 0), visibility 0.5s ease;
 }
 
-#screen.gpu-capable #rocketbar {
+.screen.gpu-capable #rocketbar {
   backdrop-filter: blur(20px) saturate(180%);
   background-color: var(--acrylic-background-plus);
 }

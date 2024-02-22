@@ -20,7 +20,7 @@
   transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.1, 1.1), visibility 0.3s ease;
 }
 
-#screen.gpu-capable #volume-rocker.visible {
+.screen.gpu-capable #volume-rocker.visible {
   backdrop-filter: blur(20px) saturate(180%);
   background-color: var(--acrylic-background-plus);
 }

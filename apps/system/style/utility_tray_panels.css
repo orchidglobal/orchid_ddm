@@ -14,18 +14,18 @@
   transition: visibility 0.3s ease;
 }
 
-#screen.software-buttons-enabled .tray-panel {
+.screen.software-buttons-enabled .tray-panel {
   bottom: var(--software-buttons-height);
 }
 
-#screen.desktop .tray-panel {
+.screen.desktop .tray-panel {
   bottom: calc(var(--dock-height) + 2rem);
   width: calc(100% - 8rem);
 }
-html[dir="ltr"] #screen.desktop .tray-panel {
+html[dir="ltr"] .screen.desktop .tray-panel {
   left: calc(50% + 2.5rem);
 }
-html[dir="rtl"] #screen.desktop .tray-panel {
+html[dir="rtl"] .screen.desktop .tray-panel {
   left: calc(50% - 2.5rem);
 }
 
@@ -33,7 +33,7 @@ html[dir="rtl"] #screen.desktop .tray-panel {
   visibility: visible;
 }
 
-#screen.software-buttons-enabled .tray-panel {
+.screen.software-buttons-enabled .tray-panel {
   max-height: calc(
     100% - var(--statusbar-height) - var(--software-buttons-height)
   );

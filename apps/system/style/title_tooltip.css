@@ -19,7 +19,7 @@
   opacity: 1;
 }
 
-#screen.gpu-capable #title-tooltip.visible {
+.screen.gpu-capable #title-tooltip.visible {
   backdrop-filter: blur(20px) saturate(180%);
   background-color: var(--acrylic-background-plus);
 }

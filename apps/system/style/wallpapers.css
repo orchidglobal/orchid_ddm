@@ -17,8 +17,8 @@
   transition: transform 0.5s ease;
 }
 
-#screen.mobile #wallpapers.app-open #wallpaper-image,
-#screen.mobile #wallpapers.app-open #wallpaper-video {
+.screen.mobile #wallpapers.app-open #wallpaper-image,
+.screen.mobile #wallpapers.app-open #wallpaper-video {
   transform: scale(1.1);
 }
 
@@ -33,14 +33,14 @@
   transition: background-color 0.3s ease, backdrop-filter 0.3s ease, visibility 0.3s ease;
 }
 
-#screen.mobile #wallpapers.homescreen-to-cards-view .blur-overlay {
+.screen.mobile #wallpapers.homescreen-to-cards-view .blur-overlay {
   visibility: visible;
   backdrop-filter: blur(calc(20px * var(--motion-progress, 0))) saturate(calc(100% + (80% * var(--motion-progress, 0))));
   background-color: rgba(calc(51 * var(--motion-progress, 0)), calc(51 * var(--motion-progress, 0)), calc(51 * var(--motion-progress, 0)), calc(0.1 + (0.2 * var(--motion-progress, 0))));
 }
 
-#screen.gpu-capable.mobile #wallpapers.app-open .blur-overlay,
-#screen.gpu-capable.cards-view-visible #wallpapers .blur-overlay {
+.screen.gpu-capable.mobile #wallpapers.app-open .blur-overlay,
+.screen.gpu-capable.cards-view-visible #wallpapers .blur-overlay {
   visibility: visible;
   backdrop-filter: blur(20px) saturate(180%);
   background-color: rgba(51,51,51,0.3);

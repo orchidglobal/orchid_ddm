@@ -136,7 +136,7 @@
   gap: 1rem;
 }
 
-#screen.desktop #cards-view-toolbar {
+.screen.desktop #cards-view-toolbar {
   bottom: calc(var(--software-buttons-height) + 3rem);
 }
 
@@ -191,7 +191,7 @@
   backdrop-filter: blur(20px) saturate(180%);
 }
 
-#screen.desktop #cards-view-devices {
+.screen.desktop #cards-view-devices {
   top: 1.5rem;
 }
 
@@ -239,7 +239,7 @@
     padding: calc(var(--statusbar-height) + 6rem) 1.5rem calc(var(--software-buttons-height) + 6rem);
   }
 
-  #screen.desktop #cards-view-list {
+  .screen.desktop #cards-view-list {
     padding: 6.5rem 1.5rem calc(var(--dock-height) + 8rem);
   }
 

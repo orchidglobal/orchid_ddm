@@ -15,16 +15,16 @@
   gap: 1rem;
 }
 
-#screen.close-reach #windows {
+.screen.close-reach #windows {
   height: 60%;
   transform: translateY(40vh);
 }
 
-#screen.keyboard-visible #windows {
+.screen.keyboard-visible #windows {
   height: 60%;
 }
 
-#screen.gpu-fully-capable #windows.utility-tray-motion > #homescreen .browser {
+.screen.gpu-fully-capable #windows.utility-tray-motion > #homescreen .browser {
   transform: scale(calc(1 - (0.1 * var(--motion-progress))));
   transition: transform 0.3s ease;
 }
@@ -74,26 +74,26 @@
   box-shadow: 0 0 0 1rem var(--item-active);
 }
 
-#screen.cards-view-visible #windows,
-#screen.drag-and-drop-active #windows,
-#screen.utility-tray-visible #windows {
+.screen.cards-view-visible #windows,
+.screen.drag-and-drop-active #windows,
+.screen.utility-tray-visible #windows {
   pointer-events: none;
 }
 
-#screen.cards-view-visible .appframe:not(.to-scale),
-#screen.cards-view-visible .appframe:not(.to-scale) > * {
+.screen.cards-view-visible .appframe:not(.to-scale),
+.screen.cards-view-visible .appframe:not(.to-scale) > * {
   transform: none;
   opacity: 0.0000000000000001;
   pointer-events: none;
   transition: none;
 }
 
-#screen:not(.cards-view-visible) #homescreen.appframe {
+.screen:not(.cards-view-visible) #homescreen.appframe {
   transform: scale(0.9);
   opacity: 0;
 }
 
-#screen:not(.cards-view-visible) #homescreen.appframe.active {
+.screen:not(.cards-view-visible) #homescreen.appframe.active {
   transform: scale(1);
   opacity: 1;
 }
@@ -342,13 +342,13 @@
   box-shadow: none;
 }
 
-#screen.desktop .appframe.window.maximized {
+.screen.desktop .appframe.window.maximized {
   height: calc(100% - var(--dock-height) - 2rem);
   translate: 0 0;
   border-radius: 0 !important;
 }
 
-#screen.desktop .appframe.window.snapped {
+.screen.desktop .appframe.window.snapped {
   border-radius: 0 !important;
   box-shadow: none;
 }
@@ -370,9 +370,24 @@
   height: calc(100% + var(--software-buttons-height));
 }
 
+.appframe .statusbar {
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+#windows:not(.dragging) .appframe.active .statusbar {
+  opacity: 1;
+}
+
+.appframe.window .statusbar,
+.screen.desktop .appframe .statusbar {
+  display: none;
+}
+
 .appframe .splashscreen {
   visibility: visible;
-  z-index: 5;
+  z-index: 30;
   position: absolute;
   top: 0;
   left: 0;

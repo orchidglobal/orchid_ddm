@@ -12,12 +12,12 @@
   transition: transform 0.5s cubic-bezier(0.8, 0.1, 0.9, 0), visibility 0.5s ease;
 }
 
-#screen:not(.desktop).software-buttons-enabled #keyboards {
+.screen:not(.desktop).software-buttons-enabled #keyboards {
   height: calc(40% + var(--software-buttons-height));
   padding-bottom: var(--software-buttons-height);
 }
 
-#screen.desktop #keyboards {
+.screen.desktop #keyboards {
   height: calc(40% + var(--software-buttons-height) + 2rem);
   padding-bottom: calc(var(--software-buttons-height) + 2rem);
 }
@@ -44,10 +44,10 @@
   height: calc(100% - 1.5rem);
 }
 
-#screen:not(.desktop).software-buttons-enabled .inputframe .browser {
+.screen:not(.desktop).software-buttons-enabled .inputframe .browser {
   height: calc(100% - var(--software-buttons-height));
 }
 
-#screen.desktop .inputframe .browser {
+.screen.desktop .inputframe .browser {
   height: calc(100% - var(--software-buttons-height) - 1rem);
 }

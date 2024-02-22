@@ -40,7 +40,7 @@ html, body {
   pointer-events: none !important;
 }
 
-#screen::before {
+.screen::before {
   visibility: hidden;
   z-index: 999999999999;
   position: absolute;
@@ -54,19 +54,19 @@ html, body {
   transition: transform 0.5s cubic-bezier(0.5, 0.8, 0, 1.1), visibility 0.5s ease;
 }
 
-#screen.close-reach::before {
+.screen.close-reach::before {
   visibility: visible;
   transform: translateY(0);
   backdrop-filter: blur(20px) saturate(150%);
 }
 
-#screen.close-reach:active::before {
+.screen.close-reach:active::before {
   background-image: url(images/close_reach_chevron_active.svg);
   background-color: rgba(255, 255, 255, 0.5);
 }
 
 /* Screen filters */
-#screen::after {
+.screen::after {
   visibility: hidden;
   z-index: 999999999999;
   position: absolute;
@@ -81,12 +81,12 @@ html, body {
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-#screen.warm-colors::after {
+.screen.warm-colors::after {
   visibility: visible;
   opacity: 1;
 }
 
-#screen.reader-mode {
+.screen.reader-mode {
   filter: grayscale(1);
 }
 
@@ -106,3 +106,14 @@ html, body {
 #system-overlays > #text-selection {
   pointer-events: all;
 }
+
+.screen.smart-tv {
+  --statusbar-height: 0rem;
+  --software-buttons-height: 0rem;
+}
+
+.screen.smart-tv #statusbar,
+.screen.smart-tv #software-buttons {
+  display: none;
+}
+

@@ -56,7 +56,9 @@
         notification = taggedNotification;
       } else {
         this._index++;
-        this.lockscreenNotificationBadge.textContent = this._index;
+        this.lockscreenNotificationBadge.dataset.l10nArgs = JSON.stringify({
+          count: this._index
+        });
 
         notification = document.createElement('li');
         notification.classList.add('notification');
