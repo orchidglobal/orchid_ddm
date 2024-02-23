@@ -374,7 +374,7 @@
     },
 
     initializeBrowser: async function (chromeContainer, startUrl, isChromeEnabled) {
-      const browser = new Chrome(chromeContainer, startUrl, isChromeEnabled);
+      const browser = new Chrome(chromeContainer, startUrl, this, isChromeEnabled);
       this.chrome = browser;
 
       Webapps.append({

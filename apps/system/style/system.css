@@ -1,19 +1,9 @@
-@font-face {
-  src: url(http://shared.localhost:8081/fonts/JaliArabic-Regular.ttf);
-  font-family: -orchid-standard-font;
-}
-
-*, ::placeholder {
-  font-family: -orchid-standard-font, system-ui;
-}
-
 html, body {
   -webkit-tap-highlight-color: transparent;
   margin: 0;
   padding: 0;
   background-color: #000;
   font-size: 10px;
-  font-family: -orchid-standard-font, system-ui;
   touch-action: none;
   user-select: none;
 }

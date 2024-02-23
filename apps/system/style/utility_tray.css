@@ -1,10 +1,12 @@
 #utility-tray {
   --tray-button-background: rgba(255, 255, 255, 0.5);
-  --tray-button-background-minus: rgba(255, 255, 255, 0.3);
+  --tray-button-background-minus: rgba(255, 255, 255, 0.4);
   --tray-button-background-plus: rgba(51, 51, 51, 0.1);
   --tray-button-active: rgba(51, 51, 51, 0.5);
   --tray-button-text-color: #333;
   --tray-button-text-color-faded: rgba(51, 51, 51, 0.5);
+  --tray-button-radius: 2.25rem;
+  --tray-panel-radius: 2rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -17,7 +19,7 @@
 @media screen and (prefers-color-scheme: dark) {
   #utility-tray {
     --tray-button-background: rgba(0, 0, 0, 0.5);
-    --tray-button-background-minus: rgba(0, 0, 0, 0.3);
+    --tray-button-background-minus: rgba(0, 0, 0, 0.4);
     --tray-button-background-plus: rgba(255, 255, 255, 0.1);
     --tray-button-active: rgba(255, 255, 255, 0.5);
     --tray-button-text-color: #fff;

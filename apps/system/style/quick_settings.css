@@ -19,7 +19,7 @@
   width: 12rem;
   height: 6.5rem;
   margin: 0;
-  border-radius: 2.5rem;
+  border-radius: var(--tray-button-radius);
   background-color: var(--tray-button-background);
   list-style: none;
 }
@@ -59,7 +59,7 @@
   aspect-ratio: 1 / 1;
   width: 6.5rem;
   height: 6.5rem;
-  border-radius: 2.5rem;
+  border-radius: var(--tray-button-radius);
   background-color: var(--tray-button-background);
   list-style: none;
 }

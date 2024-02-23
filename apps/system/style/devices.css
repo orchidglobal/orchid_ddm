@@ -5,7 +5,7 @@
   flex-direction: column;
   width: 100%;
   overflow: hidden;
-  border-radius: 2.5rem;
+  border-radius: var(--tray-button-radius);
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 

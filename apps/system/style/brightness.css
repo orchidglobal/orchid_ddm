@@ -8,7 +8,7 @@
   height: 6.5rem;
   padding: 0 2rem;
   overflow: hidden;
-  border-radius: 2.5rem;
+  border-radius: var(--tray-button-radius);
   /* background-color: var(--tray-button-background); */
   transition: all 0.3s ease;
 }

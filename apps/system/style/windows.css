@@ -61,7 +61,7 @@
 
 #windows:not(.dragging) .appframe.active-as-overlay > *,
 #windows:not(.dragging) .appframe.active > * {
-  pointer-events: auto;
+  pointer-events: unset;
 }
 
 #windows.dragging .appframe:not(#homescreen) {

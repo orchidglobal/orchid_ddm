@@ -31,6 +31,9 @@
     show: function () {
       this.isVisible = true;
 
+      this.element.classList.add('visible');
+      this.screen.classList.add('cards-view-visible');
+
       const focusedWindow = new AppWindow().getFocusedWindow().element;
       focusedWindow.classList.add('to-cards-view');
       focusedWindow.addEventListener('animationend', () => {
@@ -45,11 +48,6 @@
       const runningWebapps = Webapps.runningWebapps;
       this.cardsContainer.innerHTML = '';
       const fragment = document.createDocumentFragment();
-
-      if (runningWebapps.length === 0) {
-        this.element.classList.add('visible');
-        this.screen.classList.add('cards-view-visible');
-      }
 
       for (let index = 0, length = runningWebapps.length; index < length; index++) {
         const runningWebapp = runningWebapps[index];
@@ -69,16 +67,18 @@
       this.element.classList.remove('visible');
       this.screen.classList.remove('cards-view-visible');
 
+      const focusedWindow = new AppWindow().getFocusedWindow().element;
+      focusedWindow.classList.add('to-cards-view');
+      focusedWindow.addEventListener('animationend', () => {
+        focusedWindow.classList.remove('to-cards-view');
+      });
+
       if ('MusicController' in window) {
         // MusicController.disableMuffleEffect();
       }
 
       this.element.style.setProperty('--offset-y', null);
       this.element.style.setProperty('--scale', null);
-
-      if ('Transitions' in window && this.targetPreviewElement && AppWindow.focusedWindow) {
-        Transitions.scale(this.targetPreviewElement, AppWindow.focusedWindow);
-      }
 
       this.wallpapersContainer.classList.remove('homescreen-to-cards-view');
       this.wallpapersContainer.style.setProperty('--motion-progress', null);
@@ -133,9 +133,17 @@
       }
 
       const webview = runningWebapp.appWindow.element.querySelector('.browser-container .browser-view.active > .browser');
-      DisplayManager.screenshot(webview.getWebContentsId()).then((data) => {
-        preview.src = data;
-      });
+      try {
+        DisplayManager.screenshot(webview.getWebContentsId()).then((data) => {
+          preview.src = data;
+        });
+      } catch (error) {
+        webview.addEventListener('dom-ready', () => {
+          DisplayManager.screenshot(webview.getWebContentsId()).then((data) => {
+            preview.src = data;
+          });
+        })
+      }
 
       const titlebar = document.createElement('div');
       titlebar.classList.add('titlebar');
@@ -167,14 +175,6 @@
       name.classList.add('name');
       name.textContent = manifest.name;
       titles.appendChild(name);
-
-      if (index === 0) {
-        this.element.classList.add('visible');
-        this.screen.classList.add('cards-view-visible');
-        if ('Transitions' in window && focusedWindow.element && this.targetPreviewElement) {
-          Transitions.scale(focusedWindow.element, this.targetPreviewElement, true);
-        }
-      }
     },
 
     handleToggleButton: function (event) {

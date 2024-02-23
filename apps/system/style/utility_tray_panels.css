@@ -2,7 +2,7 @@
   --background: transparent;
   visibility: hidden;
   position: absolute;
-  bottom: 2.5rem;
+  bottom: 3.5rem;
   left: 50%;
   width: calc(100% - 3rem);
   max-width: 40rem;
@@ -10,12 +10,12 @@
   max-height: calc(100% - var(--statusbar-height) - 2.5rem);
   overflow: hidden;
   translate: -50% 0;
-  border-radius: 2.5rem;
+  border-radius: var(--tray-panel-radius);
   transition: visibility 0.3s ease;
 }
 
 .screen.software-buttons-enabled .tray-panel {
-  bottom: var(--software-buttons-height);
+  bottom: calc(var(--software-buttons-height) + 1rem);
 }
 
 .screen.desktop .tray-panel {
@@ -39,7 +39,7 @@ html[dir="rtl"] .screen.desktop .tray-panel {
   );
 }
 
-.tray-panel .header {
+.tray-panel > .header {
   box-sizing: border-box;
   display: flex;
   width: 100%;
@@ -48,7 +48,7 @@ html[dir="rtl"] .screen.desktop .tray-panel {
   background-color: var(--tray-button-background);
 }
 
-.tray-panel .header h1 {
+.tray-panel > .header h1 {
   flex-grow: 1;
   width: 100%;
   height: 5rem;
@@ -59,7 +59,7 @@ html[dir="rtl"] .screen.desktop .tray-panel {
   line-height: 5rem;
 }
 
-.tray-panel .header a {
+.tray-panel > .header a {
   display: inline-block;
   flex-shrink: 0;
   width: 4rem;
@@ -74,20 +74,109 @@ html[dir="rtl"] .screen.desktop .tray-panel {
   text-align: center;
 }
 
-.tray-panel .header a[data-icon]::before {
+.tray-panel > .header a[data-icon]::before {
   position: static;
   height: 5rem;
   font-size: 2rem;
   line-height: 5rem;
 }
 
-.tray-panel .content {
+.tray-panel > .content {
   width: 100%;
-  height: 10rem;
+  min-height: 10rem;
   background-color: var(--tray-button-background-minus);
 }
 
-.tray-panel .buttons {
+.tray-panel > .content.media-playback {
+  background-color: var(--tray-button-background);
+}
+
+.tray-panel > .content ul {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.tray-panel > .content ul li {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  min-height: 5rem;
+  margin: 0;
+  padding: 0.5rem 2rem;
+  overflow: hidden;
+  outline: none;
+  color: var(--text-color);
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  list-style: none;
+  text-overflow: ellipsis;
+  transition: background-color 0.3s ease;
+}
+
+.tray-panel > .content ul li:focus,
+.tray-panel > .content ul li:hover {
+  background-color: var(--item-hover);
+  transition: background-color 0.1s ease;
+}
+
+.tray-panel > .content ul li:active {
+  background-color: var(--item-active);
+  transition: background-color 0.1s ease;
+}
+
+.tray-panel > .content ul li.selected {
+  background-color: var(--accent-color);
+  color: var(--accent-color-plus);
+}
+
+.tray-panel > .content ul li[data-icon] {
+  padding-inline-start: 4.5rem;
+}
+
+.tray-panel > .content ul li[data-icon]::before {
+  position: absolute;
+  top: 50%;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-top: -1.2rem;
+  color: var(--text-color);
+  font-size: 2.4rem;
+  line-height: 2.4rem;
+}
+html[dir="ltr"] .tray-panel > .content ul li[data-icon]::before {
+  left: 1.2rem;
+}
+html[dir="rtl"] .tray-panel > .content ul li[data-icon]::before {
+  right: 1.2rem;
+}
+
+.tray-panel > .content ul li[data-icon].selected::before {
+  color: var(--accent-color-plus);
+}
+
+.tray-panel > .content ul li::after {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  width: calc(100% - 3rem);
+  height: 100%;
+  border-top: solid 0.1rem var(--separator-color);
+  content: '';
+  pointer-events: none;
+}
+
+.tray-panel > .content ul li:not(.noclick):hover::after,
+.tray-panel > .content ul li:not(.noclick):active::after,
+.tray-panel > .content ul li:not(.noclick):hover + li::after,
+.tray-panel > .content ul li:not(.noclick):active + li::after,
+.tray-panel > .content ul li:first-child::after {
+  border-top: none;
+}
+
+.tray-panel > .buttons {
   box-sizing: border-box;
   display: flex;
   padding: 1.5rem;
@@ -95,6 +184,6 @@ html[dir="rtl"] .screen.desktop .tray-panel {
   background-color: var(--tray-button-background);
 }
 
-.tray-panel .buttons > button {
+.tray-panel > .buttons > button {
   margin: 0;
 }

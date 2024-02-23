@@ -1,10 +1,11 @@
 !(function (exports) {
   'use strict';
 
-  function Chrome(chromeElement, url, isVisible = true) {
+  function Chrome(chromeElement, url, app, isVisible = true) {
     this.chromeElement = chromeElement;
-    this.isVisible = isVisible;
     this.url = url;
+    this.app = app;
+    this.isVisible = isVisible;
 
     fetch('http://system.localhost:8081/elements/chrome_interface.html').then((response) => {
       response.text().then((htmlContent) => {
@@ -16,7 +17,6 @@
 
   Chrome.prototype = {
     screen: document.getElementById('screen'),
-    statusbar: document.getElementById('statusbar'),
     softwareButtons: document.getElementById('software-buttons'),
     bottomPanel: document.getElementById('bottom-panel'),
 
@@ -121,9 +121,9 @@
         this.chromeElement.classList.add(data);
       });
 
-      if (this.statusbar) {
-        this.statusbar.classList.remove('light');
-        this.statusbar.classList.remove('dark');
+      if (this.app && this.app.statusbar && this.app.statusbar.element) {
+        this.app.statusbar.element.classList.remove('light');
+        this.app.statusbar.element.classList.remove('dark');
       }
       if (this.softwareButtons) {
         this.softwareButtons.classList.remove('light');
@@ -149,8 +149,8 @@
       }
       this.openNewTab(false, this.url);
 
-      if (this.statusbar) {
-        this.statusbar.addEventListener('dblclick', this.handleStatusbarDoubleClick.bind(this));
+      if (this.app && this.app.statusbar && this.app.statusbar.element) {
+        this.app.statusbar.element.addEventListener('dblclick', this.handleStatusbarDoubleClick.bind(this));
       }
 
       this.addonDropdownBrowser.addEventListener('dom-ready', () => {
@@ -886,7 +886,11 @@
             },
             {
               l10nId: 'contextMenu-bookmark',
-              icon: (await Settings.getValue('bookmarks', 'bookmarks.json')).filter((item) => item.url === webview.getURL()) ? 'bookmarked' : 'bookmark',
+              icon: (await Settings.getValue('bookmarks', 'bookmarks.json')).filter(
+                (item) => item.url === webview.getURL()
+              )
+                ? 'bookmarked'
+                : 'bookmark',
               onclick: this.requestBookmark.bind(this)
             }
           ]
@@ -1363,8 +1367,8 @@
         if (luminance > 0.5) {
           this.chromeElement.classList.remove('dark');
           this.chromeElement.parentElement.classList.remove('dark');
-          if (this.statusbar) {
-            this.statusbar.classList.remove('dark');
+          if (this.app && this.app.statusbar && this.app.statusbar.element) {
+            this.app.statusbar.element.classList.remove('dark');
           }
           if (this.softwareButtons) {
             this.softwareButtons.classList.remove('dark');
@@ -1374,8 +1378,8 @@
           }
           this.chromeElement.classList.add('light');
           this.chromeElement.parentElement.classList.add('light');
-          if (this.statusbar) {
-            this.statusbar.classList.add('light');
+          if (this.app && this.app.statusbar && this.app.statusbar.element) {
+            this.app.statusbar.element.classList.add('light');
           }
           if (this.softwareButtons) {
             this.softwareButtons.classList.add('light');
@@ -1387,8 +1391,8 @@
           // Otherwise, remove 'light' class
           this.chromeElement.classList.remove('light');
           this.chromeElement.parentElement.classList.remove('light');
-          if (this.statusbar) {
-            this.statusbar.classList.remove('light');
+          if (this.app && this.app.statusbar && this.app.statusbar.element) {
+            this.app.statusbar.element.classList.remove('light');
           }
           if (this.softwareButtons) {
             this.softwareButtons.classList.remove('light');
@@ -1398,8 +1402,8 @@
           }
           this.chromeElement.classList.add('dark');
           this.chromeElement.parentElement.classList.add('dark');
-          if (this.statusbar) {
-            this.statusbar.classList.add('dark');
+          if (this.app && this.app.statusbar && this.app.statusbar.element) {
+            this.app.statusbar.element.classList.add('dark');
           }
           if (this.softwareButtons) {
             this.softwareButtons.classList.add('dark');
@@ -1417,9 +1421,9 @@
         this.chromeElement.parentElement.classList.remove('dark');
         this.chromeElement.classList.remove('light');
         this.chromeElement.parentElement.classList.remove('light');
-        if (this.statusbar) {
-          this.statusbar.classList.remove('dark');
-          this.statusbar.classList.remove('light');
+        if (this.app.statusbar.element) {
+          this.app.statusbar.element.classList.remove('dark');
+          this.app.statusbar.element.classList.remove('light');
         }
         if (this.softwareButtons) {
           this.softwareButtons.classList.remove('dark');

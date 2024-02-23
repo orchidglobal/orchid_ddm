@@ -125,12 +125,11 @@ html[dir='rtl'] .statusbar-icons > .right {
   height: 2rem;
   margin: 0 0.2rem;
   color: var(--statusbar-icon-color);
-  font-weight: 300;
+  font-weight: normal;
   font-size: 1.6rem;
   line-height: 2rem;
   text-align: center;
-  transition: opacity 0.3s cubic-bezier(0.2, 0.9, 0.1, 1.25) 0.3s, transform 0.3s cubic-bezier(0.2, 0.9, 0.1, 1.25) 0.3s,
-    visibility 0.3s cubic-bezier(0.2, 0.9, 0.1, 1.25) 0.3s, margin 0.3s cubic-bezier(0.2, 0.9, 0.1, 1.25);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease, margin 0.3s ease;
 }
 
 html[data-red-light-point="true"] .statusbar-icons > .left div,
@@ -154,7 +153,6 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
   margin: 0 var(--hide-margin, -1rem);
   transform: scale(0.2);
   opacity: 0;
-  transition: all 0.3s ease;
 }
 
 .statusbar-icons > .left div[data-icon]::before,

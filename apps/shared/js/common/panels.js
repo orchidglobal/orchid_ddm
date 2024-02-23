@@ -37,7 +37,7 @@
 
         const children = content.querySelectorAll(':scope > *');
         children.forEach((child, index) => {
-          child.style.transitionDelay = 300 + index * 50 + 'ms';
+          child.style.transitionDelay = 300 + index * 30 + 'ms';
         });
 
         if ('Scrollbar' in window) {

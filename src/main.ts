@@ -56,6 +56,7 @@ export const Main = {
     }
 
     this.overrideDialogs();
+    this.setupProfileLocations();
     this.registerProtocols();
 
     app.whenReady().then(this.whenReady.bind(this));
@@ -111,7 +112,7 @@ export const Main = {
   },
 
   setupProfileLocations: function () {
-    if (!this.profilePath) {
+    if (!this.profilePath || !this.storagePath) {
       throw new Error('Unspecified profile path');
     }
 
@@ -119,12 +120,12 @@ export const Main = {
     app.setPath('userData', path.resolve(this.profilePath));
     app.setPath('sessionData', path.resolve(this.profilePath));
     app.setPath('temp', path.join(path.resolve(this.profilePath), 'temp'));
-    app.setPath('desktop', path.join(path.resolve(this.profilePath), 'storage', 'others', 'desktop'));
-    app.setPath('documents', path.join(path.resolve(this.profilePath), 'storage', 'documents'));
-    app.setPath('downloads', path.join(path.resolve(this.profilePath), 'storage', 'downloads'));
-    app.setPath('music', path.join(path.resolve(this.profilePath), 'storage', 'music'));
-    app.setPath('pictures', path.join(path.resolve(this.profilePath), 'storage', 'photos'));
-    app.setPath('videos', path.join(path.resolve(this.profilePath), 'storage', 'movies'));
+    app.setPath('desktop', path.join(path.resolve(this.storagePath), 'Desktop'));
+    app.setPath('documents', path.join(path.resolve(this.storagePath), 'Documents'));
+    app.setPath('downloads', path.join(path.resolve(this.storagePath), 'Downloads'));
+    app.setPath('music', path.join(path.resolve(this.storagePath), 'Music'));
+    app.setPath('pictures', path.join(path.resolve(this.storagePath), 'Pictures'));
+    app.setPath('videos', path.join(path.resolve(this.storagePath), 'Videos'));
     app.setPath('logs', path.join(path.resolve(this.profilePath), 'logs'));
     app.setPath('cache', path.join(path.resolve(this.profilePath), 'cache'));
     app.setPath('crashDumps', path.join(path.resolve(this.profilePath), 'crash-dumps'));
