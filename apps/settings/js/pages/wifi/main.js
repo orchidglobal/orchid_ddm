@@ -64,5 +64,5 @@
     }
   };
 
-  Wifi.init();
+  exports.Wifi = Wifi;
 })(window);

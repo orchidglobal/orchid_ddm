@@ -94,7 +94,5 @@
     }
   };
 
-  window.addEventListener('orchid-services-ready', () => {
-    Account.init();
-  });
+  exports.Account = Account;
 })(window);

@@ -18,6 +18,7 @@
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/lists.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/switches.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/checkboxes.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/radios.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/seekbars.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/input_areas.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/skeletons.css" />
@@ -49,6 +50,7 @@
   <script defer type="text/javascript" src="js/pages/display/accent_color.js"></script>
   <script defer type="text/javascript" src="js/pages/display/font_settings.js"></script>
   <script defer type="text/javascript" src="js/pages/homescreen/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/homescreen/change.js"></script>
   <script defer type="text/javascript" src="js/pages/battery/main.js"></script>
   <script defer type="text/javascript" src="js/pages/storage/main.js"></script>
   <script defer type="text/javascript" src="js/pages/accessibility/main.js"></script>
@@ -266,7 +268,7 @@
       </section>
     </section>
 
-    <section id="wifi" role="panel" data-previous-page-id="root">
+    <section id="wifi" role="panel" data-page-object="Wifi" data-previous-page-id="root">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="root"></a>
         <h1 data-l10n-id="wifi"></h1>
@@ -305,7 +307,7 @@
       </section>
     </section>
 
-    <section id="bluetooth" role="panel" data-previous-page-id="root">
+    <section id="bluetooth" role="panel" data-page-object="Bluetooth" data-previous-page-id="root">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="root"></a>
         <h1 data-l10n-id="bluetooth"></h1>
@@ -343,7 +345,7 @@
       </section>
     </section>
 
-    <section id="general" role="panel" data-previous-page-id="root">
+    <section id="general" role="panel" data-page-object="General" data-previous-page-id="root">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="root"></a>
         <h1 data-l10n-id="general"></h1>
@@ -445,7 +447,7 @@
       </section>
     </section>
 
-    <section id="webapps" role="panel" data-previous-page-id="general">
+    <section id="webapps" role="panel" data-page-object="Webapps" data-previous-page-id="general">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="general"></a>
         <h1 data-l10n-id="webapps"></h1>
@@ -494,7 +496,7 @@
       </section>
     </section>
 
-    <section id="languages" role="panel" data-previous-page-id="general">
+    <section id="languages" role="panel" data-page-object="Languages" data-previous-page-id="general">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="general"></a>
         <h1 data-l10n-id="languages"></h1>
@@ -505,7 +507,7 @@
       </section>
     </section>
 
-    <section id="audio" role="panel" data-previous-page-id="root">
+    <section id="audio" role="panel" data-page-object="Audio" data-previous-page-id="root">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="root"></a>
         <h1 data-l10n-id="audio"></h1>
@@ -609,7 +611,7 @@
       </section>
     </section>
 
-    <section id="display" role="panel" data-previous-page-id="root">
+    <section id="display" role="panel" data-page-object="Display" data-previous-page-id="root">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="root"></a>
         <h1 data-l10n-id="display"></h1>
@@ -708,7 +710,7 @@
       </section>
     </section>
 
-    <section id="accent-color" role="panel" data-previous-page-id="display">
+    <section id="accent-color" role="panel" data-page-object="AccentColor" data-previous-page-id="display">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="display"></a>
         <h1 data-l10n-id="accentColor"></h1>
@@ -742,7 +744,7 @@
       </section>
     </section>
 
-    <section id="font-settings" role="panel" data-previous-page-id="display">
+    <section id="font-settings" role="panel" data-page-object="FontSettings" data-previous-page-id="display">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="display"></a>
         <h1 data-l10n-id="fontSettings"></h1>
@@ -762,7 +764,7 @@
       </section>
     </section>
 
-    <section id="homescreen" role="panel" data-previous-page-id="root">
+    <section id="homescreen" role="panel" data-page-object="Homescreen" data-previous-page-id="root">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="root"></a>
         <h1 data-l10n-id="homescreen"></h1>
@@ -795,6 +797,38 @@
             <select name="" id="homescreen-grid">
               <option value="4x6">4x6</option>
             </select>
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="homescreen-change" role="panel" data-page-object="HomescreenChange" data-previous-page-id="root">
+      <header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="changeHomescreen"></h1>
+      </header>
+
+      <section class="lists">
+        <ul id="homescreen-change-list">
+          <li>
+            <div class="pack-radio">
+              <label for="radio1">
+                <p>Homescreen</p>
+              </label>
+              <span>
+                <input type="radio" name="radio" id="radio1" checked>
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="pack-radio">
+              <label for="radio2">
+                <p>Smart Home</p>
+              </label>
+              <span>
+                <input type="radio" name="radio" id="radio2">
+              </span>
+            </div>
           </li>
         </ul>
       </section>
@@ -849,7 +883,7 @@
       </section>
     </section>
 
-    <section id="lockScreen-mode-pinLock" role="panel" data-previous-page-id="lockScreen-mode">
+    <section id="lockScreen-mode-pinLock" role="panel" data-page-object="LockscreenPIN" data-previous-page-id="lockScreen-mode">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="lockScreen-mode"></a>
         <h1 data-l10n-id="lockScreen-mode-pinLock"></h1>
@@ -869,7 +903,7 @@
       </section>
     </section>
 
-    <section id="date-and-time" role="panel" data-previous-page-id="root">
+    <section id="date-and-time" role="panel" data-page-object="TimeAndDate" data-previous-page-id="root">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="root"></a>
         <h1 data-l10n-id="dateAndTime"></h1>
@@ -906,7 +940,7 @@
       </section>
     </section>
 
-    <section id="privacy" role="panel" data-previous-page-id="root">
+    <section id="privacy" role="panel" data-page-object="Privacy" data-previous-page-id="root">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="root"></a>
         <h1 data-l10n-id="privacy"></h1>
@@ -948,7 +982,7 @@
       </section>
     </section>
 
-    <section id="battery" role="panel" data-previous-page-id="root">
+    <section id="battery" role="panel" data-page-object="Battery" data-previous-page-id="root">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="root"></a>
         <h1 data-l10n-id="battery"></h1>
@@ -985,7 +1019,7 @@
       </section>
     </section>
 
-    <section id="storage" role="panel" data-previous-page-id="root">
+    <section id="storage" role="panel" data-page-object="Storage" data-previous-page-id="root">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="root"></a>
         <h1 data-l10n-id="storage"></h1>
@@ -1003,7 +1037,7 @@
       </section>
     </section>
 
-    <section id="accessibility" role="panel" data-previous-page-id="root">
+    <section id="accessibility" role="panel" data-page-object="Accessibility" data-previous-page-id="root">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="root"></a>
         <h1 data-l10n-id="accessibility"></h1>
@@ -1111,7 +1145,7 @@
       </section>
     </section>
 
-    <section id="system-update" role="panel" data-previous-page-id="system">
+    <section id="system-update" role="panel" data-page-object="SystemUpdate" data-previous-page-id="system">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="system"></a>
         <h1 data-l10n-id="systemUpdate"></h1>
@@ -1149,7 +1183,7 @@
       </section>
     </section>
 
-    <section id="about" role="panel" data-previous-page-id="root">
+    <section id="about" role="panel" data-page-object="About" data-previous-page-id="root">
       <header>
         <a href="#" data-icon="arrow-back" data-page-id="root"></a>
         <h1 data-l10n-id="aboutInfo"></h1>
@@ -1240,7 +1274,7 @@
         </section>
       </section>
     </section>
-    </div>
+  </main>
 </body>
 
 </html>

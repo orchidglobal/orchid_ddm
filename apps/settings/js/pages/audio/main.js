@@ -19,5 +19,5 @@
     }
   };
 
-  Audio.init();
+  exports.Audio = Audio;
 })(window);

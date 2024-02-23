@@ -85,5 +85,5 @@
     }
   };
 
-  Storage.init();
+  exports.Storage = Storage;
 })(window);

@@ -156,7 +156,5 @@
     }
   };
 
-  window.addEventListener('orchid-services-ready', () => {
-    Devices.init();
-  });
+  exports.Devices = Devices;
 })(window);

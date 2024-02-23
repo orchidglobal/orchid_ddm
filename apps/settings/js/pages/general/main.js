@@ -28,5 +28,5 @@
     }
   };
 
-  General.init();
+  exports.General = General;
 })(window);

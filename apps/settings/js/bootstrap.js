@@ -35,6 +35,7 @@
     LazyLoader.load('js/pages/display/accent_color.js');
     LazyLoader.load('js/pages/display/font_settings.js');
     LazyLoader.load('js/pages/homescreen/main.js');
+    LazyLoader.load('js/pages/homescreen/change.js');
     LazyLoader.load('js/pages/battery/main.js');
     // LazyLoader.load('js/pages/battery/battery_icon.js');
     LazyLoader.load('js/pages/storage/main.js');

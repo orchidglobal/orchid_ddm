@@ -17,5 +17,5 @@
     }
   };
 
-  Accessibility.init();
+  exports.Accessibility = Accessibility;
 })(window);

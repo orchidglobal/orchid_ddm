@@ -25,5 +25,5 @@
     }
   };
 
-  Languages.init();
+  exports.Languages = Languages;
 })(window);

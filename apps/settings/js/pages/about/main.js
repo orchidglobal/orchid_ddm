@@ -37,5 +37,5 @@
     }
   };
 
-  About.init();
+  exports.About = About;
 })(window);

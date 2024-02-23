@@ -109,5 +109,5 @@
     }
   };
 
-  Webapps.init();
+  exports.Webapps = Webapps;
 })(window);

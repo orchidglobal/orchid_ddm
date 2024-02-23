@@ -64,5 +64,5 @@
     }
   };
 
-  Display.init();
+  exports.Display = Display;
 })(window);

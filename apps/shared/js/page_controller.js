@@ -94,6 +94,28 @@
       targetPanel.classList.toggle('visible');
       targetPanel.classList.toggle('previous', selectedPanel.dataset.index <= targetPanel.dataset.index);
       targetPanel.classList.toggle('next', selectedPanel.dataset.index >= targetPanel.dataset.index);
+
+      const selectedPageObject = selectedPanel.dataset.pageObject;
+      if (selectedPageObject in window) {
+        try {
+          window[selectedPageObject].hide();
+        } catch(error) {
+          console.error(error);
+        }
+      }
+
+      const targetPageObject = targetPanel.dataset.pageObject;
+      if (targetPageObject in window) {
+        if (!window[targetPageObject].isLoaded) {
+          window[targetPageObject].init();
+          window[targetPageObject].isLoaded = true;
+        }
+        try {
+          window[targetPageObject].show();
+        } catch(error) {
+          console.error(error);
+        }
+      }
     }
   };
 

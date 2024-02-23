@@ -17,5 +17,5 @@
     }
   };
 
-  FontSettings.init();
+  exports.FontSettings = FontSettings;
 })(window);

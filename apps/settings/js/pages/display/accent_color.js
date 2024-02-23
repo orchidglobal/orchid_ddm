@@ -117,5 +117,5 @@
     }
   };
 
-  AccentColor.init();
+  exports.AccentColor = AccentColor;
 })(window);

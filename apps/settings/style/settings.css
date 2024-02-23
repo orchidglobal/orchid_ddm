@@ -156,7 +156,6 @@
   flex-shrink: 0;
   width: 4rem;
   height: 4rem;
-  border-radius: 25%;
   background-color: transparent;
 }
 
@@ -256,6 +255,13 @@
   border-radius: 1rem 0 0 0;
   background-color: rgb(var(--accent-color-secondary-r), var(--accent-color-secondary-g), var(--accent-color-secondary-b));
   content: '';
+}
+
+#homescreen-change-list li > img {
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  background-color: transparent;
 }
 
 .battery-header {

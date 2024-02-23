@@ -12,5 +12,5 @@
     }
   };
 
-  Homescreen.init();
+  exports.Homescreen = Homescreen;
 })(window);

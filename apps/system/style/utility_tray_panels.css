@@ -44,7 +44,8 @@ html[dir="rtl"] .screen.desktop .tray-panel {
   display: flex;
   width: 100%;
   height: 5rem;
-  padding: 0 1rem;
+  padding: 0 0.5rem;
+  gap: 1rem;
   background-color: var(--tray-button-background);
 }
 
@@ -132,7 +133,7 @@ html[dir="rtl"] .screen.desktop .tray-panel {
 }
 
 .tray-panel > .content ul li[data-icon] {
-  padding-inline-start: 4.5rem;
+  padding-inline-start: 5rem;
 }
 
 .tray-panel > .content ul li[data-icon]::before {
@@ -146,10 +147,10 @@ html[dir="rtl"] .screen.desktop .tray-panel {
   line-height: 2.4rem;
 }
 html[dir="ltr"] .tray-panel > .content ul li[data-icon]::before {
-  left: 1.2rem;
+  left: 1.5rem;
 }
 html[dir="rtl"] .tray-panel > .content ul li[data-icon]::before {
-  right: 1.2rem;
+  right: 1.5rem;
 }
 
 .tray-panel > .content ul li[data-icon].selected::before {
