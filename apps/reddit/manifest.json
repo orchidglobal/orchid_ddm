@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "name": "Reddit",
+  "description": "",
+  "start_url": "https://www.reddit.com/",
+  "icons": {
+    "16": "/icons/reddit_16.png",
+    "32": "/icons/reddit_32.png",
+    "48": "/icons/reddit_48.png",
+    "64": "/icons/reddit_64.png",
+    "128": "/icons/reddit_128.png",
+    "256": "/icons/reddit_256.png"
+  },
+  "developer": {
+    "name": "Reddit",
+    "url": "https://www.reddit.com/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait-primary",
+  "permissions": {}
+}

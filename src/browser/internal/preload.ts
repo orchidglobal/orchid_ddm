@@ -199,6 +199,14 @@ const InternalPreload = {
     WebviewHandler.init();
     Keybinds.init();
     Keyboard.init();
+
+    const scrollingElement = document.scrollingElement;
+    document.addEventListener('scroll', () => {
+      ipcRenderer.sendToHost('scroll', {
+        left: scrollingElement?.scrollLeft,
+        top: scrollingElement?.scrollTop
+      });
+    });
   },
 
   updateTextSelection: function () {

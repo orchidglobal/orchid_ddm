@@ -1,3 +1,7 @@
 #frimware {
   display: none;
 }
+
+#frimware.visible {
+  display: block;
+}

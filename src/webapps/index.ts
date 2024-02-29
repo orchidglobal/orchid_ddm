@@ -4,6 +4,7 @@ import path from 'path';
 import { v4 } from 'uuid';
 import Settings from '../settings';
 import Renderer from '../renderer';
+import download from 'download';
 
 type ManifestUrls = {
   [key: string]: string;
@@ -34,21 +35,27 @@ const AppsManager = {
             manifestUrl = app.manifestUrl['en-US'];
           }
 
-          const response = await fetch(manifestUrl);
-          const manifest = await response.json();
+          let manifest;
+          const xhr = new XMLHttpRequest();
+          xhr.open("GET", manifestUrl, true);
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              manifest = JSON.parse(xhr.responseText);
 
-          if (!manifest.role) {
-            manifest.role = 'webapp';
-          }
-          app.manifest = manifest;
+              if (!manifest.role) {
+                manifest.role = 'webapp';
+              }
+              app.manifest = manifest;
+              app.size = AppsManager.getFolderSize(path.join(path.resolve(Renderer.webappsPath as string), app.appId));
 
-          app.size = AppsManager.getFolderSize(path.join(path.resolve(Renderer.webappsPath as string), app.appId));
-
-          if (index === appListJson.length - 1) {
-            setTimeout(() => {
-              resolve(appListJson);
-            }, 16);
-          }
+              if (index === appListJson.length - 1) {
+                setTimeout(() => {
+                  resolve(appListJson);
+                }, 16);
+              }
+            }
+          };
+          xhr.send();
         }
       } catch (error) {
         console.error('Error reading app list:', error);
@@ -126,11 +133,60 @@ const AppsManager = {
     });
   },
 
+  installPWA: function (manifestUrl: string) {
+    return new Promise(async (resolve, reject) => {
+      const appId = v4();
+      const appDir = path.join(path.resolve(Renderer.webappsPath as string), `{${appId}}`);
+
+      fs.mkdirSync(appDir, { recursive: true });
+      await download(manifestUrl, appDir);
+
+      const manifestData = fs.readFileSync(path.join(appDir, path.basename(manifestUrl)), { encoding: 'utf-8' });
+      const manifestJson = JSON.parse(manifestData);
+
+      if (typeof manifestJson.icons === 'object') {
+        const entries = Object.entries(manifestJson.icons);
+        for (let index = 0, length = entries.length; index < length; index++) {
+          const entry = entries[index] as [string, string];
+
+          const url = new URL(manifestUrl);
+          const targetDir = path.dirname(path.join(appDir, entry[1]));
+          fs.mkdirSync(targetDir, { recursive: true });
+          await download(url.origin + entry[1], targetDir);
+        }
+      } else {
+        for (let index = 0, length = manifestJson.icons.length; index < length; index++) {
+          const icon = manifestJson.icons[index] as Record<string, any>;
+
+          const url = new URL(manifestUrl);
+          const targetDir = path.dirname(path.join(appDir, icon.src));
+          fs.mkdirSync(targetDir, { recursive: true });
+          await download((url.origin + '/' + icon.src).replaceAll('//', '/'), targetDir);
+        }
+      }
+
+      AppsManager.getAll().then(async (appList: any) => {
+        const url = new URL(manifestUrl);
+        const appEntry = {
+          appId: `{${appId}}`,
+          installedAt: new Date().toISOString(),
+          manifestUrl: `http://{${appId}}.localhost:8081/manifest.json`,
+          origin: url.origin
+        };
+
+        appList.push(appEntry);
+        AppsManager.writeAppList(appList);
+
+        resolve(appId);
+      });
+    });
+  },
+
   uninstall: async function (appId: string) {
     const appDir = path.join(path.resolve(Renderer.webappsPath as string), appId);
     const appList = await AppsManager.getAll();
 
-    const updatedAppList = appList.filter((item) => item.appId !== appId)
+    const updatedAppList = appList.filter((item) => item.appId !== appId);
     AppsManager.writeAppList(updatedAppList);
 
     fs.rmdirSync(appDir, { recursive: true });

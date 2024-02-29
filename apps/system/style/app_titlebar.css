@@ -35,7 +35,7 @@ html[dir='rtl'] .appframe .titlebar {
   opacity: 1;
 }
 
-.appframe.chrome-visible:not(.fullscreen) .titlebar {
+.appframe.browser:not(.fullscreen) .titlebar {
   width: max-content;
   height: var(--chrome-titlebar-height);
 }

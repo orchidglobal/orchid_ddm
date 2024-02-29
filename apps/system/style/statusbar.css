@@ -5,6 +5,7 @@
 .statusbar {
   --statusbar-icon-color: #fff;
   --statusbar-icon-color-faded: rgba(255, 255, 255, 0.5);
+  --statusbar-icon-background: rgba(255, 255, 255, 0.1);
   position: fixed;
   top: 0;
   width: 100%;
@@ -21,6 +22,7 @@ html[dir='rtl'] .statusbar {
 .statusbar.light {
   --statusbar-icon-color: #333;
   --statusbar-icon-color-faded: rgba(0, 0, 0, 0.5);
+  --statusbar-icon-background: rgba(0, 0, 0, 0.1);
 }
 
 .screen:not(.desktop) .statusbar.hidden {
@@ -196,17 +198,24 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
   display: flex;
 }
 
-.screen.desktop #statusbar .timedate {
+.screen.desktop #software-buttons-statusbar .timedate {
   flex-direction: column;
   align-items: end;
   height: 2.8rem;
 }
 
-.screen.desktop #statusbar .statusbar-time {
+.screen.desktop #software-buttons-statusbar .statusbar-time {
   height: 1.4rem;
   font-weight: 500;
   font-size: 1.2rem;
   line-height: 1.4rem;
+}
+
+.screen.mobile .appframe.browser .statusbar-time {
+  margin: -0.1rem 0;
+  padding: 0.1rem 1.5rem;
+  border-radius: 2rem;
+  background-color: var(--statusbar-icon-background);
 }
 
 .statusbar-icons > .left .statusbar-date {
@@ -227,7 +236,7 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
   transition: all 0.3s ease;
 }
 
-.screen.desktop #statusbar .statusbar-date {
+.screen.desktop #software-buttons-statusbar .statusbar-date {
   visibility: visible;
   height: 1.4rem;
   margin: 0 0.2rem;

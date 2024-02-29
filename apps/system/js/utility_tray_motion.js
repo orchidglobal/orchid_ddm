@@ -5,6 +5,7 @@
     screen: document.getElementById('screen'),
     windowContainer: document.getElementById('windows'),
     topPanel: document.getElementById('top-panel'),
+    dockStatusbar: document.getElementById('software-buttons-statusbar'),
     statusbar: document.getElementById('statusbar'),
     motionElement: document.getElementById('utility-tray-motion'),
     controlCenter: document.getElementById('control-center'),
@@ -31,7 +32,7 @@
       document.addEventListener('touchcancel', this.onPointerCancel.bind(this));
 
       if (window.deviceType === 'desktop') {
-        this.statusbar.addEventListener('click', this.handleStatusbarClick.bind(this));
+        this.dockStatusbar.addEventListener('click', this.handleStatusbarClick.bind(this));
       }
 
       this.rowElements = this.controlCenter.querySelectorAll('.control-center-row');
@@ -133,6 +134,7 @@
     },
 
     handleStatusbarClick: function () {
+      this.dockStatusbar.classList.toggle('tray-open', !this.isVisible);
       if (!this.isVisible) {
         this.showMotionElement();
       } else {

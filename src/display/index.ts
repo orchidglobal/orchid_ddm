@@ -1,4 +1,6 @@
 import { ipcRenderer, IpcRendererEvent } from 'electron';
+import brightness from 'node-brightness';
+import Settings from '../settings';
 
 const DisplayManager = {
   screenshot: function (id: number) {
@@ -10,6 +12,14 @@ const DisplayManager = {
         }
       });
     });
+  },
+
+  getBrightness: async function () {
+    return await Settings.getValue('video.brightness');
+  },
+
+  setBrightness: function (value: number) {
+    brightness(value);
   }
 };
 

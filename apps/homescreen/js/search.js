@@ -21,7 +21,8 @@
               if (entry[0] <= this.APP_ICON_SIZE) {
                 return;
               }
-              icon.src = entry[1];
+              const url = new URL(app.manifestUrl['en-US']);
+              icon.src = url.origin + entry[1];
             });
           } else {
             icon.src = '/images/default.svg';

@@ -19,7 +19,7 @@ html, body {
   background: transparent;
 }
 
-[role="panel"] {
+section[role="panel"] {
   position: absolute;
   top: 8rem;
   left: 0;
@@ -28,22 +28,22 @@ html, body {
   background-color: transparent;
 }
 
-html[dir="ltr"] [role="panel"].previous {
+html[dir="ltr"] section[role="panel"].previous {
   transform: translateX(-25%);
 }
-html[dir="rtl"] [role="panel"].previous {
+html[dir="rtl"] section[role="panel"].previous {
   transform: translateX(25%);
 }
 
-html[dir="ltr"] [role="panel"].next {
+html[dir="ltr"] section[role="panel"].next {
   transform: translateX(25%);
 }
-html[dir="rtl"] [role="panel"].next {
+html[dir="rtl"] section[role="panel"].next {
   transform: translateX(-25%);
 }
 
-html[dir="ltr"] [role="panel"].visible,
-html[dir="rtl"] [role="panel"].visible {
+html[dir="ltr"] section[role="panel"].visible,
+html[dir="rtl"] section[role="panel"].visible {
   transform: translateX(0);
 }
 
@@ -255,8 +255,6 @@ html[dir="rtl"] [role="panel"].visible {
   height: 30vh;
   overflow: hidden;
   border-radius: 2rem;
-  backdrop-filter: blur(20px) saturate(180%);
-  background-color: rgba(255,255,255,0.1);
   list-style: none;
 }
 

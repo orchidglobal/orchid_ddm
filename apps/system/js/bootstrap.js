@@ -3,6 +3,7 @@
 
   const Bootstrap = {
     screen: null,
+    inactivityScreen: null,
     statusbar: null,
     frimwareScreen: null,
 
@@ -13,6 +14,7 @@
       'ftu.enabled',
       'general.lang.code',
       'general.software_buttons.enabled',
+      'video.brightness',
       'video.dark_mode.enabled',
       'video.reader_mode.enabled',
       'video.warm_colors.enabled'
@@ -21,9 +23,10 @@
     SETTINGS_FTU_ENABLED: 1,
     SETTINGS_GENERAL_LANG_CODE: 2,
     SETTINGS_GENERAL_SOFTWARE_BUTTONS: 3,
-    SETTINGS_VIDEO_DARK_MODE: 4,
-    SETTINGS_VIDEO_READER_MODE: 5,
-    SETTINGS_VIDEO_WARM_COLORS: 6,
+    SETTINGS_VIDEO_BRIGHTNESS: 4,
+    SETTINGS_VIDEO_DARK_MODE: 5,
+    SETTINGS_VIDEO_READER_MODE: 6,
+    SETTINGS_VIDEO_WARM_COLORS: 7,
 
     init: function () {
       // Handle Orchid frimware UI loading
@@ -38,23 +41,34 @@
       }
 
       this.screen = document.getElementById('screen');
-      this.statusbar = document.getElementById('statusbar');
+      this.inactivityScreen = document.getElementById('inactivity-screen');
 
       Settings.getValue(this.settings[this.SETTINGS_GENERAL_LANG_CODE]).then(this.handleLanguage.bind(this));
       Settings.getValue(this.settings[this.SETTINGS_GENERAL_SOFTWARE_BUTTONS]).then(this.handleSoftwareButtons.bind(this));
+      Settings.getValue(this.settings[this.SETTINGS_VIDEO_BRIGHTNESS]).then(this.handleBrightness.bind(this));
       Settings.getValue(this.settings[this.SETTINGS_VIDEO_WARM_COLORS]).then(this.handleWarmColors.bind(this));
       Settings.getValue(this.settings[this.SETTINGS_VIDEO_READER_MODE]).then(this.handleReaderMode.bind(this));
 
       Settings.addObserver(this.settings[this.SETTINGS_AUDIO_VOLUME_MUSIC], this.handleMusicVolume.bind(this));
       Settings.addObserver(this.settings[this.SETTINGS_GENERAL_LANG_CODE], this.handleLanguageChange.bind(this));
-      Settings.addObserver(this.settings[this.SETTINGS_VIDEO_DARK_MODE], this.handleColorScheme.bind(this));
       Settings.addObserver(this.settings[this.SETTINGS_GENERAL_SOFTWARE_BUTTONS], this.handleSoftwareButtons.bind(this));
+      Settings.addObserver(this.settings[this.SETTINGS_VIDEO_BRIGHTNESS], this.handleBrightness.bind(this));
+      Settings.addObserver(this.settings[this.SETTINGS_VIDEO_DARK_MODE], this.handleColorScheme.bind(this));
       Settings.addObserver(this.settings[this.SETTINGS_VIDEO_WARM_COLORS], this.handleWarmColors.bind(this));
       Settings.addObserver(this.settings[this.SETTINGS_VIDEO_READER_MODE], this.handleReaderMode.bind(this));
+
+      document.addEventListener('visibilitychange', this.handleWindowBlur.bind(this));
+      window.addEventListener('focus', this.handleWindowFocus.bind(this));
 
       // Load with AppsManager to ensure existing webapps.json and correct
       // load time that isnt too early and is low with loading overhead
       AppsManager.getAll().then(() => {
+        if (window.deviceType === 'desktop') {
+          this.statusbar = document.getElementById('software-buttons-statusbar');
+        } else {
+          this.statusbar = document.getElementById('statusbar');
+        }
+
         LazyLoader.load('js/lockscreen/lockscreen.js');
         LazyLoader.load('js/lockscreen/motion.js');
         LazyLoader.load('js/lockscreen/clock.js');
@@ -73,6 +87,7 @@
           'js/time_icon.js',
           'js/battery_icon.js',
           'js/cellular_data_icon.js',
+          'js/audio_icon.js',
           'js/wifi_icon.js',
           'js/data_icon.js',
           'js/warm_colors_icon.js',
@@ -82,6 +97,9 @@
         });
 
         LazyLoader.load('js/alarms_handler.js');
+        LazyLoader.load('js/dock_icon.js', () => {
+          LazyLoader.load('js/dock.js');
+        });
         LazyLoader.load('js/keybinds.js');
         LazyLoader.load('js/message_handler.js');
         LazyLoader.load('js/music_controller.js', () => {
@@ -101,6 +119,7 @@
         if (window.deviceType === 'desktop') {
           LazyLoader.load('js/app_switcher.js');
           LazyLoader.load('js/app_launcher.js');
+          LazyLoader.load('js/dashboard.js');
         }
 
         // Enable more complex visuals when specifications are met
@@ -164,6 +183,10 @@
       });
     },
 
+    handleBrightness: function (value) {
+      DisplayManager.setBrightness(value);
+    },
+
     handleColorScheme: function (value) {
       const targetTheme = value ? 'dark' : 'light';
       IPC.send('change-theme', targetTheme);
@@ -179,6 +202,18 @@
 
     handleReaderMode: function (value) {
       this.screen.classList.toggle('reader-mode', value);
+    },
+
+    handleWindowFocus: function () {
+      this.screen.classList.remove('hidden');
+      this.inactivityScreen.classList.remove('visible');
+    },
+
+    handleWindowBlur: function () {
+      if (document.visibilityState === 'hidden') {
+        this.screen.classList.add('hidden');
+        this.inactivityScreen.classList.add('visible');
+      }
     },
 
     handleFirstLaunch: function (value) {

@@ -28,12 +28,16 @@
 }
 
 [data-z-index-layer="utility-tray"],
-[data-z-index-layer="launcher"] {
+[data-z-index-layer="dashboard"] {
   z-index: 4096;
 }
 
 #screen.mobile [data-z-index-layer="utility-tray"] {
   z-index: 32769;
+}
+
+[data-z-index-layer="launcher"] {
+  z-index: 6144;
 }
 
 [data-z-index-layer="launcher"].maximized {

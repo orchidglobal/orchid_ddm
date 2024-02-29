@@ -10,18 +10,18 @@
   overflow: hidden;
   transform: translateY(calc(100% + var(--dock-height) + 2rem));
   border-radius: 2rem;
-  background-color: var(--background-plus);
+  background-color: var(--background);
   box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.2);
   transition: transform 0.5s cubic-bezier(0.5, 0.2, 1, 0), visibility 0.5s ease;
 }
 
 #screen.gpu-capable #launcher {
   backdrop-filter: blur(20px) saturate(180%);
-  background-color: var(--acrylic-background-plus);
+  background-color: var(--acrylic-background);
 }
 
 #launcher.shortcuts-visible {
-  background-color: var(--background-plus);
+  background-color: var(--background);
 }
 
 #launcher.visible {
@@ -68,7 +68,7 @@
 }
 
 #launcher-search {
-  background-color: var(--background-minus);
+  background-color: var(--search-background);
 }
 
 #launcher.maximized #launcher-search {

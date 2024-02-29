@@ -4,9 +4,13 @@
   const HomescreenChange = {
     webappsList: document.getElementById('homescreen-change-list'),
 
+    currentHomescreen: '',
+
     APP_ICON_SIZE: 40,
 
-    init: function () {
+    init: async function () {
+      this.currentHomescreen = await Settings.getValue(`homescreen.manifest_url.${window.deviceType}`);
+
       this.webappsList.innerHTML = '';
       const fragment = document.createDocumentFragment();
 
@@ -19,7 +23,7 @@
           if (!app.manifest.role) {
             continue;
           }
-          if (app.manifest.role === 'homescreen') {
+          if (app.manifest.role !== 'homescreen') {
             continue;
           }
 
@@ -63,8 +67,20 @@
 
           const radio = document.createElement('input');
           radio.id = app.appId;
+          radio.name = 'change-homescreen-radio';
           radio.type = 'radio';
           inputSpan.appendChild(radio);
+
+          if (app.manifestUrl['en-US'] === this.currentHomescreen) {
+            radio.checked = true;
+          }
+
+          radio.addEventListener('change', () => {
+            if (radio.checked) {
+              this.currentHomescreen = app.manifestUrl['en-US'];
+              Settings.setValue(`homescreen.manifest_url.${window.deviceType}`, this.currentHomescreen);
+            }
+          });
         }
 
         this.webappsList.appendChild(fragment);

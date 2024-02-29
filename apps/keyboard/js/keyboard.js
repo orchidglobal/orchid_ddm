@@ -147,6 +147,9 @@
         keys = data.pages[targetPage].keys;
       }
 
+      this.typingData = '';
+      this.updateSuggestions();
+
       const symbolsButton = {
         value: targetPage === 0 ? '?123' : data.shortLabel,
         keyCode: KeyEvent.DOM_VK_ALT,
@@ -242,26 +245,38 @@
 
           keyButton.addEventListener('pointerup', () => {
             if (key.keyCode === KeyEvent.DOM_VK_CAPS_LOCK) {
+              this.updateSuggestions();
               this.createLayoutKeyset({
                 isCapsLock: !isCapsLock
               });
             } else if (key.keyCode === KeyEvent.DOM_VK_ALT) {
+              this.updateSuggestions();
               this.createLayoutKeyset({
                 targetPage: key.targetPage
               });
             } else if (key.keyCode === KeyEvent.DOM_VK_BACK_SPACE) {
+              this.typingData.slice(0, -1);
+              this.updateSuggestions();
               IPC.sendToHost('input', {
                 type: 'keyboard',
                 inputType: 'keyUp',
                 keyCode: 'backspace'
               });
             } else if (key.keyCode === KeyEvent.DOM_VK_RETURN) {
+              this.typingData = '';
+              this.updateSuggestions();
               IPC.sendToHost('input', {
                 type: 'keyboard',
                 inputType: 'keyup',
                 keyCode: 'enter'
               });
             } else {
+              if (key.value.startsWith('&')) {
+                this.typingData = '';
+              } else {
+                this.typingData += isCapsLock ? key.value.toUpperCase() : key.value;
+              }
+              this.updateSuggestions();
               IPC.sendToHost('input', {
                 type: 'keyboard',
                 inputType: 'char',
@@ -271,6 +286,122 @@
           });
         });
       });
+    },
+
+    updateSuggestions: function () {
+      this.suggestions.innerHTML = '';
+
+      const words = this.typingData.trim().split(/\s+/);
+      const lastWord = words[words.length - 1].toLowerCase();
+      const similarWords = this.findSimilarWords(lastWord);
+
+      for (let index = 0; index < 3; index++) {
+        const suggestion = document.createElement('div');
+        suggestion.classList.add('suggestion');
+        suggestion.classList.toggle('recommend', index === 1);
+
+        const word = index < similarWords.length ? similarWords[index] : '';
+        suggestion.textContent = word;
+
+        this.suggestions.appendChild(suggestion);
+      }
+    },
+
+    findSimilarWords: function (targetWord) {
+      const commonWords = [
+        'Hi',
+        'Hello',
+        'How',
+        'Are',
+        'You',
+        'When',
+        'Why',
+        'Thanks',
+        'I',
+        'Me',
+        'They',
+        "They're",
+        'He',
+        'Him',
+        'She',
+        'Her',
+        'It',
+        'That',
+        'Whore',
+        'Fuck',
+        'Bitch',
+        'Idiot',
+        'Nice',
+        'Orchid',
+        'Apple',
+        'Scamsung',
+        'Java',
+        'Google',
+        'Pretty',
+        'Cute',
+        'Fancy',
+        'Thot',
+        'Furry',
+        'Fluffy',
+        'Dad',
+        'Daddy',
+        'Mom',
+        'Mommy',
+        'Wolf',
+        'Fox',
+        'Cat',
+        'Dog',
+        'Dragon',
+        'Lizard',
+        'Hamster',
+        'Raccoon',
+        'Cow',
+        'Orange',
+        'Lemon',
+        'Red',
+        'Blue',
+        'Green',
+        'Lime',
+        'Magenta',
+        'Pink',
+        'Purple',
+        'Brown',
+        'White',
+        'Black',
+        'Gray',
+        'Light',
+        'Dark',
+        'Medium',
+        'Small',
+        'Nano',
+        'Large',
+        'Big',
+        'Huge',
+        'Boom!',
+        'Explode',
+        'Explosion'
+      ];
+
+      // Calculate similarity based on common characters
+      const similarities = commonWords.map((word) => ({
+        word,
+        similarity: this.calculateSimilarity(targetWord, word)
+      }));
+
+      // Sort by similarity in descending order
+      similarities.sort((a, b) => b.similarity - a.similarity);
+
+      // Return the most similar words
+      return similarities.slice(0, 3).map((entry) => entry.word);
+    },
+
+    calculateSimilarity: function (a, b) {
+      const setA = new Set(a);
+      const setB = new Set(b);
+      const intersection = new Set([...setA].filter((char) => setB.has(char)));
+      const union = new Set([...setA, ...setB]);
+
+      return intersection.size / union.size;
     }
   };
 

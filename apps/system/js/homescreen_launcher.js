@@ -11,10 +11,6 @@
 
     init: function () {
       if (window.deviceType === 'desktop') {
-        return;
-      }
-
-      if (window.deviceType === 'desktop') {
         Settings.getValue(this.settings[this.SETTINGS_HOMESCREEN_MANIFEST_URL_DESKTOP]).then(this.handleHomescreen.bind(this));
         Settings.addObserver(this.settings[this.SETTINGS_HOMESCREEN_MANIFEST_URL_DESKTOP], this.handleHomescreenChange.bind(this));
       } else if (window.deviceType === 'smart-tv') {

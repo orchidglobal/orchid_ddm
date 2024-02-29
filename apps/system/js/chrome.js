@@ -103,7 +103,7 @@
 
       if (this.isVisible) {
         this.chromeElement.classList.add('visible');
-        this.chromeElement.parentElement.classList.add('chrome-visible');
+        this.chromeElement.parentElement.classList.add('browser');
 
         Settings.getValue('ftu.browser.enabled').then((value) => {
           if (value) {
@@ -1098,11 +1098,7 @@
     },
 
     handleIpcMessage: function (event) {
-      const webview = this.browserContainer.querySelector('.browser-view.active > .browser');
-
       const data = event.args[0];
-      const scrollPosition = data.top;
-      let progress = scrollPosition / 100;
 
       switch (event.channel) {
         case 'keybind':
@@ -1110,21 +1106,26 @@
           break;
 
         case 'scroll':
-          progress = Math.min(1, progress);
-          webview.style.setProperty('--scroll-progress', progress);
+          const scrollOffset = data.top;
+          const scrollMovement = scrollOffset - this.lastScroll;
+          const scrollThreshold = 100;
 
-          if (!this.chromeElement.classList.contains('chrome-visible')) {
+          if (!this.isVisible) {
             return;
           }
+          this.currentScroll = Math.min(scrollThreshold, Math.max(0, this.currentScroll + scrollMovement));
 
-          this.currentScroll = data.top;
-          if (this.currentScroll > this.lastScroll + 50) {
-            this.chromeElement.classList.remove('visible');
-            this.lastScroll = data.top;
-          } else if (this.currentScroll < this.lastScroll - 50) {
-            this.chromeElement.classList.add('visible');
-            this.lastScroll = data.top;
+          const normalizedScroll = 1 - this.currentScroll / scrollThreshold;
+          this.chromeElement.style.setProperty('--chrome-scroll-progress', normalizedScroll);
+          this.chromeElement.classList.toggle('visible', normalizedScroll > 0.5);
+
+          if (scrollMovement > 0 && normalizedScroll > 0.6) {
+            this.chromeElement.style.setProperty('--chrome-scroll-progress', 0);
+          } else if (scrollMovement < 0 && normalizedScroll < 0.3) {
+            this.chromeElement.style.setProperty('--chrome-scroll-progress', 1);
           }
+
+          this.lastScroll = scrollOffset;
           break;
 
         default:
@@ -1335,20 +1336,38 @@
 
       try {
         this.urlbarInput.value = webview.getURL();
+        console.log(webview.getURL(), this.DEFAULT_URL, webview.getURL() === this.DEFAULT_URL);
+
         if (webview.getURL() === this.DEFAULT_URL) {
           this.urlbarDisplayUrl.innerText = L10n.get('urlbar');
         } else {
           const url = new URL(webview.getURL());
           this.urlbarDisplayUrl.innerHTML = `
-          <div class="ignored">${url.protocol}//</div>
-          <div class="highlighted">${url.host}</div>
-          <div class="ignored">${url.pathname}</div>
-          <div class="ignored">${url.search}</div>
-          <div class="ignored">${url.hash}</div>
-        `;
+            <div class="ignored">${url.protocol}//</div>
+            <div class="highlighted">${url.host}</div>
+            <div class="ignored">${url.pathname}</div>
+            <div class="ignored">${url.search}</div>
+            <div class="ignored">${url.hash}</div>
+          `;
         }
       } catch (error) {
-        // console.error(error);
+        webview.addEventListener('dom-ready', () => {
+          this.urlbarInput.value = webview.getURL();
+          console.log(webview.getURL(), this.DEFAULT_URL, webview.getURL() === this.DEFAULT_URL);
+
+          if (webview.getURL() === this.DEFAULT_URL) {
+            this.urlbarDisplayUrl.innerText = L10n.get('urlbar');
+          } else {
+            const url = new URL(webview.getURL());
+            this.urlbarDisplayUrl.innerHTML = `
+              <div class="ignored">${url.protocol}//</div>
+              <div class="highlighted">${url.host}</div>
+              <div class="ignored">${url.pathname}</div>
+              <div class="ignored">${url.search}</div>
+              <div class="ignored">${url.hash}</div>
+            `;
+          }
+        });
       }
     },
 

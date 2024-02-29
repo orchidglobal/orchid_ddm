@@ -27,6 +27,9 @@
   },
   "display": "immersive",
   "platforms": [
-    "smart_tv"
+    "desktop",
+    "mobile",
+    "smart_tv",
+    "!server"
   ]
 }

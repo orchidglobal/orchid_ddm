@@ -6,11 +6,15 @@ section[role="panel"] > header:first-child {
   flex-shrink: 0;
   width: 100%;
   max-width: var(--safezone-width);
-  height: calc(var(--statusbar-height) + 5rem + (3.5rem * (1 - var(--progress, 0))));
+  height: calc(var(--statusbar-height, 0.5rem) - 0.5rem + 5rem + (3.5rem * (1 - var(--progress, 0))));
   margin: 0 auto;
-  padding: var(--statusbar-height) 1rem 0;
+  padding: calc(var(--statusbar-height, 0.5rem) - 0.5rem) 1rem 0;
   gap: 0.5rem;
   background-color: var(--background);
+}
+
+section[role="panel"] > header.translucent:first-child {
+  margin: 0 auto calc((var(--statusbar-height) + 5rem) * (var(--progress, 0) * -1));
 }
 
 section[role="panel"] > header.csd:first-child {

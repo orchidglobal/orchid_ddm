@@ -7,18 +7,22 @@
     }
 
     initialize () {
+      this.element.dataset.icon = 'data';
+
       if (window.deviceType !== 'mobile') {
         this.element.classList.add('hidden');
         return;
       }
-
-      this.element.dataset.icon = 'data';
       this.update();
     }
 
     update () {
       WifiManager.getCurrentConnections().then((networks) => {
         this.networks = networks;
+
+        if (!networks || !this.networks[0]) {
+          return;
+        }
 
         const signalStrength = Math.min(100, this.networks[0].quality);
 

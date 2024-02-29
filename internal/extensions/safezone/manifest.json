@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Safe Zone",
+  "version": "1.0",
+  "description": "Adds a safe zone at the bottom of webpages",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}

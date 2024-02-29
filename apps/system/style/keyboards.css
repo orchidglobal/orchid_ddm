@@ -8,7 +8,8 @@
   height: calc(40% + 2.5rem);
   padding-bottom: 1.5rem;
   transform: translateY(100%);
-  background-color: var(--background-minus);
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: var(--acrylic-background-plus);
   transition: transform 0.5s cubic-bezier(0.8, 0.1, 0.9, 0), visibility 0.5s ease;
 }
 
@@ -25,7 +26,7 @@
 #keyboards.visible {
   visibility: visible;
   transform: translateY(0);
-  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.1, 1), visibility 0.5s ease;
+  transition: transform 0.75s cubic-bezier(0.2, 0.9, 0.1, 1), visibility 0.5s ease;
 }
 
 .inputframe {

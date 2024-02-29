@@ -5,7 +5,7 @@ const Keyboard = {
 
   init: function () {
     this.inputAreas = document.querySelectorAll(
-      'input[type=text], input[type=name], input[type=email], input[type=password], input[type=number], textarea'
+      '[contenteditable=true], input[type=text], input[type=name], input[type=email], input[type=password], input[type=number], textarea, dataset'
     );
     this.inputAreas.forEach((inputElement) => {
       inputElement.addEventListener('focus', this.onFocus.bind(this));
@@ -25,7 +25,7 @@ const Keyboard = {
   onClick: function (event: MouseEvent) {
     const targetElement = event.target as HTMLElement;
 
-    if (['INPUT', 'TEXTAREA'].indexOf(targetElement.nodeName) === -1) {
+    if (targetElement.isContentEditable || ['INPUT', 'TEXTAREA'].indexOf(targetElement.nodeName) === -1) {
       ipcRenderer.send('message', {
         type: 'keyboard',
         action: 'hide',

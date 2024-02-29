@@ -1,4 +1,5 @@
 .chrome {
+  --chrome-scroll-progress: 0;
   box-sizing: border-box;
   z-index: 1;
   position: absolute;
@@ -10,22 +11,8 @@
   background-color: var(--theme-color, var(--background));
 }
 
-.chrome.light {
-  --browser-selected-tab: rgba(255, 255, 255, 0.75);
-  --browser-text-color: rgba(0, 0, 0, 0.75);
-  --browser-text-color-faded: rgba(0, 0, 0, 0.4);
-  --browser-item-plus: rgba(0, 0, 0, 0.05);
-  --browser-item-hover: rgba(0, 0, 0, 0.05);
-  --browser-item-active: rgba(0, 0, 0, 0.1);
-}
-
-.chrome.dark {
-  --browser-selected-tab: rgba(255, 255, 255, 0.1);
-  --browser-text-color: rgba(255, 255, 255, 0.75);
-  --browser-text-color-faded: rgba(255, 255, 255, 0.4);
-  --browser-item-plus: rgba(255, 255, 255, 0.05);
-  --browser-item-hover: rgba(255, 255, 255, 0.05);
-  --browser-item-active: rgba(255, 255, 255, 0.1);
+.browser .chrome {
+  --chrome-scroll-progress: 1;
 }
 
 .chrome .toolbar {
@@ -38,45 +25,48 @@
   left: 0;
   flex-direction: column;
   width: 100%;
-  padding: var(--statusbar-height, var(--chrome-toolbar-gap)) 0 var(--chrome-toolbar-gap);
-  background-color: var(--theme-color, var(--background));
-  opacity: 0;
+  padding: var(--statusbar-height, var(--chrome-toolbar-gap)) 0 calc(var(--chrome-toolbar-gap) * var(--chrome-scroll-progress));
+  gap: calc(var(--chrome-toolbar-gap) * var(--chrome-scroll-progress));
+  background-color: var(--browser-toolbar-color);
   transition: all 0.5s cubic-bezier(0.2, 0.9, 0.1, 1);
 }
 
-.appframe:not(.chrome-visible) .chrome .toolbar,
-.appframe:not(.window).chrome-visible .chrome:not(.visible) .toolbar {
+.appframe:not(.browser) .chrome .toolbar {
   padding: 0;
   gap: 0;
   background-color: transparent;
   pointer-events: none;
 }
 
-.appframe.chrome-visible .chrome .toolbar,
-.appframe.window:not(.fullscreen, .chrome-visible) .chrome .toolbar {
+.appframe.browser .chrome.chrome:not(.visible) .toolbar {
+  gap: 0;
+  background-color: var(--theme-color, var(--background));
+}
+
+.appframe.browser .chrome .toolbar,
+.appframe.window:not(.fullscreen, .browser) .chrome .toolbar {
   visibility: unset;
   opacity: 1;
 }
 
-.appframe.chrome-visible .chrome.bottom .toolbar {
-  top: unset;
-  bottom: 0;
-  padding: var(--chrome-toolbar-gap) 0 2.5rem;
-}
-
-#screen.software-buttons-enabled .chrome.bottom .toolbar {
-  padding: var(--chrome-toolbar-gap) 0 var(--software-buttons-height, var(--chrome-toolbar-gap));
-}
-
-@media screen and (orientation: landscape) {
-  #screen.software-buttons-enabled .chrome.bottom .toolbar {
-    padding: var(--chrome-toolbar-gap) 0;
+@media screen and (max-width: 767px) {
+  .appframe.browser .chrome.bottom .toolbar {
+    top: unset;
+    bottom: 0;
+    padding: var(--chrome-toolbar-gap) 0 2.5rem;
   }
 }
 
-.appframe:not(.fullscreen) .chrome.visible .toolbar {
-  gap: var(--chrome-toolbar-gap);
-  opacity: 1;
+@media screen and (max-width: 767px) {
+  #screen.software-buttons-enabled .chrome.bottom .toolbar {
+    padding: var(--chrome-toolbar-gap) 0 var(--software-buttons-height, var(--chrome-toolbar-gap));
+  }
+}
+
+@media screen and (orientation: landscape) and (max-width: 767px) {
+  #screen.software-buttons-enabled .chrome.bottom .toolbar {
+    padding: var(--chrome-toolbar-gap) 0;
+  }
 }
 
 .chrome .tablist-holder {
@@ -90,18 +80,20 @@
   gap: var(--chrome-toolbar-gap);
 }
 
+.appframe:not(.browser) .chrome .tablist-holder {
+  padding: 0 1.5rem;
+}
+
 .chrome .tablist-holder > button {
   visibility: hidden;
-  margin: 0 -2rem;
-  opacity: 0;
+  margin: 0 calc(-2rem * var(--chrome-scroll-progress));
+  opacity: var(--chrome-scroll-progress);
   transition: margin 0.5s cubic-bezier(0.5, 0.8, 0, 1), opacity 0.5s ease, visibility 0.5s ease;
   will-change: margin;
 }
 
 .chrome.visible .tablist-holder > button {
   visibility: unset;
-  margin: 0;
-  opacity: 1;
 }
 
 .chrome .tablist {
@@ -130,7 +122,7 @@
     background-color 0.3s ease;
 }
 
-.appframe:not(.chrome-visible) .chrome .tablist li {
+.appframe:not(.browser) .chrome .tablist li {
   flex-grow: 0;
   width: 0;
   padding: 0;
@@ -155,14 +147,14 @@
   background-color: var(--browser-selected-tab, var(--background-plus));
 }
 
-.appframe:not(.chrome-visible) .chrome .tablist li.active {
+.appframe:not(.browser) .chrome .tablist li.active {
   flex-grow: 1;
   width: 100%;
   background-color: transparent;
   opacity: 1;
 }
 
-.appframe:not(.window).chrome-visible .chrome:not(.visible) .tablist li {
+.appframe:not(.window).browser .chrome:not(.visible) .tablist li {
   visibility: hidden;
   opacity: 0;
 }
@@ -231,12 +223,12 @@
 }
 
 .chrome .tablist li > .favicons .loading-icon {
-  -webkit-mask: url(chrome/images/spinner.svg) no-repeat center/cover;
   visibility: hidden;
   width: 2rem;
   height: 2rem;
   transform: scale(1.25);
   background-color: var(--text-color-faded);
+  mask: url(chrome/images/spinner.svg) no-repeat center/cover;
   opacity: 0;
   transition: all 0.3s ease;
 }
@@ -299,8 +291,8 @@
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
-.appframe:not(.chrome-visible) .chrome .tablist li > .close-button,
-.appframe:not(.chrome-visible) .chrome .tablist li > .mute-button {
+.appframe:not(.browser) .chrome .tablist li > .close-button,
+.appframe:not(.browser) .chrome .tablist li > .mute-button {
   visibility: hidden;
   opacity: 0;
 }
@@ -331,31 +323,28 @@
 .chrome .navbar {
   box-sizing: border-box;
   display: flex;
-  visibility: hidden;
   flex-shrink: 0;
   width: 100%;
-  height: 0;
+  /* height: calc(var(--chrome-navbar-height) * var(--chrome-scroll-progress)); */
   padding: 0 0.5rem;
   gap: var(--chrome-toolbar-gap);
-  opacity: 0;
-  transition: height 0.5s cubic-bezier(0.5, 0.8, 0, 1), opacity 0.5s ease, visibility 0.5s ease;
+  transition: height 0.3s ease, opacity 0.5s ease, visibility 0.5s ease;
   will-change: height;
 }
 
-.chrome.visible .navbar {
-  visibility: visible;
-  height: var(--chrome-navbar-height);
-  opacity: 1;
+.appframe:not(.browser) .chrome .navbar {
+  display: none;
 }
 
 .chrome .navbar button,
 .chrome .tablist-holder > button {
   box-sizing: border-box;
   flex-shrink: 0;
-  width: max-content;
-  min-width: 4rem;
-  height: var(--chrome-navbar-height);
-  padding: 0 1rem;
+  width: calc(4rem * var(--chrome-scroll-progress));
+  height: calc(var(--chrome-navbar-height) * var(--chrome-scroll-progress));
+  margin: 0;
+  padding: 0 calc(1rem * var(--chrome-scroll-progress));
+  transform: scale(var(--chrome-scroll-progress));
   border: none;
   border-radius: 1rem;
   background-color: transparent;
@@ -363,23 +352,14 @@
   font-size: 1.6rem;
   line-height: var(--chrome-navbar-height);
   text-align: center;
-  transition: background-color 0.3s ease;
+  opacity: var(--chrome-scroll-progress);
+  transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease, width 0.3s ease, height 0.3s ease, padding 0.3s ease;
+  will-change: width, height, padding;
 }
 
 .appframe.active .chrome .navbar button,
 .appframe.active .chrome .tablist-holder > button {
   color: var(--browser-text-color, var(--text-color));
-}
-
-.chrome .navbar button {
-  height: 0;
-  margin: 0;
-  transition: height 0.5s cubic-bezier(0.5, 0.8, 0, 1);
-  will-change: height;
-}
-
-.chrome.visible .navbar button {
-  height: var(--chrome-navbar-height);
 }
 
 .chrome .navbar button[data-icon]::before,
@@ -403,15 +383,19 @@
   transition: background-color 0.1s ease;
 }
 
+.appframe:not(.browser) .chrome .tablist-holder > button {
+  display: none;
+}
+
 .navbar-reload-button[data-icon]::before {
-  -webkit-mask-position: left center;
-  -webkit-mask-size: auto 2rem;
-  -webkit-mask-image: url(chrome/images/reloadstop_button.svg);
+  mask-image: url(chrome/images/reloadstop_button.svg);
+  mask-position: left center;
+  mask-size: auto 2rem;
   transition: all 0.4s steps(28, end);
 }
 
 .navbar-reload-button.stop[data-icon]::before {
-  -webkit-mask-position: right center;
+  mask-position: right center;
 }
 
 .navbar-stop-button {
@@ -487,69 +471,79 @@
   position: relative;
   flex-grow: 1;
   width: 100%;
-  height: 0;
+  height: calc((var(--chrome-navbar-height) * var(--chrome-scroll-progress)) + (2.4rem * (1 - var(--chrome-scroll-progress))));
   margin: 0;
   padding: 0;
   overflow: hidden;
-  border-radius: calc(var(--chrome-navbar-height) / 2);
-  background-color: var(--browser-item-plus, var(--item-plus));
-  transition: height 0.5s cubic-bezier(0.5, 0.8, 0, 1), background-color 0.5s ease;
+  border-radius: var(--chrome-navbar-height);
+  background-color: transparent;
+  pointer-events: none;
+  transition: background-color 0.3s ease, height 0.3s ease;
   will-change: height;
 }
 
 .chrome .navbar .urlbar:hover {
-  background-color: var(--browser-item-hover, var(--item-hover));
+  background-color: var(--browser-urlbar-hover, var(--item-hover));
+}
+
+.chrome.light .navbar .urlbar {
+  --browser-text-color: rgba(0, 0, 0, 0.75);
+  --browser-text-color-faded: rgba(0, 0, 0, 0.4);
+}
+
+.chrome.dark .navbar .urlbar {
+  --browser-text-color: rgba(255, 255, 255, 0.75);
+  --browser-text-color-faded: rgba(255, 255, 255, 0.4);
 }
 
 .chrome.visible .navbar .urlbar {
-  height: var(--chrome-navbar-height);
-}
-
-.chrome .navbar .urlbar.suggestions-visible {
-  height: 28.5rem;
-  background-color: var(--background-plus);
-  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
-  transition: height 0.5s cubic-bezier(0.5, 0.8, 0, 1);
-  will-change: height;
+  background-color: var(--browser-urlbar-normal);
+  box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.1);
+  pointer-events: auto;
 }
 
 .chrome .navbar .urlbar > .urlbar-input {
   display: none;
   flex-grow: 1;
   width: 100%;
-  height: var(--chrome-navbar-height);
+  height: calc((var(--chrome-navbar-height) * var(--chrome-scroll-progress)) + (2.4rem * (1 - var(--chrome-scroll-progress))));
   margin: 0;
   padding: 0;
   border: none;
   outline: 0;
   background-color: transparent;
+  box-shadow: none;
   color: var(--browser-text-color, var(--text-color));
-  font-size: 1.6rem;
-  line-height: var(--chrome-navbar-height);
+  font-size: calc(1.3rem + (0.3rem * var(--chrome-scroll-progress)));
+  line-height: calc((var(--chrome-navbar-height) * var(--chrome-scroll-progress)) + (2.4rem * (1 - var(--chrome-scroll-progress))));
   direction: ltr;
 }
 
 .chrome .navbar .urlbar > .urlbar-display-url {
   display: flex;
   flex-grow: 1;
+  justify-content: center;
   width: 100%;
-  height: var(--chrome-navbar-height);
+  height: calc((var(--chrome-navbar-height) * var(--chrome-scroll-progress)) + (2.4rem * (1 - var(--chrome-scroll-progress))));
   overflow: hidden;
   color: var(--browser-text-color, var(--text-color));
-  font-size: 1.6rem;
-  line-height: var(--chrome-navbar-height);
+  font-size: calc(1.3rem + (0.3rem * var(--chrome-scroll-progress)));
+  line-height: calc((var(--chrome-navbar-height) * var(--chrome-scroll-progress)) + (2.4rem * (1 - var(--chrome-scroll-progress))));
   direction: ltr;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.chrome .navbar .urlbar.suggestions-visible > .urlbar-input,
+.chrome.visible .navbar .urlbar > .urlbar-display-url {
+  justify-content: start;
+  text-align: center;
+}
+
 .chrome .navbar .urlbar:focus-within > .urlbar-input,
 .chrome .navbar .urlbar:hover > .urlbar-input {
   display: block;
 }
 
-.chrome .navbar .urlbar.suggestions-visible > .urlbar-display-url,
 .chrome .navbar .urlbar:focus-within > .urlbar-display-url,
 .chrome .navbar .urlbar:hover > .urlbar-display-url {
   display: none;
@@ -557,75 +551,6 @@
 
 .chrome .navbar .urlbar > .urlbar-display-url .ignored {
   opacity: 0.5;
-}
-
-.chrome .navbar .urlbar > .suggestions {
-  box-sizing: border-box;
-  position: absolute;
-  top: var(--chrome-navbar-height);
-  left: 0;
-  width: 100%;
-  height: 24.5rem;
-  padding: 0 0.5rem 0.5rem;
-}
-
-.chrome .navbar .urlbar > .suggestions .suggestion {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 4rem;
-  padding: 0 1rem;
-  overflow: hidden;
-  gap: 1rem;
-  border-radius: 1.5rem;
-}
-
-.chrome .navbar .urlbar > .suggestions .suggestion:hover {
-  background-color: var(--item-hover);
-}
-
-.chrome .navbar .urlbar > .suggestions .suggestion:active {
-  background-color: var(--item-active);
-}
-
-.chrome .navbar .urlbar > .suggestions .suggestion .favicon {
-  flex-shrink: 0;
-  width: 2rem;
-  height: 2rem;
-}
-
-.chrome .navbar .urlbar > .suggestions .suggestion .label {
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  height: 2.2rem;
-  color: var(--browser-text-color, var(--text-color));
-  font-weight: 400;
-  font-size: 1.6rem;
-  line-height: 2.2rem;
-}
-
-.chrome .navbar .urlbar > .suggestions .suggestion .label .notice {
-  visibility: hidden;
-  height: 1.5rem;
-  margin: 0 0 -1.5rem;
-  transform: translateY(100%);
-  color: var(--browser-text-color-faded, var(--text-color-faded));
-  font-weight: 400;
-  font-size: 1.2rem;
-  line-height: 1.5rem;
-  opacity: 0;
-  transition: all 0.2s ease;
-}
-
-.chrome .navbar .urlbar > .suggestions .suggestion:hover .label .notice {
-  visibility: visible;
-  margin: 0;
-  transform: translateY(0);
-  opacity: 1;
 }
 
 .chrome .navbar .urlbar > .urlbar-go-button {
@@ -660,11 +585,19 @@
   height: calc(100% - var(--statusbar-height) - 2.5rem);
   gap: 0.5rem;
   direction: ltr;
-  transition: transform 0.5s cubic-bezier(0.5, 0.8, 0, 1), top 0.5s cubic-bezier(0.5, 0.8, 0, 1);
+  transition: transform 0.3s ease;
+}
+
+#screen.keyboard-visible .chrome:not(.visible) .browser-container > .browser-view {
+  height: calc(60% - var(--statusbar-height) + 1.5rem);
 }
 
 #screen.software-buttons-enabled .chrome:not(.visible) .browser-container > .browser-view {
-  height: calc(100% - var(--titlebar-height) - var(--software-buttons-height));
+  height: calc(100% - var(--statusbar-height) - var(--software-buttons-height));
+}
+
+#screen.software-buttons-enabled.keyboard-visible .chrome:not(.visible) .browser-container > .browser-view {
+  height: calc(60% - var(--statusbar-height) + var(--software-buttons-height));
 }
 
 .appframe.window .chrome:not(.visible) .browser-container > .browser-view {
@@ -692,9 +625,40 @@
   height: calc(100% + var(--software-buttons-height));
 }
 
-.chrome.visible .browser-container > .browser-view {
-  top: calc(var(--chrome-tablist-height) + var(--chrome-navbar-height) + (var(--chrome-toolbar-gap) * 3));
-  height: calc(100% - var(--chrome-tablist-height) - var(--chrome-navbar-height) - (var(--chrome-toolbar-gap) * 3));
+.browser .chrome .browser-container > .browser-view {
+  top: var(--statusbar-height);
+  height: calc(100% - var(--statusbar-height) - 2.5rem);
+  transform: translateY(calc((var(--chrome-navbar-height) + var(--chrome-toolbar-gap)) * var(--chrome-scroll-progress)));
+}
+
+.browser .chrome.bottom .browser-container > .browser-view {
+  transform: translateY(0);
+}
+
+.browser .chrome.visible .browser-container > .browser-view {
+  height: calc(100% - var(--statusbar-height) - var(--chrome-navbar-height) - var(--chrome-toolbar-gap) - 2.5rem);
+}
+
+#screen.software-buttons-enabled .browser .chrome.visible .browser-container > .browser-view {
+  height: calc(100% - var(--statusbar-height) - var(--chrome-navbar-height) - var(--chrome-toolbar-gap) - var(--software-buttons-height));
+}
+
+@media screen and (max-width: 767px) {
+  .chrome.bottom.visible .browser-container > .browser-view {
+    top: var(--statusbar-height);
+  }
+}
+
+@media screen and (min-width: 760px) {
+  .chrome.visible .browser-container > .browser-view {
+    top: calc(var(--statusbar-height) + var(--chrome-tablist-height) + var(--chrome-navbar-height) + (var(--chrome-toolbar-gap) * 3));
+    height: calc(100% - var(--statusbar-height) - var(--chrome-tablist-height) - var(--chrome-navbar-height) - (var(--chrome-toolbar-gap) * 3));
+  }
+
+  .appframe.window .chrome.visible .browser-container > .browser-view {
+    top: calc(var(--chrome-tablist-height) + var(--chrome-navbar-height) + (var(--chrome-toolbar-gap) * 3));
+    height: calc(100% - var(--chrome-tablist-height) - var(--chrome-navbar-height) - (var(--chrome-toolbar-gap) * 3));
+  }
 }
 
 .chrome .browser-container > .browser-view.active {
@@ -743,8 +707,10 @@
   border-top: solid 0.1rem rgba(200, 200, 200, 0.1);
 }
 
-.chrome.bottom.visible .browser-container > .browser-view .browser {
-  border-bottom: solid 0.1rem rgba(200, 200, 200, 0.1);
+@media screen and (max-width: 767px) {
+  .chrome.bottom.visible .browser-container > .browser-view .browser {
+    border-bottom: solid 0.1rem rgba(200, 200, 200, 0.1);
+  }
 }
 
 .chrome .browser-container > .browser-view.split-enabled .browser {
@@ -1046,7 +1012,7 @@
   height: 25rem;
   transform: scale(0.9);
   border-radius: 3rem;
-  background: no-repeat center/cover;
+  background: no-repeat center / cover;
   opacity: 0;
   transition: all 0.3s ease;
 }
@@ -1483,6 +1449,7 @@ html[dir='rtl'] #screen.mobile .chrome.side-tabs.visible .browser-container .bro
     margin: 0 var(--chrome-toolbar-gap);
   }
 
+  .chrome .toolbar .addons,
   .chrome .addons-buttons,
   .chrome .navbar-addons-button,
   .chrome .navbar-assistant-button,
@@ -1495,6 +1462,7 @@ html[dir='rtl'] #screen.mobile .chrome.side-tabs.visible .browser-container .bro
 }
 
 @media screen and (max-width: 767px) {
+  .chrome .toolbar .addons,
   .chrome .addons-buttons,
   .chrome .navbar-addons-button,
   .chrome .navbar-assistant-button,

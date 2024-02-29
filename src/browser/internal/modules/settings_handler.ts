@@ -133,6 +133,39 @@ const SettingsHandler = {
     }
   },
 
+  simulateColorBlindness: function (rgb: { r: number, g: number, b: number }, type: string) {
+    // Validate input type
+    if (typeof rgb !== "object" || !rgb.hasOwnProperty("r") || !rgb.hasOwnProperty("g") || !rgb.hasOwnProperty("b")) {
+      throw new Error("Invalid input format. Please provide an object with r, g, and b properties.");
+    }
+
+    // Extract RGB values
+    const { r, g, b } = rgb;
+
+    switch (type) {
+      case "protanopia":
+        // Simulate red-green blindness (protanopia)
+        return { r: r * 0.567, g, b };
+
+      case "deuteranopia":
+        // Simulate red-green blindness (deuteranopia)
+        return { r: r * 0.625, g, b };
+
+      case "tritanopia":
+        // Simulate blue-yellow blindness (tritanopia)
+        return { r, g: g * 0.7, b: b * 0.7 };
+
+      case "achromatopsia":
+        // Simulate complete color blindness (achromatopsia)
+        const lum = (r + g + b) / 3;
+        return { r: lum, g: lum, b: lum };
+
+      default:
+        // Return original color if type is unknown
+        return rgb;
+    }
+  },
+
   handleWallpaperAccent: function (value: string) {
     if (!this.appElement) {
       return;
@@ -141,21 +174,25 @@ const SettingsHandler = {
     this.wallpaperUrl = value;
 
     this.getImageDominantColor(value, { colors: 2, brightness: 1 }).then(async (color: any) => {
+      const colorBlindnessMode = await _Settings.getValue('accessibility.colorblindness');
+      const filteredPrimaryColor = this.simulateColorBlindness(color[0], colorBlindnessMode);
+      const filteredSecondaryColor = this.simulateColorBlindness(color[1], colorBlindnessMode);
+
       // Convert the color to RGB values
-      let r1 = color[0].r;
-      let g1 = color[0].g;
-      let b1 = color[0].b;
-      let r2 = color[1].r;
-      let g2 = color[1].g;
-      let b2 = color[1].b;
+      let r1 = filteredPrimaryColor.r;
+      let g1 = filteredPrimaryColor.g;
+      let b1 = filteredPrimaryColor.b;
+      let r2 = filteredSecondaryColor.r;
+      let g2 = filteredSecondaryColor.g;
+      let b2 = filteredSecondaryColor.b;
 
       if (location.hostname === 'system.localhost') {
-        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-r', r1);
-        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-g', g1);
-        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-b', b1);
-        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-r', r2);
-        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-g', g2);
-        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-b', b2);
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-r', r1.toString());
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-g', g1.toString());
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-b', b1.toString());
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-r', r2.toString());
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-g', g2.toString());
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-b', b2.toString());
       }
 
       // Calculate relative luminance
@@ -215,12 +252,12 @@ const SettingsHandler = {
       }
 
       if (!(await _Settings.getValue(this.settings[this.SETTINGS_ACCENT_COLOR]))) {
-        scrollingElement?.style.setProperty('--accent-color-primary-r', r1);
-        scrollingElement?.style.setProperty('--accent-color-primary-g', g1);
-        scrollingElement?.style.setProperty('--accent-color-primary-b', b1);
-        scrollingElement?.style.setProperty('--accent-color-secondary-r', r2);
-        scrollingElement?.style.setProperty('--accent-color-secondary-g', g2);
-        scrollingElement?.style.setProperty('--accent-color-secondary-b', b2);
+        scrollingElement?.style.setProperty('--accent-color-primary-r', r1.toString());
+        scrollingElement?.style.setProperty('--accent-color-primary-g', g1.toString());
+        scrollingElement?.style.setProperty('--accent-color-primary-b', b1.toString());
+        scrollingElement?.style.setProperty('--accent-color-secondary-r', r2.toString());
+        scrollingElement?.style.setProperty('--accent-color-secondary-g', g2.toString());
+        scrollingElement?.style.setProperty('--accent-color-secondary-b', b2.toString());
 
         _Settings.setValue(this.settings[this.SETTINGS_ACCENT_COLOR], {
           primary: { r: r1, g: g1, b: b1 },
@@ -241,41 +278,49 @@ const SettingsHandler = {
     });
   },
 
-  handleAccentColor: function (value: Record<string, any>) {
+  handleAccentColor: async function (value: Record<string, any>) {
     if (!value && !this.appElement) {
       return;
     }
     const scrollingElement = document.scrollingElement as HTMLElement | null;
 
     if (this.wallpaperUrl && location.hostname === 'system.localhost') {
-      this.getImageDominantColor(this.wallpaperUrl, { colors: 2, brightness: 1 }).then((color: any) => {
-        let r1 = color[0].r;
-        let g1 = color[0].g;
-        let b1 = color[0].b;
-        let r2 = color[1].r;
-        let g2 = color[1].g;
-        let b2 = color[1].b;
+      this.getImageDominantColor(this.wallpaperUrl, { colors: 2, brightness: 1 }).then(async (color: any) => {
+        const colorBlindnessMode = await _Settings.getValue('accessibility.colorblindness');
+        const filteredPrimaryColor = this.simulateColorBlindness(color[0], colorBlindnessMode);
+        const filteredSecondaryColor = this.simulateColorBlindness(color[1], colorBlindnessMode);
 
-        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-r', r1);
-        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-g', g1);
-        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-b', b1);
-        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-r', r2);
-        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-g', g2);
-        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-b', b2);
+        let r1 = filteredPrimaryColor.r;
+        let g1 = filteredPrimaryColor.g;
+        let b1 = filteredPrimaryColor.b;
+        let r2 = filteredSecondaryColor.r;
+        let g2 = filteredSecondaryColor.g;
+        let b2 = filteredSecondaryColor.b;
+
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-r', r1.toString());
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-g', g1.toString());
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-primary-b', b1.toString());
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-r', r2.toString());
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-g', g2.toString());
+        scrollingElement?.style.setProperty('--lockscreen-accent-color-secondary-b', b2.toString());
       });
     }
 
-    scrollingElement?.style.setProperty('--accent-color-primary-r', value.primary.r);
-    scrollingElement?.style.setProperty('--accent-color-primary-g', value.primary.g);
-    scrollingElement?.style.setProperty('--accent-color-primary-b', value.primary.b);
-    scrollingElement?.style.setProperty('--accent-color-secondary-r', value.secondary.r);
-    scrollingElement?.style.setProperty('--accent-color-secondary-g', value.secondary.g);
-    scrollingElement?.style.setProperty('--accent-color-secondary-b', value.secondary.b);
+    const colorBlindnessMode = await _Settings.getValue('accessibility.colorblindness');
+    const primaryColor = this.simulateColorBlindness(value.primary, colorBlindnessMode);
+    const secondaryColor = this.simulateColorBlindness(value.secondary, colorBlindnessMode);
+
+    scrollingElement?.style.setProperty('--accent-color-primary-r', primaryColor.r.toString());
+    scrollingElement?.style.setProperty('--accent-color-primary-g', primaryColor.g.toString());
+    scrollingElement?.style.setProperty('--accent-color-primary-b', primaryColor.b.toString());
+    scrollingElement?.style.setProperty('--accent-color-secondary-r', secondaryColor.r.toString());
+    scrollingElement?.style.setProperty('--accent-color-secondary-g', secondaryColor.g.toString());
+    scrollingElement?.style.setProperty('--accent-color-secondary-b', secondaryColor.b.toString());
 
     // Convert the color to RGB values
-    const r = value.primary.r;
-    const g = value.primary.g;
-    const b = value.primary.b;
+    const r = primaryColor.r;
+    const g = primaryColor.g;
+    const b = primaryColor.b;
 
     // Calculate relative luminance
     const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;

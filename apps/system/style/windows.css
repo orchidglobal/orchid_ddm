@@ -20,10 +20,6 @@
   transform: translateY(40vh);
 }
 
-.screen.keyboard-visible #windows {
-  height: 60%;
-}
-
 .screen.gpu-fully-capable #windows.utility-tray-motion > #homescreen .browser {
   transform: scale(calc(1 - (0.1 * var(--motion-progress))));
   transition: transform 0.3s ease;
@@ -289,7 +285,7 @@
     transform: scale(0.65);
   }
   to {
-    transform: scale(1);
+    transform: scale(var(--scale, 1)) translateY(var(--offset-y, 0));
   }
 }
 
@@ -371,7 +367,7 @@
 }
 
 .appframe .statusbar {
-  z-index: 20;
+  z-index: 50;
   opacity: 0;
   transition: opacity 0.5s ease;
 }

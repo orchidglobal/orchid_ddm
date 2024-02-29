@@ -74,6 +74,7 @@
   <link rel="stylesheet" type="text/css" href="style/window_snap.css">
   <link rel="stylesheet" type="text/css" href="style/app_switcher.css">
   <link rel="stylesheet" type="text/css" href="style/rocketbar.css">
+  <link rel="stylesheet" type="text/css" href="style/dashboard.css">
 
   <!-- Stylesheets - Desktop -->
   <link rel="stylesheet" type="text/css" href="desktop/style/desktop_system.css">
@@ -190,31 +191,7 @@
       <div class="blur-overlay"></div>
     </div>
 
-    <div id="statusbar" class="statusbar" data-z-index-layer="statusbar">
-      <div class="statusbar-icons">
-        <div class="left">
-          <div id="statusbar-notifications" class="hidden" data-icon="notifications"></div>
-          <div id="statusbar-playing" class="hidden" data-icon="play"></div>
-          <div id="statusbar-camera" class="hidden" data-icon="camera"></div>
-          <div id="statusbar-microphone" class="hidden" data-icon="mic"></div>
-          <div id="statusbar-video" class="hidden" data-icon="video"></div>
-          <div class="timedate">
-            <div id="statusbar-time"></div>
-            <div id="statusbar-date"></div>
-          </div>
-        </div>
-        <div class="right">
-          <div id="statusbar-battery" class="hidden" data-icon="battery-70"></div>
-          <div id="statusbar-battery-percentage"></div>
-          <div id="statusbar-cellular-signal" class="hidden" data-icon="signal-4"></div>
-          <div id="statusbar-data" class="hidden" data-icon="data"></div>
-          <div id="statusbar-airplane-mode" class="hidden" data-icon="airplane"></div>
-          <div id="statusbar-wifi" class="hidden" data-icon="wifi-3"></div>
-          <div id="statusbar-bluetooth" class="hidden" data-icon="bluetooth"></div>
-          <div id="statusbar-warm-colors" class="hidden" data-icon="accessibility"></div>
-        </div>
-      </div>
-    </div>
+    <div id="statusbar" class="statusbar" data-z-index-layer="statusbar"></div>
 
     <div id="windows" data-z-index-layer="windows">
       <!-- Here goes workspaces and windows within them -->
@@ -292,7 +269,7 @@
           <div class="control-center-row">
             <div id="media-playback" class="media-playback">
               <div class="content">
-                <img src="" alt="" id="media-playback-artwork" class="artwork">
+                <img src="images/media_playback/default_album.png" alt="" id="media-playback-artwork" class="artwork">
                 <div id="media-playback-title" class="title">Media Title</div>
                 <div id="media-playback-artist" class="artist">Media Artist</div>
                 <div class="buttons">
@@ -780,11 +757,14 @@
     </section>
 
     <div id="software-buttons" data-z-index-layer="software-buttons">
+      <div id="software-buttons-statusbar" class="statusbar"></div>
+
       <div class="mobile">
         <button id="software-back-button"></button>
         <button id="software-home-button"></button>
         <button id="software-recents-button"></button>
       </div>
+
       <div class="desktop">
         <button id="software-launcher-button"></button>
         <button id="software-search-button">
@@ -796,6 +776,10 @@
       </div>
 
       <div id="dock"></div>
+
+      <div id="software-buttons-actions">
+        <button id="software-buttons-actions-end-session">End Session</button>
+      </div>
     </div>
 
     <div id="launcher" data-z-index-layer="launcher">
@@ -842,7 +826,9 @@
     </div>
 
     <div id="dashboard" data-z-index-layer="dashboard">
-      <webview id="dashboard-browser"></webview>
+      <div id="dashboard-motion">
+        <webview id="dashboard-browser"></webview>
+      </div>
     </div>
 
     <div id="system-overlays" data-z-index-layer="system-overlays">
@@ -922,6 +908,11 @@
       <div class="text" data-l10n-id="lockscreenSwipeUpTip"></div>
     </div>
   </div>
+
+  <div id="inactivity-screen" class="screen">
+    <div class="message" data-l10n-id="systemInactive"></div>
+  </div>
+
   <div id="frimware" class="screen">
     <div id="charging-battery">
       <canvas id="charging-battery-canvas"></canvas>

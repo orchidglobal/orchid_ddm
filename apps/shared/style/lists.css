@@ -24,8 +24,9 @@
   margin: 0 auto 1rem;
   padding: 0.5rem;
   overflow: hidden;
+  border: solid 0.1rem var(--list-background-border);
   border-radius: 1.5rem;
-  background-color: var(--background-plus);
+  background-color: var(--list-background);
 }
 
 .lists ul li {

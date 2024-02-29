@@ -16,6 +16,10 @@
       WifiManager.getCurrentConnections().then((networks) => {
         this.networks = networks;
 
+        if (!networks || !this.networks[0]) {
+          return;
+        }
+
         const signalStrength = Math.min(100, this.networks[0].quality);
 
         this.element.classList.remove('hidden');
@@ -27,7 +31,7 @@
         console.error(error);
 
         if (window.deviceType === 'desktop') {
-          this.element.dataset.icon = 'ac-power';
+          this.element.dataset.icon = 'ethernet';
         } else {
           this.element.classList.add('hidden');
         }

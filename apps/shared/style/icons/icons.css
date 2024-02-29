@@ -481,6 +481,10 @@ html[dir="rtl"] [data-icon="send"]::before {
   -webkit-mask-image: url('images/emoji.svg');
   mask-image: url('images/emoji.svg');
 }
+[data-icon="ethernet"]::before {
+  -webkit-mask-image: url('images/ethernet.svg');
+  mask-image: url('images/ethernet.svg');
+}
 [data-icon="exitfullscreen"]::before {
   -webkit-mask-image: url('images/exitfullscreen.svg');
   mask-image: url('images/exitfullscreen.svg');

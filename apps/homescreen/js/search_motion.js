@@ -10,10 +10,10 @@
     startY: 0,
     currentY: 0,
     isDragging: false,
-    threshold: 0.5, // Adjust the threshold as desired (0.0 to 1.0)
-    yPosThreshold: window.innerHeight / 2,
+    threshold: 0.25,
     lastProgress: 0,
     currentProgress: 0,
+    isVisible: false,
 
     init: function () {
       this.gridElement.addEventListener(
@@ -36,7 +36,6 @@
       document.addEventListener('touchmove', this.onPointerMove.bind(this));
       document.addEventListener('mouseup', this.onPointerUp.bind(this));
       document.addEventListener('touchend', this.onPointerUp.bind(this));
-      document.addEventListener('mouseleave', this.onPointerCancel.bind(this));
       document.addEventListener('touchcancel', this.onPointerCancel.bind(this));
     },
 
@@ -56,28 +55,28 @@
         return;
       }
 
-      if (this.isDragging) {
-        this.currentY = event.clientY || event.touches[0].clientY;
-        const offsetY = this.startY - this.currentY;
-        const maxHeight = this.yPosThreshold;
-        const progress = (offsetY / maxHeight) * -1;
-
-        this.updateMotionProgress(progress); // Update motion element opacity
+      if (!this.isDragging) {
+        return;
       }
-    },
-
-    onPointerUp: function () {
       this.currentY = event.clientY || event.touches[0].clientY;
       const offsetY = this.startY - this.currentY;
-      const maxHeight = this.yPosThreshold;
+      const maxHeight = window.innerHeight * Math.abs(this.lastProgress - this.threshold);
+      const progress = (offsetY / maxHeight) * -1;
+
+      this.updateMotionProgress(progress); // Update motion element opacity
+    },
+
+    onPointerUp: function (event) {
+      this.currentY = event.clientY || event.touches[0].clientY;
+      const offsetY = this.startY - this.currentY;
+      const maxHeight = window.innerHeight * Math.abs(this.lastProgress - this.threshold);
       let progress = ((offsetY / maxHeight) * -1) / 2;
       progress = this.lastProgress + progress;
-      console.log(progress);
 
       progress = Math.min(1, progress); // Limit progress between 0 and 1
 
       this.app.classList.remove('search-visible');
-      if (progress >= this.threshold) {
+      if (progress >= Math.abs(this.lastProgress - this.threshold)) {
         this.currentProgress = 1;
         if (document.body.classList.contains('light')) {
           if (window.matchMedia('(prefers-color-scheme: dark)').matches) {

@@ -4,7 +4,7 @@
 <path d="M9.5 3H6.5L5 8.5H6.5L6 13L9.5 7.5H8L9.5 3Z" fill="white" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
 <style>
   .charging {
-    /* animation: charging 1s cubic-bezier(0.2, 0.9, 0.1, 1) infinite; */
+    animation: charging 1s cubic-bezier(0.2, 0.9, 0.1, 1) infinite;
   }
   @keyframes charging {
     from { width: 0; }

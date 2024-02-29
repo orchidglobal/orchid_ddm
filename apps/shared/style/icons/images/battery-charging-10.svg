@@ -4,7 +4,7 @@
 <rect x="2" y="5" width="1" height="6" rx="0.5" fill="white" fill-opacity="0.5"/>
 <style>
   .charging {
-    /* animation: charging 1s cubic-bezier(0.2, 0.9, 0.1, 1) infinite; */
+    animation: charging 1s cubic-bezier(0.2, 0.9, 0.1, 1) infinite;
   }
   @keyframes charging {
     from { width: 0; }

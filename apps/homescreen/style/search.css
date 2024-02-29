@@ -1,37 +1,45 @@
 #search {
+  --search-background: rgba(0, 0, 0, 0.5);
+  --search-input-background: rgba(0, 0, 0, 0.1);
   filter: none;
   transition: all 0.3s ease;
 }
 
 #search::before {
-  content: '';
-  background-color: rgba(var(--headerbar-r), var(--headerbar-g), var(--headerbar-b), calc(var(--motion-progress, 0) * 0.6));
-  backdrop-filter: blur(calc(20px * var(--motion-progress, 0))) saturate(calc(100% + (80% * var(--motion-progress, 0))));
   position: absolute;
-  left: 0;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  backdrop-filter: blur(calc(20px * var(--motion-progress, 0))) saturate(calc(100% + (80% * var(--motion-progress, 0))));
+  background-color: rgba(51, 51, 51, calc(var(--motion-progress, 0) * 0.3));
+  content: '';
 }
 
-#search .headerbar {
-  background-color: transparent;
-  backdrop-filter: blur(calc(20px * var(--progress, 0))) saturate(calc(100% + (80% * var(--progress, 0))));
-  transform: translateY(calc((-3rem * (1 - var(--motion-progress, 0))) + (13.5rem * var(--overscroll-progress, 0))));
+#search[role="panel"] > header:first-child {
   --background: transparent;
-  background-image: none;
-  height: calc(6rem + var(--statusbar-height));
-  mask-image: linear-gradient(to bottom, white, white calc(100% - 1.5rem), transparent);
   -webkit-mask-image: linear-gradient(to bottom, white, white calc(100% - 1.5rem), transparent);
+  height: calc(6rem + var(--statusbar-height));
+  margin: 0 auto calc((var(--statusbar-height) + 6rem) * (var(--progress, 0) * -1));
+  transform: translateY(calc((-3rem * (1 - var(--motion-progress, 0))) + (13.5rem * var(--overscroll-progress, 0))));
+  backdrop-filter: blur(calc(10px * var(--progress, 0))) saturate(calc(100% + (80% * var(--progress, 0))));
+  background-image: none;
+  background-color: transparent;
+  mask-image: linear-gradient(to bottom, white, white calc(100% - 1.5rem), transparent);
   transition: all 0.3s ease;
 }
 
-#app.transitioning #search .headerbar {
+#app.transitioning #search[role="panel"] > header:first-child {
   transition: all 0.5s ease;
 }
 
+#search[role="panel"] > header:first-child form[role="search"] {
+  margin: 0 0.5rem;
+  background-color: var(--search-input-background);
+}
+
 #search-results {
-  background-color: var(--item-plus);
+  background-color: var(--search-background);
   opacity: var(--motion-progress, 0);
 }
 
@@ -41,18 +49,16 @@
 }
 
 #search-results li > img {
-  width: 3.6rem;
-  height: 3.6rem;
-  background-color: #fff;
-  border-radius: 25%;
-  outline: solid 0.1rem var(--separator-color);
   flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0;
+  background-color: transparent;
 }
 
 #search-results li > div {
-  width: 100%;
-  flex-grow: 1;
-  padding-inline-start: 1rem;
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
+  width: 100%;
 }

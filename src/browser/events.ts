@@ -10,7 +10,7 @@ export default (function () {
     throw new Error('Webview not found');
   }
 
-  OrchidUI.webview.webContents.on('crashed', () => {
+  OrchidUI.webview.webContents.on('render-process-gone', () => {
     console.log('renderer process crashed'); // this will be called
   });
 

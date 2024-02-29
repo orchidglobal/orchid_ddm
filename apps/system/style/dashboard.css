@@ -1,0 +1,74 @@
+#dashboard {
+  position: fixed;
+  top: 0;
+  width: 45rem;
+  height: 100%;
+  pointer-events: none;
+}
+html[dir="ltr"] #dashboard {
+  left: 0;
+}
+html[dir="rtl"] #dashboard {
+  right: 0;
+}
+
+#dashboard-motion {
+  box-sizing: border-box;
+  display: flex;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  flex-direction: column-reverse;
+  width: 100%;
+  height: 100%;
+  padding-bottom: calc(var(--dock-height) + 1rem);
+  padding-inline-end: 5rem;
+  background-color: transparent;
+  transition: background-color 0.5s ease, visibility 0.5s ease;
+}
+html[dir="ltr"] #dashboard-motion {
+  mask-image: linear-gradient(to left, transparent, white 5rem, white);
+}
+html[dir="rtl"] #dashboard-motion {
+  mask-image: linear-gradient(to right, transparent, white 5rem, white);
+}
+
+#dashboard-motion.visible {
+  visibility: visible;
+  background-color: rgba(var(--lockscreen-accent-color-primary-r), var(--lockscreen-accent-color-primary-g), var(--lockscreen-accent-color-primary-b), calc(var(--motion-progress, 0) * 0.5));
+}
+
+.screen.gpu-capable #dashboard-motion {
+  transition: background-color 0.5s ease, backdrop-filter 0.5s ease, visibility 0.5s ease;
+}
+
+.screen.gpu-capable #dashboard-motion.visible {
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(var(--lockscreen-accent-color-primary-r), var(--lockscreen-accent-color-primary-g), var(--lockscreen-accent-color-primary-b), calc(var(--motion-progress, 0) * 0.3));
+}
+
+#dashboard-browser {
+  position: absolute;
+  top: 1.5rem;
+  width: calc(100% - 5rem - 3rem);
+  height: calc(100% - 1.5rem - var(--dock-height) - 2rem);
+  overflow: hidden;
+  transform: scale(0.9);
+  border-radius: var(--tray-button-radius);
+  background-color: var(--tray-button-background);
+  opacity: 0;
+  pointer-events: auto;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+html[dir="ltr"] #dashboard-browser {
+  left: 1.5rem;
+}
+html[dir="rtl"] #dashboard-browser {
+  right: 1.5rem;
+}
+
+#dashboard-motion.visible #dashboard-browser {
+  transform: scale(1);
+  opacity: 1;
+}

@@ -13,3 +13,8 @@
   --chrome-navbar-height: 3.6rem;
   --safezone-width: 40rem;
 }
+
+.mobile {
+  --chrome-tablist-height: 4rem;
+  --chrome-navbar-height: 4rem;
+}

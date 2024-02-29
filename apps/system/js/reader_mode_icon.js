@@ -8,6 +8,7 @@
 
     initialize () {
       this.element.dataset.icon = 'reader-mode';
+      this.element.classList.add('hidden');
 
       Settings.getValue('video.reader_mode.enabled').then(this.handleReaderMode.bind(this));
       Settings.addObserver('video.reader_mode.enabled', this.handleReaderMode.bind(this));

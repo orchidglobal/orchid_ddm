@@ -5,7 +5,6 @@
     gridColumns: 4,
     gridRows: 6,
     HIDDEN_ROLES: ['homescreen', 'keyboard', 'system', 'theme', 'addon'],
-    ALLOWED_APPS: ['smart_tv'],
 
     app: document.getElementById('app'),
     webappsContainer: document.getElementById('webapps-list'),
@@ -60,13 +59,6 @@
 
     createIcons: function () {
       this.apps = this.apps.filter((obj) => this.HIDDEN_ROLES.indexOf(obj.manifest.role || '') === -1);
-      this.apps = this.apps.filter((obj) => {
-        if (obj.manifest.platforms) {
-          return obj.manifest.platforms.some(item => this.ALLOWED_APPS.includes(item));
-        } else {
-          return false;
-        }
-      });
 
       const fragment = document.createDocumentFragment();
       for (let index = 0; index < this.apps.length; index++) {
