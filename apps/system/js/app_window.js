@@ -44,6 +44,7 @@
     isDragging: false,
     isResizing: false,
     resizingWindow: null,
+    resizingGripper: null,
     startX: null,
     startY: null,
     startWidth: null,
@@ -84,7 +85,6 @@
       this.manifest = await this.fetchManifest(manifestUrl);
       if (options.entryId) {
         this.manifest = this.manifest.entry_points[options.entryId];
-        console.log(this.manifest);
       }
 
       this.instanceID = this.manifest.role === 'homescreen' ? 'homescreen' :`appframe${_id}`;
@@ -102,7 +102,11 @@
 
       // Create dock icon
       if (!this.HIDDEN_ROLES.includes(this.manifest.role)) {
-        this.createDockIcon(manifestUrl, this.manifest.icons);
+        if (options.dockIcon) {
+          this.dockIcon = options.dockIcon;
+        } else {
+          this.dockIcon = new DockIcon(this.dock, manifestUrl, options.entryId);
+        }
       }
 
       // Create a splash screen with an icon
@@ -208,22 +212,6 @@
       element.style.setProperty('--icon-scale-y', animationVariables.iconYScale);
     },
 
-    createDockIcon: function (manifestUrl, icons) {
-      this.dockIcon = document.createElement('div');
-      this.dockIcon.classList.add('icon');
-      this.dockIcon.dataset.manifestUrl = manifestUrl;
-      this.dockIcon.onclick = () => this.focus();
-      this.dock.appendChild(this.dockIcon);
-
-      // Add icon image
-      const iconImage = document.createElement('img');
-      this.addIconImage(iconImage, icons, this.DOCK_ICON_SIZE, manifestUrl);
-      this.dockIcon.appendChild(iconImage);
-
-      // Add animation class
-      this.addAnimationClass(this.dockIcon, this.OPEN_ANIMATION);
-    },
-
     createWindowContainer: function (fragment, manifest, instanceID, animationVariables) {
       const windowDiv = document.createElement('div');
       windowDiv.id = instanceID;
@@ -259,9 +247,11 @@
 
       fragment.appendChild(windowDiv);
 
-      const statusbar = document.createElement('div');
-      this.statusbar = new Statusbar(statusbar);
-      windowDiv.appendChild(statusbar);
+      if (window.deviceType !== 'desktop') {
+        const statusbar = document.createElement('div');
+        this.statusbar = new Statusbar(statusbar);
+        windowDiv.appendChild(statusbar);
+      }
 
       // Add animation class
       this.addAnimationClass(windowDiv, this.OPEN_ANIMATION);
@@ -455,12 +445,15 @@
 
       if (this.element) {
         this.element.style.transform = '';
-        if (this.element.classList.contains('fullscreen')) {
-          this.statusbar.element.classList.add('hidden');
-          this.softwareButtons.classList.add('hidden');
-        } else {
-          this.statusbar.element.classList.remove('hidden');
-          this.softwareButtons.classList.remove('hidden');
+
+        if (this.statusbar && this.statusbar.element && this.softwareButtons) {
+          if (this.element.classList.contains('fullscreen')) {
+            this.statusbar.element.classList.add('hidden');
+            this.softwareButtons.classList.add('hidden');
+          } else {
+            this.statusbar.element.classList.remove('hidden');
+            this.softwareButtons.classList.remove('hidden');
+          }
         }
       } else {
         return;
@@ -490,30 +483,15 @@
         element.classList.remove('active');
       }
 
-      const webview = this.element.querySelector('.browser-container .browser-view.active > .browser');
-      if (this.getFocusedWindow() && this.getFocusedWindow().element) {
-        const webviews = this.getFocusedWindow().element.querySelectorAll('.browser-container .browser-view > .browser');
-        for (let index1 = 0; index1 < webviews.length; index1++) {
-          const webview1 = webviews[index1];
-          webview1.addEventListener('dom-ready', () => {
-            webview1.send('visibilitystate', 'hidden');
-          });
-        }
-      }
-      if (webview) {
-        webview.addEventListener('dom-ready', () => {
-          webview.send('visibilitystate', 'visible');
-        });
-      }
-
       if (this.element.classList.contains('overlay')) {
         this.element.classList.add('active-as-overlay');
       } else {
         this.element.classList.add('active');
       }
-      if (this.dockIcon) {
-        this.dockIcon.classList.add('active');
+      if (this.dockIcon && this.dockIcon.element) {
+        this.dockIcon.element.classList.add('active');
       }
+      this.element.classList.remove('minimized');
       focusedWindow = this;
 
       this.handleThemeColorFocusUpdated();
@@ -562,24 +540,37 @@
         return;
       }
 
+      Webapps.runningWebapps = Webapps.runningWebapps.filter(item => item.manifestUrl !== this.manifestUrl);
+
       if (isFast) {
         this.element.remove();
-        if (this.dockIcon) {
-          this.dockIcon.remove();
+        if (this.dockIcon && this.dockIcon.element) {
+          if (this.dockIcon.isPinned) {
+            this.dockIcon.element.classList.remove('active');
+          } else {
+            this.dockIcon.element.remove();
+          }
         }
       } else {
-        this.element.classList.add(this.CLOSE_ANIMATION);
-        if (this.dockIcon) {
-          this.dockIcon.classList.add(this.CLOSE_ANIMATION);
+        if (this.dockIcon && this.dockIcon.element && !this.dockIcon.isPinned) {
+          this.dockIcon.element.classList.add(this.CLOSE_ANIMATION);
         }
+
+        this.element.classList.add(this.CLOSE_ANIMATION);
         this.element.addEventListener('animationend', () => {
           this.element.style.transform = '';
           this.element.classList.remove(this.CLOSE_ANIMATION);
           this.element.remove();
-          if (this.dockIcon) {
-            this.dockIcon.classList.remove(this.CLOSE_ANIMATION);
-            this.dockIcon.remove();
+
+          if (this.dockIcon && this.dockIcon.element) {
+            if (this.dockIcon.isPinned) {
+              this.dockIcon.element.classList.remove('active');
+            } else {
+              this.dockIcon.element.classList.remove(this.CLOSE_ANIMATION);
+              this.dockIcon.element.remove();
+            }
           }
+
           HomescreenLauncher.homescreenWindow.focus();
         });
       }
@@ -594,18 +585,18 @@
       }
 
       if (window.deviceType === 'desktop') {
-        this.element.classList.add(this.MINIMIZE_ANIMATION);
-
-        if (this.dockIcon) {
-          const x = this.dockIcon.clientLeft - this.offsetX;
-          const y = this.dockIcon.clientTop - this.offsetY;
+        if (this.dockIcon && this.dockIcon.element) {
+          const x = this.dockIcon.element.clientLeft - this.offsetX;
+          const y = this.dockIcon.element.clientTop - this.offsetY;
           this.element.style.transformOrigin = `${x}px ${y}px`;
         }
+
+        this.element.classList.add(this.MINIMIZE_ANIMATION);
       } else {
         HomescreenLauncher.homescreenWindow.focus();
         this.element.classList.add(this.CLOSE_TO_HOMESCREEN_ANIMATION);
-        if (this.dockIcon) {
-          this.dockIcon.classList.add('minimized');
+        if (this.dockIcon && this.dockIcon.element) {
+          this.dockIcon.element.classList.add('minimized');
         }
         this.element.addEventListener('animationend', () => {
           HomescreenLauncher.homescreenWindow.focus();
@@ -631,9 +622,9 @@
       if (window.deviceType === 'desktop') {
         this.element.classList.remove(this.MINIMIZE_ANIMATION);
 
-        if (this.dockIcon) {
-          const x = this.dockIcon.clientLeft - this.offsetX;
-          const y = this.dockIcon.clientTop - this.offsetY;
+        if (this.dockIcon && this.dockIcon.element) {
+          const x = this.dockIcon.element.clientLeft - this.offsetX;
+          const y = this.dockIcon.element.clientTop - this.offsetY;
           this.element.style.transformOrigin = `${x}px ${y}px`;
 
           this.element.addEventListener('animationend', () => {
@@ -645,8 +636,8 @@
           return;
         }
 
-        if (this.dockIcon) {
-          this.dockIcon.classList.remove('minimized');
+        if (this.dockIcon && this.dockIcon.element) {
+          this.dockIcon.element.classList.remove('minimized');
         }
         this.focus();
         this.element.classList.add(this.OPEN_ANIMATION);
@@ -672,6 +663,10 @@
       if (webview) {
         color = webview.dataset.themeColor.substring(0, 7);
       } else {
+        return;
+      }
+
+      if (!this.statusbar || !this.softwareButtons) {
         return;
       }
 
@@ -864,7 +859,7 @@
       this.startHeight = this.resizingWindow.offsetHeight;
     },
 
-    resize: function (event, gripper) {
+    resize: function (event) {
       // event.preventDefault();
       if (!this.isResizing) {
         return;
@@ -878,47 +873,46 @@
       let left = this.resizingWindow.offsetLeft;
       let top = this.resizingWindow.offsetTop;
 
-      if (gripper.classList.contains('nw-resize')) {
+      if (this.resizingGripper.classList.contains('nw-resize')) {
         // Top Left
         width = this.startWidth + (this.startX - currentX);
         height = this.startHeight + (this.startY - currentY);
         left = this.resizingWindow.offsetLeft - (this.startX - currentX);
         top = this.resizingWindow.offsetTop - (this.startY - currentY);
-      } else if (gripper.classList.contains('n-resize')) {
+      } else if (this.resizingGripper.classList.contains('n-resize')) {
         // Top
         height = this.startHeight + (this.startY - currentY);
         top = this.resizingWindow.offsetTop - (this.startY - currentY);
-      } else if (gripper.classList.contains('ne-resize')) {
+      } else if (this.resizingGripper.classList.contains('ne-resize')) {
         // Top Right
         width = this.startWidth + (currentX - this.startX);
         height = this.startHeight + (this.startY - currentY);
         top = this.resizingWindow.offsetTop - (this.startY - currentY);
-      } else if (gripper.classList.contains('w-resize')) {
+      } else if (this.resizingGripper.classList.contains('w-resize')) {
         // Left
         width = this.startWidth + (this.startX - currentX);
         left = this.resizingWindow.offsetLeft - (this.startX - currentX);
-      } else if (gripper.classList.contains('e-resize')) {
+      } else if (this.resizingGripper.classList.contains('e-resize')) {
         // Right
         width = this.startWidth + (currentX - this.startX);
-      } else if (gripper.classList.contains('sw-resize')) {
+      } else if (this.resizingGripper.classList.contains('sw-resize')) {
         // Bottom Left
         width = this.startWidth + (this.startX - currentX);
         height = this.startHeight + (currentY - this.startY);
         left = this.resizingWindow.offsetLeft - (this.startX - currentX);
-      } else if (gripper.classList.contains('s-resize')) {
+      } else if (this.resizingGripper.classList.contains('s-resize')) {
         // Bottom
         height = this.startHeight + (currentY - this.startY);
-      } else if (gripper.classList.contains('se-resize')) {
+      } else if (this.resizingGripper.classList.contains('se-resize')) {
         // Bottom Right
         width = this.startWidth + (currentX - this.startX);
         height = this.startHeight + (currentY - this.startY);
       }
 
       // Update the position and dimensions of the window
-      this.resizingWindow.style.width = `${width}px`;
-      this.resizingWindow.style.height = `${height}px`;
-      this.resizingWindow.style.left = `${left}px`;
-      this.resizingWindow.style.top = `${top}px`;
+      this.element.style.setProperty('--window-translate', `${left}px ${top}`);
+      this.element.style.setProperty('--window-width', `${width}px`);
+      this.element.style.setProperty('--window-height', `${height}px`);
     },
 
     stopResize: function (event) {
