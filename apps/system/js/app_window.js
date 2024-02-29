@@ -108,6 +108,9 @@
           this.dockIcon = new DockIcon(this.dock, manifestUrl, options.entryId);
         }
       }
+      if (this.dockIcon) {
+        this.dockIcon.element.classList.add('running');
+      }
 
       // Create a splash screen with an icon
       this.createSplashScreen(windowDiv, this.manifest.icons, manifestUrl);
@@ -546,7 +549,7 @@
         this.element.remove();
         if (this.dockIcon && this.dockIcon.element) {
           if (this.dockIcon.isPinned) {
-            this.dockIcon.element.classList.remove('active');
+            this.dockIcon.element.classList.remove('active', 'running');
           } else {
             this.dockIcon.element.remove();
           }
@@ -564,7 +567,7 @@
 
           if (this.dockIcon && this.dockIcon.element) {
             if (this.dockIcon.isPinned) {
-              this.dockIcon.element.classList.remove('active');
+              this.dockIcon.element.classList.remove('active', 'running');
             } else {
               this.dockIcon.element.classList.remove(this.CLOSE_ANIMATION);
               this.dockIcon.element.remove();

@@ -196,9 +196,22 @@ html[dir="rtl"] #software-buttons #software-back-button::before {
   height: calc(var(--dock-height) - 1rem);
 }
 
-#dock .icon.active {
-  outline: solid 0.3rem var(--accent-color);
-  outline-offset: -0.3rem;
+#dock .icon.running::before {
+  position: absolute;
+  bottom: -0.25rem;
+  left: 50%;
+  width: 0.25rem;
+  height: 0.25rem;
+  translate: -50% 0;
+  border-radius: 0.25rem;
+  background-color: var(--text-color-faded);
+  content: '';
+  transition: width 0.3s ease;
+}
+
+#dock .icon.running.active::before {
+  width: 1.5rem;
+  background-color: var(--accent-color);
 }
 
 #dock .icon.expand {
