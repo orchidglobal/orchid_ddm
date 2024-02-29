@@ -7,3 +7,6 @@
 [submodule "internal/fonts"]
 	path = internal/fonts
 	url = https://github.com/openorchid/orchidtt
+[submodule "apps/shared/style_novice"]
+	path = apps/shared/style_novice
+	url = https://github.com/NoviceOrg/CSS-Building-Blocks

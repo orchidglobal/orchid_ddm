@@ -6,12 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f0f6ff">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
-  <title>Calculator</title>
+  <link rel="shortcut icon" href="/style/icons/calculator.svg" type="image/svg">
+  <title data-l10n-id="title"></title>
   <link rel="stylesheet" type="text/css" href="http://default_theme.localhost:8081/style/index.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/layout.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/icons/icons.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/headers.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/counters.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/lists.css" />
   <link rel="stylesheet" type="text/css" href="style/calculator.css">
+  <script defer type="text/javascript" src="js/calculator.js"></script>
+  <script defer type="text/javascript" src="http://shared.localhost:8081/js/page_controller.js"></script>
+  <script defer type="text/javascript" src="http://shared.localhost:8081/js/external/smooth-scrollbar.js"></script>
+  <script defer type="text/javascript" src="http://shared.localhost:8081/js/external/plugins/overscroll.js"></script>
+  <script defer type="text/javascript" src="http://shared.localhost:8081/js/common/panels.js"></script>
+  <script defer type="text/javascript" src="http://shared.localhost:8081/js/common/counters.js"></script>
 
   <script type="text/javascript" src="http://shared.localhost:8081/js/intl/l10n.js"></script>
   <meta name="defaultLanguage" content="en-US">
@@ -22,39 +31,67 @@
 
 <body>
   <div id="app" role="app">
-    <section class="visible" role="panel">
+    <section id="root" class="visible" role="panel">
       <header class="compact">
-        <h1>Calculator</h1>
+        <a href="#" data-icon="menu"></a>
+        <h1 data-l10n-id="title"></h1>
+        <menu role="toolbar">
+          <a href="#" data-icon="history" data-page-id="history"></a>
+        </menu>
       </header>
-      <div class="content">
-        <div class="calculator">
-          <input type="text" id="result" readonly>
-          <div class="buttons">
-            <button class="button" id="clear">C</button>
-            <button class="button" id="delete">←</button>
-            <button class="button" id="divide" data-icon="calculator-subdivide">÷</button>
-            <button class="button" id="seven">7</button>
-            <button class="button" id="eight">8</button>
-            <button class="button" id="nine">9</button>
-            <button class="button" id="multiply" data-icon="calculator-multiply">x</button>
-            <button class="button" id="four">4</button>
-            <button class="button" id="five">5</button>
-            <button class="button" id="six">6</button>
-            <button class="button" id="subtract" data-icon="calculator-subtract">-</button>
-            <button class="button" id="one">1</button>
-            <button class="button" id="two">2</button>
-            <button class="button" id="three">3</button>
-            <button class="button" id="equals" data-icon="calculator-equal">=</button>
-            <button class="button" id="zero">0</button>
-            <button class="button" id="decimal">.</button>
-            <button class="button" id="add" data-icon="calculator-add">+</button>
+      <section>
+        <div class="panel">
+          <div id="display">
+            <div id="display-input" role="counter"></div>
+          </div>
+
+          <div class="keyboard">
+            <div class="keyboard-row-x">
+              <input type="button" class="double-width danger" value="C" data-type="command" />
+              <input type="button" class="small" value="÷" id="add" data-type="operator" />
+              <input type="button" class="small" value="×" id="multiply" data-type="operator" />
+            </div>
+            <div class="keyboard-row-block">
+              <div class="row">
+                <input type="button" class="small" value="7" data-type="value" />
+                <input type="button" class="small" value="8" data-type="value" />
+                <input type="button" class="small" value="9" data-type="value" />
+              </div>
+              <div class="row">
+                <input type="button" class="small" value="4" data-type="value" />
+                <input type="button" class="small" value="5" data-type="value" />
+                <input type="button" class="small" value="6" data-type="value" />
+              </div>
+              <div class="row">
+                <input type="button" class="small" value="1" data-type="value" />
+                <input type="button" class="small" value="2" data-type="value" />
+                <input type="button" class="small" value="3" data-type="value" />
+              </div>
+              <div class="row">
+                <input type="button" class="double-width" value="0" data-type="value" />
+                <input type="button" class="small" value="." data-type="value" />
+              </div>
+            </div>
+            <div class="keyboard-row-y">
+              <input type="button" class="small" value="-" id="subtract" data-type="operator" />
+              <input type="button" class="small" value="+" id="divide" data-type="operator" />
+              <input type="button" class="double-height confirm" value="=" data-type="command" />
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+    </section>
+
+    <section id="history" role="panel">
+      <header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="history"></h1>
+      </header>
+      <section class="lists">
+        <div id="history-list"></div>
+      </section>
     </section>
   </div>
-
-  <script type="text/javascript" src="js/calculator.js"></script>
 </body>
 
 </html>

@@ -1,71 +1,141 @@
-.calculator {
-  max-width: 60rem;
-  margin: 0 auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+.panel {
   position: relative;
-}
-
-.calculator input {
   width: 100%;
-  margin-bottom: 1rem;
-  padding: 0 1rem;
-  box-sizing: border-box;
-  height: 20vh;
-  line-height: 20vh;
-  font-size: 5rem;
-  font-weight: 200;
-  background-color: transparent;
-  border: none;
-  color: var(--text-color);
-  outline: none;
+  max-width: var(--safezone-width);
+  height: 100%;
+  margin: 0 auto;
 }
 
-.calculator .buttons {
+#display {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  align-items: center;
+  width: 100%;
+  height: 30%;
+  padding: 0 1.5rem;
+  overflow: hidden;
+}
+
+#display-input {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--text-color);
+  font-weight: 300;
+  font-size: 5rem;
+}
+
+.keyboard {
+  box-sizing: border-box;
+  display: grid;
+  position: absolute;
+  top: 30%;
+  left: 0;
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  width: 100%;
+  height: 70%;
+  padding: 0 1.5rem;
+  gap: 1rem;
+}
+
+.keyboard-row-x {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  grid-gap: 1rem;
-  flex-grow: 1;
-  padding: 1.5rem;
-  box-sizing: border-box;
-  border-radius: 3rem 3rem 0 0;
-  background-color: var(--background-minus);
-}
-
-.calculator .button {
+  grid-column: span 4;
   width: 100%;
   height: 100%;
-  font-size: 3rem;
+  gap: 1rem;
+}
+
+.keyboard-row-y {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-row: span 4;
+  width: 100%;
+  height: 100%;
+  gap: 1rem;
+}
+
+.keyboard-row-block {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-row: span 4;
+  grid-column: span 3;
+  width: 100%;
+  height: 100%;
+  gap: 1rem;
+}
+
+.keyboard-row-block > .row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  height: 100%;
+  gap: 1rem;
+}
+
+.keyboard-row-x input,
+.keyboard-row-y input,
+.keyboard-row-block > .row input {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: solid 0.1rem var(--list-background-border);
+  border-radius: 1.5rem;
   background-color: var(--background-plus);
   color: var(--text-color);
-  border: none;
-  border-radius: 1.5rem;
   font-weight: 300;
+  font-size: 3rem;
+  transition: all 0.3s ease;
 }
 
-.calculator .button:active {
-  opacity: 0.75;
+.keyboard-row-x input:hover,
+.keyboard-row-y input:hover,
+.keyboard-row-block > .row input:hover {
+  z-index: 1;
+  transform: translateY(-0.1rem);
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.2);
 }
 
-.calculator .button[data-icon] {
-  font-size: 0;
+
+.keyboard-row-x input:active,
+.keyboard-row-y input:active,
+.keyboard-row-block > .row input:active {
+  transform: translateY(0);
+  background-color: var(--background-minus);
+  box-shadow: none;
+  color: var(--text-color-faded);
+  transition: all 0.1s ease;
 }
 
-.calculator .button[data-icon]::before {
-  font-size: 2.4rem;
-}
-
-#clear {
-  grid-column: span 2;
+.keyboard-row-x input.danger,
+.keyboard-row-y input.danger,
+.keyboard-row-block > .row input.danger {
   background-color: #c00040;
   color: rgba(255, 255, 255, 0.75);
 }
 
-#equals {
-  grid-row: span 2;
+.keyboard-row-x input.danger:active,
+.keyboard-row-y input.danger:active,
+.keyboard-row-block > .row input.danger:active {
+  background-color: #d00050;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.keyboard-row-x input.confirm,
+.keyboard-row-y input.confirm,
+.keyboard-row-block > .row input.confirm {
   background-color: var(--accent-color);
   color: var(--accent-color-plus);
+}
+
+.double-width {
+  grid-column: span 2;
+}
+
+.double-height {
+  grid-row: span 2;
 }
