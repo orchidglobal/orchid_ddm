@@ -4,12 +4,11 @@
   max-width: var(--safezone-width);
   min-height: 3rem;
   margin: 1rem auto 0;
-  padding: 0.4rem 2rem;
-  color: var(--accent-color);
-  font-weight: bold;
+  padding: 0.5rem 2rem;
+  color: var(--text-color-faded);
+  font-weight: normal;
   font-size: 1.6rem;
-  line-height: 2.2rem;
-  text-transform: uppercase;
+  line-height: 2rem;
 }
 
 .lists.sticky header {
@@ -65,8 +64,8 @@
 }
 
 .lists ul li:not(.noclick).selected {
-  background-color: var(--accent-color);
-  color: var(--accent-color-plus);
+  background-color: var(--item-active);
+  color: var(--accent-color);
 }
 
 .lists ul li[data-icon] {
@@ -91,7 +90,7 @@ html[dir="rtl"] .lists ul li[data-icon]::before {
 }
 
 .lists ul li[data-icon].selected::before {
-  color: var(--accent-color-plus);
+  color: var(--accent-color);
 }
 
 .lists ul li::after {
@@ -127,7 +126,7 @@ html[dir="rtl"] .lists ul li.page::after {
 }
 
 .lists ul li.page.selected::after {
-  color: var(--accent-color-plus);
+  color: var(--accent-color);
   opacity: 0.5;
 }
 
@@ -173,9 +172,9 @@ html[dir="rtl"] .lists ul li.page::after {
 }
 
 .lists ul li.selected > .avatar .activity {
-  outline: solid 0.3rem var(--accent-color);
-  background-color: var(--accent-color);
-  box-shadow: inset 0 0 0 0.3rem var(--accent-color-plus);
+  outline: solid 0.3rem var(--list-background);
+  background-color: var(--list-background);
+  box-shadow: inset 0 0 0 0.3rem var(--accent-color);
 }
 
 .lists ul li > .avatar .activity.online {
@@ -215,13 +214,18 @@ html[dir="rtl"] .lists ul li.page::after {
 
 .lists ul li.selected a,
 .lists ul li.selected p {
-  color: var(--accent-color-plus);
+  color: var(--accent-color);
 }
 
 .lists ul li p:not(:first-child) {
   color: var(--text-color-faded);
   font-size: 1.4rem;
   line-height: 1.9rem;
+}
+
+.lists ul li.selected p:not(:first-child) {
+  color: var(--accent-color);
+  opacity: 0.5;
 }
 
 .lists ul li p > span {

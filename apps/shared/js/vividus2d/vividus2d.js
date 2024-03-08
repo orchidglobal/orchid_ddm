@@ -1,30 +1,44 @@
 'use strict';
 
-class Vividus2D {
+const Vividus2D = {
+  children: []
+};
+class CanvasRenderer {
   constructor(canvas) {
     this.canvas = canvas;
     this.context = this.canvas?.getContext('2d');
-    this.guiInstance = this;
+    this.renderInstance = this;
+
+    this.width = 0;
+    this.height = 0;
 
     this.init();
-    this.initializeGui();
-    this.drawScreen();
-    this.update();
   }
 
   init() {
     if (!this.canvas) {
       return;
     }
-    this.canvas.width = window.innerWidth * devicePixelRatio;
-    this.canvas.height = window.innerHeight * devicePixelRatio;
+
+    const devicePixelRatio = window.devicePixelRatio || 1;
+
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+
+    this.canvas.width = this.width * devicePixelRatio;
+    this.canvas.height = this.height * devicePixelRatio;
+
     this.context?.scale(devicePixelRatio, devicePixelRatio);
+
+    this.initialize();
+    this.drawScreen();
+    this.update();
   }
 
   setInstance(instance) {
-    this.guiInstance = instance;
-    this.guiInstance.initializeGui();
-    this.guiInstance.drawScreen();
+    this.renderInstance = instance;
+    this.renderInstance.initialize();
+    this.renderInstance.drawScreen();
   }
 
   drawRect(fillStyle, x, y, width, height) {
@@ -35,7 +49,7 @@ class Vividus2D {
     this.context.fillRect(x, y, width, height);
   }
 
-  drawImageRect(imageUrl, height) {
+  drawImageRect(imageUrl, x, y, width, height) {
     if (!this.context) {
       return;
     }
@@ -110,9 +124,17 @@ class Vividus2D {
     if (!this.context) {
       return;
     }
+
     this.context.translate(0, 0);
+
+    const devicePixelRatio = window.devicePixelRatio || 1;
+    this.context?.scale(devicePixelRatio, devicePixelRatio);
+
     this.context.globalAlpha = 1;
-    this.context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    this.guiInstance.drawScreen();
+    this.context.clearRect(0, 0, window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio);
+
+    this.renderInstance.drawScreen();
   }
 }
+
+Vividus2D.CanvasRenderer = CanvasRenderer;

@@ -6,10 +6,13 @@ html, body {
   accent-color: var(--accent-color);
   font-size: 10px;
   font-family: -orchid-standard-font, system-ui;
+  scroll-behavior: smooth;
 }
 
 :root {
   --statusbar-height: 0rem;
+  --statusbar-padding-left: 3rem;
+  --statusbar-padding-right: 3rem;
   --software-buttons-height: 0rem;
   --safezone-width: 75rem;
 }
@@ -34,6 +37,10 @@ ul {
   user-select: none;
 }
 
+[role="web"] {
+  background-color: var(--background);
+}
+
 section[role="panel"] {
   display: flex;
   visibility: hidden;
@@ -48,7 +55,12 @@ section[role="panel"] {
   border-radius: calc(1.5rem - (1.5rem * var(--card-progress, 1)));
   background-color: var(--background);
   opacity: 0;
-  transition: transform 1s cubic-bezier(0.2, 0.9, 0.1, 1), opacity 0.2s cubic-bezier(0.2, 0.9, 0.1, 1), visibility 1s ease;
+  transition: all 0.5s cubic-bezier(0.2, 0.9, 0.1, 1), transform 1s cubic-bezier(0.2, 0.9, 0.1, 1), opacity 0.2s cubic-bezier(0.2, 0.9, 0.1, 1), visibility 1s ease;
+}
+
+[role="web"] section[role="panel"] {
+  position: static;
+  height: max-content;
 }
 
 html[dir="ltr"] section[role="panel"].previous {
@@ -70,7 +82,7 @@ html[dir="rtl"] section[role="panel"].visible {
   visibility: visible;
   transform: translate(0, calc(var(--statusbar-height, 0px) - (var(--statusbar-height, 0px) * var(--card-progress, 1)))) scale(calc(0.9 + (0.1 * var(--card-progress, 1))));
   opacity: 1;
-  transition: transform 1s cubic-bezier(0.2, 0.9, 0.1, 1), opacity 0.5s cubic-bezier(0.2, 0.9, 0.1, 1) 0.2s, visibility 1s ease;
+  transition: all 0.5s cubic-bezier(0.2, 0.9, 0.1, 1), transform 1s cubic-bezier(0.2, 0.9, 0.1, 1), opacity 0.5s cubic-bezier(0.2, 0.9, 0.1, 1) 0.2s, visibility 1s ease;
 }
 
 html[dir="ltr"] section[role="panel"].will-be-visible,
@@ -87,6 +99,10 @@ section[role="panel"] > section {
   padding-bottom: calc(var(--software-buttons-height) + 1.5rem);
   overflow-y: auto;
   scrollbar-width: none;
+}
+
+[role="web"] section[role="panel"] > section {
+  padding: 0;
 }
 
 section[role="panel"] > section > .scroll-content {

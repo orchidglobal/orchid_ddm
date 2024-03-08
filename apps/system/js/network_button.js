@@ -14,7 +14,7 @@
 
         const signalStrength = Math.min(100, this.networks[0].quality);
 
-        this.wifiButton.parentElement.classList.add('enabled');
+        this.wifiButton.classList.add('enabled');
         this.wifiButton.children[0].dataset.icon = `wifi-${Math.round(signalStrength / 25)}`;
         this.wifiButton.children[1].dataset.l10nId = null;
         this.wifiButton.children[1].textContent = this.networks[0].ssid;
@@ -23,7 +23,7 @@
         this.timeoutID = setTimeout(this.update.bind(this), 1000);
       }).catch((error) => {
         console.error(error);
-        this.wifiButton.parentElement.classList.remove('enabled');
+        this.wifiButton.classList.remove('enabled');
         this.wifiButton.children[0].dataset.icon = 'wifi';
         this.wifiButton.children[1].dataset.l10nId = 'quickSettings-wifi';
       });

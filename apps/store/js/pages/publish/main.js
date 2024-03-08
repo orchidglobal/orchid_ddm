@@ -45,16 +45,31 @@
       this.confirmButton.addEventListener('click', this.handleConfirmButton.bind(this));
     },
 
-    handleConfirmButton: function () {
-      _os.store.publish({});
-    }
+    handleConfirmButton: async function () {
+      await this.uploadApp();
+      const yourHandle = await _os.auth.getHandleName();
+
+      _os.store.publish({
+        name: this.display_name,
+        description: this.description,
+        developers: [
+          yourHandle
+        ],
+        icon: this.icon,
+        version: '1.0',
+        downloadUrl: this.installer || '#',
+        categories: this.categories,
+        tags: this.tags
+      });
+    },
 
     uploadApp: async function () {
-      await uploadAppIcon();
+      const appIcon = await this.uploadAppIcon();
       this.display_name = this.nameInput.value;
       this.description = this.descriptionInput.innerText;
       this.categories = this.categoriesEditable;
       this.tags = this.tagsEditable;
+      this.icon = appIcon;
     },
 
     uploadAppIcon: function () {
@@ -70,9 +85,9 @@
           reader.onload = function (event) {
             // The result attribute contains the base64-encoded string
             const base64String = event.target.result;
-            _os.storage.add(`store/${uuidv4()}.${mimeType.split('/')[1]}`, base64String);
-            _os.storage.getAfterUpload(`messages/${mediaData.path}.${mediaData.mime.split('/')[1]}`).then(resolve.bind(this));
-            resolve(base64String);
+            const uuid = uuidv4();
+            _os.storage.add(`store/${uuid}.${mimeType.split('/')[1]}`, base64String);
+            _os.storage.getAfterUpload(`store/${uuid}.${mimeType.split('/')[1]}`).then(resolve.bind(this));
           };
 
           // Read the file as a Data URL (base64)

@@ -17,4 +17,6 @@
   };
 
   Dashboard.init();
+
+  exports.Dashboard = Dashboard;
 })(window);

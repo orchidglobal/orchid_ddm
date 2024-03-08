@@ -119,6 +119,9 @@
         if (window.deviceType === 'desktop') {
           LazyLoader.load('js/app_switcher.js');
           LazyLoader.load('js/app_launcher.js');
+          LazyLoader.load('js/icon.js', () => {
+            LazyLoader.load('js/app_launcher_apps.js');
+          });
           LazyLoader.load('js/dashboard.js');
         }
 
@@ -233,8 +236,6 @@
       // It won't be added to load until that TODO is done
       // LazyLoader.load('js/remote/p2p.js');
       LazyLoader.load('js/syncing_data.js');
-      LazyLoader.load('js/tray_devices.js');
-
       LazyLoader.load('js/notification_toaster.js', () => {
         NotificationToaster.showNotification('Orchid is ready to use!', {
           body: 'Orchid Services have loaded successfully.',

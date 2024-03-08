@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f0f6ff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+  <link rel="shortcut icon" href="/style/icons/clock.svg" type="image/svg">
+  <title data-l10n-id="title"></title>
+  <link rel="stylesheet" type="text/css" href="http://default_theme.localhost:8081/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/layout.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/panels.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/headers.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/buttons.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/lists.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/alertbars.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/footers.css" />
+  <link rel="stylesheet" type="text/css" href="style/index.css" />
+  <link rel="stylesheet" type="text/css" href="style/slideshow.css" />
+  <script defer type="text/javascript" src="http://shared.localhost:8081/js/page_controller.js"></script>
+  <script defer type="text/javascript" src="http://shared.localhost:8081/js/common/color_picker.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script defer type="text/javascript" src="js/slideshow.js"></script>
+
+  <script type="text/javascript" src="http://shared.localhost:8081/js/intl/l10n.js"></script>
+  <meta name="defaultLanguage" content="en-US">
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi">
+  <link rel="localization" href="./locales/main.{locale}.properties">
+</head>
+
+<body>
+  <main id="app" role="web">
+    <section id="root" class="visible" role="panel">
+      <header class="compact">
+        <a href="#" class="logo">Orchid</a>
+        <nav>
+          <ul>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Games</a></li>
+            <li><a href="#">Contacts</a></li>
+            <li><a href="#">About Us</a></li>
+          </ul>
+        </nav>
+        <h1></h1>
+        <menu role="toolbar">
+          <a href="#" data-icon="options"></a>
+          <a href="#" data-icon="search"></a>
+          <a href="#" data-icon="cart"></a>
+        </menu>
+      </header>
+
+      <section class="lists">
+        <div id="alertbar-unsupported" class="bb-alertbar">
+          <div class="text-holder">
+            <p data-l10n-id="alertbar-unsupported"></p>
+          </div>
+          <nav>
+            <a href="#" data-l10n-id="learnMore"></a>
+          </nav>
+        </div>
+
+        <div id="slideshow-container">
+          <div id="slideshow"></div>
+          <div id="slideshow-dots"></div>
+
+          <button id="slideshow-previous-button" data-icon="chevron-left"></button>
+          <button id="slideshow-next-button" data-icon="chevron-right"></button>
+        </div>
+
+        <div class="bb-footer">
+          <div class="footer-rows">
+            <div class="row">
+              <a href="#" class="jump-back" data-l10n-id="jumpBackUp"></a>
+            </div>
+            <div class="row">
+              <nav>
+                <a href="#">Web Docs</a>
+                <div class="separator"></div>
+                <a href="#">Partner</a>
+                <div class="separator"></div>
+                <a href="#">Join Us</a>
+                <div class="separator"></div>
+                <a href="#">Parental</a>
+                <div class="separator"></div>
+                <a href="#">Education</a>
+                <div class="separator"></div>
+                <a href="#">Business</a>
+              </nav>
+            </div>
+            <div class="row">
+              <p>Orchid 2021-2024 (CL) - Copyright-free distribution and use.</p>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit corrupti optio accusantium inventore, qui nulla ipsum eos tempora est vero exercitationem, voluptates id laboriosam delectus, tempore possimus labore. Excepturi, sunt?</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+</body>
+
+</html>

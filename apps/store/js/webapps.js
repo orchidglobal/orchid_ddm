@@ -56,6 +56,7 @@
     populate: function (data) {
       const webapp = document.createElement('li');
       webapp.classList.add('webapp');
+      webapp.classList.add('hbox');
       webapp.dataset.pageId = 'webapp';
       webapp.addEventListener('click', () =>
         this.openPanel(webapp, data)
@@ -63,31 +64,31 @@
       this.initializeCategory(data.categories[0]).appendChild(webapp);
       PageController.init();
 
-      const iconHolder = document.createElement('div');
-      iconHolder.classList.add('icon-holder');
-      webapp.appendChild(iconHolder);
-
       const icon = document.createElement('img');
       icon.classList.add('icon');
       icon.src = data.icon;
-      iconHolder.appendChild(icon);
+      icon.onerror = () => {
+        icon.src = '/images/default.svg';
+      };
+      webapp.appendChild(icon);
 
       const textHolder = document.createElement('div');
+      textHolder.classList.add('vbox');
       textHolder.classList.add('text-holder');
       webapp.appendChild(textHolder);
 
-      const name = document.createElement('span');
+      const name = document.createElement('p');
       name.classList.add('name');
       name.textContent = data.name;
       textHolder.appendChild(name);
 
-      const stats = document.createElement('span');
+      const stats = document.createElement('p');
       stats.classList.add('stats');
       textHolder.appendChild(stats);
 
       const price = document.createElement('span');
       price.classList.add('price');
-      price.textContent = data.price;
+      price.textContent = parseFloat(data.price) === 0 ? L10n.get('free') : `$${parseFloat(data.price).toFixed(2)}`;
       stats.appendChild(price);
 
       const statSeparator = document.createElement('div');
@@ -96,19 +97,29 @@
 
       const ageRating = document.createElement('span');
       ageRating.classList.add('ageRating');
-      ageRating.textContent = data.ageRating.split('-')[1] + '+';
+      ageRating.textContent = L10n.get(data.ageRating || 'ageRating-notRated');
       stats.appendChild(ageRating);
+
+      const buttonHolder = document.createElement('div');
+      buttonHolder.classList.add('vbox');
+      buttonHolder.classList.add('button-holder');
+      webapp.appendChild(buttonHolder);
+
+      const installButton = document.createElement('button');
+      installButton.classList.add('recommend');
+      installButton.dataset.l10nId = 'webappGet';
+      buttonHolder.appendChild(installButton);
     },
 
     initializeCategory: function (categoryId) {
-      const categoryExists = document.getElementById(`category-${categoryId}`);
+      const categoryExists = document.getElementById(`category-${categoryId || 'generic'}`);
       if (categoryExists) {
         return categoryExists.querySelector('.list');
       }
 
       const category = document.createElement('div');
       category.classList.add('category');
-      category.id = `category-${categoryId}`;
+      category.id = `category-${categoryId || 'generic'}`;
       this.webapps.appendChild(category);
 
       const header = document.createElement('div');
@@ -116,7 +127,7 @@
       category.appendChild(header);
 
       const headerLabel = document.createElement('h1');
-      headerLabel.textContent = categoryId;
+      headerLabel.textContent = L10n.get(`category-${categoryId || 'generic'}`);
       header.appendChild(headerLabel);
 
       const headerExpand = document.createElement('a');

@@ -14,8 +14,9 @@
   margin: 0 auto 1rem;
   padding: 1rem 1.5rem;
   gap: 1rem;
+  border: solid 0.1rem var(--list-background-border);
   border-radius: 1.5rem;
-  background-color: var(--background-plus);
+  background-color: var(--list-background);
   transition: transform 0.5s ease;
 }
 

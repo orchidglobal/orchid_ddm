@@ -89,7 +89,7 @@
 
 .webapp-header figure > figcaption > #webapp-authors > a[href]:hover,
 .webapp-header figure > figcaption > #webapp-categories > a[href]:hover {
-  box-shadow: 0 0.1rem 0 var(--accent-color);
+  box-shadow: 0 0.2rem 0 var(--accent-color);
 }
 
 .webapp-header .buttons {

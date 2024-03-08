@@ -20,16 +20,11 @@
     isVisible: false,
 
     init: function () {
-      this.topPanel.addEventListener('mousedown', this.onPointerDown.bind(this));
-      this.topPanel.addEventListener('touchstart', this.onPointerDown.bind(this));
-      this.motionElement.addEventListener('mousedown', this.onPointerDown.bind(this));
-      this.motionElement.addEventListener('touchstart', this.onPointerDown.bind(this));
-      document.addEventListener('mousemove', this.onPointerMove.bind(this));
-      document.addEventListener('touchmove', this.onPointerMove.bind(this));
-      document.addEventListener('mouseup', this.onPointerUp.bind(this));
-      document.addEventListener('touchend', this.onPointerUp.bind(this));
-      document.addEventListener('mouseleave', this.onPointerCancel.bind(this));
-      document.addEventListener('touchcancel', this.onPointerCancel.bind(this));
+      this.topPanel.addEventListener('pointerdown', this.onPointerDown.bind(this));
+      this.motionElement.addEventListener('pointerdown', this.onPointerDown.bind(this));
+      document.addEventListener('pointermove', this.onPointerMove.bind(this));
+      document.addEventListener('pointerup', this.onPointerUp.bind(this));
+      document.addEventListener('pointercancel', this.onPointerCancel.bind(this));
 
       if (window.deviceType === 'desktop') {
         this.dockStatusbar.addEventListener('click', this.handleStatusbarClick.bind(this));
@@ -153,6 +148,12 @@
       this.motionElement.style.setProperty('--overscroll-progress', overflowProgress);
       this.windowContainer.style.setProperty('--motion-progress', motionProgress);
 
+      if (progress >= 0.9) {
+        this.motionElement.classList.add('buttons-visible');
+      } else {
+        this.motionElement.classList.remove('buttons-visible');
+      }
+
       if (motionProgress <= Math.abs(this.lastProgress - this.threshold)) {
         this.motionElement.classList.add('fade-out');
         this.motionElement.classList.remove('fade-in');
@@ -175,6 +176,8 @@
       this.motionElement.style.setProperty('--motion-progress', 0);
       this.motionElement.style.setProperty('--overscroll-progress', 0);
       this.windowContainer.style.setProperty('--motion-progress', 0);
+
+      this.motionElement.classList.remove('buttons-visible');
     },
 
     showMotionElement: function () {
@@ -193,6 +196,8 @@
       this.motionElement.style.setProperty('--motion-progress', 1);
       this.motionElement.style.setProperty('--overscroll-progress', 0);
       this.windowContainer.style.setProperty('--motion-progress', 1);
+
+      this.motionElement.classList.add('buttons-visible');
     },
 
     resetMotionElement: function () {
@@ -209,6 +214,8 @@
         this.windowContainer.style.setProperty('--motion-progress', 0);
         this.statusbar.classList.add('transitioning');
         this.motionElement.classList.add('transitioning');
+
+        this.motionElement.classList.add('buttons-visible');
         clearTimeout(this.timer);
         this.timer = setTimeout(() => {
           this.statusbar.classList.remove('transitioning');

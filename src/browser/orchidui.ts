@@ -43,6 +43,14 @@ const OrchidUI = {
   window: null as BrowserWindow | null,
   webview: null as BrowserView | null,
 
+  DEFAULT_PRINT_SETTINGS: {
+    silent: false,
+    color: true,
+    margin: {
+      marginType: 1
+    }
+  },
+
   init: function () {
     this.defineEdition().then(() => {
       this.createWindow();
@@ -124,11 +132,16 @@ const OrchidUI = {
 
     this.webview.webContents.on('dom-ready', this.handleDOMReady.bind(this));
     Settings.getValue('video.dark_mode.enabled').then(this.handleDarkMode.bind(this));
+
     ipcMain.on('change-theme', this.handleThemeChange.bind(this));
+    ipcMain.on('print', (event, data: Record<string, any>) => {
+      data = Object.assign(this.DEFAULT_PRINT_SETTINGS, data);
+      this.webview?.webContents.print(data);
+    });
 
     registerEvents();
     if (Main.DEBUG) {
-      this.webview.webContents.openDevTools({ mode: 'detach' });
+      this.webview.webContents.openDevTools();
       registerControls(this.window);
     }
   },

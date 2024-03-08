@@ -14,7 +14,7 @@
 [role="dialog"][data-type="confirm"] > header {
   box-sizing: border-box;
   width: 100%;
-  padding: 1rem 2rem 0;
+  padding: 1rem 2rem;
 }
 
 [role="dialog"][data-type="confirm"] > header > img:first-child {
@@ -89,14 +89,13 @@
 [role="dialog"][data-type="confirm"] > menu {
   box-sizing: border-box;
   display: flex;
-  height: 7rem;
+  height: 6rem;
   margin: 0;
-  padding: 1.5rem;
+  padding: 0.5rem 1.5rem 1.5rem;
   gap: 1rem;
 }
 
 [role="dialog"][data-type="confirm"] > menu button {
-  transition-color: background 0.3s ease;
   box-sizing: border-box;
   flex-grow: 1;
   width: 100%;

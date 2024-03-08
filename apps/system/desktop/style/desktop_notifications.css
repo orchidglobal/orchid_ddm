@@ -1,0 +1,17 @@
+.screen.desktop #notification-toaster {
+  top: unset;
+  bottom: calc(var(--dock-height) + 2rem);
+  width: 36.5rem;
+  margin: 0 1.5rem;
+}
+html[dir="ltr"] .screen.desktop #notification-toaster {
+  transform: translateX(calc(100% + 1.5rem));
+}
+html[dir="rtl"] .screen.desktop #notification-toaster {
+  transform: translateX(calc(-100% - 1.5rem));
+}
+
+html[dir="ltr"] .screen.desktop #notification-toaster.visible,
+html[dir="rtl"] .screen.desktop #notification-toaster.visible {
+  transform: translateX(0);
+}

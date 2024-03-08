@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(100% - 8rem);
+  height: 100%;
 }
 
 @media screen and (min-width: 1024px) {
@@ -33,28 +33,112 @@
   display: none;
 }
 
-#post-button {
-  display: block;
+.profile-banner {
+  position: relative;
   width: calc(100% - 3rem);
   max-width: calc(var(--safezone-width) - 3rem);
-  height: 4.8rem;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto;
+  padding-top: 13.5rem;
+}
+
+.profile-banner > .banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 17.5rem;
+  object-fit: cover;
   border-radius: 1.5rem;
+  background-color: #858585;
+}
+
+.profile-banner > .container {
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 2rem;
+  gap: 1rem;
+}
+
+.profile-banner > .container .avatar {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  outline: solid 0.5rem var(--background);
+  background-color: #858585;
+}
+
+.profile-banner > .container figcaption {
+  width: 100%;
+  margin: 0 0 1rem;
+}
+
+.profile-banner > .container figcaption .username {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 2.2rem;
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+}
+
+.profile-banner > .container figcaption .username.verified::after {
+  -webkit-mask: no-repeat center / 1em;
+  -webkit-mask-image: url('images/verified.svg');
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-inline-start: 0.5rem;
+  background-color: currentColor;
+  content: '';
+  mask: no-repeat center / 1em;
+  mask-image: url('images/verified.svg');
+}
+
+.profile-banner > .container figcaption .stats {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 2rem;
+  color: var(--text-color-faded);
+  font-weight: normal;
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+.profile-banner > .container figcaption .stats > .separator {
+  width: 0.4rem;
+  height: 0.4rem;
+  margin: 0 0.5rem;
+  border-radius: 50%;
+  background-color: var(--text-color);
+}
+
+.profile-banner > .container figcaption .handle {
+  width: 100%;
+  height: 2rem;
+  color: var(--text-color-faded);
+  font-weight: normal;
+  font-size: 1.4rem;
+  line-height: 2rem;
 }
 
 @media screen and (max-width: 767px) {
   #root {
     z-index: 5;
     width: 90%;
+    border-radius: 0;
     box-shadow: 0 0 0 calc(100vw + 100vh) rgba(0, 0, 0, 0.8);
   }
   html[dir="ltr"] #root {
     transform: translateX(-100%);
-    border-radius: 0 2rem 2rem 0;
   }
   html[dir="rtl"] #root {
     transform: translateX(100%);
-    border-radius: 2rem 0 0 2rem;
   }
 
   html[dir="ltr"] #root.visible,
@@ -142,8 +226,8 @@
     left: 0;
   }
 
-  #trending > .content > *:not(.scroll-content),
-  #trending > .content > .scroll-content > * {
+  #trending > section > *:not(.scroll-content, .scrollbar-track, .bb-emptyscreen),
+  #trending > section > .scroll-content > *:not(.bb-emptyscreen) {
     visibility: visible;
     transform: translateY(0);
     opacity: 1;

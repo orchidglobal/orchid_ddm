@@ -8,6 +8,8 @@
     isVisible: false,
     activeWindowIndex: 0,
 
+    APP_ICON_SIZE: 30 * window.devicePixelRatio,
+
     init: function () {
       document.addEventListener('keydown', this.handleKeyDown.bind(this));
       document.addEventListener('keyup', this.handleKeyUp.bind(this));

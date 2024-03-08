@@ -124,12 +124,12 @@
   height: 100%;
   padding-bottom: 2.5rem;
   overflow: auto;
-  transform: scale(calc(0.9 + (0.1 * var(--motion-progress, 0)))) translateY(calc(2.5rem * var(--overscroll-progress)));
-  transition: transform 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
+  transform: translateY(calc(2.5rem * var(--overscroll-progress)));
+  transition: transform 0.3s ease;
 }
 
 #utility-tray-motion.transitioning .utility-tray-content {
-  transition: transform 0.5s ease, filter 0.5s ease, opacity 0.5s ease;
+  transition: transform 0.5s ease;
 }
 
 .screen.software-buttons-enabled .utility-tray-content {

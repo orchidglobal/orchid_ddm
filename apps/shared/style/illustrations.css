@@ -1,0 +1,11 @@
+.illustration-holder {
+  width: 100%;
+  height: auto;
+}
+
+.illustration-holder > .illustration {
+  position: relative;
+  width: 25rem;
+  height: 25rem;
+  margin: 0 auto;
+}

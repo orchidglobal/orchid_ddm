@@ -1,3 +1,17 @@
+#webapps {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+  max-width: var(--safezone-width);
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+  #webapps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .category {
   display: flex;
   flex-direction: column;
@@ -10,7 +24,7 @@
   box-sizing: border-box;
   display: flex;
   width: 100%;
-  height: 3rem;
+  height: 4rem;
   margin: 0;
   padding: 0 1.5rem;
   gap: 1rem;
@@ -19,31 +33,33 @@
 .category > .header h1 {
   flex-grow: 1;
   width: 100%;
-  height: 3rem;
+  height: 4rem;
   margin: 0;
   color: var(--text-color);
   font-weight: normal;
   font-size: 1.6rem;
-  line-height: 3rem;
+  line-height: 4rem;
+  transition: all 0.3s ease;
 }
 
 .category > .header a {
   display: flex;
   flex-shrink: 0;
   flex-direction: row-reverse;
-  height: 3rem;
+  height: 4rem;
   gap: 1rem;
   color: var(--accent-color);
   font-weight: bold;
   font-size: 1.6rem;
-  line-height: 3rem;
+  line-height: 4rem;
   text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 .category > .header a[data-icon]::before {
-  height: 3rem;
+  height: 4rem;
   font-size: 2rem;
-  line-height: 3rem;
+  line-height: 4rem;
   transition: all 0.5s cubic-bezier(1, 0, 0, 1);
 }
 
@@ -52,6 +68,50 @@
 }
 
 .category > .list {
+  transform-origin: top;
+  transition: all 0.3s ease;
+}
+
+.category.expanded > .list {
+  transform: scale(1.025) translateY(-0.2rem);
+  border-color: transparent;
+  background-color: var(--background-plus);
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.2);
+}
+
+.category:not(.expanded) > .list li:not(:nth-child(1), :nth-child(2), :nth-child(3)) {
+  display: none;
+}
+
+.category > .list li img {
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.category > .list li .text-holder {
+  flex-grow: 1;
+}
+
+.category > .list li .button-holder button {
+  position: static;
+  width: max-content;
+  height: 3.2rem;
+  margin: 0;
+  padding: 0 1.5rem;
+  translate: 0 0;
+  font-size: 1.4rem;
+  line-height: 3.2rem;
+}
+
+.category > .list li .button-holder span {
+  color: var(--text-color-faded);
+  font-size: 1.4rem;
+}
+
+/* .category > .list {
   display: flex;
   width: calc(100% - 3rem);
   height: 100%;
@@ -115,7 +175,7 @@
   margin: 0 0.5rem;
   border-radius: 50%;
   background-color: var(--text-color);
-}
+} */
 
 /* Webapp Panel */
 #webapp {

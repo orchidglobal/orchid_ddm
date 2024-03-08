@@ -36,21 +36,6 @@
         ]
       },
       {
-        title: 'Tears Of Mother',
-        detail: 'Check out OrchidOS beta',
-        links: [
-          {
-            href: '#',
-            recommend: true,
-            label: 'Get'
-          },
-          {
-            href: '#',
-            label: 'Learn More'
-          }
-        ]
-      },
-      {
         artwork: '/images/creator.png',
         title: 'Editor\'s Pick',
         detail: 'A list of well-rated selection of Orchid webapps picked by the Orchid team itself that you may want to look into',

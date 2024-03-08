@@ -765,23 +765,28 @@
     </section>
 
     <section id="homescreen" role="panel" data-page-object="Homescreen" data-previous-page-id="root">
-      <header>
+      <header class="no-rounded-corners">
         <a href="#" data-icon="arrow-back" data-page-id="root"></a>
         <h1 data-l10n-id="homescreen"></h1>
       </header>
 
       <section class="lists">
-        <div id="wallpaper">
+        <div id="wallpaper" data-page-id="homescreen-wallpaper">
           <div class="wallpaper-image-container">
             <img src="" alt="" id="wallpaper-image">
           </div>
+          <div class="edit-button" data-icon="edit"></div>
         </div>
 
-        <header data-l10n-id="homescreenCustomize"></header>
+        <header data-l10n-id="homescreen-customize"></header>
         <ul>
           <li class="page" data-icon="home" data-page-id="homescreen-change">
             <p data-l10n-id="changeHomescreen"></p>
           </li>
+        </ul>
+
+        <header data-l10n-id="homescreen-layout"></header>
+        <ul>
           <li data-icon="paint">
             <div class="pack-checkbox">
               <label for="homescreen-accented-checkbox">

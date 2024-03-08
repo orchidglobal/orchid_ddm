@@ -36,6 +36,10 @@
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/action_buttons.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/empty_screen.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/empty_screen/account.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/banners.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/filters.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/search_ui.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/alertbars.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/transitions.css" />
   <link rel="stylesheet" type="text/css" href="style/index.css" />
   <link rel="stylesheet" type="text/css" href="style/views.css" />
@@ -64,6 +68,7 @@
   <script defer type="text/javascript" src="http://shared.localhost:8081/js/page_controller.js"></script>
   <script type="text/javascript" src="http://shared.localhost:8081/js/lazy_loader.js"></script>
   <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script defer type="text/javascript" src="js/login_banner.js"></script>
   <!-- <script defer type="text/javascript" src="js/webapps.js"></script> -->
 
   <script type="text/javascript" src="/shared/js/intl/l10n.js"></script>
@@ -99,20 +104,32 @@
 
     <div id="views" class="bb-tablist-views">
       <section id="root" class="visible" role="panel">
-        <header class="compact">
+        <header>
           <a href="#" data-icon="menu" data-page-id="root"></a>
-          <img src="icons/store.svg" alt="">
-          <div class="searchbox">
-            <div class="placeholder" data-icon="search" data-l10n-id="type-here-to-search" data-page-id="search">
-            </div>
-            <a href="#" data-icon="bell" data-page-id="notifications"></a>
+          <!-- <img src="icons/store.svg" alt=""> -->
+          <h1>
+            <span data-l10n-id="title-short"></span>
+            <span class="beta">BETA</span>
+          </h1>
+          <menu role="toolbar">
             <a href="#" id="account-button" class="avatar">
               <img src="style/images/defaultuser.png" alt="" id="account-button-avatar">
             </a>
-          </div>
+            <a href="#" data-icon="bell" data-page-id="notifications"></a>
+            <a href="#" data-icon="search" data-page-id="search"></a>
+          </menu>
         </header>
 
-        <section>
+        <section class="lists">
+          <div id="alertbar-unsupported" class="bb-alertbar">
+            <div class="text-holder">
+              <p data-l10n-id="alertbar-unsupported"></p>
+            </div>
+            <nav>
+              <a href="#" data-l10n-id="learnMore"></a>
+            </nav>
+          </div>
+
           <div id="slideshow-container">
             <div id="slideshow"></div>
             <div id="slideshow-dots"></div>
@@ -162,7 +179,61 @@
           </form>
         </header>
 
-        <section class="lists"></section>
+        <section class="lists">
+          <div class="bb-filters">
+            <div class="filter" data-icon="privacy">
+              <select name="" id="">
+                <option value="">Privacy</option>
+              </select>
+            </div>
+            <div class="filter" data-icon="history">
+              <select name="" id="">
+                <option value="">Time</option>
+              </select>
+            </div>
+            <div class="filter icon">
+              <button data-icon="settings"></button>
+            </div>
+          </div>
+
+          <header>History</header>
+          <div class="bb-search-ui">
+            <div class="results">
+              <div class="result">Result 1</div>
+              <div class="result">Result 2</div>
+              <div class="result">Result 3</div>
+              <div class="result">Result 4</div>
+              <div class="result">Result 5</div>
+              <div class="result">Result 6</div>
+              <div class="result">Result 7</div>
+              <div class="result">Result 8</div>
+              <div class="result">Result 9</div>
+              <div class="result">Result 10</div>
+              <div class="result">Result 11</div>
+              <div class="result">Result 12</div>
+              <div class="result" data-icon="options"></div>
+            </div>
+          </div>
+
+          <header>Trending</header>
+          <div class="bb-search-ui">
+            <div class="results">
+              <div class="result">Result 1</div>
+              <div class="result">Result 2</div>
+              <div class="result">Result 3</div>
+              <div class="result">Result 4</div>
+              <div class="result">Result 5</div>
+              <div class="result">Result 6</div>
+              <div class="result">Result 7</div>
+              <div class="result">Result 8</div>
+              <div class="result">Result 9</div>
+              <div class="result">Result 10</div>
+              <div class="result">Result 11</div>
+              <div class="result">Result 12</div>
+              <div class="result" data-icon="options"></div>
+            </div>
+          </div>
+        </section>
       </section>
 
       <section id="webapp" role="panel">
@@ -355,6 +426,17 @@
       </header>
 
       <section class="lists"></section>
+    </section>
+
+    <section id="login-banner" role="banner" class="visible">
+      <section>
+        <h1 data-l10n-id="loginWithOrchid-title"></h1>
+        <p data-l10n-id="loginWithOrchid-detail"></p>
+      </section>
+      <menu>
+        <button id="login-banner-cancel" data-l10n-id="cancel"></button>
+        <button id="login-banner-confirm" class="recommend" data-l10n-id="confirm"></button>
+      </menu>
     </section>
   </main>
 </body>

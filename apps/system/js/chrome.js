@@ -197,7 +197,7 @@
         for (let index = 0, length = entries.length; index < length; index++) {
           const entry = entries[index];
 
-          if (entry[0] <= this.ADDON_ICON_SIZE) {
+          if (entry[0] >= this.ADDON_ICON_SIZE) {
             continue;
           }
           const url = new URL(addon.manifestUrl['en-US']);
@@ -285,9 +285,9 @@
 
       // Delaying the context menu opening so it won't fire the same time click
       // does and instantly hide as soon as it opens
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         ContextMenu.show(x, y, menu);
-      }, 16);
+      });
     },
 
     handleSideTabsButton: function () {

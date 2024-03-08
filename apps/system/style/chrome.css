@@ -651,13 +651,14 @@
 
 @media screen and (min-width: 760px) {
   .chrome.visible .browser-container > .browser-view {
-    top: calc(var(--statusbar-height) + var(--chrome-tablist-height) + var(--chrome-navbar-height) + (var(--chrome-toolbar-gap) * 3));
     height: calc(100% - var(--statusbar-height) - var(--chrome-tablist-height) - var(--chrome-navbar-height) - (var(--chrome-toolbar-gap) * 3));
+    transform: translateY(calc(var(--chrome-tablist-height) + var(--chrome-navbar-height) + (var(--chrome-toolbar-gap) * 3)));
   }
 
   .appframe.window .chrome.visible .browser-container > .browser-view {
-    top: calc(var(--chrome-tablist-height) + var(--chrome-navbar-height) + (var(--chrome-toolbar-gap) * 3));
+    top: 0;
     height: calc(100% - var(--chrome-tablist-height) - var(--chrome-navbar-height) - (var(--chrome-toolbar-gap) * 3));
+    transform: translateY(calc(var(--chrome-tablist-height) + var(--chrome-navbar-height) + (var(--chrome-toolbar-gap) * 3)));
   }
 }
 

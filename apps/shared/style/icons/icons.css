@@ -126,6 +126,10 @@ html[dir="rtl"] [data-icon="send"]::before {
   -webkit-mask-image: url('images/audio.svg');
   mask-image: url('images/audio.svg');
 }
+[data-icon="backlight"]::before {
+  -webkit-mask-image: url('images/backlight.svg');
+  mask-image: url('images/backlight.svg');
+}
 [data-icon="backspace"]::before {
   -webkit-mask-image: url('images/backspace.svg');
   mask-image: url('images/backspace.svg');
@@ -448,6 +452,10 @@ html[dir="rtl"] [data-icon="send"]::before {
   -webkit-mask-image: url('images/dislike.svg');
   mask-image: url('images/dislike.svg');
 }
+[data-icon="disliked"]::before {
+  -webkit-mask-image: url('images/disliked.svg');
+  mask-image: url('images/disliked.svg');
+}
 [data-icon="display"]::before {
   -webkit-mask-image: url('images/display.svg');
   mask-image: url('images/display.svg');
@@ -580,6 +588,10 @@ html[dir="rtl"] [data-icon="send"]::before {
 [data-icon="like"]::before {
   -webkit-mask-image: url('images/like.svg');
   mask-image: url('images/like.svg');
+}
+[data-icon="liked"]::before {
+  -webkit-mask-image: url('images/liked.svg');
+  mask-image: url('images/liked.svg');
 }
 [data-icon="list"]::before {
   -webkit-mask-image: url('images/list.svg');

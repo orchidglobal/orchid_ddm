@@ -114,13 +114,14 @@
           } else {
             this.overlay.style.left = x - this.overlay.offsetWidth + 'px';
           }
-
-          if (this.overlay.offsetLeft <= 0) {
-            this.overlay.style.left = 0;
-          }
         } else {
-          this.overlay.style.left = x + 'px';
+          if (document.dir === 'rtl' && this.activeButton) {
+            this.overlay.style.left = x - this.activeButton.getBoundingClientRect().width + 'px';
+          } else {
+            this.overlay.style.left = x + 'px';
+          }
         }
+
         if (y >= window.innerHeight - this.overlay.getBoundingClientRect().height) {
           this.overlay.style.top = y - this.overlay.getBoundingClientRect().height + 'px';
           this.overlay.classList.add('bottom');

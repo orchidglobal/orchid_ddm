@@ -14,8 +14,6 @@
     bluetoothBackButton: document.getElementById('utility-tray-bluetooth-back-button'),
     audioBackButton: document.getElementById('utility-tray-audio-back-button'),
 
-    titlebar: document.querySelector('#utility-tray .titlebar'),
-    grippyBar: document.querySelector('#utility-tray .grippy-bar'),
     controlCenter: document.getElementById('control-center'),
     quickSettings: document.getElementById('quick-settings'),
     quickSettingsGrid: document.getElementById('quick-settings-grid'),
@@ -50,10 +48,9 @@
       this.controlCenter.addEventListener('scroll', this.handleScroll.bind(this));
       this.notifications.addEventListener('scroll', this.handleScroll.bind(this));
 
-      this.quickSettings.addEventListener('mousedown', this.onPointerDown.bind(this));
-      document.addEventListener('mousemove', this.onPointerMove.bind(this));
-      document.addEventListener('mouseup', this.onPointerUp.bind(this));
-      this.grippyBar.addEventListener('click', this.handleGrippyBar.bind(this));
+      this.quickSettings.addEventListener('pointerdown', this.onPointerDown.bind(this));
+      document.addEventListener('pointermove', this.onPointerMove.bind(this));
+      document.addEventListener('pointerup', this.onPointerUp.bind(this));
 
       this.wifiButton.addEventListener('click', this.handleWifiButton.bind(this));
       this.bluetoothButton.addEventListener('click', this.handleBluetoothButton.bind(this));
@@ -76,7 +73,7 @@
       this.brightnessSlider.addEventListener('pointerdown', this.handleBrightnessSliderDown.bind(this));
       this.brightnessSlider.addEventListener('pointerup', this.handleBrightnessSliderUp.bind(this));
 
-      this.wifiButton.parentElement.classList.toggle('enabled', WifiManager.isEnabled);
+      this.wifiButton.classList.toggle('enabled', WifiManager.isEnabled);
 
       this.audioButton.classList.remove('ringing', 'vibrate', 'muted');
       Settings.getValue('audio.profile_type').then(this.handleAudioProfile.bind(this));
@@ -87,7 +84,6 @@
 
     handleAudioProfile: function (value) {
       this.audioButton.classList.add(this.AUDIO_PROFILES[value].id);
-      this.audioButton.children[1].dataset.l10nId = 'quickSettings-audio-' + this.AUDIO_PROFILES[value].id;
     },
 
     handleScroll: function (event) {
@@ -97,7 +93,7 @@
         progress = 1;
       }
 
-      this.titlebar.style.setProperty('--scroll-progress', progress);
+      this.element.style.setProperty('--tray-scroll-progress', progress);
     },
 
     onPointerDown: function (event) {
@@ -147,7 +143,7 @@
     },
 
     handleWifiButton: function () {
-      this.wifiButton.parentElement.classList.toggle('enabled');
+      this.wifiButton.classList.toggle('enabled');
 
       if (WifiManager.isEnabled) {
         WifiManager.disable();
@@ -157,39 +153,39 @@
     },
 
     handleWifiButtonHold: function () {
-      Transitions.scale(this.wifiButton.parentElement, this.wifiPanel);
+      Transitions.scale(this.wifiButton. this.wifiPanel);
       this.element.classList.add('panel-open');
       this.wifiPanel.classList.add('visible');
     },
 
     handleWifiBackButton: function () {
-      Transitions.scale(this.wifiPanel, this.wifiButton.parentElement);
+      Transitions.scale(this.wifiPanel, this.wifiButton);
       this.element.classList.remove('panel-open');
       this.wifiPanel.classList.remove('visible');
     },
 
     handleBluetoothButton: function () {
-      this.bluetoothButton.parentElement.classList.toggle('enabled');
+      this.bluetoothButton.classList.toggle('enabled');
     },
 
     handleBluetoothButtonHold: function () {
-      Transitions.scale(this.bluetoothButton.parentElement, this.bluetoothPanel);
+      Transitions.scale(this.bluetoothButton. this.bluetoothPanel);
       this.element.classList.add('panel-open');
       this.bluetoothPanel.classList.add('visible');
     },
 
     handleBluetoothBackButton: function () {
-      Transitions.scale(this.bluetoothPanel, this.bluetoothButton.parentElement);
+      Transitions.scale(this.bluetoothPanel, this.bluetoothButton);
       this.element.classList.remove('panel-open');
       this.bluetoothPanel.classList.remove('visible');
     },
 
     handleCellularDataButton: function () {
-      this.cellularDataButton.parentElement.classList.toggle('enabled');
+      this.cellularDataButton.classList.toggle('enabled');
     },
 
     handleAirplaneButton: function () {
-      this.airplaneButton.parentElement.classList.toggle('enabled');
+      this.airplaneButton.classList.toggle('enabled');
     },
 
     handleAudioButton: function () {
@@ -198,11 +194,10 @@
       this.audioButton.classList.add(this.AUDIO_PROFILES[this.audioIndex].id);
 
       if (this.AUDIO_PROFILES[this.audioIndex].id !== 'muted') {
-        this.audioButton.parentElement.classList.add('enabled');
+        this.audioButton.classList.add('enabled');
       } else {
-        this.audioButton.parentElement.classList.remove('enabled');
+        this.audioButton.classList.remove('enabled');
       }
-      this.audioButton.children[1].dataset.l10nId = 'quickSettings-audio-' + this.AUDIO_PROFILES[this.audioIndex].id;
 
       Settings.setValue('audio.profile_type', this.audioIndex);
 
@@ -235,23 +230,23 @@
     },
 
     handleAudioButtonHold: function () {
-      Transitions.scale(this.audioButton.parentElement, this.audioPanel);
+      Transitions.scale(this.audioButton. this.audioPanel);
       this.element.classList.add('panel-open');
       this.audioPanel.classList.add('visible');
     },
 
     handleAudioBackButton: function () {
-      Transitions.scale(this.audioPanel, this.audioButton.parentElement);
+      Transitions.scale(this.audioPanel, this.audioButton);
       this.element.classList.remove('panel-open');
       this.audioPanel.classList.remove('visible');
     },
 
     handleScreenCaptureButton: function () {
-      this.screenCaptureButton.parentElement.classList.toggle('enabled');
+      this.screenCaptureButton.classList.toggle('enabled');
     },
 
     handleFlashlightButton: function () {
-      this.flashlightButton.parentElement.classList.toggle('enabled');
+      this.flashlightButton.classList.toggle('enabled');
     },
 
     handleBrightnessSliderDown: function () {

@@ -11,7 +11,7 @@
     toggleButton: document.getElementById('software-recents-button'),
     cardsViewButton: document.getElementById('software-cards-view-button'),
 
-    APP_ICON_SIZE: 50,
+    APP_ICON_SIZE: 50 * window.devicePixelRatio,
 
     isVisible: false,
     isMovingPointer: false,
@@ -60,7 +60,7 @@
     },
 
     hide: function () {
-      if (this.isMovingPointer) {
+      if (!this.isVisible && this.isMovingPointer) {
         return;
       }
       this.isVisible = false;
@@ -68,9 +68,9 @@
       this.screen.classList.remove('cards-view-visible');
 
       const focusedWindow = new AppWindow().getFocusedWindow().element;
-      focusedWindow.classList.add('to-cards-view');
+      focusedWindow.classList.add('from-cards-view');
       focusedWindow.addEventListener('animationend', () => {
-        focusedWindow.classList.remove('to-cards-view');
+        focusedWindow.classList.remove('from-cards-view');
       });
 
       if ('MusicController' in window) {
@@ -109,8 +109,7 @@
         Webapps.getWindowById(runningWebapp.appWindow.instanceID).focus();
         this.hide();
       });
-      card.addEventListener('mousedown', (event) => this.onPointerDown(event, card, runningWebapp.appWindow.instanceID));
-      card.addEventListener('touchstart', (event) => this.onPointerDown(event, card, runningWebapp.appWindow.instanceID));
+      card.addEventListener('pointerdown', (event) => this.onPointerDown(event, card, runningWebapp.appWindow.instanceID));
       cardArea.appendChild(card);
 
       let manifest;

@@ -1,0 +1,76 @@
+.bb-filters {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  max-width: var(--safezone-width);
+  height: 4rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.bb-filters > .filter {
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  flex-grow: 1;
+  width: 100%;
+  max-width: var(--safezone-width);
+  height: 4rem;
+  margin: 0 auto;
+  padding-inline-start: 1rem;
+  gap: 1rem;
+  color: var(--text-color);
+}
+
+.bb-filters > .filter:not(:first-child) {
+  border-inline-start: solid 0.1rem var(--list-background-border);
+}
+
+.bb-filters > .filter[data-icon] {
+  padding-inline-start: 4rem;
+}
+
+.bb-filters > .filter[data-icon]::before {
+  position: absolute;
+  top: 1rem;
+  font-size: 2rem;
+}
+html[dir="ltr"] .bb-filters > .filter[data-icon]::before {
+  left: 1rem;
+}
+html[dir="rtl"] .bb-filters > .filter[data-icon]::before {
+  right: 1rem;
+}
+
+.bb-filters > .filter > button,
+.bb-filters > .filter > .bb-button,
+.bb-filters > .filter > select {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  color: transparent;
+  font-size: 1.4rem;
+  text-shadow: 0 0 0 var(--text-color-faded);
+}
+
+.bb-filters > .filter.icon {
+  flex-grow: unset;
+  flex-shrink: 0;
+  width: 4rem;
+  padding: 0;
+}
+
+.bb-filters > .filter.icon > button {
+  width: 4rem;
+  padding: 0 1rem;
+  border-radius: 0;
+  color: var(--text-color);
+}
+
+html[dir="ltr"] .bb-filters > .filter.icon > button[data-icon]::before {
+  left: 1rem;
+}
+html[dir="rtl"] .bb-filters > .filter.icon > button[data-icon]::before {
+  right: 1rem;
+}

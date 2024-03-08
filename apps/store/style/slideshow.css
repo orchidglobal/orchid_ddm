@@ -12,7 +12,7 @@
 
 @media screen and (orientation: portrait) {
   #slideshow-container {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1 / 1.25;
   }
 }
 
@@ -91,12 +91,14 @@ html[dir="rtl"] #slideshow > .slideshow .text-holder {
   width: 100%;
   max-width: 40rem;
   margin: 0;
+  overflow: hidden;
   color: #e7e7e7;
   font-weight: 600;
-  font-size: 4rem;
+  font-size: 3rem;
   font-family: 'Orchid Brand';
   text-overflow: ellipsis;
   text-shadow: 0 0.4rem 1.6rem var(--slideshow-accent, #000);
+  white-space: nowrap;
 }
 
 #slideshow > .slideshow .text-holder p {
@@ -105,7 +107,7 @@ html[dir="rtl"] #slideshow > .slideshow .text-holder {
   margin: 0;
   color: #e7e7e7;
   font-weight: normal;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   text-overflow: ellipsis;
   text-shadow: 0 0.4rem 1.6rem var(--slideshow-accent, #000);
 }
@@ -117,26 +119,51 @@ html[dir="rtl"] #slideshow > .slideshow .text-holder {
 
 #slideshow > .slideshow .text-holder nav {
   display: flex;
-  height: 4rem;
+  height: 3.2rem;
   margin: 1rem 0 0;
   padding: 0;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 #slideshow > .slideshow .text-holder nav a {
   box-sizing: border-box;
   display: inline-block;
-  height: 4rem;
-  padding: 0 1.5rem;
+  height: 3.2rem;
+  margin: 0;
+  padding: 0 1rem;
+  overflow: hidden;
   border-radius: 2rem;
   /* backdrop-filter: blur(20px) saturate(180%); */
   background-color: rgba(255, 255, 255, 0.1);
   color: #e7e7e7;
   font-weight: normal;
-  font-size: 1.6rem;
-  line-height: 4rem;
+  font-size: 1.4rem;
+  line-height: 3.2rem;
   text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   transition: box-shadow 0.3s ease;
+}
+
+@media screen and (min-width: 768px) {
+  #slideshow > .slideshow .text-holder h1 {
+    font-size: 4rem;
+  }
+
+  #slideshow > .slideshow .text-holder p {
+    font-size: 1.6rem;
+  }
+
+  #slideshow > .slideshow .text-holder nav {
+    gap: 1rem;
+  }
+
+  #slideshow > .slideshow .text-holder nav a {
+    height: 4rem;
+    padding: 0 1.5rem;
+    font-size: 1.6rem;
+    line-height: 4rem;
+  }
 }
 
 #slideshow > .slideshow.light .text-holder nav a {

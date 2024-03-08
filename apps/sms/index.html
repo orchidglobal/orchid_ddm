@@ -40,6 +40,7 @@
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/skeletons.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/confirm.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/videos.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/alertbars.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/common.css" />
   <link rel="stylesheet" type="text/css" href="style/sms.css" />
   <link rel="stylesheet" type="text/css" href="style/modal_dialog.css" />
@@ -73,7 +74,10 @@
   <main id="app" role="app">
     <section id="root" class="visible" role="panel">
       <header>
-        <h1 data-l10n-id="title"></h1>
+        <h1>
+          <span data-l10n-id="title-short"></span>
+          <span class="beta">BETA</span>
+        </h1>
         <menu role="toolbar">
           <a href="#" id="account-button" class="avatar" data-page-id="profile">
             <img src="" alt="" id="account-button-avatar">
@@ -90,6 +94,15 @@
             <button type="reset" data-icon="close"></button>
             <button type="submit" data-icon="search"></button>
           </form>
+        </div>
+
+        <div id="alertbar-unsupported" class="bb-alertbar">
+          <div class="text-holder">
+            <p data-l10n-id="alertbar-unsupported"></p>
+          </div>
+          <nav>
+            <a href="#" data-l10n-id="learnMore"></a>
+          </nav>
         </div>
 
         <ul id="servers-list"></ul>

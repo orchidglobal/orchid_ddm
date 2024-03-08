@@ -30,18 +30,6 @@
   gap: 1rem;
 }
 
-.bb-emptyscreen > .container .illustration-holder {
-  width: 100%;
-  height: auto;
-}
-
-.bb-emptyscreen > .container .illustration-holder > .illustration {
-  position: relative;
-  width: 25rem;
-  height: 25rem;
-  margin: 0 auto;
-}
-
 .bb-emptyscreen > .container .image-holder {
   width: 100%;
   height: 10rem;

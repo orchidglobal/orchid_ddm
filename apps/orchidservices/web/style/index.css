@@ -1,0 +1,8 @@
+@font-face {
+  src: url(../fonts/ReadexPro-VariableFont_HEXP.ttf);
+  font-family: 'Orchid Brand';
+}
+
+[role="web"] {
+  --safezone-width: 128rem;
+}

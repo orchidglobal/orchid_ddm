@@ -11,11 +11,6 @@
     init: function () {
       this.panels = document.querySelectorAll('[role="panel"]');
       this.bindScrollEvents();
-
-      if ('LazyLoader' in window) {
-        // LazyLoader.load('http://shared.localhost:8081/style/ripple.css');
-        // LazyLoader.load('http://shared.localhost:8081/js/ripple.js');
-      }
     },
 
     bindScrollEvents: function () {

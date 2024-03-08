@@ -4,16 +4,16 @@
   "product_name": "orchid_ddm",
   "description": "Open source OrchidOS user interface",
   "author": {
-    "name": "Orchid Organization",
-    "email": "mortcodesweb+orchidorg@proton.me"
+    "name": "Orchid",
+    "email": "mortcodesweb+orchidsupport@proton.me"
   },
-  "version": "1.0.131",
+  "version": "1.0.138",
   "main": "build_ts/src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc && electron-builder",
     "watch": "tsc -w",
-    "start": "tsc && electron ./build_ts/src/main.js",
+    "start": "tsc && electron .",
     "dev": "tsc && electron ./build_ts/src/debug.js",
     "dist": "tsc && electron-builder --publish always",
     "build-linux-armv7h": "tsc && electron-builder --linux --armv7l",

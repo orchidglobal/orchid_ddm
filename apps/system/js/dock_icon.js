@@ -8,16 +8,15 @@
       this.entryId = entryId;
       this.isPinned = false;
 
-      this.DOCK_ICON_SIZE = 40;
+      this.DOCK_ICON_SIZE = 40 * window.devicePixelRatio;
 
       this.init();
     }
 
     async init () {
-      this.element = document.createElement('div');
-      this.element.classList.add('icon');
-      this.element.addEventListener('click', this.handleClick.bind(this));
-      this.parentElement.appendChild(this.element);
+      this.element = this.createDockIcon();
+      this.element.dataset.manifestUrl = this.manifestUrl;
+      this.element.innerHTML = '';
 
       const response = await fetch(this.manifestUrl);
       if (!response.ok) {
@@ -40,11 +39,27 @@
       for (let index = 0, length = entries.length; index < length; index++) {
         const entry = entries[index];
 
-        if (entry[0] <= this.DOCK_ICON_SIZE) {
+        if (entry[0] >= this.DOCK_ICON_SIZE) {
           continue;
         }
         const url = new URL(this.manifestUrl);
         this.icon.src = url.origin + entry[1];
+      }
+    }
+
+    createDockIcon () {
+      const url = new URL(this.manifestUrl);
+      const icon = this.parentElement.querySelector(`.icon[data-manifest-url^="${url.origin}"]`);
+      if (icon) {
+        return icon;
+      } else {
+        const newIcon = document.createElement('div');
+        newIcon.classList.add('icon');
+        newIcon.addEventListener('click', this.handleClick.bind(this));
+        newIcon.addEventListener('contextmenu', this.handleContextMenu.bind(this));
+        this.parentElement.appendChild(newIcon);
+
+        return newIcon;
       }
     }
 
@@ -58,6 +73,35 @@
         const appWindow = new AppWindow(this.manifestUrl, { entryId: this.entryId, dockIcon: this });
         console.log(appWindow);
       }
+    }
+
+    handleContextMenu () {
+      const existingAppWindow = Webapps.getWindowByManifestUrl(this.manifestUrl);
+      if (existingAppWindow) {
+        existingAppWindow.dockIcon = this;
+        existingAppWindow.focus();
+        console.log(existingAppWindow);
+      } else {
+        const appWindow = new AppWindow(this.manifestUrl, { entryId: this.entryId, dockIcon: this });
+        console.log(appWindow);
+      }
+
+      const menu = [
+        {
+          hidden: !existingAppWindow,
+          l10nId: 'dockMenu-close'
+        },
+        {
+          hidden: existingAppWindow,
+          l10nId: 'dockMenu-open'
+        }
+      ];
+
+      // Delaying the context menu opening so it won't fire the same time click
+      // does and instantly hide as soon as it opens
+      requestAnimationFrame(() => {
+        ContextMenu.show(x, y, menu);
+      });
     }
   }
 

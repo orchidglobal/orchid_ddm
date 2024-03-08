@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   left: unset;
-  width: 45rem;
+  width: 44.5rem;
   height: 100%;
   pointer-events: none;
 }
@@ -49,5 +49,5 @@ html[dir="rtl"] #screen.desktop #utility-tray-motion {
 }
 
 #screen.desktop #control-center .utility-tray-content {
-  max-height: 32rem;
+  max-height: 30.25rem;
 }

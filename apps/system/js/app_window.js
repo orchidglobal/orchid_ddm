@@ -71,7 +71,8 @@
      */
     create: async function (manifestUrl, options = {}) {
       // Check if a window with the same manifest URL already exists
-      const existingWindow = this.containerElement.querySelector(`[data-manifest-url="${manifestUrl}"]`);
+      const existingUrl = new URL(manifestUrl);
+      const existingWindow = this.containerElement.querySelector(`[data-manifest-url^="${existingUrl.origin}"]`);
       if (existingWindow) {
         if (options.animationVariables) {
           // Update transform origin if animation variables are provided
@@ -85,6 +86,26 @@
       this.manifest = await this.fetchManifest(manifestUrl);
       if (options.entryId) {
         this.manifest = this.manifest.entry_points[options.entryId];
+      }
+
+      if (this.manifest && this.manifest.role === 'vividus_game') {
+        LazyLoader.load('js/notification_toaster.js', () => {
+          NotificationToaster.showNotification(L10n.get('vividusEngine'), {
+            body: L10n.get('vividusGameDetected'),
+            source: L10n.get('title'),
+            badge: '/style/icons/system_64.png'
+          })
+        });
+      }
+
+      if (this.manifest && this.manifest.role === 'vividus_game_2d') {
+        LazyLoader.load('js/notification_toaster.js', () => {
+          NotificationToaster.showNotification(L10n.get('vividusEngine'), {
+            body: L10n.get('vividus2DGameDetected'),
+            source: L10n.get('title'),
+            badge: '/style/icons/system_64.png'
+          })
+        });
       }
 
       this.instanceID = this.manifest.role === 'homescreen' ? 'homescreen' :`appframe${_id}`;
@@ -238,6 +259,11 @@
         if (manifest.display && manifest.display !== 'standalone') {
           windowDiv.classList.add(manifest.display);
         }
+      }
+
+      if (manifest.orientation && manifest.orientation !== 'auto') {
+        windowDiv.classList.add(manifest.orientation);
+        windowDiv.classList.add(manifest.orientation + '-default');
       }
 
       if (manifest.transparent) {
@@ -417,7 +443,7 @@
       for (let index = 0, length = entries.length; index < length; index++) {
         const entry = entries[index];
 
-        if (entry[0] <= iconSize) {
+        if (entry[0] >= (iconSize * window.devicePixelRatio)) {
           continue;
         }
         const url = new URL(manifestUrl);
@@ -873,8 +899,8 @@
 
       let width = this.startWidth;
       let height = this.startHeight;
-      let left = this.resizingWindow.offsetLeft;
-      let top = this.resizingWindow.offsetTop;
+      let left = this.resizingWindow.getBoundingClientRect().left;
+      let top = this.resizingWindow.getBoundingClientRect().top;
 
       if (this.resizingGripper.classList.contains('nw-resize')) {
         // Top Left

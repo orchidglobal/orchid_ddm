@@ -108,12 +108,30 @@ html[dir="rtl"] #software-buttons #software-back-button::before {
   border: none;
   border-radius: 25%;
   background: no-repeat center / cover;
-  transition: all 0.3s cubic-bezier(0.2, 0.9, 0, 1.1);
+  transition: all 0.3s ease;
 }
 
 #software-buttons .desktop button:active {
   filter: brightness(0.75);
-  transition: background-color 0.1s ease;
+  transition: filter 0.1s ease;
+}
+
+#software-buttons .desktop button.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#software-buttons .desktop button {
+  position: relative;
+  width: calc(var(--dock-height) - 1rem);
+  height: calc(var(--dock-height) - 1rem);
+  margin: 0.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 25%;
+  background: no-repeat center / cover;
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0, 1.1);
 }
 
 #software-buttons .desktop #software-launcher-button {
@@ -189,6 +207,48 @@ html[dir="rtl"] #software-buttons #software-back-button::before {
   height: calc(var(--software-buttons-height) - 1rem);
   margin: 0.5rem;
   border-radius: 30%;
+  transition: all 0.3s ease;
+}
+
+#dock .icon:active {
+  filter: brightness(0.75);
+  transition: filter 0.1s ease;
+}
+
+#dock .icon.expand {
+  border-radius: var(--screen-radius);
+  animation: dock-expand 0.3s ease forwards;
+}
+
+@keyframes dock-expand {
+  from {
+    margin: 0 calc(-(var(--software-buttons-height) - 1rem) / 2);
+    transform: scale(0.75);
+    opacity: 0;
+  }
+  to {
+    margin: 0;
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+#dock .icon.shrink {
+  border-radius: var(--screen-radius);
+  animation: dock-shrink 0.3s ease forwards;
+}
+
+@keyframes dock-shrink {
+  from {
+    margin: 0;
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    margin: 0 calc(-(var(--software-buttons-height) - 1rem) / 2);
+    transform: scale(0.75);
+    opacity: 0;
+  }
 }
 
 .screen.desktop #dock .icon {
@@ -212,36 +272,6 @@ html[dir="rtl"] #software-buttons #software-back-button::before {
 #dock .icon.running.active::before {
   width: 1.5rem;
   background-color: var(--accent-color);
-}
-
-#dock .icon.expand {
-  animation: dock-expand 0.5s cubic-bezier(0.2, 0.9, 0.1, 1) forwards;
-}
-
-@keyframes dock-expand {
-  from {
-    transform: scale(0.75);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-#dock .icon.shrink {
-  animation: dock-shrink 0.3s cubic-bezier(0.8, 0.1, 0.9, 0) forwards;
-}
-
-@keyframes dock-shrink {
-  from {
-    transform: scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: scale(0.75);
-    opacity: 0;
-  }
 }
 
 #dock .icon > img {
@@ -336,4 +366,40 @@ html[dir="rtl"] #software-buttons-actions {
   .screen.keyboard-visible #software-buttons .mobile > button {
     filter: none;
   }
+}
+
+/* Icon Animations */
+#software-cards-view-button > svg .icon1 {
+  animation: cards-view-button-icon1 0.5s cubic-bezier(0.5, 0.8, 0, 1.5);
+}
+
+@keyframes cards-view-button-icon1 {
+  0%, 100% {
+    x: 28;
+    y: 16;
+  }
+  50% {
+    x: 20;
+    y: 20;
+  }
+}
+
+#software-cards-view-button > svg .icon2 {
+  animation: cards-view-button-icon2 0.5s cubic-bezier(0.5, 0.8, 0, 1.5);
+}
+
+@keyframes cards-view-button-icon2 {
+  0%, 100% {
+    x: 12;
+    y: 24;
+  }
+  50% {
+    x: 20;
+    y: 20;
+  }
+}
+
+#software-cards-view-button:active > svg .icon1,
+#software-cards-view-button:active > svg .icon2 {
+  animation: none;
 }

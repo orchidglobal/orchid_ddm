@@ -39,43 +39,88 @@
           <a href="#" data-icon="history" data-page-id="history"></a>
         </menu>
       </header>
-      <section>
+      <section class="lists">
         <div class="panel">
           <div id="display">
-            <div id="display-input" role="counter"></div>
+            <div id="display-input" contenteditable="true" role="counter"></div>
           </div>
 
-          <div class="keyboard">
-            <div class="keyboard-row-x">
-              <input type="button" class="double-width danger" value="C" data-type="command" />
-              <input type="button" class="small" value="÷" id="add" data-type="operator" />
-              <input type="button" class="small" value="×" id="multiply" data-type="operator" />
+          <div class="keyboards">
+            <div class="keyboard-group">
+              <header>Regular</header>
+              <div class="keyboard">
+                <div class="keyboard-row-x">
+                  <input type="button" class="double-width danger" value="C" data-type="command" />
+                  <input type="button" class="small" value="÷" id="add" data-type="operator" />
+                  <input type="button" class="small" value="×" id="multiply" data-type="operator" />
+                </div>
+                <div class="keyboard-row-block">
+                  <div class="row">
+                    <input type="button" class="small" value="7" data-type="value" />
+                    <input type="button" class="small" value="8" data-type="value" />
+                    <input type="button" class="small" value="9" data-type="value" />
+                  </div>
+                  <div class="row">
+                    <input type="button" class="small" value="4" data-type="value" />
+                    <input type="button" class="small" value="5" data-type="value" />
+                    <input type="button" class="small" value="6" data-type="value" />
+                  </div>
+                  <div class="row">
+                    <input type="button" class="small" value="1" data-type="value" />
+                    <input type="button" class="small" value="2" data-type="value" />
+                    <input type="button" class="small" value="3" data-type="value" />
+                  </div>
+                  <div class="row">
+                    <input type="button" class="double-width" value="0" data-type="value" />
+                    <input type="button" class="small" value="." data-type="value" />
+                  </div>
+                </div>
+                <div class="keyboard-row-y">
+                  <input type="button" class="small" value="-" id="subtract" data-type="operator" />
+                  <input type="button" class="small" value="+" id="divide" data-type="operator" />
+                  <input type="button" class="double-height confirm" value="=" data-type="command" />
+                </div>
+              </div>
             </div>
-            <div class="keyboard-row-block">
-              <div class="row">
-                <input type="button" class="small" value="7" data-type="value" />
-                <input type="button" class="small" value="8" data-type="value" />
-                <input type="button" class="small" value="9" data-type="value" />
+
+            <div class="keyboard-group">
+              <header>Sientific</header>
+              <div class="keyboard">
+                <div class="keyboard-row-x">
+                  <input type="button" class="small label" value="sqrt" data-type="value" />
+                  <input type="button" class="small label" value="sqrt[]" data-type="value" />
+                  <input type="button" class="small" value="(" data-type="value" />
+                  <input type="button" class="small" value=")" data-type="value" />
+                </div>
+                <div class="keyboard-row-block">
+                  <div class="row">
+                    <input type="button" class="small label" value="sin" data-type="value" />
+                    <input type="button" class="small label" value="cos" data-type="value" />
+                    <input type="button" class="small label" value="tan" data-type="value" />
+                  </div>
+                  <div class="row">
+                    <input type="button" class="small label" value="sin-1" data-type="value" />
+                    <input type="button" class="small label" value="cos-1" data-type="value" />
+                    <input type="button" class="small label" value="tan-1" data-type="value" />
+                  </div>
+                  <div class="row">
+                    <input type="button" class="small label" value="mean" data-type="value" />
+                    <input type="button" class="small label-long" value="stdev" data-type="value" />
+                    <input type="button" class="small label-long" value="stdevp" data-type="value" />
+                  </div>
+                  <div class="row">
+                    <input type="button" class="small label" value="nPr" data-type="value" />
+                    <input type="button" class="small label" value="nCr" data-type="value" />
+                    <input type="button" class="small" value="!" data-type="value" />
+                  </div>
+                </div>
+                <div class="keyboard-row-y">
+                  <input type="button" class="small label" value="abs" data-type="value" />
+                  <input type="button" class="small label-long" value="round" data-type="value" />
+                  <input type="button" class="small label" value="ln" data-type="value" />
+                  <input type="button" class="small label" value="log" data-type="value" />
+                </div>
               </div>
-              <div class="row">
-                <input type="button" class="small" value="4" data-type="value" />
-                <input type="button" class="small" value="5" data-type="value" />
-                <input type="button" class="small" value="6" data-type="value" />
-              </div>
-              <div class="row">
-                <input type="button" class="small" value="1" data-type="value" />
-                <input type="button" class="small" value="2" data-type="value" />
-                <input type="button" class="small" value="3" data-type="value" />
-              </div>
-              <div class="row">
-                <input type="button" class="double-width" value="0" data-type="value" />
-                <input type="button" class="small" value="." data-type="value" />
-              </div>
-            </div>
-            <div class="keyboard-row-y">
-              <input type="button" class="small" value="-" id="subtract" data-type="operator" />
-              <input type="button" class="small" value="+" id="divide" data-type="operator" />
-              <input type="button" class="double-height confirm" value="=" data-type="command" />
             </div>
           </div>
         </div>
