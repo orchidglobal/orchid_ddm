@@ -51,12 +51,14 @@
       const url = new URL(this.manifestUrl);
       const icon = this.parentElement.querySelector(`.icon[data-manifest-url^="${url.origin}"]`);
       if (icon) {
+        this.isPinned = icon.dataset.pinned;
         return icon;
       } else {
         const newIcon = document.createElement('div');
         newIcon.classList.add('icon');
         newIcon.addEventListener('click', this.handleClick.bind(this));
         newIcon.addEventListener('contextmenu', this.handleContextMenu.bind(this));
+        newIcon.dataset.pinned = this.isPinned;
         this.parentElement.appendChild(newIcon);
 
         return newIcon;
