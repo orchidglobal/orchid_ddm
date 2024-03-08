@@ -10,7 +10,7 @@ node_modules/
 package-lock.json
 
 /apps/{*}
-/apps/confedentials
+/apps/confedentials/
 build_ts/
 build_stage/
 /profile/
