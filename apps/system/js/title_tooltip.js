@@ -23,11 +23,7 @@
           this.previousLabel.classList.remove('blur-out');
         });
       }
-
       const elementBox = this.element.getBoundingClientRect();
-      const webviewBox = document
-        .querySelector('.appframe.active .browser-container .browser-view.active > .browser')
-        .getBoundingClientRect();
 
       requestAnimationFrame(() => {
         if (x > window.innerWidth - (elementBox.width + 10)) {
@@ -37,6 +33,10 @@
         this.element.style.width = this.label.scrollWidth + 'px';
         this.element.style.height = this.label.scrollHeight + 'px';
         if (originType === 'webapp') {
+          const webviewBox = new AppWindow()
+            .getFocusedWindow()
+            .element.querySelector('.browser-view.active > .browser')
+            .getBoundingClientRect();
           this.element.style.left = `${webviewBox.left + x}px`;
           this.element.style.top = `${webviewBox.top + 24}px`;
         } else {
