@@ -1,0 +1,64 @@
+.bb-footer {
+  width: 100%;
+  margin-top: 1.5rem;
+  overflow: hidden;
+  background-color: var(--background-minus);
+}
+
+.bb-footer .footer-rows {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--safezone-width);
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.bb-footer .footer-rows > .row {
+  width: 100%;
+}
+
+.bb-footer .footer-rows > .row p {
+  margin: 0 0 1rem;
+  color: var(--text-color-faded);
+  font-weight: normal;
+  font-size: 1.6rem;
+}
+
+.bb-footer .footer-rows > .row p:last-child {
+  margin: 0;
+}
+
+.bb-footer .footer-rows > .row .jump-back {
+  display: inline-block;
+  margin: 0 0 1rem;
+  padding: 1rem;
+  background-color: var(--background-plus);
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.6rem;
+  text-decoration: none;
+}
+
+.bb-footer .footer-rows > .row nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  margin: 0 0 1rem;
+  gap: 1rem;
+}
+
+.bb-footer .footer-rows > .row nav > a {
+  display: inline-block;
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.6rem;
+  text-decoration: none;
+}
+
+.bb-footer .footer-rows > .row nav > .separator {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background-color: var(--text-color-faded);
+}

@@ -1,0 +1,168 @@
+orchid-account-banner {
+  display: block;
+  position: relative;
+  width: calc(100% - 3rem);
+  max-width: calc(var(--safezone-width) - 3rem);
+  margin: 0 auto 1.5rem;
+  padding-top: 13.5rem;
+}
+
+orchid-account-banner > .banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 17.5rem;
+  object-fit: cover;
+  border-radius: 1.5rem;
+  outline: solid 0.1rem var(--list-background-border);
+  outline-offset: -0.1rem;
+  background-color: var(--background-plus);
+}
+
+orchid-account-banner > .container {
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  gap: 0.5rem;
+}
+
+orchid-account-banner > .container .content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+orchid-account-banner > .container .content > .columns {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+orchid-account-banner > .container .content > .columns .column {
+  flex-shrink: 0;
+  width: max-content;
+  height: 100%;
+}
+
+orchid-account-banner > .container .content > .columns .column.fit {
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: 100%;
+}
+
+orchid-account-banner > .container .avatar {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  outline: solid 0.1rem var(--list-background-border);
+  outline-offset: -0.1rem;
+  /* outline: solid 0.5rem var(--background); */
+  background-color: var(--background-plus);
+}
+
+orchid-account-banner > .container .column .text-holder {
+  width: 100%;
+}
+
+orchid-account-banner > .container .column .text-holder .username {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 2.4rem;
+  font-family: 'Readex Pro';
+}
+
+orchid-account-banner > .container .column .text-holder .username.verified::after {
+  display: inline-block;
+  width: 1.6rem;
+  height: 1em;
+  margin-inline-start: 0.5rem;
+  background-image: linear-gradient(to bottom, #00ddff, #0061e0);
+  content: '';
+  mask: no-repeat center / 1.6rem;
+  mask-image: url('images/verified.svg');
+}
+
+orchid-account-banner > .container .column .text-holder .username.creator.verified::after {
+  background-image: linear-gradient(to bottom, #ffc000, #ff6040);
+}
+
+orchid-account-banner > .container .column .text-holder .stats {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 2rem;
+  color: var(--text-color-faded);
+  font-weight: normal;
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+orchid-account-banner > .container .column .text-holder .handle-name {
+  width: 100%;
+  height: 2rem;
+  color: var(--text-color-faded);
+  font-weight: normal;
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+orchid-account-banner > .container .column .text-holder .stats > .separator {
+  width: 0.4rem;
+  height: 0.4rem;
+  margin: 0 0.5rem;
+  border-radius: 50%;
+  background-color: var(--text-color);
+}
+
+orchid-account-banner > .container .column .buttons menu {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: -3.5rem 0 0;
+  gap: 0.5rem;
+}
+
+orchid-account-banner > .container .column .buttons menu > button {
+  flex-shrink: 0;
+  width: max-content;
+  margin: 0;
+}
+
+orchid-account-banner > .container .column .buttons menu > button.icon[data-icon] {
+  width: 4rem;
+  padding: 0 1rem;
+}
+
+orchid-account-banner > .container .column .buttons menu > button.icon[data-icon]::before {
+  position: static;
+}
+
+orchid-account-banner > .container .content .description {
+  width: 100%;
+  margin: 1rem 0 0;
+  color: var(--text-color);
+  font-size: 1.6rem;
+}
+
+orchid-account-banner > .container .content .description:empty {
+  display: none;
+}
+
+orchid-account-banner > .container .content > menu {
+  display: flex;
+  margin: 1rem 0 0;
+  padding: 0;
+  gap: 1rem;
+}
+
+orchid-account-banner > .container .content > menu > button {
+  width: max-content;
+  margin: 0;
+  padding: 0 3rem;
+}

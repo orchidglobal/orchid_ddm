@@ -11,15 +11,29 @@ type ManifestUrls = {
 };
 
 const AppsManager = {
+  /**
+   * Gets all the webapps installed on the system. If the webapps configuration file
+   * does not exist, it creates a new one with a default webapp.
+   *
+   * @returns {Promise<Record<string, any>[]>} A promise that resolves to an array of
+   * objects representing the installed webapps.
+   */
   getAll: function (): Promise<Record<string, any>[]> {
     return new Promise(async (resolve, reject) => {
       try {
         let appListData = fs.readFileSync(path.resolve(Renderer.webappsConfigPath as string), 'utf8');
         let appListJson = JSON.parse(appListData);
+
+        if (typeof window === 'undefined') {
+          resolve(appListJson);
+          return;
+        }
         const currentLanguage = await Settings.getValue('general.lang.code');
 
         for (let index = 0, length = appListJson.length; index < length; index++) {
+
           const app = appListJson[index];
+
           let langCode;
           try {
             langCode = currentLanguage || 'en-US';
@@ -37,8 +51,8 @@ const AppsManager = {
 
           let manifest;
           const xhr = new XMLHttpRequest();
-          xhr.open("GET", manifestUrl, true);
-          xhr.onreadystatechange = function () {
+          xhr.open('GET', manifestUrl, true);
+          xhr.onreadystatechange = () => {
             if (xhr.readyState == 4 && xhr.status == 200) {
               manifest = JSON.parse(xhr.responseText);
 
@@ -46,7 +60,7 @@ const AppsManager = {
                 manifest.role = 'webapp';
               }
               app.manifest = manifest;
-              app.size = AppsManager.getFolderSize(path.join(path.resolve(Renderer.webappsPath as string), app.appId));
+              app.size = this.getFolderSize(path.join(path.resolve(Renderer.webappsPath as string), app.appId));
 
               if (index === appListJson.length - 1) {
                 setTimeout(() => {
@@ -65,7 +79,7 @@ const AppsManager = {
           const appId = file || v4();
           const installedAt = new Date().toISOString();
           const manifestUrl = {
-            'en-US': `http://${appId}.localhost:${location.port}/manifest.json`
+            'en-US': `http://${appId}.localhost:${location.port}/manifest.webapp`
           } as ManifestUrls;
 
           let webappAssets = fs.readdirSync(path.join(path.resolve(Renderer.webappsPath as string), file));
@@ -74,18 +88,18 @@ const AppsManager = {
             if (!manifest.startsWith('manifest.')) {
               continue;
             }
-            if (manifest === 'manifest.json') {
+            if (manifest === 'manifest.webapp') {
               continue;
             }
             const langCode = manifest.split('.')[1];
-            manifestUrl[langCode] = `http://${appId}.localhost:${location.port}/manifest.${langCode}.json`;
+            manifestUrl[langCode] = `http://${appId}.localhost:${location.port}/manifest.${langCode}.webapp`;
           }
 
           return { appId, installedAt, manifestUrl };
         };
         let appList = fs.readdirSync(path.resolve(Renderer.webappsPath as string)).map(handleReaddir.bind(this));
 
-        AppsManager.writeAppList(appList);
+        this.writeAppList(appList);
         console.log(appList);
         setTimeout(() => {
           resolve(appList);
@@ -108,7 +122,7 @@ const AppsManager = {
       const appId = v4();
       const appDir = path.join(path.resolve(Renderer.webappsPath as string), `{${appId}}`);
 
-      AppsManager.getAll().then((appList: any) => {
+      this.getAll().then((appList: any) => {
         fs.mkdirSync(appDir, { recursive: true });
 
         try {
@@ -118,11 +132,11 @@ const AppsManager = {
           const appEntry = {
             appId: `{${appId}}`,
             installedAt: new Date().toISOString(),
-            manifestUrl: `http://{${appId}}.localhost:8081/manifest.json`
+            manifestUrl: `http://{${appId}}.localhost:8081/manifest.webapp`
           };
 
           appList.push(appEntry);
-          AppsManager.writeAppList(appList);
+          this.writeAppList(appList);
 
           resolve(appId);
         } catch (error) {
@@ -165,17 +179,17 @@ const AppsManager = {
         }
       }
 
-      AppsManager.getAll().then(async (appList: any) => {
+      this.getAll().then(async (appList: any) => {
         const url = new URL(manifestUrl);
         const appEntry = {
           appId: `{${appId}}`,
           installedAt: new Date().toISOString(),
-          manifestUrl: `http://{${appId}}.localhost:8081/manifest.json`,
+          manifestUrl: `http://{${appId}}.localhost:8081/manifest.webapp`,
           origin: url.origin
         };
 
         appList.push(appEntry);
-        AppsManager.writeAppList(appList);
+        this.writeAppList(appList);
 
         resolve(appId);
       });
@@ -184,10 +198,10 @@ const AppsManager = {
 
   uninstall: async function (appId: string) {
     const appDir = path.join(path.resolve(Renderer.webappsPath as string), appId);
-    const appList = await AppsManager.getAll();
+    const appList = await this.getAll();
 
     const updatedAppList = appList.filter((item) => item.appId !== appId);
-    AppsManager.writeAppList(updatedAppList);
+    this.writeAppList(updatedAppList);
 
     fs.rmdirSync(appDir, { recursive: true });
   },

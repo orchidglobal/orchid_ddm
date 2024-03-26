@@ -123,7 +123,7 @@
 
         if (language === this.currentLanguage) {
           const selectedText = document.createElement('p');
-          selectedText.textContent = L10n.get('selected');
+          selectedText.textContent = OrchidJS.L10n.get('selected');
           element.appendChild(selectedText);
         }
 

@@ -1,7 +1,7 @@
 #paginationBar {
   box-sizing: border-box;
   position: absolute;
-  bottom: calc(var(--software-buttons-height) + 7.8rem + 0.5rem);
+  bottom: calc(var(--software-buttons-height) + 3rem + var(--icon-size) + 0.5rem);
   left: 50%;
   height: 2rem;
   padding: 0.5rem;

@@ -1,4 +1,5 @@
-#statusbar {
+.screen.lockscreen-visible #statusbar,
+.screen.gpu-fully-capable #statusbar {
   visibility: hidden;
 }
 
@@ -6,7 +7,7 @@
   --statusbar-icon-color: #fff;
   --statusbar-icon-color-faded: rgba(255, 255, 255, 0.5);
   --statusbar-icon-background: rgba(255, 255, 255, 0.1);
-  position: fixed;
+  position: absolute;
   top: 0;
   width: 100%;
   height: var(--statusbar-height);
@@ -19,7 +20,8 @@ html[dir='rtl'] .statusbar {
   left: 0;
 }
 
-.statusbar.light {
+.statusbar.light,
+.light .screen.utility-tray-visible .statusbar {
   --statusbar-icon-color: #333;
   --statusbar-icon-color-faded: rgba(0, 0, 0, 0.5);
   --statusbar-icon-background: rgba(0, 0, 0, 0.1);
@@ -44,11 +46,11 @@ html[dir='rtl'] .statusbar {
 }
 
 .screen:not(.desktop) #statusbar.utility-tray-motion {
-  visibility: visible;
+  visibility: unset;
 }
 
 .screen:not(.desktop) .statusbar.utility-tray-motion {
-  visibility: visible;
+  visibility: unset;
   transform: translateY(calc((var(--statusbar-height) * var(--motion-progress, 0)) + (1rem * var(--overscroll-progress))));
   transition: transform 0.3s ease;
 }
@@ -127,7 +129,7 @@ html[dir='rtl'] .statusbar-icons > .right {
   height: 2rem;
   margin: 0 0.2rem;
   color: var(--statusbar-icon-color);
-  font-weight: normal;
+  font-weight: var(--generic-label-weight);
   font-size: 1.6rem;
   line-height: 2rem;
   text-align: center;
@@ -198,6 +200,10 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
   display: flex;
 }
 
+.statusbar.utility-tray-motion .timedate {
+  display: none;
+}
+
 .screen.desktop #software-buttons-statusbar .timedate {
   flex-direction: column;
   align-items: end;
@@ -229,7 +235,7 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
 }
 
 .statusbar.utility-tray-motion .statusbar-icons > .left .statusbar-date {
-  visibility: visible;
+  visibility: unset;
   margin: 0 calc(var(--hide-margin, -1rem) * (1 - var(--motion-progress, 0)));
   transform: scale(calc(0.2 + (0.8 * var(--motion-progress, 0))));
   opacity: calc(var(--motion-progress, 0) / 2);
@@ -237,7 +243,7 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
 }
 
 .screen.desktop #software-buttons-statusbar .statusbar-date {
-  visibility: visible;
+  visibility: unset;
   height: 1.4rem;
   margin: 0 0.2rem;
   transform: none;
@@ -269,11 +275,18 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
 }
 
 .statusbar.utility-tray-motion .statusbar-battery-percentage {
-  visibility: visible;
+  visibility: unset;
   margin: 0 calc(var(--hide-margin, -1rem) * (1 - var(--motion-progress, 0)));
   transform: scale(calc(0.2 + (0.8 * var(--motion-progress, 0))));
   opacity: var(--motion-progress, 0);
   transition: all 0.3s ease;
+}
+
+.screen.battery-percentage-visible .statusbar .statusbar-battery-percentage {
+  visibility: unset;
+  margin: 0;
+  transform: scale(1);
+  opacity: 1;
 }
 
 .screen.desktop #statusbar .statusbar-battery-percentage {
@@ -303,7 +316,7 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
 @media screen and (min-width: 768px) {
   .screen.mobile .statusbar-date,
   .screen.mobile .statusbar.utility-tray-motion .statusbar-date {
-    visibility: visible;
+    visibility: unset;
     position: relative;
     margin: 0 0.2rem;
     padding-inline-start: 1rem;
@@ -332,7 +345,7 @@ html[data-red-light-point="true"] .screen:not(.desktop, .cards-view-visible) .st
 
   .screen.mobile .statusbar-battery-percentage,
   .screen.mobile .statusbar.utility-tray-motion .statusbar-battery-percentage {
-    visibility: visible;
+    visibility: unset;
     margin: 0 0.2rem;
     padding-inline-start: 1rem;
     transform: scale(1);

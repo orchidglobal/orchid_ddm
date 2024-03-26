@@ -1,7 +1,17 @@
 #player {
-  --text-color: var(--accent-color-plus);
+  --text-color: var(--accent-text-color);
   z-index: 50;
   background-color: var(--accent-color);
+  transition: all 1s ease, border-radius 0s ease;
+}
+
+#player:not(.from-scale, .to-scale) {
+  transform: translateX(0) !important;
+}
+
+#player.from-scale,
+#player.to-scale {
+  border-radius: 4rem;
 }
 
 section[role="panel"]#player > header:first-child {
@@ -16,7 +26,6 @@ section[role="panel"]#player > header:first-child::after {
 
 .player-cols {
   display: flex;
-  position: absolute;
   flex-direction: column;
   width: 100%;
   height: 100%;
@@ -54,7 +63,7 @@ section[role="panel"]#player > header:first-child::after {
   width: 100%;
   padding: 0 1.5rem;
   gap: 1rem;
-  color: var(--accent-color-plus);
+  color: var(--accent-text-color);
   font-size: 1.6rem;
 }
 
@@ -64,16 +73,16 @@ section[role="panel"]#player > header:first-child::after {
 }
 
 .player-footer .track > #player-track-slider::-webkit-slider-thumb {
-  background-color: var(--accent-color-plus);
+  background-color: var(--accent-text-color);
 }
 
 .player-footer .track > #player-track-slider:not([value="0"])::-webkit-slider-thumb {
-  border: 0.4rem solid var(--accent-color-plus);
+  border: 0.4rem solid var(--accent-text-color);
   background: var(--accent-color);
-  box-shadow: -51.2rem 0 0 50rem var(--accent-color-plus);
+  box-shadow: -51.2rem 0 0 50rem var(--accent-text-color);
 }
 html[dir="rtl"] .player-footer .track > #player-track-slider:not([value="0"])::-webkit-slider-thumb {
-  box-shadow: 51.2rem 0 0 50rem var(--accent-color-plus);
+  box-shadow: 51.2rem 0 0 50rem var(--accent-text-color);
 }
 
 .player-footer .controls {
@@ -92,7 +101,7 @@ html[dir="rtl"] .player-footer .track > #player-track-slider:not([value="0"])::-
   padding: 0 1.3rem;
   border-radius: 50%;
   background-color: var(--accent-color-hover);
-  color: var(--accent-color-plus);
+  color: var(--accent-text-color);
   line-height: 5rem;
 }
 
@@ -113,7 +122,7 @@ html[dir="rtl"] .player-footer .track > #player-track-slider:not([value="0"])::-
   width: 6rem;
   height: 6rem;
   padding: 0 1.8rem;
-  background-color: var(--accent-color-plus);
+  background-color: var(--accent-text-color);
   color: var(--accent-color);
   line-height: 6rem;
 }

@@ -64,5 +64,5 @@
     }
   };
 
-  exports.Wifi = Wifi;
+  SettingsApp.Wifi = Wifi;
 })(window);

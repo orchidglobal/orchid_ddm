@@ -1,5 +1,8 @@
 * {
+  shape-rendering: auto;
   appearance: none;
+  text-rendering: optimizeSpeed;
+  image-rendering: auto;
 }
 
 /* *:focus { */

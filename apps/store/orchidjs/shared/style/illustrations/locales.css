@@ -1,0 +1,60 @@
+.illustration-holder > .illustration.locales {
+  width: 18rem;
+  height: 15rem;
+}
+
+.illustration-holder > .illustration.locales .sender {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10rem;
+  height: 10rem;
+  transform-origin: bottom left;
+  background: url(images/locales/sender.png) no-repeat center / contain;
+  animation: illustration-locales-sender 2.5s cubic-bezier(0.5, 0.8, 0, 1.2) infinite 0.5s;
+  opacity: 0;
+}
+
+.illustration-holder > .illustration.locales .reciever {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 10rem;
+  height: 10rem;
+  transform-origin: bottom right;
+  background: url(images/locales/reciever.png) no-repeat center / contain;
+  animation: illustration-locales-reciever 2.5s cubic-bezier(0.5, 0.8, 0, 1.2) infinite 0.6s;
+  opacity: 0;
+}
+
+@keyframes illustration-locales-sender {
+  0% {
+    transform: scale(0) rotate(45deg);
+    opacity: 0;
+  }
+  25%, 80% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0) rotate(-45deg);
+    opacity: 0;
+  }
+}
+
+
+@keyframes illustration-locales-reciever {
+  0% {
+    transform: scale(0) rotate(-45deg);
+    opacity: 0;
+  }
+  25%, 80% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0) rotate(45deg);
+    opacity: 0;
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "name": "جوجل",
+  "description": "ابحث في شبكة الانترنت.",
+  "start_url": "https://www.google.com/",
+  "icons": {
+    "16": "/icons/google_16.png",
+    "32": "/icons/google_32.png",
+    "48": "/icons/google_48.png",
+    "64": "/icons/google_64.png",
+    "128": "/icons/google_128.png",
+    "256": "/icons/google_256.png"
+  },
+  "developer": {
+    "name": "Google",
+    "url": "https://www.google.com/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait-primary",
+  "permissions": {}
+}

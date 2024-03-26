@@ -1,0 +1,80 @@
+{
+  "name": "إعدادات",
+  "description": "",
+  "version": "1.0",
+  "core": true,
+  "default_locale": "en",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "/style/icons/settings_16.png",
+    "32": "/style/icons/settings_32.png",
+    "48": "/style/icons/settings_48.png",
+    "64": "/style/icons/settings_64.png",
+    "128": "/style/icons/settings_128.png",
+    "256": "/style/icons/settings_256.png"
+  },
+  "developer": {
+    "name": "Orchid",
+    "url": "https://orchid.thats-the.name/"
+  },
+  "display": "immersive",
+  "orientation": "auto",
+  "permissions": {
+    "device-info": {},
+    "bluetooth": {},
+    "settings": {
+      "access": "readwrite"
+    },
+    "storage": {},
+    "device-storage:audio": {},
+    "device-storage:books": {},
+    "device-storage:downloads": {},
+    "device-storage:movies": {},
+    "device-storage:music": {},
+    "device-storage:others": {},
+    "device-storage:photos": {},
+    "device-storage:home": {},
+    "webapps-manage": {},
+    "time": {},
+    "virtualization": {},
+    "child-process": {},
+    "power": {},
+    "fm-radio": {},
+    "users": {},
+    "wifi-manage": {},
+    "telephony": {},
+    "sms": {}
+  },
+  "shortcuts": [
+    {
+      "icon": "/style/shortcuts/wifi.png",
+      "name": "Wi-Fi",
+      "launch_path": "?page=wifi"
+    },
+    {
+      "icon": "/style/shortcuts/bluetooth.png",
+      "name": "Bluetooth",
+      "launch_path": "?page=bluetooth"
+    },
+    {
+      "icon": "/style/shortcuts/data.png",
+      "name": "Cellular Data",
+      "launch_path": "?page=data"
+    },
+    {
+      "icon": "/style/shortcuts/accessibility.png",
+      "name": "Accessibility",
+      "launch_path": "?page=accessibility"
+    }
+  ],
+  "activities": {
+    "wallpaper-set": {
+      "filters": {
+        "url": {
+          "required": true
+        }
+      },
+      "return_value": false
+    }
+  }
+}

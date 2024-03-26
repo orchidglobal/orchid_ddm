@@ -1,0 +1,151 @@
+.illustration-holder > .illustration.account {
+  height: 15rem;
+}
+
+.illustration-holder > .illustration.account .computer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20rem;
+  height: 14.5rem;
+  transform-origin: bottom;
+  translate: -50% -50%;
+  background: url(images/account/monitor.png) no-repeat center / contain;
+  animation: illustration-account-computer 4s cubic-bezier(0.5, 0.8, 0, 1.2) infinite 0.5s;
+  opacity: 0;
+}
+
+.illustration-holder > .illustration.account .computer .pin-input {
+  position: absolute;
+  top: calc(50% - 1rem);
+  left: 50%;
+  width: 10rem;
+  height: 2rem;
+  translate: -50% -50%;
+  background: url(images/account/pin_input.png) no-repeat center / contain;
+  animation: illustration-account-pin-input 4s cubic-bezier(0.5, 0.8, 0, 1.5) infinite 0.5s;
+  opacity: 0;
+}
+
+.illustration-holder > .illustration.account .computer .pin {
+  position: absolute;
+  top: calc(50% - 1rem);
+  left: 50%;
+  width: 6.6rem;
+  height: 0.6rem;
+  translate: -50% -50%;
+  background: url(images/account/pin.png) no-repeat center / contain;
+  animation: illustration-account-pin 4s ease infinite 0.5s;
+  mask-image: linear-gradient(to right, white, white calc(50% - 1rem), transparent calc(50% + 1rem), transparent);
+  mask-position: 100% 0;
+  mask-size: calc(200% + 2rem);
+  opacity: 0;
+}
+
+.illustration-holder > .illustration.account .computer .check-bg {
+  position: absolute;
+  top: calc(50% - 1rem);
+  left: 50%;
+  width: 18.6rem;
+  height: 11.1rem;
+  translate: -50% -50%;
+  background: url(images/account/check_bg.png) no-repeat center / contain;
+  animation: illustration-account-check-bg 4s cubic-bezier(0.5, 0.8, 0, 1) infinite 0.5s;
+  opacity: 0;
+}
+
+.illustration-holder > .illustration.account .computer .check-circle {
+  position: absolute;
+  top: calc(50% - 1rem);
+  left: 50%;
+  width: 6.4rem;
+  height: 6.4rem;
+  translate: -50% -50%;
+  background: url(images/account/check_circle.png) no-repeat center / contain;
+  animation: illustration-account-check-circle 4s cubic-bezier(0.5, 0.8, 0, 2) infinite 0.5s;
+  opacity: 0;
+}
+
+.illustration-holder > .illustration.account .computer .check {
+  position: absolute;
+  top: calc(50% - 1rem);
+  left: 50%;
+  width: 3.6rem;
+  height: 2.4rem;
+  translate: -50% -50%;
+  background: url(images/account/check.png) no-repeat center / contain;
+  animation: illustration-account-check 4s cubic-bezier(0.5, 0.8, 0, 2) infinite 0.5s;
+  opacity: 0;
+}
+
+@keyframes illustration-account-computer {
+  0% {
+    transform: translateY(-25%) scale(1.1);
+    opacity: 0;
+  }
+  10%, 90% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(1rem) scale(0.75);
+    opacity: 0;
+  }
+}
+
+@keyframes illustration-account-pin-input {
+  0%, 10% {
+    transform: scale(0.75);
+    opacity: 0;
+  }
+  20%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes illustration-account-pin {
+  0%, 20% {
+    /* transform: scale(1.1); */
+    mask-position: 100% 0;
+    opacity: 1;
+  }
+  30%, 100% {
+    /* transform: scale(1); */
+    mask-position: 0 0;
+    opacity: 1;
+  }
+}
+
+@keyframes illustration-account-check-bg {
+  0%, 40% {
+    transform: scale(0.75);
+    opacity: 0;
+  }
+  50%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes illustration-account-check-circle {
+  0%, 50% {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+  60%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes illustration-account-check {
+  0%, 60% {
+    transform: scale(0.75);
+    opacity: 0;
+  }
+  80%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

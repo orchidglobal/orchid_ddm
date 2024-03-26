@@ -9,7 +9,7 @@
     APP_ICON_SIZE: 40,
 
     init: async function () {
-      this.currentHomescreen = await Settings.getValue(`homescreen.manifest_url.${window.deviceType}`);
+      this.currentHomescreen = await SettingsApp.getValue(`homescreen.manifest_url.${window.deviceType}`);
 
       this.webappsList.innerHTML = '';
       const fragment = document.createDocumentFragment();
@@ -89,5 +89,5 @@
     }
   };
 
-  exports.HomescreenChange = HomescreenChange;
+  SettingsApp.HomescreenChange = HomescreenChange;
 })(window);

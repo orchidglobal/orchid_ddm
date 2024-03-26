@@ -8,13 +8,13 @@
     lockscreenBackground: document.getElementById('lockscreen-background'),
 
     init: function () {
-      Settings.getValue('video.wallpaper.url').then((value) => {
+      OrchidJS.Settings.getValue('video.wallpaper.url').then((value) => {
         this.wallpaperImage.src = value;
         this.wallpaperVideo.src = '';
 
         this.lockscreenBackground.style.backgroundImage = `url(${value})`;
       });
-      Settings.addObserver('video.wallpaper.url', (value) => {
+      OrchidJS.Settings.addObserver('video.wallpaper.url', (value) => {
         this.wallpaperImage.src = value;
         this.wallpaperVideo.src = '';
 

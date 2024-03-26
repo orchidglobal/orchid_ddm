@@ -1,0 +1,12 @@
+.force-hold.click {
+  animation: force-hold-click 0.3s ease;
+}
+
+@keyframes force-hold-click {
+  0%, 100% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.1250);
+  }
+}

@@ -17,6 +17,10 @@
 
     handleConfirmButtonClick: function (event) {
       this.element.classList.remove('visible');
+
+      if (!window.deviceType) {
+        const authWindow = window.open('https://orchid-auth.thats-the.name', '_blank', 'width=854,height=480');
+      }
     }
   };
 

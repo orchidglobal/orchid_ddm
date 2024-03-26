@@ -2,14 +2,14 @@
   'use strict';
 
   const About = {
-    logo: document.getElementById('aboutInfo-logo'),
-    hostname: document.getElementById('aboutInfo-hostname'),
-    systemName: document.getElementById('aboutInfo-systemName'),
-    systemVersion: document.getElementById('aboutInfo-systemVersion'),
-    hardwareId: document.getElementById('aboutInfo-hardwareId'),
-    arch: document.getElementById('aboutInfo-arch'),
-    endianness: document.getElementById('aboutInfo-endianness'),
-    type: document.getElementById('aboutInfo-type'),
+    logo: document.getElementById('about-logo'),
+    hostname: document.getElementById('about-hostname'),
+    systemName: document.getElementById('about-systemName'),
+    systemVersion: document.getElementById('about-systemVersion'),
+    hardwareId: document.getElementById('about-hardwareId'),
+    arch: document.getElementById('about-arch'),
+    endianness: document.getElementById('about-endianness'),
+    type: document.getElementById('about-type'),
 
     EASTER_EGG_MANIFEST_URL: `http://easteregg.localhost:8081/manifest.json`,
 
@@ -23,6 +23,8 @@
       this.arch.textContent = DeviceInformation.getArch();
       this.endianness.textContent = DeviceInformation.getEndianness();
       this.type.textContent = DeviceInformation.getType();
+
+      window.addEventListener('deviceorientation', this.handleOrientation.bind(this));
     },
 
     onDoubleClick: function (event) {
@@ -34,8 +36,13 @@
           manifestUrl: this.EASTER_EGG_MANIFEST_URL
         })
       });
+    },
+
+    handleOrientation: function (event) {
+      const hue = (event.gamma + 90) / 180 * 360;
+      this.logo.style.filter = `hue-rotate(${hue}deg)`;
     }
   };
 
-  exports.About = About;
+  SettingsApp.About = About;
 })(window);

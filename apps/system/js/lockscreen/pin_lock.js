@@ -12,10 +12,10 @@
     password: null,
 
     init: function () {
-      Settings.getValue('lockscreen.pin_number').then((value) => {
+      OrchidJS.Settings.getValue('lockscreen.pin_number').then((value) => {
         this.password = value;
       });
-      Settings.addObserver('lockscreen.pin_number', (value) => {
+      OrchidJS.Settings.addObserver('lockscreen.pin_number', (value) => {
         this.password = value;
       });
 

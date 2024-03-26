@@ -26,14 +26,14 @@
     SETTINGS_LOCKSCREEN_TYPE: 0,
 
     init: function () {
-      Settings.getValue(this.settings[this.SETTINGS_LOCKSCREEN_TYPE]).then((value) => {
+      OrchidJS.Settings.getValue(this.settings[this.SETTINGS_LOCKSCREEN_TYPE]).then((value) => {
         if (value === 'pin') {
           this.isPINLocked = true;
         } else {
           this.isPINLocked = false;
         }
       });
-      Settings.addObserver(this.settings[this.SETTINGS_LOCKSCREEN_TYPE], (value) => {
+      OrchidJS.Settings.addObserver(this.settings[this.SETTINGS_LOCKSCREEN_TYPE], (value) => {
         if (value === 'pin') {
           this.isPINLocked = true;
         } else {
@@ -164,10 +164,12 @@
         this.bottomPanel.classList.remove('transitioning');
       }, 500);
 
-      IPC.send('message', {
-        type: 'lockscreen',
-        action: 'unlock'
-      });
+      if ('OrchidJS' in window && 'IPC' in OrchidJS) {
+        IPC.send('message', {
+          type: 'lockscreen',
+          action: 'unlock'
+        });
+      }
       WallpaperManager.playVideoInStyle();
     },
 
@@ -198,10 +200,12 @@
       this.motionElement.classList.add('visible');
       this.motionElement.classList.remove('transitioning');
 
-      IPC.send('message', {
-        type: 'lockscreen',
-        action: 'lock'
-      });
+      if ('OrchidJS' in window && 'IPC' in OrchidJS) {
+        IPC.send('message', {
+          type: 'lockscreen',
+          action: 'lock'
+        });
+      }
     },
 
     resetMotionElement: function () {
@@ -217,7 +221,7 @@
     },
 
     handleCameraButton: function () {
-      const appWindow = new AppWindow('http://camera.localhost:8081/manifest.json', {});
+      const appWindow = new AppWindow('http://camera.localhost:8081/manifest.webapp', {});
       if (!this.isPINLocked) {
         this.hideMotionElement();
       } else {

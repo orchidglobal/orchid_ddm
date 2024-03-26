@@ -47,7 +47,7 @@
         element.dataset.pageId = 'chat';
         element.addEventListener('click', () => this.handleFriendClick(friend));
         this.friendsList.appendChild(element);
-        PageController.init();
+        OrchidJS.PageController.init();
 
         const avatarHolder = document.createElement('div');
         avatarHolder.classList.add('avatar');

@@ -1,39 +1,21 @@
 !(function (exports) {
   'use strict';
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const batteryPercentage = document.getElementById('battery-percentage');
-    const batteryChargeState = document.getElementById('battery-charge-state');
+  const Battery = {
+    batteryPercentageSwitch: document.getElementById('battery-percentage-switch'),
 
-    navigator.getBattery().then((battery) => {
-      let level = parseInt(battery.level * 100);
-      let charging = battery.charging;
-      batteryPercentage.dataset.l10nArgs = `{"n":"${level}"}`;
-      batteryChargeState.dataset.l10nId = charging
-        ? 'battery-charging'
-        : 'battery-discharging';
-      batteryChargeState.dataset.l10nArgs = `{"time":"${
-        charging ? battery.chargingTime : battery.dischargingTime
-      }"}`;
-
-      [
-        'chargingchange',
-        'chargingtimechange',
-        'dischargingtimechange',
-        'levelchange'
-      ].forEach((event) => {
-        battery.addEventListener(event, () => {
-          level = parseInt(battery.level * 100);
-          charging = battery.charging;
-          batteryPercentage.dataset.l10nArgs = `{"n":"${level}"}`;
-          batteryChargeState.dataset.l10nId = charging
-            ? 'battery-charging'
-            : 'battery-discharging';
-          batteryChargeState.dataset.l10nArgs = `{"time":"${
-            charging ? battery.chargingTime : battery.dischargingTime
-          }"}`;
-        });
+    init: function () {
+      this.batteryPercentageSwitch.addEventListener('change', this.handleBatteryPercentageSwitch.bind(this));
+      Settings.getValue('battery.percentage.visible').then((data) => {
+        this.batteryPercentageSwitch.checked = data;
       });
-    });
-  });
+    },
+
+    handleBatteryPercentageSwitch: function () {
+      const value = this.batteryPercentageSwitch.checked;
+      Settings.setValue('battery.percentage.visible', value);
+    }
+  };
+
+  SettingsApp.Battery = Battery;
 })(window);

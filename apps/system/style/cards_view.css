@@ -1,6 +1,6 @@
 #cards-view {
   visibility: hidden;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -122,6 +122,43 @@
   height: 100%;
   color: #fff;
   font-size: 2rem;
+}
+
+#cards-view-empty {
+  box-sizing: border-box;
+  display: flex;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 1.5rem;
+  transform: scale(0.75);
+  transform: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+  opacity: 0;
+}
+
+#cards-view.visible #cards-view-empty {
+  visibility: visible;
+  transform: scale(1);
+  transform: transform 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+  opacity: 1;
+}
+
+#cards-view-empty > .message {
+  width: 100%;
+  color: #fff;
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+#cards-view-list.hidden,
+#cards-view-empty.hidden {
+  display: none;
 }
 
 #cards-view-toolbar {

@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "name": "رسائل",
+  "long_name": "Orchid Messages",
+  "description": "أرسل رسالة لأصدقائك في أي وقت ومن أي مكان.",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "/style/icons/sms_16.png",
+    "32": "/style/icons/sms_32.png",
+    "48": "/style/icons/sms_48.png",
+    "64": "/style/icons/sms_64.png",
+    "128": "/style/icons/sms_128.png",
+    "256": "/style/icons/sms_256.png"
+  },
+  "developer": {
+    "name": "Orchid Org.",
+    "url": "https://orchid.thats-the.name/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait",
+  "permissions": {
+    "settings": {},
+    "translate": {}
+  },
+  "display": "immersive",
+  "serviceworker": {
+    "script_url": "sw-global.js"
+  }
+}

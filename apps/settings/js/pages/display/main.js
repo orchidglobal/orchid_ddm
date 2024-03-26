@@ -64,5 +64,5 @@
     }
   };
 
-  exports.Display = Display;
+  SettingsApp.Display = Display;
 })(window);

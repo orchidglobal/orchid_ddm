@@ -37,6 +37,7 @@
 
     element: null,
     dockIcon: null,
+    statusbarInstance: null,
     chrome: null,
     manifest: null,
     instanceID: null,
@@ -59,14 +60,12 @@
     },
 
     /**
-     * Creates the app window with specified manifest URL and configuration
+     * Creates a new app window with the specified manifest URL and configuration
      *
-     * Example:
-     * ```js
-     * const appWindow = new AppWindow('http://settings.localhost:8081/manifest.json', {});
-     * ```
      * @param {String} manifestUrl
+     *  The manifest URL of the app to create
      * @param {Object} options
+     *  An optional object containing configuration options for the window
      * @returns null
      */
     create: async function (manifestUrl, options = {}) {
@@ -88,6 +87,7 @@
         this.manifest = this.manifest.entry_points[options.entryId];
       }
 
+      // Show a notification for Vividus Engine apps
       if (this.manifest && this.manifest.role === 'vividus_game') {
         LazyLoader.load('js/notification_toaster.js', () => {
           NotificationToaster.showNotification(L10n.get('vividusEngine'), {
@@ -98,6 +98,7 @@
         });
       }
 
+      // Show a notification for 2D Vividus Engine apps
       if (this.manifest && this.manifest.role === 'vividus_game_2d') {
         LazyLoader.load('js/notification_toaster.js', () => {
           NotificationToaster.showNotification(L10n.get('vividusEngine'), {
@@ -156,6 +157,8 @@
 
       // Focus the app window
       this.focus();
+
+      // Create window event listeners
       document.addEventListener('mousemove', this.onPointerMove.bind(this));
       document.addEventListener('touchmove', this.onPointerMove.bind(this));
       document.addEventListener('mouseup', this.onPointerUp.bind(this));
@@ -215,19 +218,50 @@
       });
     },
 
-    fetchManifest: async function (manifestUrl) {
-      try {
-        const response = await fetch(manifestUrl);
-        if (!response.ok) {
+    /**
+     * Fetches a manifest file from a URL.
+     *
+     * @param {String} manifestUrl - The URL of the manifest file to fetch.
+     *
+     * @returns {Promise} A Promise that resolves with the parsed manifest object or
+     * rejects with an error.
+     */
+    fetchManifest: function (manifestUrl) {
+      return fetch(manifestUrl)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
           throw new Error(`Failed to fetch manifest: ${response.status}`);
-        }
-        const data = await response.json();
-        return data;
-      } catch (error) {
-        console.error('Error fetching manifest:', error);
-      }
+        })
+        .catch(error => {
+          console.error('Error fetching manifest:', error);
+          throw error;
+        });
     },
 
+    /**
+     * Updates the transform origin of an element to the passed animation
+     * variables.
+     *
+     * @param {Element} element
+     *  The element to update the transform origin for.
+     * @param {Object} animationVariables
+     *  An object containing the animation variables to use for updating the
+     *  transform origin.
+     * @param {Number} animationVariables.xPos
+     *  The x position of the transform origin.
+     * @param {Number} animationVariables.yPos
+     *  The y position of the transform origin.
+     * @param {Number} animationVariables.iconXPos
+     *  The x position of the icon inside the window element.
+     * @param {Number} animationVariables.iconYPos
+     *  The y position of the icon inside the window element.
+     * @param {Number} animationVariables.iconXScale
+     *  The scale of the icon in the x direction.
+     * @param {Number} animationVariables.iconYScale
+     *  The scale of the icon in the y direction.
+     */
     updateTransformOrigin: function (element, animationVariables) {
       element.style.transformOrigin = `${animationVariables.xPos}px ${animationVariables.yPos}px`;
       element.style.setProperty('--icon-pos-x', animationVariables.iconXPos + 'px');
@@ -236,38 +270,34 @@
       element.style.setProperty('--icon-scale-y', animationVariables.iconYScale);
     },
 
+    /**
+     * Creates a container element for the app window and
+     * appends it to the given fragment.
+     *
+     * @param {DocumentFragment} fragment The fragment to append the container to.
+     * @param {Object} manifest The manifest of the app.
+     * @param {String} instanceID The id of the app window.
+     * @param {Object} animationVariables The animation variables for the app window.
+     *
+     * @return {HTMLDivElement} The created container element.
+     */
     createWindowContainer: function (fragment, manifest, instanceID, animationVariables) {
       const windowDiv = document.createElement('div');
       windowDiv.id = instanceID;
-      windowDiv.classList.add('appframe');
+      windowDiv.className = 'appframe' +
+        (manifest.role === 'homescreen' ? ' homescreen' : '') +
+        (manifest.statusbar && manifest.statusbar !== 'normal' ? ' sb-' + manifest.statusbar : '') +
+        (typeof manifest.display === 'object' ?
+          (manifest.display[window.deviceType] && manifest.display[window.deviceType] !== 'standalone' ?
+            ' ' + manifest.display[window.deviceType] :
+            (manifest.display.default && manifest.display.default !== 'standalone' ?
+              ' ' + manifest.display.default : '')) :
+          (manifest.display && manifest.display !== 'standalone' ? ' ' + manifest.display : '')) +
+        (manifest.orientation && manifest.orientation !== 'auto' ? ' ' + manifest.orientation + '-default' : '') +
+        (manifest.transparent ? ' transparent' : '');
 
-      if (manifest.role === 'homescreen') {
-        this.homescreenElement = windowDiv;
-      }
-
-      if (manifest.statusbar && manifest.statusbar !== 'normal') {
-        windowDiv.classList.add('sb-' + manifest.statusbar);
-      }
-
-      if (typeof manifest.display === 'object') {
-        if (manifest.display[window.deviceType] && manifest.display[window.deviceType] !== 'standalone') {
-          windowDiv.classList.add(manifest.display[window.deviceType]);
-        } else if (manifest.display.default && manifest.display.default !== 'standalone') {
-          windowDiv.classList.add(manifest.display.default);
-        }
-      } else {
-        if (manifest.display && manifest.display !== 'standalone') {
-          windowDiv.classList.add(manifest.display);
-        }
-      }
-
-      if (manifest.orientation && manifest.orientation !== 'auto') {
-        windowDiv.classList.add(manifest.orientation);
-        windowDiv.classList.add(manifest.orientation + '-default');
-      }
-
-      if (manifest.transparent) {
-        windowDiv.classList.add('transparent');
+      if (navigator.hardwareConcurrency > 4 && navigator.deviceMemory > 4 && window.deviceType !== 'desktop') {
+        windowDiv.appendChild(document.createElement('div')).className = 'statusbar';
       }
 
       if (animationVariables) {
@@ -276,31 +306,49 @@
 
       fragment.appendChild(windowDiv);
 
-      if (window.deviceType !== 'desktop') {
-        const statusbar = document.createElement('div');
-        this.statusbar = new Statusbar(statusbar);
-        windowDiv.appendChild(statusbar);
-      }
-
-      // Add animation class
       this.addAnimationClass(windowDiv, this.OPEN_ANIMATION);
       return windowDiv;
     },
 
+    /**
+     * Creates a splash screen element for a window, with an icon.
+     *
+     * @param {HTMLElement} windowDiv
+     *  The window element to add the splash screen to
+     * @param {Object} icons
+     *  An object containing icon URLs for different sizes
+     * @param {String} manifestUrl
+     *  The manifest URL of the app to create
+     */
     createSplashScreen: function (windowDiv, icons, manifestUrl) {
       const splashScreen = document.createElement('div');
       splashScreen.classList.add('splashscreen');
       windowDiv.appendChild(splashScreen);
+
       const splashScreenIcon = document.createElement('img');
       splashScreenIcon.classList.add('icon');
       splashScreen.appendChild(splashScreenIcon);
+
       this.addIconImage(splashScreenIcon, icons, this.SPLASH_ICON_SIZE, manifestUrl);
     },
 
+    /**
+     * Creates a windowed window element for the given app manifest and instance
+     * ID, and appends it to the container element.
+     *
+     * @param {HTMLElement} windowDiv
+     *  The container element to add the window to
+     * @param {Object} manifest
+     *  The manifest of the app to create
+     * @param {String} instanceID
+     *  The unique instance ID of the app to create
+     * @param {Object} options
+     *  An optional object containing configuration options for the window
+     */
     createWindowedWindow: function (windowDiv, manifest, instanceID, options) {
       windowDiv.classList.add('window');
       this.offsetX = manifest.window_bounds?.left || 36;
-      this.offsetY = manifest.window_bounds?.top || 24
+      this.offsetY = manifest.window_bounds?.top || 24;
       windowDiv.style.setProperty('--window-translate', `${manifest.window_bounds?.left || 36}px ${manifest.window_bounds?.top || 24}px`);
       windowDiv.style.setProperty('--window-width', (manifest.window_bounds?.width || 768) + 'px');
       windowDiv.style.setProperty('--window-height', (manifest.window_bounds?.height || 600) + 'px');
@@ -355,39 +403,51 @@
       titlebarButtons.appendChild(minimizeButton);
     },
 
+    /**
+     * Creates resize handlers for the given window div element and attaches
+     * event listeners to each handler.
+     *
+     * @param {HTMLElement} windowDiv
+     *  The window div element to add resize handlers to
+     */
     createResizeHandlers: function (windowDiv) {
-      const resizeHandlers = [];
+      const resizeHandlerClass = 'resize-handler'; // Class name for resize handlers
+      const resizeHandlerClassList = [
+        'nw-resize', 'n-resize', 'ne-resize',
+        'w-resize', 'e-resize',
+        'sw-resize', 's-resize', 'se-resize'
+      ]; // Class names for each resize handler
 
-      // Create and append the resize handlers in all directions
-      for (let i = 0; i < 9; i++) {
+      const fragment = document.createDocumentFragment(); // Document fragment to add resize handlers to
+      const resizeHandlers = new Array(8); // Array of resize handler elements
+
+      // Create resize handlers and append to fragment
+      for (let index = 0, length = resizeHandlerClassList.length; index < length; index++) {
         const resizeHandler = document.createElement('div');
-        resizeHandler.classList.add('resize-handler');
-        windowDiv.appendChild(resizeHandler);
-        resizeHandlers.push(resizeHandler);
-      }
-
-      // Set the cursor style for each resize handler
-      resizeHandlers[0].classList.add('nw-resize');
-      resizeHandlers[1].classList.add('n-resize');
-      resizeHandlers[2].classList.add('ne-resize');
-      resizeHandlers[3].classList.add('w-resize');
-      resizeHandlers[4].classList.add('e-resize');
-      resizeHandlers[5].classList.add('sw-resize');
-      resizeHandlers[6].classList.add('s-resize');
-      resizeHandlers[7].classList.add('se-resize');
-
-      // Attach event listeners to each resize handler
-      for (let index = 0, length = resizeHandlers.length; index < length; index++) {
-        const resizeHandler = resizeHandlers[index];
-
+        resizeHandler.classList.add(resizeHandlerClass, resizeHandlerClassList[index]);
         resizeHandler.addEventListener('mousedown', this.startResize.bind(this));
         resizeHandler.addEventListener('touchstart', this.startResize.bind(this));
+        fragment.appendChild(resizeHandler);
+        resizeHandlers[index] = resizeHandler;
       }
+
+      // Append document fragment to window div
+      windowDiv.appendChild(fragment);
     },
 
+    /**
+     * Creates a container element for the window chrome (toolbar, etc) and
+     * attaches it to the given window div element. The container is used by
+     * the Chrome instance to render the window chrome.
+     *
+     * @param {HTMLElement} windowDiv
+     *  The window div element to add the chrome container to
+     * @returns {HTMLElement}
+     *  The chrome container element
+     */
     createChromeContainer: function (windowDiv) {
       const chromeContainer = document.createElement('div');
-      chromeContainer.classList.add('chrome');
+      chromeContainer.classList.add('chrome'); // Class name for the chrome container
       windowDiv.appendChild(chromeContainer);
       return chromeContainer;
     },
@@ -472,21 +532,28 @@
         return;
       }
 
-      if (this.element) {
+      if (!this.element) {
+        return;
+      }
         this.element.style.transform = '';
 
-        if (this.statusbar && this.statusbar.element && this.softwareButtons) {
+        if (this.statusbar && this.softwareButtons) {
           if (this.element.classList.contains('fullscreen')) {
-            this.statusbar.element.classList.add('hidden');
+            this.statusbar.classList.add('hidden');
             this.softwareButtons.classList.add('hidden');
           } else {
-            this.statusbar.element.classList.remove('hidden');
+            this.statusbar.classList.remove('hidden');
             this.softwareButtons.classList.remove('hidden');
           }
         }
-      } else {
-        return;
-      }
+
+        if (this.statusbarInstance && this.statusbarInstance.element) {
+          if (this.element.classList.contains('fullscreen')) {
+            this.statusbarInstance.element.classList.add('hidden');
+          } else {
+            this.statusbarInstance.element.classList.remove('hidden');
+          }
+        }
 
       if (this.instanceID !== 'homescreen') {
         this.wallpapersContainer.classList.add('app-open');
@@ -524,7 +591,7 @@
       focusedWindow = this;
 
       this.handleThemeColorFocusUpdated();
-      Settings.addObserver('video.dark_mode.enabled', () => this.handleThemeColorFocusUpdated());
+      OrchidJS.Settings.addObserver('video.dark_mode.enabled', () => this.handleThemeColorFocusUpdated());
 
       if (!this.element.classList.contains('overlay') && this.getFocusedWindow().element && this.getFocusedWindow().element !== this.homescreenElement && this.element !== this.homescreenElement) {
         if (this.element === this.getFocusedWindow().element) {
@@ -695,7 +762,7 @@
         return;
       }
 
-      if (!this.statusbar || !this.softwareButtons) {
+      if (!this.statusbar || !this.statusbarInstance || !this.statusbarInstance.element || !this.softwareButtons) {
         return;
       }
 
@@ -705,21 +772,27 @@
 
         // If the color is light (luminance > 0.5), add 'light' class to the status bar
         if (luminance > 0.5) {
-          this.statusbar.element.classList.remove('dark');
+          this.statusbar.classList.remove('dark');
+          this.statusbarInstance.element.classList.remove('dark');
           this.softwareButtons.classList.remove('dark');
-          this.statusbar.element.classList.add('light');
+          this.statusbar.classList.add('light');
+          this.statusbarInstance.element.classList.add('light');
           this.softwareButtons.classList.add('light');
         } else {
           // Otherwise, remove 'light' class
-          this.statusbar.element.classList.remove('light');
+          this.statusbar.classList.remove('light');
+          this.statusbarInstance.element.classList.remove('light');
           this.softwareButtons.classList.remove('light');
-          this.statusbar.element.classList.add('dark');
+          this.statusbar.classList.add('dark');
+          this.statusbarInstance.element.classList.add('dark');
           this.softwareButtons.classList.add('dark');
         }
       } else {
-        this.statusbar.element.classList.remove('light');
+        this.statusbar.classList.remove('light');
+        this.statusbarInstance.element.classList.remove('light');
         this.softwareButtons.classList.remove('light');
-        this.statusbar.element.classList.add('dark');
+        this.statusbar.classList.add('dark');
+        this.statusbarInstance.element.classList.add('dark');
         this.softwareButtons.classList.add('dark');
       }
     },
@@ -899,8 +972,8 @@
 
       let width = this.startWidth;
       let height = this.startHeight;
-      let left = this.resizingWindow.getBoundingClientRect().left;
-      let top = this.resizingWindow.getBoundingClientRect().top;
+      let left = this.offsetX;
+      let top = this.offsetY;
 
       if (this.resizingGripper.classList.contains('nw-resize')) {
         // Top Left
@@ -939,7 +1012,7 @@
       }
 
       // Update the position and dimensions of the window
-      this.element.style.setProperty('--window-translate', `${left}px ${top}`);
+      this.element.style.setProperty('--window-translate', `${left}px ${top}px`);
       this.element.style.setProperty('--window-width', `${width}px`);
       this.element.style.setProperty('--window-height', `${height}px`);
     },
@@ -982,7 +1055,7 @@
           l10nId: 'desktopMenu-settings',
           icon: 'settings',
           onclick: () => {
-            const appWindow = new AppWindow('http://settings.localhost:8081/manifest.json', {});
+            const appWindow = new AppWindow('http://settings.localhost:8081/manifest.webapp', {});
           }
         }
       ];
@@ -1006,7 +1079,7 @@
           l10nId: 'desktopMenu-settings',
           icon: 'settings',
           onclick: () => {
-            const appWindow = new AppWindow('http://settings.localhost:8081/manifest.json', {});
+            const appWindow = new AppWindow('http://settings.localhost:8081/manifest.webapp', {});
           }
         }
       ];

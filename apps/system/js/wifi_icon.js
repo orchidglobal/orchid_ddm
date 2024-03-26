@@ -8,6 +8,7 @@
 
     initialize () {
       this.element.dataset.icon = `web`;
+      this.element.classList.add('hidden');
 
       this.update();
     }
@@ -32,6 +33,7 @@
 
         if (window.deviceType === 'desktop') {
           this.element.dataset.icon = 'ethernet';
+          this.element.classList.remove('hidden');
         } else {
           this.element.classList.add('hidden');
         }

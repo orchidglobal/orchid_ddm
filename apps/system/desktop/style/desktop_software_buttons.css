@@ -1,4 +1,4 @@
-#screen.desktop #software-buttons {
+.screen.desktop #software-buttons {
   visibility: visible;
   position: absolute;
   right: 1.5rem;
@@ -12,12 +12,12 @@
   transition: all 0.5s cubic-bezier(0.5, 0.8, 0, 1.2);
 }
 
-#screen.desktop.gpu-capable #software-buttons {
+.screen.desktop.gpu-capable #software-buttons {
   backdrop-filter: blur(20px) saturate(180%);
   background-color: var(--acrylic-background);
 }
 
-#screen.desktop:not(.launcher-visible, .lockscreen-visible, .utility-tray-visible) #software-buttons.hidden:not(:hover) {
+.screen.desktop:not(.launcher-visible, .lockscreen-visible, .utility-tray-visible) #software-buttons.hidden:not(:hover) {
   right: 0;
   left: 0;
   width: 100%;

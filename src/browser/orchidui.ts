@@ -20,19 +20,19 @@ type SimulatorConfig = {
 const OrchidUI = {
   edition: 'desktop',
   editionConfig: {
-    'desktop': {
+    desktop: {
       id: 'desktop',
       simulator_width: 1024,
       simulator_height: 640,
       agent_type: 'Desktop'
     },
-    'mobile': {
+    mobile: {
       id: 'mobile',
       simulator_width: 320,
       simulator_height: 640,
       agent_type: 'Mobile'
     },
-    'smart_tv': {
+    smart_tv: {
       id: 'smart_tv',
       simulator_width: 1280,
       simulator_height: 720,
@@ -41,7 +41,6 @@ const OrchidUI = {
   } as SimulatorConfig,
 
   window: null as BrowserWindow | null,
-  webview: null as BrowserView | null,
 
   DEFAULT_PRINT_SETTINGS: {
     silent: false,
@@ -51,13 +50,29 @@ const OrchidUI = {
     }
   },
 
+  /**
+   * Initializes the OrchidUI module.
+   *
+   * This function is called when the Electron application is ready. It
+   * first determines which edition is being used and then creates the
+   * main window and loads the system.
+   */
   init: function () {
-    this.defineEdition().then(() => {
-      this.createWindow();
-      this.createWebview();
-      this.loadSystem();
-    });
+    this.defineEdition()
+      .then(() => {
+        /**
+         * Create the main window and load the system.
+         *
+         * This includes loading the system.json file as well as the
+         * preload.js script.
+         */
+        this.createWindow();
+        this.loadSystem();
+      });
 
+    // /**
+    //  * Set the application menu to null to hide the menu bar.
+    //  */
     // Menu.setApplicationMenu(null);
   },
 
@@ -71,29 +86,23 @@ const OrchidUI = {
 
   createWindow: function () {
     this.window = new BrowserWindow({
-      icon: path.join(__dirname, '..', '..', 'internal', 'branding', 'openorchid', 'openorchid_128.png'),
+      icon: path.join(__dirname, '..', '..', 'apps', 'browser', 'style', 'icons', 'browser_128.png'),
       title: `OrchidUI ${app.getVersion()} ${this.editionConfig[this.edition].agent_type}`,
+      minWidth: 320,
+      minHeight: 480,
       width:
         process.platform !== 'win32'
-          ? this.editionConfig[this.edition].simulator_width + (Main.DEBUG ? 50 : 0)
-          : this.editionConfig[this.edition].simulator_width + (Main.DEBUG ? 50 : 0) + 14,
+          ? this.editionConfig[this.edition].simulator_width
+          : this.editionConfig[this.edition].simulator_width + 14,
       height:
         process.platform !== 'win32'
           ? this.editionConfig[this.edition].simulator_height
           : this.editionConfig[this.edition].simulator_height + 37,
       autoHideMenuBar: true,
       backgroundColor: '#000000',
+      frame: false,
       tabbingIdentifier: 'openorchid',
-      kiosk: !Main.DEBUG
-    });
-  },
-
-  createWebview: function () {
-    if (!this.window) {
-      throw new Error('Window not found');
-    }
-
-    this.webview = new BrowserView({
+      kiosk: !Main.DEBUG,
       webPreferences: {
         nodeIntegration: true,
         nodeIntegrationInSubFrames: true,
@@ -116,40 +125,22 @@ const OrchidUI = {
       }
     });
 
-    this.webview.setAutoResize({
-      width: true,
-      height: true
-    });
-
-    this.window.addBrowserView(this.webview);
-
-    const { width, height } = this.window.getContentBounds();
-    if (Main.DEBUG) {
-      this.webview.setBounds({ x: 0, y: 0, width: width - 50, height });
-    } else {
-      this.webview.setBounds({ x: 0, y: 0, width, height });
-    }
-
-    this.webview.webContents.on('dom-ready', this.handleDOMReady.bind(this));
+    this.window.webContents.on('dom-ready', this.handleDOMReady.bind(this));
     Settings.getValue('video.dark_mode.enabled').then(this.handleDarkMode.bind(this));
 
     ipcMain.on('change-theme', this.handleThemeChange.bind(this));
     ipcMain.on('print', (event, data: Record<string, any>) => {
       data = Object.assign(this.DEFAULT_PRINT_SETTINGS, data);
-      this.webview?.webContents.print(data);
+      this.window?.webContents.print(data);
     });
 
     registerEvents();
-    if (Main.DEBUG) {
-      this.webview.webContents.openDevTools();
-      registerControls(this.window);
-    }
   },
 
   handleDOMReady() {
     const webviewScriptPath = path.join(__dirname, '..', '..', '..', 'internal', 'webview', 'webview.js');
     console.log(webviewScriptPath);
-    this.webview?.webContents.executeJavaScript(fs.readFileSync(webviewScriptPath, 'utf8'));
+    this.window?.webContents.executeJavaScript(fs.readFileSync(webviewScriptPath, 'utf8'));
     fs.readdir(path.join(__dirname, '..', '..', '..', 'internal', 'preloads'), (error, files) => {
       if (error) {
         console.error(error);
@@ -159,9 +150,9 @@ const OrchidUI = {
         const filepath = path.join(__dirname, '..', '..', '..', 'internal', 'preloads', file);
         console.log(filepath);
         if (file.endsWith('.js')) {
-          this.webview?.webContents.executeJavaScript(fs.readFileSync(filepath, 'utf8'));
+          this.window?.webContents.executeJavaScript(fs.readFileSync(filepath, 'utf8'));
         } else if (file.endsWith('.css')) {
-          this.webview?.webContents.insertCSS(fs.readFileSync(filepath, 'utf8'));
+          this.window?.webContents.insertCSS(fs.readFileSync(filepath, 'utf8'));
         }
       });
     });
@@ -171,7 +162,7 @@ const OrchidUI = {
     nativeTheme.themeSource = result ? 'dark' : 'light';
   },
 
-  handleThemeChange: function (event: IpcMainEvent, result: "system" | "light" | "dark") {
+  handleThemeChange: function (event: IpcMainEvent, result: 'system' | 'light' | 'dark') {
     nativeTheme.themeSource = result;
   },
 
@@ -180,21 +171,18 @@ const OrchidUI = {
       throw new Error('Missing edition config');
     }
 
-    const userAgent = `Mozilla/5.0 (OrchidOS ${app.getVersion()} ${
-      this.editionConfig[this.edition].agent_type
-    }; Linux ${os.arch()}; ${systemJson.manufacturer} ${systemJson.device_model_name}; ${
-      systemJson.service_pack_name
-    }) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${process.versions.chrome} OrchidBrowser/${app.getVersion()}${
-      this.editionConfig[this.edition].agent_type === 'Mobile' ? ' ' + this.editionConfig[this.edition].agent_type : ''
-    } Safari/537.36`;
+    const userAgentProduct = `Mozilla/5.0`;
+    const userAgentVersion = `OrchidOS ${app.getVersion()}; Linux`;
+    const userAgentComment = `AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${process.versions.chrome} Safari/537.36 OrchidChr/${app.getVersion()} ${this.editionConfig[this.edition].agent_type}/${systemJson.device_model_name}`;
+    const userAgent = `${userAgentProduct} (${userAgentVersion}) ${userAgentComment}`;
 
     // and load the index.html of the app.
     Settings.getValue('system.main.url', 'internal.json').then((value) => {
-      if (!this.webview) {
+      if (!this.window) {
         throw new Error('Window not found');
       }
 
-      this.webview.webContents.loadURL(value, { userAgent });
+      this.window?.webContents.loadURL(value, { userAgent });
     });
   }
 };

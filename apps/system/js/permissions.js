@@ -9,9 +9,9 @@
     handlePermissionRequest: async function (event) {
       const url = new URL(event.detail.origin);
       const settingId = `${url.origin}`;
-      Settings.getValue(settingId, 'permissions.json').then((value) => {
+      OrchidJS.Settings.getValue(settingId, 'permissions.json').then((value) => {
         if (value && value[event.detail.type]) {
-          IPC.send('permissionrequest', {
+          IPC.send('permission-request', {
             permission: event.detail.type,
             origin: event.detail.origin,
             decision: value[event.detail.type]
@@ -22,7 +22,7 @@
               L10n.get(`permission-${event.detail.type}`),
               L10n.get(`permissionDetail-${event.detail.type}`),
               (decision) => {
-                IPC.send('permissionrequest', {
+                IPC.send('permission-request', {
                   permission: event.detail.type,
                   origin: event.detail.origin,
                   decision
@@ -32,7 +32,7 @@
                   value = {};
                 }
                 value[event.detail.type] = decision;
-                Settings.setValue(settingId, value, 'permissions.json');
+                OrchidJS.Settings.setValue(settingId, value, 'permissions.json');
               }
             );
           });

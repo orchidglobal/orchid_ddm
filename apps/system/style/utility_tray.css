@@ -1,11 +1,18 @@
 #utility-tray {
-  position: fixed;
+  --tray-text-color: #fff;
+  --tray-text-color-faded: rgba(255, 255, 255, 0.5);
+  --tray-text-shadow: transparent;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
   transition: transform 0.5s ease;
+}
+
+.light #utility-tray {
+  --tray-text-shadow: rgba(0, 0, 0, 0.1);
 }
 
 .screen.close-reach #utility-tray {
@@ -70,15 +77,30 @@
 
 .utility-tray-header h1 {
   box-sizing: border-box;
+  display: flex;
   flex-grow: 1;
+  align-items: baseline;
   width: 100%;
   height: 5rem;
   margin: 0;
   padding: 0 1rem;
-  color: #fff;
-  font-weight: normal;
+  gap: 0.5rem;
+  color: var(--tray-text-color);
+  font-weight: var(--generic-label-weight);
   font-size: 2rem;
   line-height: 5rem;
+  text-shadow: 0 0 0.4rem var(--tray-text-shadow);
+}
+
+.utility-tray-header h1 > .time {
+  flex-shrink: 0;
+  font-size: 3rem;
+}
+
+.utility-tray-header h1 > .date {
+  flex-shrink: 0;
+  color: var(--tray-text-color-faded);
+  font-size: 1.4rem;
 }
 
 .utility-tray-header menu[role='toolbar'] {
@@ -98,9 +120,10 @@
   margin: 0;
   padding: 0 1rem;
   border-radius: 1rem;
-  color: #fff;
+  color: var(--tray-text-color);
   line-height: 4rem;
   text-decoration: none;
+  text-shadow: 0 0 0.4rem var(--tray-text-shadow);
 }
 
 .utility-tray-header menu[role='toolbar'] > a:hover {

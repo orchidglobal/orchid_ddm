@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script defer src="gestures.js"></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', () =>
+      new OrchidJS.Gesture(document.querySelector('body'), [1, 0], 80, (directionX, directionY, distance) => console.log(directionX, directionY, distance)));
+  </script>
+</head>
+<body>
+  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident, quibusdam molestiae ipsam ex necessitatibus impedit animi tempore voluptatem perferendis, rem doloremque, suscipit labore ab cumque veniam ducimus repellat illo sequi.
+</body>
+</html>

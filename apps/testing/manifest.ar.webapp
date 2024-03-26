@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "name": "اختبارات",
+  "description": "",
+  "launch_path": "/index.html",
+  "icons": {
+    "48": "/style/icons/test.png"
+  },
+  "developer": {
+    "name": "Orchid Team",
+    "url": "https://orchid.thats-the.name/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait-primary",
+  "permissions": {
+    "nodeintegration": {}
+  },
+  "display": "immersive"
+}

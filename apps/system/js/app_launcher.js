@@ -80,7 +80,7 @@
     },
 
     handleLauncherSettingsButtonClick: function (event) {
-      const appWindow = new AppWindow('http://settings.localhost:8081/manifest.json', {});
+      const appWindow = new AppWindow('http://settings.localhost:8081/manifest.webapp', {});
     },
 
     handleLauncherFilesButtonClick: function (event) {

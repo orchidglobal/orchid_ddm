@@ -1,0 +1,48 @@
+#action-corners {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4rem;
+  pointer-events: none;
+}
+
+#action-corner-left {
+  visibility: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 4rem;
+  height: 4rem;
+  margin: 1rem;
+  transform: translate(1.5rem, -1.5rem);
+  background-color: #e7e7e7;
+  mask: url(action_corners/images/action_corner_left.svg) no-repeat center / cover;
+  opacity: 0;
+  pointer-events: auto;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#action-corner-right {
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 4rem;
+  height: 4rem;
+  margin: 1rem;
+  transform: translate(-1.5rem, -1.5rem);
+  background-color: #e7e7e7;
+  mask: url(action_corners/images/action_corner_right.svg) no-repeat center / cover;
+  opacity: 0;
+  pointer-events: auto;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#action-corner-left.visible,
+#action-corner-right.visible {
+  visibility: visible;
+  transform: translate(0, 0);
+  opacity: 1;
+}

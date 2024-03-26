@@ -11,6 +11,8 @@
     toggleButton: document.getElementById('software-recents-button'),
     cardsViewButton: document.getElementById('software-cards-view-button'),
 
+    emptyMessage: document.getElementById('cards-view-empty'),
+
     APP_ICON_SIZE: 50 * window.devicePixelRatio,
 
     isVisible: false,
@@ -45,15 +47,20 @@
       }
       CardsView.element.style.setProperty('--aspect-ratio', `${window.innerWidth} / ${window.innerHeight}`);
 
-      const runningWebapps = Webapps.runningWebapps;
+      const runningWebapps = Webapps.runningWebapps.filter(obj => obj.instanceID !== 'homescreen');
       this.cardsContainer.innerHTML = '';
       const fragment = document.createDocumentFragment();
 
+      if (runningWebapps.length === 0) {
+        this.cardsContainer.classList.add('hidden');
+        this.emptyMessage.classList.remove('hidden');
+      } else {
+        this.cardsContainer.classList.remove('hidden');
+        this.emptyMessage.classList.add('hidden');
+      }
+
       for (let index = 0, length = runningWebapps.length; index < length; index++) {
         const runningWebapp = runningWebapps[index];
-        if (runningWebapp.instanceID === 'homescreen') {
-          continue;
-        }
         this.createCard(runningWebapp, index - 1, fragment);
       }
       this.cardsContainer.appendChild(fragment);

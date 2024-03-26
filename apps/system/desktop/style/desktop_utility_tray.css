@@ -1,5 +1,5 @@
 #screen.desktop #utility-tray {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: unset;
   width: 44.5rem;

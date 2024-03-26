@@ -17,6 +17,7 @@
 
   Chrome.prototype = {
     screen: document.getElementById('screen'),
+    statusbar: document.getElementById('statusbar'),
     softwareButtons: document.getElementById('software-buttons'),
     bottomPanel: document.getElementById('bottom-panel'),
 
@@ -105,22 +106,26 @@
         this.chromeElement.classList.add('visible');
         this.chromeElement.parentElement.classList.add('browser');
 
-        Settings.getValue('ftu.browser.enabled').then((value) => {
+        OrchidJS.Settings.getValue('ftu.browser.enabled').then((value) => {
           if (value) {
             this.openFtuDialog();
           }
         });
       }
 
-      Settings.getValue('general.chrome.position').then((data) => {
+      OrchidJS.Settings.getValue('general.chrome.position').then((data) => {
         this.chromeElement.classList.add(data);
       });
-      Settings.addObserver('general.chrome.position', (data) => {
+      OrchidJS.Settings.addObserver('general.chrome.position', (data) => {
         this.chromeElement.classList.remove('top');
         this.chromeElement.classList.remove('bottom');
         this.chromeElement.classList.add(data);
       });
 
+      if (this.statusbar) {
+        this.statusbar.classList.remove('light');
+        this.statusbar.classList.remove('dark');
+      }
       if (this.app && this.app.statusbar && this.app.statusbar.element) {
         this.app.statusbar.element.classList.remove('light');
         this.app.statusbar.element.classList.remove('dark');
@@ -149,6 +154,9 @@
       }
       this.openNewTab(false, this.url);
 
+      if (this.statusbar) {
+        this.statusbar.addEventListener('dblclick', this.handleStatusbarDoubleClick.bind(this));
+      }
       if (this.app && this.app.statusbar && this.app.statusbar.element) {
         this.app.statusbar.element.addEventListener('dblclick', this.handleStatusbarDoubleClick.bind(this));
       }
@@ -387,8 +395,8 @@
       splitView.classList.add('split');
       browserView.appendChild(splitView);
 
-      Settings.getValue('general.chrome.user_agent').then((value) => this.updateUserAgent(webview, value));
-      Settings.addObserver('general.chrome.user_agent', (value) => this.updateUserAgent(webview, value));
+      OrchidJS.Settings.getValue('general.chrome.user_agent').then((value) => this.updateUserAgent(webview, value));
+      OrchidJS.Settings.addObserver('general.chrome.user_agent', (value) => this.updateUserAgent(webview, value));
 
       if (isPrivate) {
         webview.partition = 'private';
@@ -886,7 +894,7 @@
             },
             {
               l10nId: 'contextMenu-bookmark',
-              icon: (await Settings.getValue('bookmarks', 'bookmarks.json')).filter(
+              icon: (await OrchidJS.Settings.getValue('bookmarks', 'bookmarks.json')).filter(
                 (item) => item.url === webview.getURL()
               )
                 ? 'bookmarked'
@@ -897,14 +905,14 @@
         },
         {
           type: 'separator',
-          hidden: (await Settings.getValue('general.chrome.position')) !== 'bottom'
+          hidden: (await OrchidJS.Settings.getValue('general.chrome.position')) !== 'bottom'
         },
         {
           name: 'Move Chrome Up',
           l10nId: 'dropdown-moveChromeUp',
           icon: 'browser-moveup',
-          hidden: (await Settings.getValue('general.chrome.position')) !== 'bottom',
-          onclick: () => Settings.setValue('general.chrome.position', 'top')
+          hidden: (await OrchidJS.Settings.getValue('general.chrome.position')) !== 'bottom',
+          onclick: () => OrchidJS.Settings.setValue('general.chrome.position', 'top')
         },
         { type: 'separator' },
         {
@@ -1001,14 +1009,14 @@
         },
         {
           type: 'separator',
-          hidden: (await Settings.getValue('general.chrome.position')) !== 'top'
+          hidden: (await OrchidJS.Settings.getValue('general.chrome.position')) !== 'top'
         },
         {
           name: 'Move Chrome Down',
           l10nId: 'dropdown-moveChromeDown',
           icon: 'browser-movedown',
-          hidden: (await Settings.getValue('general.chrome.position')) !== 'top',
-          onclick: () => Settings.setValue('general.chrome.position', 'bottom')
+          hidden: (await OrchidJS.Settings.getValue('general.chrome.position')) !== 'top',
+          onclick: () => OrchidJS.Settings.setValue('general.chrome.position', 'bottom')
         }
       ];
 
@@ -1022,17 +1030,17 @@
     requestBookmark: function () {
       const webview = this.browserContainer.querySelector('.browser-view.active > .browser');
 
-      ModalDialog.showPrompt(L10n.get('bookmark'), L10n.get('bookmark-detail'), (value) => {
+      ModalDialog.showPrompt(OrchidJS.L10n.get('bookmark'), OrchidJS.L10n.get('bookmark-detail'), (value) => {
         const newItem = {
           name: value,
           url: webview.getURL(),
           timeCreated: Date.now()
         };
 
-        Settings.getValue('bookmarks', 'bookmarks.json').then((value) => {
+        OrchidJS.Settings.getValue('bookmarks', 'bookmarks.json').then((value) => {
           if (array.some((item) => item.url === newItem.url)) {
             value.push(newItem);
-            Settings.setValue('bookmarks', value, 'bookmarks.json');
+            OrchidJS.Settings.setValue('bookmarks', value, 'bookmarks.json');
           }
         });
       });
@@ -1061,20 +1069,20 @@
         {
           name: 'Default',
           l10nId: 'ssl-userAgent-default',
-          icon: (await Settings.getValue('general.chrome.user_agent')) === 'default' ? 'tick' : ' ',
-          onclick: () => Settings.setValue('general.chrome.user_agent', 'default')
+          icon: (await OrchidJS.Settings.getValue('general.chrome.user_agent')) === 'default' ? 'tick' : ' ',
+          onclick: () => OrchidJS.Settings.setValue('general.chrome.user_agent', 'default')
         },
         {
           name: 'Android (Phone)',
           l10nId: 'ssl-userAgent-android',
-          icon: (await Settings.getValue('general.chrome.user_agent')) === 'android' ? 'tick' : ' ',
-          onclick: () => Settings.setValue('general.chrome.user_agent', 'android')
+          icon: (await OrchidJS.Settings.getValue('general.chrome.user_agent')) === 'android' ? 'tick' : ' ',
+          onclick: () => OrchidJS.Settings.setValue('general.chrome.user_agent', 'android')
         },
         {
           name: 'Desktop',
           l10nId: 'ssl-userAgent-desktop',
-          icon: (await Settings.getValue('general.chrome.user_agent')) === 'desktop' ? 'tick' : ' ',
-          onclick: () => Settings.setValue('general.chrome.user_agent', 'desktop')
+          icon: (await OrchidJS.Settings.getValue('general.chrome.user_agent')) === 'desktop' ? 'tick' : ' ',
+          onclick: () => OrchidJS.Settings.setValue('general.chrome.user_agent', 'desktop')
         },
         { type: 'separator' },
         {
@@ -1339,7 +1347,7 @@
         console.log(webview.getURL(), this.DEFAULT_URL, webview.getURL() === this.DEFAULT_URL);
 
         if (webview.getURL() === this.DEFAULT_URL) {
-          this.urlbarDisplayUrl.innerText = L10n.get('urlbar');
+          this.urlbarDisplayUrl.innerText = OrchidJS.L10n.get('urlbar');
         } else {
           const url = new URL(webview.getURL());
           this.urlbarDisplayUrl.innerHTML = `
@@ -1356,7 +1364,7 @@
           console.log(webview.getURL(), this.DEFAULT_URL, webview.getURL() === this.DEFAULT_URL);
 
           if (webview.getURL() === this.DEFAULT_URL) {
-            this.urlbarDisplayUrl.innerText = L10n.get('urlbar');
+            this.urlbarDisplayUrl.innerText = OrchidJS.L10n.get('urlbar');
           } else {
             const url = new URL(webview.getURL());
             this.urlbarDisplayUrl.innerHTML = `
@@ -1386,9 +1394,14 @@
         if (luminance > 0.5) {
           this.chromeElement.classList.remove('dark');
           this.chromeElement.parentElement.classList.remove('dark');
+
+          if (this.statusbar) {
+            this.statusbar.classList.remove('dark');
+          }
           if (this.app && this.app.statusbar && this.app.statusbar.element) {
             this.app.statusbar.element.classList.remove('dark');
           }
+
           if (this.softwareButtons) {
             this.softwareButtons.classList.remove('dark');
           }
@@ -1397,9 +1410,14 @@
           }
           this.chromeElement.classList.add('light');
           this.chromeElement.parentElement.classList.add('light');
+
+          if (this.statusbar) {
+            this.statusbar.classList.add('light');
+          }
           if (this.app && this.app.statusbar && this.app.statusbar.element) {
             this.app.statusbar.element.classList.add('light');
           }
+
           if (this.softwareButtons) {
             this.softwareButtons.classList.add('light');
           }
@@ -1410,9 +1428,14 @@
           // Otherwise, remove 'light' class
           this.chromeElement.classList.remove('light');
           this.chromeElement.parentElement.classList.remove('light');
+
+          if (this.statusbar) {
+            this.statusbar.classList.remove('light');
+          }
           if (this.app && this.app.statusbar && this.app.statusbar.element) {
             this.app.statusbar.element.classList.remove('light');
           }
+
           if (this.softwareButtons) {
             this.softwareButtons.classList.remove('light');
           }
@@ -1421,9 +1444,14 @@
           }
           this.chromeElement.classList.add('dark');
           this.chromeElement.parentElement.classList.add('dark');
+
+          if (this.statusbar) {
+            this.statusbar.classList.add('dark');
+          }
           if (this.app && this.app.statusbar && this.app.statusbar.element) {
             this.app.statusbar.element.classList.add('dark');
           }
+
           if (this.softwareButtons) {
             this.softwareButtons.classList.add('dark');
           }
@@ -1511,7 +1539,7 @@
         document.scrollingElement.style.setProperty('--accent-color-r', 192);
         document.scrollingElement.style.setProperty('--accent-color-g', 0);
         document.scrollingElement.style.setProperty('--accent-color-b', 64);
-        Settings.setValue('homescreen.accent_color.rgb', {
+        OrchidJS.Settings.setValue('homescreen.accent_color.rgb', {
           r: 192,
           g: 0,
           b: 64
@@ -1521,7 +1549,7 @@
         document.scrollingElement.style.setProperty('--accent-color-r', 255);
         document.scrollingElement.style.setProperty('--accent-color-g', 192);
         document.scrollingElement.style.setProperty('--accent-color-b', 0);
-        Settings.setValue('homescreen.accent_color.rgb', {
+        OrchidJS.Settings.setValue('homescreen.accent_color.rgb', {
           r: 255,
           g: 192,
           b: 0
@@ -1531,7 +1559,7 @@
         document.scrollingElement.style.setProperty('--accent-color-r', 64);
         document.scrollingElement.style.setProperty('--accent-color-g', 160);
         document.scrollingElement.style.setProperty('--accent-color-b', 96);
-        Settings.setValue('homescreen.accent_color.rgb', {
+        OrchidJS.Settings.setValue('homescreen.accent_color.rgb', {
           r: 64,
           g: 160,
           b: 96
@@ -1541,7 +1569,7 @@
         document.scrollingElement.style.setProperty('--accent-color-r', null);
         document.scrollingElement.style.setProperty('--accent-color-g', null);
         document.scrollingElement.style.setProperty('--accent-color-b', null);
-        Settings.setValue('homescreen.accent_color.rgb', {
+        OrchidJS.Settings.setValue('homescreen.accent_color.rgb', {
           r: null,
           g: null,
           b: null
@@ -1551,7 +1579,7 @@
         document.scrollingElement.style.setProperty('--accent-color-r', 128);
         document.scrollingElement.style.setProperty('--accent-color-g', 48);
         document.scrollingElement.style.setProperty('--accent-color-b', 160);
-        Settings.setValue('homescreen.accent_color.rgb', {
+        OrchidJS.Settings.setValue('homescreen.accent_color.rgb', {
           r: 128,
           g: 48,
           b: 160

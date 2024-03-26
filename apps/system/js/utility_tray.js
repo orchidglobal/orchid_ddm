@@ -60,10 +60,10 @@
       this.screenCaptureButton.addEventListener('click', this.handleScreenCaptureButton.bind(this));
       this.flashlightButton.addEventListener('click', this.handleFlashlightButton.bind(this));
 
-      this.mediaPlayback.addEventListener('contextmenu', this.handleMediaPlaybackHold.bind(this));
-      this.wifiButton.addEventListener('contextmenu', this.handleWifiButtonHold.bind(this));
-      this.bluetoothButton.addEventListener('contextmenu', this.handleBluetoothButtonHold.bind(this));
-      this.audioButton.addEventListener('contextmenu', this.handleAudioButtonHold.bind(this));
+      new OrchidJS.ForceTouch(this.mediaPlayback, this.handleMediaPlaybackHold.bind(this), 'hold');
+      new OrchidJS.ForceTouch(this.wifiButton, this.handleWifiButtonHold.bind(this), 'hold');
+      new OrchidJS.ForceTouch(this.bluetoothButton, this.handleBluetoothButtonHold.bind(this), 'hold');
+      new OrchidJS.ForceTouch(this.audioButton, this.handleAudioButtonHold.bind(this), 'hold');
 
       this.mediaPlaybackBackButton.addEventListener('click', this.handleMediaPlaybackBackButton.bind(this));
       this.wifiBackButton.addEventListener('click', this.handleWifiBackButton.bind(this));
@@ -76,13 +76,14 @@
       this.wifiButton.classList.toggle('enabled', WifiManager.isEnabled);
 
       this.audioButton.classList.remove('ringing', 'vibrate', 'muted');
-      Settings.getValue('audio.profile_type').then(this.handleAudioProfile.bind(this));
-      Settings.addObserver('audio.profile_type', this.handleAudioProfile.bind(this));
+      OrchidJS.Settings.getValue('audio.profile_type').then(this.handleAudioProfile.bind(this));
+      OrchidJS.Settings.addObserver('audio.profile_type', this.handleAudioProfile.bind(this));
 
       this.quickSettings.classList.add('collapsed');
     },
 
     handleAudioProfile: function (value) {
+      this.audioButton.classList.remove('ringing', 'vibrate', 'muted');
       this.audioButton.classList.add(this.AUDIO_PROFILES[value].id);
     },
 
@@ -98,13 +99,13 @@
 
     onPointerDown: function (event) {
       this.isDragging = true;
-      this.startY = event.clientY || event.touches[0].clientY;
+      this.startY = event.clientY;
       this.quickSettings.classList.add('dragging');
     },
 
     onPointerMove: function (event) {
       this.isDragging = true;
-      this.currentY = event.clientY || event.touches[0].clientY;
+      this.currentY = event.clientY;
 
       const movementY = this.currentY - this.startY;
       const progress = Math.min(1, Math.max(0, (movementY / window.innerHeight) * 5));
@@ -114,7 +115,7 @@
 
     onPointerUp: function (event) {
       this.isDragging = false;
-      this.currentY = event.clientY || event.touches[0].clientY;
+      this.currentY = event.clientY;
 
       const movementY = this.currentY - this.startY;
       const progress = Math.min(1, Math.max(0, (movementY / window.innerHeight) * 5));
@@ -131,13 +132,13 @@
     },
 
     handleMediaPlaybackHold: function () {
-      Transitions.scale(this.mediaPlayback, this.mediaPlaybackPanel);
+      OrchidJS.Transitions.scale(this.mediaPlayback, this.mediaPlaybackPanel);
       this.element.classList.add('panel-open');
       this.mediaPlaybackPanel.classList.add('visible');
     },
 
     handleMediaPlaybackBackButton: function () {
-      Transitions.scale(this.mediaPlaybackPanel, this.mediaPlayback);
+      OrchidJS.Transitions.scale(this.mediaPlaybackPanel, this.mediaPlayback);
       this.element.classList.remove('panel-open');
       this.mediaPlaybackPanel.classList.remove('visible');
     },
@@ -153,13 +154,13 @@
     },
 
     handleWifiButtonHold: function () {
-      Transitions.scale(this.wifiButton. this.wifiPanel);
+      OrchidJS.Transitions.scale(this.wifiButton, this.wifiPanel);
       this.element.classList.add('panel-open');
       this.wifiPanel.classList.add('visible');
     },
 
     handleWifiBackButton: function () {
-      Transitions.scale(this.wifiPanel, this.wifiButton);
+      OrchidJS.Transitions.scale(this.wifiPanel, this.wifiButton);
       this.element.classList.remove('panel-open');
       this.wifiPanel.classList.remove('visible');
     },
@@ -169,13 +170,13 @@
     },
 
     handleBluetoothButtonHold: function () {
-      Transitions.scale(this.bluetoothButton. this.bluetoothPanel);
+      OrchidJS.Transitions.scale(this.bluetoothButton, this.bluetoothPanel);
       this.element.classList.add('panel-open');
       this.bluetoothPanel.classList.add('visible');
     },
 
     handleBluetoothBackButton: function () {
-      Transitions.scale(this.bluetoothPanel, this.bluetoothButton);
+      OrchidJS.Transitions.scale(this.bluetoothPanel, this.bluetoothButton);
       this.element.classList.remove('panel-open');
       this.bluetoothPanel.classList.remove('visible');
     },
@@ -199,29 +200,27 @@
         this.audioButton.classList.remove('enabled');
       }
 
-      Settings.setValue('audio.profile_type', this.audioIndex);
+      OrchidJS.Settings.setValue('audio.profile_type', this.audioIndex);
 
       switch (this.AUDIO_PROFILES[this.audioIndex].id) {
         case 'ringing':
           this.SOUND_NOTIFIER.currentTime = 0;
           this.SOUND_NOTIFIER.play();
 
-          Settings.setValue('audio.vibrate.enabled', true);
-          Settings.setValue('audio.mute.enabled', false);
+          OrchidJS.Settings.setValue('audio.vibrate.enabled', true);
+          OrchidJS.Settings.setValue('audio.mute.enabled', false);
           break;
 
         case 'vibrate':
           navigator.vibrate(500);
 
-          Settings.setValue('audio.vibrate.enabled', true);
-          Settings.setValue('audio.mute.enabled', true);
+          OrchidJS.Settings.setValue('audio.vibrate.enabled', true);
+          OrchidJS.Settings.setValue('audio.mute.enabled', true);
           break;
 
         case 'muted':
-          navigator.vibrate(500);
-
-          Settings.setValue('audio.vibrate.enabled', false);
-          Settings.setValue('audio.mute.enabled', true);
+          OrchidJS.Settings.setValue('audio.vibrate.enabled', false);
+          OrchidJS.Settings.setValue('audio.mute.enabled', true);
           break;
 
         default:
@@ -230,13 +229,13 @@
     },
 
     handleAudioButtonHold: function () {
-      Transitions.scale(this.audioButton. this.audioPanel);
+      OrchidJS.Transitions.scale(this.audioButton, this.audioPanel);
       this.element.classList.add('panel-open');
       this.audioPanel.classList.add('visible');
     },
 
     handleAudioBackButton: function () {
-      Transitions.scale(this.audioPanel, this.audioButton);
+      OrchidJS.Transitions.scale(this.audioPanel, this.audioButton);
       this.element.classList.remove('panel-open');
       this.audioPanel.classList.remove('visible');
     },

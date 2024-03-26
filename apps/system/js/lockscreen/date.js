@@ -13,11 +13,12 @@
     },
 
     update: function () {
+      if (!this.motionElement.classList.contains('visible')) {
+        return;
+      }
+
       const currentTime = new Date();
-      const langCode =
-        L10n.currentLanguage.startsWith('ar')
-          ? 'ar-SA'
-          : L10n.currentLanguage;
+      const langCode = OrchidJS.L10n.currentLanguage.startsWith('ar') ? 'ar-SA' : OrchidJS.L10n.currentLanguage;
 
       this.dateElement.innerText = currentTime.toLocaleDateString(langCode, {
         year: 'numeric',

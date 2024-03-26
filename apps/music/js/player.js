@@ -4,6 +4,7 @@
   const Player = {
     element: document.getElementById('player'),
     backButton: document.getElementById('player-back-button'),
+    showButton: document.getElementById('player-show-button'),
     name: document.getElementById('player-name'),
     trackSlider: document.getElementById('player-track-slider'),
     trackCurrentTime: document.getElementById('player-track-current-time'),
@@ -15,6 +16,7 @@
 
     init: function () {
       this.backButton.addEventListener('click', this.handleBackButton.bind(this));
+      this.showButton.addEventListener('click', this.handleShowButton.bind(this));
       this.trackSlider.addEventListener('input', this.handleTrackSlider.bind(this));
       this.trackSlider.addEventListener('change', this.handleTrackSlider.bind(this));
     },
@@ -75,7 +77,17 @@
     },
 
     handleBackButton: function (event) {
+      const currentPanel = document.querySelector('section[role="panel"]:not(#player).visible');
+      const currentHeader = currentPanel.children[0];
+      OrchidJS.Transitions.scale(this.element, currentHeader);
       this.hide();
+    },
+
+    handleShowButton: function (event) {
+      const currentPanel = document.querySelector('section[role="panel"]:not(#player).visible');
+      const currentHeader = currentPanel.children[0];
+      OrchidJS.Transitions.scale(currentHeader, this.element);
+      this.show();
     }
   };
 

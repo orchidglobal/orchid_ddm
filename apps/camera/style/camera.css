@@ -1,0 +1,22 @@
+#root > header:first-child {
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  backdrop-filter: none;
+}
+
+#root > header:first-child a {
+  border-radius: 2rem;
+  outline: solid 0.1rem rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#root > header:first-child a:hover {
+  outline-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#root > header:first-child a:active {
+  outline-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
+}

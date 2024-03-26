@@ -17,5 +17,5 @@
     }
   };
 
-  exports.FontSettings = FontSettings;
+  SettingsApp.FontSettings = FontSettings;
 })(window);

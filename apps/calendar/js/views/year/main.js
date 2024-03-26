@@ -15,10 +15,7 @@
     },
 
     handleLocalization: function () {
-      const langCode =
-        L10n.currentLanguage === 'ar'
-          ? 'ar-SA'
-          : L10n.currentLanguage;
+      const langCode = L10n.currentLanguage === 'ar' ? 'ar-SA' : L10n.currentLanguage;
       const dateLabel = new Date().toLocaleDateString(langCode, {
         year: 'numeric'
       });

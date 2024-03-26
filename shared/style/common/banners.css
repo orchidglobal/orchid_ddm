@@ -1,0 +1,235 @@
+section[role="banner"] {
+  display: flex;
+  visibility: hidden;
+  z-index: 100;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  flex-direction: column;
+  width: 100%;
+  max-width: 40rem;
+  padding-bottom: var(--software-buttons-height);
+  transform: translateY(calc(100% + 1.5rem));
+  translate: -50% 0;
+  background-color: var(--background-plus);
+  box-shadow: 0 -0.8rem 2.4rem rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s cubic-bezier(0.5, 0.8, 0, 1), visibility 0.5s ease;
+}
+
+section[role="banner"].visible {
+  visibility: visible;
+  transform: translateY(0);
+}
+
+section[role="banner"] > section {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1rem 2rem;
+}
+
+section[role="banner"] > section h1 {
+  margin: 0;
+  padding: 0.4rem 0;
+  color: var(--text-color);
+  font-weight: bold;
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+}
+
+section[role="banner"] > section p {
+  margin: 0 0 1rem;
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+}
+
+section[role="banner"] > section p:last-child {
+  margin: 0;
+}
+
+section[role="banner"] > section figure {
+  display: flex;
+  align-items: center;
+  margin: 0 0 1rem;
+  padding: 0;
+  gap: 1rem;
+}
+
+section[role="banner"] > section figure > img {
+  flex-shrink: 0;
+  width: 5rem;
+  height: 5rem;
+}
+
+section[role="banner"] > section figure.contact > img {
+  border-radius: 50%;
+}
+
+section[role="banner"] > section figure > figcaption {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+section[role="banner"] > section figure > figcaption p {
+  margin: 0;
+}
+
+section[role="banner"] > section figure > figcaption p:not(:first-child) {
+  color: var(--text-color-faded);
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+section[role="banner"] > menu {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: end;
+  height: 6rem;
+  margin: 0;
+  padding: 0.5rem 1.5rem 1.5rem;
+  gap: 0.5rem;
+}
+
+section[role="banner"] > menu button {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: max-content;
+  height: 4rem;
+  margin: 0;
+  padding: 0 2.5rem;
+  overflow: hidden;
+  border: none;
+  border-radius: 2rem;
+  outline: none;
+  background-color: transparent;
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 4rem;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+section[role="banner"] > menu button.recommend {
+  background-color: var(--accent-color);
+  color: var(--accent-text-color);
+}
+
+section[role="banner"] > menu button.recommend:hover {
+  background: var(--accent-color) linear-gradient(0deg, var(--accent-color-hover), var(--accent-color-hover));
+}
+
+section[role="banner"] > menu button.recommend:active {
+  background: var(--accent-color) linear-gradient(0deg, var(--accent-color-active), var(--accent-color-active));
+}
+
+section[role="banner"] > menu button.danger {
+  background-color: #c00040;
+  color: rgba(255,255,255,0.75);
+}
+
+section[role="banner"] > menu button.danger:hover {
+  background: #c00040 linear-gradient(0deg, rgba(255,255,255,0.1), rgba(255,255,255,0.1));
+}
+
+section[role="banner"] > menu button.danger:active {
+  background: #c00040 linear-gradient(0deg, rgba(255,255,255,0.2), rgba(255,255,255,0.2));
+}
+
+section[role="banner"] > menu button.dial {
+  background-color: #40a060;
+  color: rgba(255,255,255,0.75);
+}
+
+section[role="banner"] > menu button.dial:hover {
+  background: #40a060 linear-gradient(0deg, rgba(255,255,255,0.1), rgba(255,255,255,0.1));
+}
+
+section[role="banner"] > menu button.dial:active {
+  background: #40a060 linear-gradient(0deg, rgba(255,255,255,0.2), rgba(255,255,255,0.2));
+}
+
+section[role="banner"] > menu button:hover {
+  background-color: var(--item-hover);
+  transition: background-color 0.1s ease;
+}
+
+section[role="banner"] > menu button:active {
+  background-color: var(--item-active);
+  transition: background-color 0.1s ease;
+}
+
+section[role="banner"] > menu button[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+section[role="banner"] > menu button[data-icon] {
+  position: relative;
+  padding-inline-start: 4rem;
+}
+
+section[role="banner"] > menu button[data-icon].previous {
+  padding-inline-start: 4rem;
+  padding-inline-end: 1.5rem;
+}
+html[dir="ltr"] section[role="banner"] > menu button[data-icon].previous {
+  text-align: right;
+}
+html[dir="rtl"] section[role="banner"] > menu button[data-icon].previous {
+  text-align: left;
+}
+
+section[role="banner"] > menu button[data-icon].next {
+  padding-inline-start: 1.5rem;
+  padding-inline-end: 4rem;
+}
+html[dir="ltr"] section[role="banner"] > menu button[data-icon].next {
+  text-align: left;
+}
+html[dir="rtl"] section[role="banner"] > menu button[data-icon].next {
+  text-align: right;
+}
+
+section[role="banner"] > menu button[data-icon]::before {
+  position: absolute;
+  top: 0;
+  width: 2rem;
+  font-size: 2rem;
+}
+html[dir="ltr"] section[role="banner"] > menu button[data-icon]::before {
+  left: 1.5rem;
+}
+html[dir="rtl"] section[role="banner"] > menu button[data-icon]::before {
+  right: 1.5rem;
+}
+
+html[dir="ltr"] section[role="banner"] > menu button[data-icon].next::before {
+  right: 1rem;
+  left: unset;
+}
+html[dir="rtl"] section[role="banner"] > menu button[data-icon].next::before {
+  right: unset;
+  left: 1rem;
+}
+
+@media screen and (min-width: 768px),
+       screen and (orientation: landscape) {
+  section[role="banner"] {
+    left: unset;
+    margin: 1.5rem 1.5rem calc(1.5rem + var(--software-buttons-height));
+    padding-bottom: 0;
+    translate: 0 0;
+    border-radius: 2rem;
+    box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.2);
+  }
+  html[dir="ltr"] section[role="banner"] {
+    left: 0;
+  }
+  html[dir="rtl"] section[role="banner"] {
+    right: 0;
+  }
+}

@@ -117,5 +117,5 @@
     }
   };
 
-  exports.AccentColor = AccentColor;
+  SettingsApp.AccentColor = AccentColor;
 })(window);

@@ -22,43 +22,11 @@
       this.bannerEditButton.addEventListener('click', this.handleBannerEditButton.bind(this));
 
       if (await _os.isLoggedIn()) {
-        _os.auth.getLiveBanner(null, (data) => {
-          this.accountBanner.src = data;
-        });
-        _os.auth.getLiveAvatar(null, (data) => {
-          this.accountAvatar.src = data;
-        });
-        _os.auth.getUsername().then((data) => {
-          this.accountUsername.textContent = data;
-        });
-        _os.auth.getHandleName().then((data) => {
-          this.accountHandle.textContent = `@${data}`;
-        });
-        _os.auth.getFollowers().then((data) => {
-          this.accountFollowers.dataset.l10nArgs = JSON.stringify({
-            count: data.length
-          });
-        });
-        _os.auth.getFriends().then((data) => {
-          this.accountFriends.dataset.l10nArgs = JSON.stringify({
-            count: data.length
-          });
-        });
-        _os.auth.getStatus().then((data) => {
-          this.accountStatus.textContent = data.text;
-        });
         _os.auth.getEmail().then((data) => {
           this.accountEmail.textContent = data;
         });
         _os.auth.getPhoneNumber().then((data) => {
           this.accountPhoneNumber.textContent = data;
-        });
-        _os.auth.getVerificationState().then((data) => {
-          if (data) {
-            this.accountUsername.classList.add('verified');
-          } else {
-            this.accountUsername.classList.remove('verified');
-          }
         });
       }
     },
@@ -94,5 +62,5 @@
     }
   };
 
-  exports.Account = Account;
+  SettingsApp.Account = Account;
 })(window);

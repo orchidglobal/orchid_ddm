@@ -59,6 +59,7 @@
   padding: 0 0.5rem;
   overflow: hidden;
   color: var(--tray-button-text-color);
+  font-weight: var(--generic-label-weight);
   font-size: 1.4rem;
   line-height: 1.8rem;
   text-overflow: ellipsis;
@@ -78,6 +79,7 @@
   padding: 0 0.5rem;
   overflow: hidden;
   color: var(--tray-button-text-color);
+  font-weight: var(--generic-label-weight);
   font-size: 1.2rem;
   line-height: 1.6rem;
   text-overflow: ellipsis;
@@ -104,6 +106,7 @@
 #media-playback-inactive > .inactive-message {
   width: 100%;
   color: var(--tray-button-text-color-faded);
+  font-weight: var(--generic-label-weight);
   font-size: 1.4rem;
   text-align: center;
 }
@@ -134,7 +137,7 @@
   color: var(--tray-button-text-color);
   /* line-height: 3.2rem; */
   text-align: center;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 .media-playback.expanded .content .buttons button {
@@ -143,11 +146,13 @@
 }
 
 .media-playback .content .buttons button:hover {
-  transform: scale(1.1);
+  background-color: var(--item-hover);
+  transition: background-color 0.1s ease;
 }
 
 .media-playback .content .buttons button:active {
-  transform: scale(0.9);
+  background-color: var(--item-active);
+  transition: background-color 0.1s ease;
 }
 
 .media-playback .content .buttons button[data-icon]::before {

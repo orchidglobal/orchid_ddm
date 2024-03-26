@@ -1,24 +1,27 @@
-!(function (exports) {
-  'use strict';
+class Bootstrap extends OrchidJS.OrchidFramework {
+  constructor() {
+    super();
 
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker
-        .register('/sw.js')
-        .then((registration) => {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch((error) => {
-          console.log('Service Worker registration failed:', error);
-        });
-    });
+    window.addEventListener('orchid-services-ready', this.whenServicesReady.bind(this));
   }
 
-  document.addEventListener('DOMContentLoaded', function () {
+  whenServicesReady() {
+
+  }
+
+  whenReady() {
+    this.unsupportedAlertbar = document.getElementById('alertbar-unsupported');
+
+    if (OrchidJS.isSupported) {
+      this.unsupportedAlertbar.remove();
+    }
+
     LazyLoader.load('js/webapps.js');
     LazyLoader.load('js/slideshow.js');
 
     LazyLoader.load('js/pages/root/main.js');
     LazyLoader.load('js/pages/publish/main.js');
-  });
-})(window);
+  }
+}
+
+OrchidJS.setInstance(new Bootstrap());

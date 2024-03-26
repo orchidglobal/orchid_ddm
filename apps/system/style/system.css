@@ -9,7 +9,7 @@ html, body {
 }
 
 .screen {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -136,12 +136,12 @@ html, body {
   font-size: 1.6rem;
   text-align: center;
   opacity: 0;
-  transition: all 0.5s ease;
+  /* transition: all 0.5s ease; */
 }
 
 #inactivity-screen.visible .message {
   transform: scale(1);
   opacity: 1;
-  transition: all 0.5s ease 0.5s;
+  /* transition: all 0.5s ease 0.5s; */
 }
 

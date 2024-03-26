@@ -1,7 +1,5 @@
 .posts {
   position: relative;
-  height: 100%;
-  perspective: 100vh;
 }
 
 .post {
@@ -12,8 +10,7 @@
   width: calc(100% - 3rem);
   max-width: calc(var(--safezone-width) - 3rem);
   margin: 0 auto 1rem;
-  padding: 1rem 1.5rem;
-  gap: 1rem;
+  padding: 0.5rem;
   border: solid 0.1rem var(--list-background-border);
   border-radius: 1.5rem;
   background-color: var(--list-background);
@@ -42,14 +39,11 @@
   transition: background-color 0.1s ease;
 }
 
-.posts.hidden .post:not(.target) {
-  transform: translateZ(-10rem);
-}
-
 .post > .header {
+  box-sizing: border-box;
   display: flex;
   width: 100%;
-  height: 4.2rem;
+  padding: 0.5rem 1rem;
   gap: 1rem;
 }
 
@@ -104,6 +98,11 @@
   background-color: var(--text-color);
 }
 
+.post > .content {
+  box-sizing: border-box;
+  padding: 0.5rem 1rem;
+}
+
 .post > .content .text {
   width: 100%;
   color: var(--text-color);
@@ -140,8 +139,20 @@
   margin: 0;
   padding: 0 1.5rem;
   gap: 0.75rem;
+  border-radius: 1rem;
   background-color: transparent;
   line-height: 4rem;
+  transition: background-color 0.3s ease;
+}
+
+.post .options > button:hover {
+  background-color: var(--item-hover);
+  transition: background-color 0.1s ease;
+}
+
+.post .options > button:active {
+  background-color: var(--item-active);
+  transition: background-color 0.1s ease;
 }
 
 .post .options > button[data-icon]::before {
@@ -213,6 +224,78 @@
   font-weight: normal;
   font-size: 1.6rem;
   line-height: 2.2rem;
+}
+
+.community-notes > .buttons {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  gap: 1rem;
+}
+
+.community-notes > .buttons > button {
+  margin: 0;
+}
+
+#post-reply-form {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--safezone-width);
+  padding: 0 1.5rem 1.5rem;
+}
+
+#post-reply-form > .input {
+  box-sizing: border-box;
+  display: flex;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border: solid 0.1rem var(--list-background-border);
+  border-radius: 1.5rem;
+  background-color: var(--background-minus);
+}
+
+#post-reply-form > .input textarea {
+  background-color: transparent;
+  box-shadow: none;
+  resize: none;
+}
+
+#post-reply-form > .attachments {
+  box-sizing: border-box;
+  display: flex;
+  padding: 0.5rem;
+  border: solid 0.1rem var(--list-background-border);
+  border-radius: 1.5rem;
+  background-color: var(--list-background);
+}
+
+#post-reply-form > .input button,
+#post-reply-form > .attachments button {
+  width: 4rem;
+  margin: 0;
+  padding: 0 1rem;
+  border-radius: 1rem;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+#post-reply-form > .input button:hover,
+#post-reply-form > .attachments button:hover {
+  background-color: var(--item-hover);
+  transition: background-color 0.1s ease;
+}
+
+#post-reply-form > .input button:active,
+#post-reply-form > .attachments button:active {
+  background-color: var(--item-active);
+  transition: background-color 0.1s ease;
+}
+
+#post-reply-form > .input button[data-icon]::before,
+#post-reply-form > .attachments button[data-icon]::before {
+  position: static;
+  font-size: 2rem;
 }
 
 /* Icon Animation: Like */

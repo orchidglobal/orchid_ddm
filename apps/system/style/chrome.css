@@ -291,8 +291,7 @@
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
-.appframe:not(.browser) .chrome .tablist li > .close-button,
-.appframe:not(.browser) .chrome .tablist li > .mute-button {
+.appframe:not(.browser) .chrome .tablist li > .close-button {
   visibility: hidden;
   opacity: 0;
 }
@@ -616,11 +615,16 @@
   height: 0;
 }
 
+.appframe.fullscreen .chrome:not(.visible) .browser-container > .browser-view,
+.appframe.frameless .chrome:not(.visible) .browser-container > .browser-view,
 .appframe.immersive .chrome:not(.visible) .browser-container > .browser-view {
   top: 0;
   height: 100%;
+  transform: translateY(0);
 }
 
+.appframe.window.fullscreen .chrome:not(.visible) .browser-container > .browser-view,
+.appframe.window.frameless .chrome:not(.visible) .browser-container > .browser-view,
 .appframe.window.immersive .chrome:not(.visible) .browser-container > .browser-view {
   height: calc(100% + var(--software-buttons-height));
 }
@@ -651,8 +655,12 @@
 
 @media screen and (min-width: 760px) {
   .chrome.visible .browser-container > .browser-view {
-    height: calc(100% - var(--statusbar-height) - var(--chrome-tablist-height) - var(--chrome-navbar-height) - (var(--chrome-toolbar-gap) * 3));
-    transform: translateY(calc(var(--chrome-tablist-height) + var(--chrome-navbar-height) + (var(--chrome-toolbar-gap) * 3)));
+    height: calc(100% - var(--statusbar-height) - var(--chrome-tablist-height) - var(--chrome-navbar-height) - (var(--chrome-toolbar-gap) * 2) - 2.5rem);
+    transform: translateY(calc(var(--chrome-tablist-height) + var(--chrome-navbar-height) + (var(--chrome-toolbar-gap) * 2)));
+  }
+
+  #screen.software-buttons-enabled .chrome.visible .browser-container > .browser-view {
+    height: calc(100% - var(--statusbar-height) - var(--chrome-tablist-height) - var(--chrome-navbar-height) - (var(--chrome-toolbar-gap) * 2) - var(--software-buttons-height));
   }
 
   .appframe.window .chrome.visible .browser-container > .browser-view {
@@ -683,10 +691,10 @@
   height: 0.3rem;
   border-radius: 0;
   opacity: 0;
-  transition: all 1s ease;
+  transition: all 0.3s ease;
 }
 
-.chrome .browser-container > .browser-view .progress-bar.visible {
+.appframe.browser .chrome .browser-container > .browser-view .progress-bar.visible {
   visibility: visible;
   opacity: 1;
   transition: all 0.3s ease;

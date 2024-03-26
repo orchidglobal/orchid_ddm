@@ -25,5 +25,5 @@
     }
   };
 
-  exports.Languages = Languages;
+  SettingsApp.Languages = Languages;
 })(window);

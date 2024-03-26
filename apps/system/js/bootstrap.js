@@ -5,12 +5,10 @@
     screen: null,
     inactivityScreen: null,
     statusbar: null,
-    frimwareScreen: null,
-
-    isFrimware: false,
 
     settings: [
       'audio.volume.music',
+      'battery.percentage.visibility',
       'ftu.enabled',
       'general.lang.code',
       'general.software_buttons.enabled',
@@ -20,53 +18,65 @@
       'video.warm_colors.enabled'
     ],
     SETTINGS_AUDIO_VOLUME_MUSIC: 0,
-    SETTINGS_FTU_ENABLED: 1,
-    SETTINGS_GENERAL_LANG_CODE: 2,
-    SETTINGS_GENERAL_SOFTWARE_BUTTONS: 3,
-    SETTINGS_VIDEO_BRIGHTNESS: 4,
-    SETTINGS_VIDEO_DARK_MODE: 5,
-    SETTINGS_VIDEO_READER_MODE: 6,
-    SETTINGS_VIDEO_WARM_COLORS: 7,
+    SETTINGS_BATTERY_PERCENTAGE_VISIBILITY: 1,
+    SETTINGS_FTU_ENABLED: 2,
+    SETTINGS_GENERAL_LANG_CODE: 3,
+    SETTINGS_GENERAL_SOFTWARE_BUTTONS: 4,
+    SETTINGS_VIDEO_BRIGHTNESS: 5,
+    SETTINGS_VIDEO_DARK_MODE: 6,
+    SETTINGS_VIDEO_READER_MODE: 7,
+    SETTINGS_VIDEO_WARM_COLORS: 8,
 
+    /**
+     * Initializes various settings and event listeners for the application.
+     */
     init: function () {
-      // Handle Orchid frimware UI loading
-      this.frimwareScreen = document.getElementById('frimware');
-      if (this.isFrimware) {
-        this.frimwareScreen.classList.add('visible');
-        // Load up charging battery UI if device is off and charging
-        // This only works on natively supported OpenOrchid
-        LazyLoader.load('js/frimware/charging_battery_icon.js');
-        LazyLoader.load('js/frimware/charging_battery_canvas.js');
-        return;
-      }
-
       this.screen = document.getElementById('screen');
       this.inactivityScreen = document.getElementById('inactivity-screen');
 
-      Settings.getValue(this.settings[this.SETTINGS_GENERAL_LANG_CODE]).then(this.handleLanguage.bind(this));
-      Settings.getValue(this.settings[this.SETTINGS_GENERAL_SOFTWARE_BUTTONS]).then(this.handleSoftwareButtons.bind(this));
-      Settings.getValue(this.settings[this.SETTINGS_VIDEO_BRIGHTNESS]).then(this.handleBrightness.bind(this));
-      Settings.getValue(this.settings[this.SETTINGS_VIDEO_WARM_COLORS]).then(this.handleWarmColors.bind(this));
-      Settings.getValue(this.settings[this.SETTINGS_VIDEO_READER_MODE]).then(this.handleReaderMode.bind(this));
+      OrchidJS.Settings.getValue(this.settings[this.SETTINGS_BATTERY_PERCENTAGE_VISIBILITY]).then(this.handleBatteryPercentageVisibility.bind(this));
+      OrchidJS.Settings.getValue(this.settings[this.SETTINGS_GENERAL_LANG_CODE]).then(this.handleLanguage.bind(this));
+      OrchidJS.Settings.getValue(this.settings[this.SETTINGS_GENERAL_SOFTWARE_BUTTONS]).then(
+        this.handleSoftwareButtons.bind(this)
+      );
+      OrchidJS.Settings.getValue(this.settings[this.SETTINGS_VIDEO_BRIGHTNESS]).then(this.handleBrightness.bind(this));
+      OrchidJS.Settings.getValue(this.settings[this.SETTINGS_VIDEO_WARM_COLORS]).then(this.handleWarmColors.bind(this));
+      OrchidJS.Settings.getValue(this.settings[this.SETTINGS_VIDEO_READER_MODE]).then(this.handleReaderMode.bind(this));
 
-      Settings.addObserver(this.settings[this.SETTINGS_AUDIO_VOLUME_MUSIC], this.handleMusicVolume.bind(this));
-      Settings.addObserver(this.settings[this.SETTINGS_GENERAL_LANG_CODE], this.handleLanguageChange.bind(this));
-      Settings.addObserver(this.settings[this.SETTINGS_GENERAL_SOFTWARE_BUTTONS], this.handleSoftwareButtons.bind(this));
-      Settings.addObserver(this.settings[this.SETTINGS_VIDEO_BRIGHTNESS], this.handleBrightness.bind(this));
-      Settings.addObserver(this.settings[this.SETTINGS_VIDEO_DARK_MODE], this.handleColorScheme.bind(this));
-      Settings.addObserver(this.settings[this.SETTINGS_VIDEO_WARM_COLORS], this.handleWarmColors.bind(this));
-      Settings.addObserver(this.settings[this.SETTINGS_VIDEO_READER_MODE], this.handleReaderMode.bind(this));
+      OrchidJS.Settings.addObserver(this.settings[this.SETTINGS_AUDIO_VOLUME_MUSIC], this.handleMusicVolume.bind(this));
+      OrchidJS.Settings.addObserver(this.settings[this.SETTINGS_BATTERY_PERCENTAGE_VISIBILITY], this.handleBatteryPercentageVisibility.bind(this));
+      OrchidJS.Settings.addObserver(this.settings[this.SETTINGS_GENERAL_LANG_CODE], this.handleLanguageChange.bind(this));
+      OrchidJS.Settings.addObserver(
+        this.settings[this.SETTINGS_GENERAL_SOFTWARE_BUTTONS],
+        this.handleSoftwareButtons.bind(this)
+      );
+      OrchidJS.Settings.addObserver(this.settings[this.SETTINGS_VIDEO_BRIGHTNESS], this.handleBrightness.bind(this));
+      OrchidJS.Settings.addObserver(this.settings[this.SETTINGS_VIDEO_DARK_MODE], this.handleColorScheme.bind(this));
+      OrchidJS.Settings.addObserver(this.settings[this.SETTINGS_VIDEO_WARM_COLORS], this.handleWarmColors.bind(this));
+      OrchidJS.Settings.addObserver(this.settings[this.SETTINGS_VIDEO_READER_MODE], this.handleReaderMode.bind(this));
 
       document.addEventListener('visibilitychange', this.handleWindowBlur.bind(this));
       window.addEventListener('focus', this.handleWindowFocus.bind(this));
 
+      LazyLoader.load('js/simulator.js');
+      LazyLoader.load('js/music_controller.js', () => {
+        MusicController.play('/resources/music/theme_music.wav', false);
+        OrchidJS.Settings.getValue(this.settings[this.SETTINGS_AUDIO_VOLUME_MUSIC]).then(this.handleMusicVolume.bind(this));
+        OrchidJS.Settings.getValue(this.settings[this.SETTINGS_FTU_ENABLED]).then(this.handleFirstLaunch.bind(this));
+        MusicController.audio.onended = () => {
+          MusicController.play('/resources/music/theme_music_loop.wav', true);
+          OrchidJS.Settings.getValue(this.settings[this.SETTINGS_AUDIO_VOLUME_MUSIC]).then(this.handleMusicVolume.bind(this));
+        }
+      });
+
       // Load with AppsManager to ensure existing webapps.json and correct
       // load time that isnt too early and is low with loading overhead
-      AppsManager.getAll().then(() => {
+      OrchidJS.AppsManager.getAllApps().then(() => {
         if (window.deviceType === 'desktop') {
           this.statusbar = document.getElementById('software-buttons-statusbar');
         } else {
           this.statusbar = document.getElementById('statusbar');
+          this.statusbar.classList.add('statusbar');
         }
 
         LazyLoader.load('js/lockscreen/lockscreen.js');
@@ -81,46 +91,52 @@
         // TODO: Implement working achievements
         // LazyLoader.load('js/achievements.js');
 
-        LazyLoader.load([
-          'js/statusbar.js',
-          'js/statusbar_icon.js',
-          'js/time_icon.js',
-          'js/battery_icon.js',
-          'js/cellular_data_icon.js',
-          'js/audio_icon.js',
-          'js/wifi_icon.js',
-          'js/data_icon.js',
-          'js/warm_colors_icon.js',
-          'js/reader_mode_icon.js'
-        ], () => {
-          new Statusbar(this.statusbar);
+        LazyLoader.load('js/statusbar_icon.js', () => {
+          LazyLoader.load(
+            [
+              'js/statusbar_icon.js',
+              'js/time_icon.js',
+              'js/battery_icon.js',
+              'js/cellular_data_icon.js',
+              'js/audio_icon.js',
+              'js/wifi_icon.js',
+              'js/data_icon.js',
+              'js/warm_colors_icon.js',
+              'js/reader_mode_icon.js'
+            ],
+            () => {
+              LazyLoader.load('js/statusbar.js', () => {
+                new Statusbar(this.statusbar);
+              });
+            }
+          );
         });
 
         LazyLoader.load('js/alarms_handler.js');
         LazyLoader.load('js/dock_icon.js', () => {
           LazyLoader.load('js/dock.js');
         });
+        LazyLoader.load('js/dynamic_area.js');
         LazyLoader.load('js/keybinds.js');
         LazyLoader.load('js/message_handler.js');
-        LazyLoader.load('js/music_controller.js', () => {
-          Settings.getValue(this.settings[this.SETTINGS_AUDIO_VOLUME_MUSIC]).then(this.handleMusicVolume.bind(this));
-          Settings.getValue(this.settings[this.SETTINGS_FTU_ENABLED]).then(this.handleFirstLaunch.bind(this));
-
-          MusicController.play('/resources/music/bg.mp3', true);
-        });
         LazyLoader.load('js/platform_classifier.js');
         LazyLoader.load('js/rocketbar.js');
         LazyLoader.load('js/utility_tray.js', () => {
           LazyLoader.load('js/utility_tray_motion.js');
           LazyLoader.load('js/network_button.js');
         });
+        LazyLoader.load('js/utility_tray/clock.js');
+        LazyLoader.load('js/utility_tray/date.js');
+        LazyLoader.load('js/wallpaper_manager.js');
         LazyLoader.load('js/webapps.js');
 
         if (window.deviceType === 'desktop') {
           LazyLoader.load('js/app_switcher.js');
           LazyLoader.load('js/app_launcher.js');
           LazyLoader.load('js/icon.js', () => {
-            LazyLoader.load('js/app_launcher_apps.js');
+            LazyLoader.load('js/app_launcher_pagination_dots.js', () => {
+              LazyLoader.load('js/app_launcher_apps.js');
+            });
           });
           LazyLoader.load('js/dashboard.js');
         }
@@ -142,7 +158,7 @@
 
         if (Environment.type === 'development') {
           LazyLoader.load('js/notification_toaster.js', () => {
-            NotificationToaster.showNotification('Development Environment', {
+            OrchidJS.notify('Development Environment', {
               body: 'OrchidOS has detected a active development environment so we wish you a happy straightforward development :D',
               source: 'System',
               badge: '/style/icons/system_64.png',
@@ -156,7 +172,7 @@
                   label: 'Orchid Docs'
                 }
               ]
-            })
+            });
           });
         }
       });
@@ -164,35 +180,85 @@
       window.addEventListener('orchid-services-ready', this.onServicesLoad.bind(this));
     },
 
+    /**
+     * Set the music volume based on the value passed by OrchidJS.Settings.
+     *
+     * @param {number} value
+     * Volume level as an integer in the range of 0-100.
+     */
     handleMusicVolume: function (value) {
-      MusicController.setVolume(value / 100, 1);
+      // Set the volume of the music player to the passed value
+      // from the Settings API as a percentage of maximum volume.
+      MusicController.setVolume(value / 100, 1); // max = 1
     },
 
+    /**
+     * Toggle the visibility of the battery percentage based on the value
+     * passed by OrchidJS.Settings.
+     *
+     * @param {boolean} value
+     * True if the battery percentage should be visible, false otherwise.
+     */
+    handleBatteryPercentageVisibility: function (value) {
+      this.screen.classList.toggle('battery-percentage-visible', value);
+    },
+
+    /**
+     * Handle language change event from OrchidJS.Settings.
+     *
+     * @param {string} value
+     * Language code as a string. See
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_identification_and_negotiation
+     */
     handleLanguage: function (value) {
-      L10n.currentLanguage = value;
+      OrchidJS.L10n.currentLanguage = value;
     },
 
+    /**
+     * Handle language change event from OrchidJS.Settings.
+     *
+     * @param {string} value
+     * Language code as a string. See
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_identification_and_negotiation
+     */
     handleLanguageChange: function (value) {
-      if (L10n.currentLanguage === value) {
+      if (OrchidJS.L10n.currentLanguage === value) {
         return;
       }
 
       LoadingScreen.show();
-      LoadingScreen.element.textContent = L10n.get('changingLanguage');
+      // Show loading message
+      LoadingScreen.element.textContent = OrchidJS.L10n.get('changingLanguage');
+      // Listen for the end of the loading animation
       LoadingScreen.element.addEventListener('transitionend', () => {
-        L10n.currentLanguage = value;
-        LoadingScreen.element.textContent = L10n.get('changingLanguage');
+        // Set the new language
+        OrchidJS.L10n.currentLanguage = value;
+        // Show another loading message
+        LoadingScreen.element.textContent = OrchidJS.L10n.get('changingLanguage');
+        // Hide the loading screen
         LoadingScreen.hide();
       });
     },
 
+    /**
+     * Handle brightness change event from OrchidJS.Settings.
+     *
+     * @param {number} value
+     * Brightness value between 0 and 1 as a float number.
+     */
     handleBrightness: function (value) {
       DisplayManager.setBrightness(value);
     },
 
+    /**
+     * Handle color scheme change event from OrchidJS.Settings.
+     *
+     * @param {boolean} value
+     * If true, apply 'dark' theme. If false, apply 'light' theme.
+     */
     handleColorScheme: function (value) {
       const targetTheme = value ? 'dark' : 'light';
-      IPC.send('change-theme', targetTheme);
+      IPC.send('change-theme', targetTheme); // Notify the main process to change the theme. See: src/main.js
     },
 
     handleSoftwareButtons: function (value) {
@@ -222,36 +288,35 @@
     handleFirstLaunch: function (value) {
       if (value) {
         LockscreenMotion.hideMotionElement();
-        const appWindow = new AppWindow('http://ftu.localhost:8081/manifest.json', {});
+        const appWindow = new AppWindow('http://ftu.localhost:8081/manifest.webapp', {});
       } else {
         LazyLoader.load('js/homescreen_launcher.js');
       }
     },
 
+    /**
+     * Callback function for when Orchid Services have fully loaded.
+     *
+     * Shows a notification to the user indicating that the system is
+     * ready to use.
+     */
     onServicesLoad: function () {
-      // Ensuring your device is fingerprinted into your Orchid account
-      _os.devices.ensureDevice();
-
-      // TODO: Make this send and recieve files
-      // It won't be added to load until that TODO is done
-      // LazyLoader.load('js/remote/p2p.js');
-      LazyLoader.load('js/syncing_data.js');
-      LazyLoader.load('js/notification_toaster.js', () => {
-        NotificationToaster.showNotification('Orchid is ready to use!', {
-          body: 'Orchid Services have loaded successfully.',
-          source: 'System',
-          badge: '/style/icons/system_64.png',
-          icon: 'http://orchidservices.localhost:8081/style/icons/orchidsuite_64.png',
-          actions: [
-            {
-              label: 'Okay',
-              recommend: true
-            },
-            {
-              label: 'Learn More'
-            }
-          ]
-        })
+      _os.devices.ensureDevice(); // Ensure device is created
+      LazyLoader.load(['js/syncing_data.js', 'js/notification_toaster.js'], function () {
+        OrchidJS.notify(
+          'Orchid is ready to use!', // Notification title
+          {
+            // Notification options
+            body: 'Orchid Services have loaded successfully.', // Notification body
+            source: 'System', // Source of the notification
+            icon: '/style/icons/orchidsuite_64.png', // Icon to display
+            actions: [
+              // Actions to display as buttons
+              { label: 'Okay', recommend: true }, // Recommended action
+              { label: 'Learn More' } // Secondary action
+            ]
+          }
+        );
       });
     }
   };

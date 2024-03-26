@@ -19,5 +19,5 @@
     }
   };
 
-  exports.Audio = Audio;
+  SettingsApp.Audio = Audio;
 })(window);

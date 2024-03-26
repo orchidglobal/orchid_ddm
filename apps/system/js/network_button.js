@@ -12,6 +12,10 @@
       WifiManager.getCurrentConnections().then((networks) => {
         this.networks = networks;
 
+        if (!networks || !this.networks[0]) {
+          return;
+        }
+
         const signalStrength = Math.min(100, this.networks[0].quality);
 
         this.wifiButton.classList.add('enabled');

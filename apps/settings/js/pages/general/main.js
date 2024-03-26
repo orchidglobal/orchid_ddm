@@ -28,5 +28,5 @@
     }
   };
 
-  exports.General = General;
+  SettingsApp.General = General;
 })(window);

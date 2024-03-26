@@ -156,5 +156,5 @@
     }
   };
 
-  exports.Devices = Devices;
+  SettingsApp.Devices = Devices;
 })(window);

@@ -5,10 +5,10 @@
     dock: document.getElementById('dock'),
 
     DEFAULT_PINNED_APPS: [
-      { manifestUrl: 'http://browser.localhost:8081/manifest.json', entryID: null },
-      { manifestUrl: 'http://files.localhost:8081/manifest.json', entryID: null },
-      { manifestUrl: 'http://store.localhost:8081/manifest.json', entryID: null },
-      { manifestUrl: 'http://music.localhost:8081/manifest.json', entryID: null }
+      { manifestUrl: 'http://browser.localhost:8081/manifest.webapp', entryID: null },
+      { manifestUrl: 'http://sms.localhost:8081/manifest.webapp', entryID: null },
+      { manifestUrl: 'http://files.localhost:8081/manifest.webapp', entryID: null },
+      { manifestUrl: 'http://music.localhost:8081/manifest.webapp', entryID: null }
     ],
 
     init: function () {

@@ -16,7 +16,7 @@
       const fragment = document.createDocumentFragment();
 
       // Fetch available networks and populate the list
-      const apps = window.AppsManager.getAll();
+      const apps = OrchidJS.AppsManager.getAllApps();
       apps.then((data) => {
         for (let index = 0; index < data.length; index++) {
           const app = data[index];
@@ -58,7 +58,7 @@
         }
 
         this.webappsList.appendChild(fragment);
-        PageController.init();
+        OrchidJS.PageController.refresh();
       });
     },
 
@@ -109,5 +109,5 @@
     }
   };
 
-  exports.Webapps = Webapps;
+  SettingsApp.Webapps = Webapps;
 })(window);

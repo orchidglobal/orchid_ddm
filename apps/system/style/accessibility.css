@@ -4,7 +4,7 @@
 
 #accessibility-captions-box {
   visibility: hidden;
-  position: fixed;
+  position: absolute;
   bottom: var(--software-buttons-height);
   left: calc(15% - 0.5rem);
   width: 70%;

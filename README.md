@@ -2,6 +2,8 @@
 
 The user interface and experience of OrchidOS
 
+[Update 1.0.145 Changelog](UPDATE.md)
+
 # Building
 
 To be able to run the user interface, the source code requires Node.js and you have to install the required node dependencies:

@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "role": "keyboard",
+  "name": "لوحة المفاتيح",
+  "description": "",
+  "launch_path": "/index.html",
+  "icons": {
+    "48": "/style/icons/keyboard.png"
+  },
+  "developer": {
+    "name": "Orchid Org.",
+    "url": "https://orchid.thats-the.name/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait-primary",
+  "permissions": {
+    "settings": {}
+  }
+}

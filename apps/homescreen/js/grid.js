@@ -5,13 +5,13 @@
     gridColumns: 4,
     gridRows: 6,
     HIDDEN_ROLES: ['homescreen', 'keyboard', 'system', 'theme', 'addon'],
-    APP_ICON_SIZE: 45,
+    APP_ICON_SIZE: 56,
 
     DEFAULT_DOCK_ICONS: [
-      { manifestUrl: 'http://browser.localhost:8081/manifest.json', entryId: null },
-      { manifestUrl: 'http://sms.localhost:8081/manifest.json', entryId: null },
-      { manifestUrl: 'http://communications.localhost:8081/manifest.json', entryId: 'contacts' },
-      { manifestUrl: 'http://communications.localhost:8081/manifest.json', entryId: 'dialer' }
+      { manifestUrl: 'http://browser.localhost:8081/manifest.webapp', entryId: null },
+      { manifestUrl: 'http://sms.localhost:8081/manifest.webapp', entryId: null },
+      { manifestUrl: 'http://communications.localhost:8081/manifest.webapp', entryId: 'contacts' },
+      { manifestUrl: 'http://communications.localhost:8081/manifest.webapp', entryId: 'dialer' }
     ],
 
     app: document.getElementById('app'),
@@ -200,7 +200,7 @@
         iconContainer.crossOrigin = 'anonymous';
         iconContainer.loading = 'lazy';
         Object.entries(app.manifest.icons).forEach((entry) => {
-          if (entry[0] <= this.APP_ICON_SIZE) {
+          if (entry[0] >= (this.APP_ICON_SIZE * window.devicePixelRatio)) {
             return;
           }
           const url = new URL(app.manifestUrl['en-US']);
@@ -264,7 +264,7 @@
 
       let langCode;
       try {
-        langCode = L10n.currentLanguage || 'en-US';
+        langCode = OrchidJS.L10n.currentLanguage || 'en-US';
       } catch (error) {
         // If an error occurs, set a default value for langCodes
         langCode = 'en-US';
@@ -278,14 +278,15 @@
       }
 
       const iconBox = icon.getBoundingClientRect();
+      const padding = iconBox.width / 18;
       const xPos = iconBox.left + iconBox.width / 2;
       const yPos = iconBox.top + iconBox.height / 2;
       const xScale = iconBox.width / window.innerWidth;
       const yScale = iconBox.height / window.innerHeight;
-      const iconXPos = iconBox.left;
-      const iconYPos = iconBox.top;
-      const iconXScale = iconBox.width / window.innerWidth;
-      const iconYScale = iconBox.height / window.innerHeight;
+      const iconXPos = iconBox.left + padding;
+      const iconYPos = iconBox.top + padding;
+      const iconXScale = (iconBox.width - (padding * 2)) / window.innerWidth;
+      const iconYScale = (iconBox.height - (padding * 2)) / window.innerHeight;
 
       if (!Grid.isDragging) {
         // Dispatch the custom event with the manifest URL
@@ -393,7 +394,7 @@
 
       let langCode;
       try {
-        langCode = L10n.currentLanguage || 'en-US';
+        langCode = OrchidJS.L10n.currentLanguage || 'en-US';
       } catch (error) {
         // If an error occurs, set a default value for langCode
         langCode = 'en-US';

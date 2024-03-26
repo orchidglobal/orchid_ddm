@@ -166,7 +166,7 @@
       separator.classList.add('separator');
       messageInfo.appendChild(separator);
 
-      const lang = L10n.currentLanguage === 'ar' ? 'ar-SA' : L10n.currentLanguage;
+      const lang = OrchidJS.L10n.currentLanguage === 'ar' ? 'ar-SA' : OrchidJS.L10n.currentLanguage;
       const timeCreated = document.createElement('div');
       timeCreated.classList.add('time-created');
       timeCreated.textContent = new Date(message.time_created).toLocaleDateString(lang, {
@@ -191,7 +191,7 @@
 
         messageText.classList.add('text');
         messageText.innerText = message.content;
-        messageText.innerHTML = EmojiConverter.convertToEmoji(messageText.innerText);
+        messageText.innerHTML = OrchidJS.EmojiConverter.convertToEmoji(messageText.innerText);
         content.appendChild(messageText);
 
         this.getEmbedsFromLinks(message.content).then((data) => {
@@ -288,7 +288,7 @@
       this.messages.scrollTop = this.messages.scrollHeight + 50;
       if (isMessageByMe) {
         element.classList.add('yours');
-        Transitions.scale(this.sendButton, content);
+        OrchidJS.Transitions.scale(this.sendButton, content);
       }
 
       const toolbar = document.createElement('div');
@@ -338,17 +338,12 @@
           OrchidServices.getWithUpdate(`profile/${message.publisher_id}`, (data) => {
             this.SOUND_MSG_SENT.currentTime = 0;
             this.SOUND_MSG_SENT.play();
-            const notification = new Notification(data.username, {
+            OrchidJS.notify(data.username, {
               body: message.content,
               icon: data.profile_picture,
               badge: '/style/icons/sms_64.png',
               silent: true
             });
-
-            notification.onclick = function () {
-              window.focus();
-              notification.close();
-            };
           });
         });
       }

@@ -34,17 +34,29 @@
   color: var(--tray-button-text-color);
   text-decoration: none;
   mask: url(utility_tray/images/tray_button_mask.png) no-repeat center / contain;
-  transition: transform 0.3s ease, background-color 0.5s ease;
-}
-
-.quick-settings-rows .row > a:active {
-  transform: scale(0.9);
-  transition: transform 0.1s ease, background-color 0.5s ease;
 }
 
 .quick-settings-rows .row > a.enabled {
-  background-color: var(--tray-button-active);
-  color: var(--tray-button-background);
+  background-color: var(--accent-color);
+  color: var(--accent-text-color);
+}
+
+.quick-settings-rows .row > a,
+.quick-settings-rows .row > .media-playback {
+  transition: scale 0.3s ease, background-color 0.5s ease;
+}
+
+.quick-settings-rows .row > a:active,
+.quick-settings-rows .row > .media-playback:active {
+  scale: 0.95;
+  transition: scale 0.2s ease, background-color 0.5s ease;
+}
+
+.quick-settings-rows .row > a.hold,
+.quick-settings-rows .row > .media-playback.hold {
+  scale: 1.05;
+  filter: drop-shadow(0 0.8rem 2.4rem rgba(0, 0, 0, 0.2));
+  transition: scale 1s ease, filter 1s ease;
 }
 
 .quick-settings-rows .row > a.icon > svg,
@@ -86,10 +98,15 @@ html[dir="rtl"] .quick-settings-rows .row > a.double-width > span[data-icon] {
   right: 1rem;
 }
 
+.quick-settings-rows .row > a.enabled.double-width.icon > svg,
+.quick-settings-rows .row > a.enabled.double-width > span[data-icon] {
+  background-color: var(--accent-color-plus);
+}
+
 .quick-settings-rows .row > a.double-width.icon > .label,
 .quick-settings-rows .row > a.double-width > .label {
   width: 100%;
-  font-weight: normal;
+  font-weight: var(--generic-label-weight);
   font-size: 1.4rem;
 }
 
@@ -152,7 +169,7 @@ html[dir="rtl"] .quick-settings-rows .row > a.double-width > span[data-icon] {
   height: 0;
   border: none;
   background-color: transparent;
-  box-shadow: 0 -50rem 0 50rem var(--tray-button-background), 0 50rem 0 50rem var(--tray-button-active);
+  box-shadow: 0 -50rem 0 50rem var(--tray-slider-background), 0 50rem 0 50rem var(--tray-slider-background-fill);
 }
 
 .quick-settings-rows .row > .slider-columns > .column span[data-icon] {
@@ -164,49 +181,46 @@ html[dir="rtl"] .quick-settings-rows .row > a.double-width > span[data-icon] {
   margin: 0;
   translate: -50% 50%;
   background-color: transparent;
-  color: var(--tray-button-background);
+  color: var(--tray-slider-icon-color);
   font-size: 2.4rem;
 }
 
 .quick-settings-rows .row > a,
 .quick-settings-rows .row > .media-playback,
 .quick-settings-rows .row > .slider-columns .column {
+  transition: scale 0.3s ease, transform 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#utility-tray-motion:not(.buttons-visible) .quick-settings-rows .row > a,
+#utility-tray-motion:not(.buttons-visible) .quick-settings-rows .row > .media-playback,
+#utility-tray-motion:not(.buttons-visible) .quick-settings-rows .row > .slider-columns .column {
   visibility: hidden;
   transform: scale(0.75);
   opacity: 0;
-  transition: transform 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
 }
 
-#utility-tray-motion.buttons-visible .quick-settings-rows .row > a,
-#utility-tray-motion.buttons-visible .quick-settings-rows .row > .media-playback,
-#utility-tray-motion.buttons-visible .quick-settings-rows .row > .slider-columns .column {
-  visibility: visible;
-  transform: scale(1);
-  opacity: 1;
+.quick-settings-rows .row:nth-child(2) > a,
+.quick-settings-rows .row:nth-child(2) > .media-playback,
+.quick-settings-rows .row:nth-child(2) > .slider-columns .column {
+  transition-delay: 0.05s;
 }
 
-.quick-settings-rows:nth-child(2) .row > a,
-.quick-settings-rows:nth-child(2) .row > .media-playback,
-.quick-settings-rows:nth-child(2) .row > .slider-columns .column {
+.quick-settings-rows .row:nth-child(3) > a,
+.quick-settings-rows .row:nth-child(3) > .media-playback,
+.quick-settings-rows .row:nth-child(3) > .slider-columns .column {
   transition-delay: 0.1s;
 }
 
-.quick-settings-rows:nth-child(3) .row > a,
-.quick-settings-rows:nth-child(3) .row > .media-playback,
-.quick-settings-rows:nth-child(3) .row > .slider-columns .column {
+.quick-settings-rows .row:nth-child(4) > a,
+.quick-settings-rows .row:nth-child(4) > .media-playback,
+.quick-settings-rows .row:nth-child(4) > .slider-columns .column {
+  transition-delay: 0.15s;
+}
+
+.quick-settings-rows .row:nth-child(5) > a,
+.quick-settings-rows .row:nth-child(5) > .media-playback,
+.quick-settings-rows .row:nth-child(5) > .slider-columns .column {
   transition-delay: 0.2s;
-}
-
-.quick-settings-rows:nth-child(4) .row > a,
-.quick-settings-rows:nth-child(4) .row > .media-playback,
-.quick-settings-rows:nth-child(4) .row > .slider-columns .column {
-  transition-delay: 0.3s;
-}
-
-.quick-settings-rows:nth-child(5) .row > a,
-.quick-settings-rows:nth-child(5) .row > .media-playback,
-.quick-settings-rows:nth-child(5) .row > .slider-columns .column {
-  transition-delay: 0.4s;
 }
 
 #utility-tray.brightness-changing .quick-settings-rows .row > a,

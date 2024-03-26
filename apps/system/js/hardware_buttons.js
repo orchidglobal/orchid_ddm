@@ -64,7 +64,8 @@
     },
 
     handleShortcut: function () {
-      const appWindow = new AppWindow('http://browser.localhost:8081/manifest.json', {});
+      // const appWindow = new AppWindow('http://browser.localhost:8081/manifest.webapp', {});
+      Assistant.show();
       Snackbar.notify(L10n.get('shortcuts-holdForSOS'));
     }
   };

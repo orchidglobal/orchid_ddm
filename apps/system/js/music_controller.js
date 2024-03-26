@@ -4,7 +4,7 @@
   const MusicController = {
     audio: null,
 
-    volume: 0.5,
+    volume: 0,
 
     init: function () {
       this.audio = new Audio();
@@ -14,6 +14,7 @@
       this.audio = new Audio();
       this.audio.src = src;
       this.audio.loop = loop;
+      this.audio.volume = this.volume;
       this.audio.play();
     },
 

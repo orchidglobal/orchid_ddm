@@ -1,13 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Testing</title>
+  <link rel="stylesheet" type="text/css" href="http://default_theme.localhost:8081/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/common/tablists.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/common/buttons.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/common/lists.css" />
+  <link rel="stylesheet" type="text/css" href="style/index.css" />
+  <script defer type="text/javascript" src="http://shared.localhost:8081/js/lazy_loader.js"></script>
+  <script defer type="text/javascript" src="http://shared.localhost:8081/js/orchidjs.js"></script>
 </head>
 <body>
   <main id="app" role="app">
-    <section id="root" class="visible" role="panel"></section>
+    <section id="root" class="visible" role="panel">
+      <header>
+        <h1>Testing</h1>
+      </header>
+
+      <section class="lists">
+        <header>UX</header>
+        <ul>
+          <li data-icon="tick" data-page-id="confirm">Confirm</li>
+          <li data-icon="password" data-page-id="auth-request">Auth Request</li>
+          <li data-icon="notification" data-page-id="notifications">Notifications</li>
+          <li data-icon="tabs" data-page-id="move-window">Move Window</li>
+          <li data-icon="fullscreen" data-page-id="resize-window">Resize Window</li>
+        </ul>
+
+        <header>Sensors</header>
+        <ul>
+          <li data-icon="reload" data-page-id="accelerometer">Accelerometer</li>
+          <li data-icon="sync" data-page-id="gyroscope">Gyroscope</li>
+        </ul>
+
+        <header>Web API</header>
+        <ul>
+          <li data-icon="vibrate" data-page-id="vibrate">navigator.vibrate</li>
+          <li data-icon="location" data-page-id="location">Geolocation</li>
+        </ul>
+
+        <header>API</header>
+        <ul>
+          <li data-icon="repost" data-page-id="ipc">IPC</li>
+          <li data-icon="folder" data-page-id="environment">Environment</li>
+          <li data-icon="direction" data-page-id="child-process">ChildProcess</li>
+          <li data-icon="wifi" data-page-id="wifi">WifiManager</li>
+          <li data-icon="bluetooth" data-page-id="bluetooth">Bluetooth2</li>
+          <li data-icon="settings" data-page-id="settings">Settings</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="confirm" role="panel">
+      <header>
+        <h1>Confirm</h1>
+      </header>
+
+      <section class="lists">
+        <div class="buttons">
+          <button id="confirm-alert">Alert</button>
+          <button id="confirm-confirm">Confirm</button>
+          <button id="confirm-prompt">Prompt</button>
+        </div>
+      </section>
+    </section>
   </main>
 </body>
 </html>

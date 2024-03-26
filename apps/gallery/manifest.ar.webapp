@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "name": "صالة عرض",
+  "description": "عرض ذكرياتك كصور ومقاطع فيديو.",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "/style/icons/gallery_16.png",
+    "32": "/style/icons/gallery_32.png",
+    "48": "/style/icons/gallery_48.png",
+    "64": "/style/icons/gallery_64.png",
+    "128": "/style/icons/gallery_128.png",
+    "256": "/style/icons/gallery_256.png"
+  },
+  "developer": {
+    "name": "Orchid Org.",
+    "url": "https://orchid.thats-the.name/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait-primary",
+  "permissions": {
+    "settings": {},
+    "storage": {},
+    "device-storage:home": {},
+    "device-storage:photos": {}
+  },
+  "display": "immersive"
+}

@@ -36,7 +36,8 @@
   bottom: 2.5rem;
   left: 0;
   width: 100%;
-  color: var(--text-color-faded);
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: var(--generic-label-weight);
   font-size: 1.4rem;
   text-align: center;
   opacity: 0;
@@ -77,11 +78,15 @@
   }
 }
 
+#screen.utility-tray-visible #bottom-panel {
+  pointer-events: none;
+}
+
 #screen.lockscreen-visible #bottom-panel.transitioning {
   transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.1, 1), opacity 0.3s ease 0.2s;
 }
 
-#screen:not(.lockscreen-visible, .cards-view-visible) #bottom-panel.homescreen {
+#screen:not(.lockscreen-visible, .utility-tray-visible, .cards-view-visible) #bottom-panel.homescreen {
   opacity: 0;
 }
 
@@ -100,6 +105,10 @@
   background-color: #e7e7e7;
   content: '';
   transition: transform 0.3s cubic-bezier(0.5, 0.8, 0, 1.5), width 0.3s cubic-bezier(0.5, 0.8, 0, 1.5), background-color 0.3s ease;
+}
+
+.light .screen.lockscreen-visible #bottom-panel::before {
+  background-color: #333;
 }
 
 #bottom-panel.fullscreen::before {

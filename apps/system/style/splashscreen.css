@@ -68,7 +68,7 @@
 #splashscreen .safety-warning p {
   margin: 0;
   color: #fff;
-  font-weight: normal;
+  font-weight: var(--generic-label-weight);
   font-size: 1.6rem;
 }
 

@@ -25,13 +25,13 @@
       }
       const elementBox = this.element.getBoundingClientRect();
 
-      requestAnimationFrame(() => {
-        if (x > window.innerWidth - (elementBox.width + 10)) {
-          x = window.innerWidth - (elementBox.width + 10);
-        }
+      if (x > window.innerWidth - (elementBox.width + 10)) {
+        x = window.innerWidth - (elementBox.width + 10);
+      }
 
-        this.element.style.width = this.label.scrollWidth + 'px';
-        this.element.style.height = this.label.scrollHeight + 'px';
+      this.element.style.width = this.label.scrollWidth + 'px';
+      this.element.style.height = this.label.scrollHeight + 'px';
+      requestAnimationFrame(() => {
         if (originType === 'webapp') {
           const webviewBox = new AppWindow()
             .getFocusedWindow()

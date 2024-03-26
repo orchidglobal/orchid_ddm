@@ -16,8 +16,7 @@ html[dir="rtl"] #screen.desktop #software-buttons-statusbar {
   left: 0;
 }
 
-#screen.desktop #software-buttons-statusbar:hover,
-#screen.desktop #software-buttons-statusbar.tray-open {
+#screen.desktop #software-buttons-statusbar:hover {
   background-color: var(--item-hover);
   transition: background-color 0.1s ease;
 }
@@ -25,6 +24,10 @@ html[dir="rtl"] #screen.desktop #software-buttons-statusbar {
 #screen.desktop #software-buttons-statusbar:active {
   background-color: var(--item-active);
   transition: background-color 0.1s ease;
+}
+
+#screen.desktop #software-buttons-statusbar.tray-open {
+  background-color: var(--tray-button-background-plus);
 }
 
 #screen.desktop #software-buttons-statusbar::before {

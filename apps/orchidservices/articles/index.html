@@ -18,35 +18,57 @@
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/banners.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/transitions.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/counters.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/input_areas.css" />
   <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/alertbars.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/action_buttons.css" />
+  <link rel="stylesheet" type="text/css" href="http://shared.localhost:8081/style/tablists.css" />
   <link rel="stylesheet" type="text/css" href="style/index.css" />
   <link rel="stylesheet" type="text/css" href="style/posts.css" />
   <link rel="stylesheet" type="text/css" href="style/create_post.css" />
   <script type="module" src="https://orchid-f39a9.web.app/orchid_services.js"></script>
-  <script defer type="text/javascript" src="http://shared.localhost:8081/js/external/smooth-scrollbar.js"></script>
-  <script defer type="text/javascript" src="http://shared.localhost:8081/js/external/plugins/overscroll.js"></script>
-  <script defer type="text/javascript" src="http://shared.localhost:8081/js/page_controller.js"></script>
-  <script defer type="text/javascript" src="http://shared.localhost:8081/js/common/panels.js"></script>
+  <script type="text/javascript" src="http://shared.localhost:8081/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="http://shared.localhost:8081/js/orchidjs.js"></script>
   <script defer type="text/javascript" src="http://shared.localhost:8081/js/utils/transitions.js"></script>
   <script defer type="text/javascript" src="http://shared.localhost:8081/js/common/counters.js"></script>
-  <script defer type="text/javascript" src="js/posts.js"></script>
-  <script defer type="text/javascript" src="js/login_banner.js"></script>
-  <script defer type="text/javascript" src="js/create_post.js"></script>
-  <script defer type="text/javascript" src="js/pages/root/main.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
 
   <script type="text/javascript" src="http://shared.localhost:8081/js/intl/l10n.js"></script>
   <meta name="defaultLanguage" content="en-US" />
   <meta name="availableLanguages"
     content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi" />
+  <link rel="localization" href="http://shared.localhost:8081/locales/branding/branding.{locale}.properties">
+  <link rel="localization" href="http://shared.localhost:8081/locales/services/services.{locale}.properties">
   <link rel="localization" href="./locales/main.{locale}.properties" />
 </head>
 
 <body>
   <main id="app" role="app">
-    <div id="views">
+    <nav class="bb-tablist">
+      <ul>
+        <li><a href="#home" class="selected" data-page-id="home">
+            <span data-icon="user"></span>
+            <span data-l10n-id="suggested"></span>
+          </a></li>
+        <li><a href="#notifications" data-page-id="notifications">
+            <span data-icon="bell"></span>
+            <span data-l10n-id="notifications"></span>
+          </a></li>
+        <li><a href="#bookmarks" data-page-id="bookmarks">
+            <span data-icon="bookmark"></span>
+            <span data-l10n-id="bookmarks"></span>
+          </a></li>
+        <li><a href="#settings" data-page-id="settings">
+            <span data-icon="settings"></span>
+            <span data-l10n-id="settings"></span>
+          </a></li>
+      </ul>
+    </nav>
+
+    <div id="views" class="bb-tablist-views">
       <section id="root" role="panel">
         <header>
           <h1>
+            <img src="style/icons/articles.svg" alt="">
             <span data-l10n-id="title-short"></span>
             <span class="beta">BETA</span>
           </h1>
@@ -66,13 +88,13 @@
             <ul>
               <li class="selected" data-icon="trending" data-page-id="home"><a href="#" data-l10n-id="suggested"></a>
               </li>
-              <li data-icon="search"><a href="#" data-l10n-id="explore"></a></li>
-              <li data-icon="bell"><a href="#" data-l10n-id="notifications"></a></li>
-              <li data-icon="bookmark"><a href="#" data-l10n-id="bookmarks"></a></li>
-              <li data-icon="settings"><a href="#" data-l10n-id="settings"></a></li>
+              <li data-icon="search" data-page-id="search"><a href="#" data-l10n-id="explore"></a></li>
+              <li id="notifications-list-item" data-icon="bell" data-page-id="notifications"><a href="#" data-l10n-id="notifications"></a></li>
+              <li id="bookmarks-list-item" data-icon="bookmark" data-page-id="bookmarks"><a href="#" data-l10n-id="bookmarks"></a></li>
+              <li data-icon="settings" data-page-id="settings"><a href="#" data-l10n-id="settings"></a></li>
             </ul>
 
-            <ul>
+            <ul id="post-button-holder">
               <li data-icon="edit" id="post-button">
                 <p data-l10n-id="publish"></p>
               </li>
@@ -81,7 +103,7 @@
         </section>
       </section>
 
-      <section id="home" class="visible" role="panel">
+      <section id="home" class="visible" role="panel" data-page-object="Posts">
         <header>
           <a href="#" data-icon="menu" data-page-id="root"></a>
           <h1 data-l10n-id="suggested"></h1>
@@ -103,74 +125,58 @@
         </section>
       </section>
 
-      <section id="account" role="panel">
+      <section id="account" role="panel" data-page-object="ArticlesApp.Account">
         <header>
-          <a href="#" id="account-back-button" data-icon="arrow-back"></a>
-          <h1 data-l10n-id="profile"></h1>
+          <a href="#" data-icon="arrow-back" data-page-id="home"></a>
+          <h1 data-l10n-id="account"></h1>
         </header>
         <section>
-          <figure class="profile-banner">
-            <img src="" alt="" id="account-banner" class="banner">
-            <div class="container">
-              <img src="" alt="" id="account-avatar" class="avatar">
-              <figcaption>
-                <div id="account-username" class="username"></div>
-                <div id="account-handle" class="handle"></div>
-                <div class="stats">
-                  <div id="account-followers" data-l10n-id="account-followers"></div>
-                  <div class="separator"></div>
-                  <div id="account-friends" data-l10n-id="account-friends"></div>
-                </div>
-                <div id="account-status" class="status"></div>
-              </figcaption>
-            </div>
-          </figure>
+          <orchid-account-banner id="account-banner"></orchid-account-banner>
+
+          <orchid-tabs id="account-tabs">
+            <orchid-tab id="account-tabs-posts" data-l10n-id="accountTabs-posts" value="posts"></orchid-tab>
+            <orchid-tab id="account-tabs-articles" data-l10n-id="accountTabs-articles" value="articles"></orchid-tab>
+            <orchid-tab id="account-tabs-media" data-l10n-id="accountTabs-media" value="media"></orchid-tab>
+            <orchid-tab id="account-tabs-likes" data-l10n-id="accountTabs-likes" value="likes"></orchid-tab>
+          </orchid-tabs>
+
+          <div id="account-views">
+            <div id="account-posts" class="posts"></div>
+            <div id="account-articles" class="posts"></div>
+            <div id="account-media" class="media"></div>
+            <div id="account-likes" class="posts"></div>
+          </div>
         </section>
       </section>
 
       <section id="post" role="panel">
         <header>
-          <a href="#" id="post-back-button" data-icon="arrow-back"></a>
+          <a href="#" id="post-back-button" data-icon="arrow-back" data-page-id="home"></a>
           <h1 data-l10n-id="post"></h1>
         </header>
         <section>
-          <div class="posts">
-            <div class="post">
-              <div class="header">
-                <div class="icon-holder">
-                  <img src="" alt="" id="post-avatar">
-                </div>
-                <div class="text-holder">
-                  <div id="post-username" class="username"></div>
-                  <div class="stats">
-                    <div id="post-date" class="date"></div>
-                    <div class="separator"></div>
-                    <div id="post-views" class="views"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="content">
-                <div class="text">
-                  <p id="post-text"></p>
-                </div>
-                <div id="post-images" class="images"></div>
-              </div>
-              <menu class="options">
-                <button class="like-button" data-icon="like"></button>
-                <button class="dislike-button" data-icon="dislike"></button>
-                <button class="repost-button" data-icon="repost"></button>
-                <button class="share-button" data-icon="share"></button>
-                <button class="options-button" data-icon="options"></button>
-              </menu>
+          <div id="post-view" class="posts"></div>
+
+          <form action="" id="post-reply-form">
+            <div class="input">
+              <textarea name="" id="post-reply-form-input" rows="3"></textarea>
+              <button id="post-reply-form-send-button" data-icon="send"></button>
             </div>
-          </div>
+
+            <div class="attachments">
+              <button id="post-reply-form-media-button" data-icon="attachment"></button>
+              <button id="post-reply-form-poll-button" data-icon="list" disabled></button>
+            </div>
+          </form>
+
+          <div id="post-replies" class="posts"></div>
         </section>
       </section>
 
       <section id="trending" role="panel">
         <header>
           <a href="#" data-icon="arrow-back" data-page-id="home"></a>
-          <h1>Trending</h1>
+          <h1 data-l10n-id="trending"></h1>
         </header>
         <section class="lists">
           <ul>
@@ -183,22 +189,35 @@
         </section>
       </section>
 
-      <form action="" id="create-post">
-        <div class="container">
-          <section>
-            <div class="header">
-              <button id="create-post-close-button" data-icon="close"></button>
+      <div id="post-action-button-holder" class="bb-actions">
+        <button id="post-action-button" class="recommend" data-icon="edit"></button>
+      </div>
+    </div>
+
+    <div id="create-post">
+      <section id="create-post-panel" role="panel">
+        <header>
+          <a href="#" id="create-post-close-button" data-icon="close"></a>
+          <h1 data-l10n-id="createPost"></h1>
+          <menu role="toolbar">
+            <a href="#" id="create-post-submit-button" data-icon="tick"></a>
+          </menu>
+        </header>
+        <section class="lists">
+          <ul>
+            <li>
+              <p data-l10n-id="createPost-audience"></p>
               <select name="" id="create-post-audience">
                 <option value="public">Public</option>
+                <option value="restricted">Restricted</option>
               </select>
-            </div>
-            <textarea name="" id="create-post-input" rows="5" placeholder="Write your post..."></textarea>
-          </section>
-          <menu>
-            <button id="create-post-submit-button">Post</button>
-          </menu>
-        </div>
-      </form>
+            </li>
+            <li>
+              <textarea name="" id="create-post-input" rows="10" placeholder="Write your post..."></textarea>
+            </li>
+          </ul>
+        </section>
+      </section>
     </div>
 
     <section id="login-banner" role="banner" class="visible">

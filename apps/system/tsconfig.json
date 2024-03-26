@@ -10,7 +10,7 @@
     "esModuleInterop": true
   },
   "include": [
-    "src/**/*"
+    "js/**/*"
   ],
   "exclude": [
     "node_modules"

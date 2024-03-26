@@ -1,15 +1,29 @@
-#views {
+#wolf-message {
+  z-index: 1000;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+#views {
+  position: absolute;
+  overflow: hidden;
 }
 
 @media screen and (min-width: 1024px) {
   #views {
     width: calc(100% - 10vw);
     margin: 0 5vw;
+  }
+}
+
+@media screen and (min-width: 1024px) and (orientation: landscape) {
+  #views {
+    width: calc(100% - 10vw - 9rem);
   }
 }
 
@@ -31,100 +45,6 @@
 
 #post .post::after {
   display: none;
-}
-
-.profile-banner {
-  position: relative;
-  width: calc(100% - 3rem);
-  max-width: calc(var(--safezone-width) - 3rem);
-  margin: 0 auto;
-  padding-top: 13.5rem;
-}
-
-.profile-banner > .banner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 17.5rem;
-  object-fit: cover;
-  border-radius: 1.5rem;
-  background-color: #858585;
-}
-
-.profile-banner > .container {
-  box-sizing: border-box;
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  width: 100%;
-  padding: 0 2rem;
-  gap: 1rem;
-}
-
-.profile-banner > .container .avatar {
-  width: 8rem;
-  height: 8rem;
-  border-radius: 50%;
-  outline: solid 0.5rem var(--background);
-  background-color: #858585;
-}
-
-.profile-banner > .container figcaption {
-  width: 100%;
-  margin: 0 0 1rem;
-}
-
-.profile-banner > .container figcaption .username {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 2.2rem;
-  color: var(--text-color);
-  font-weight: normal;
-  font-size: 1.6rem;
-  line-height: 2.2rem;
-}
-
-.profile-banner > .container figcaption .username.verified::after {
-  -webkit-mask: no-repeat center / 1em;
-  -webkit-mask-image: url('images/verified.svg');
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  margin-inline-start: 0.5rem;
-  background-color: currentColor;
-  content: '';
-  mask: no-repeat center / 1em;
-  mask-image: url('images/verified.svg');
-}
-
-.profile-banner > .container figcaption .stats {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 2rem;
-  color: var(--text-color-faded);
-  font-weight: normal;
-  font-size: 1.4rem;
-  line-height: 2rem;
-}
-
-.profile-banner > .container figcaption .stats > .separator {
-  width: 0.4rem;
-  height: 0.4rem;
-  margin: 0 0.5rem;
-  border-radius: 50%;
-  background-color: var(--text-color);
-}
-
-.profile-banner > .container figcaption .handle {
-  width: 100%;
-  height: 2rem;
-  color: var(--text-color-faded);
-  font-weight: normal;
-  font-size: 1.4rem;
-  line-height: 2rem;
 }
 
 @media screen and (max-width: 767px) {
@@ -155,6 +75,23 @@
 }
 
 @media screen and (min-width: 768px) {
+  .bb-tablist {
+    display: none;
+  }
+
+  #views {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media screen and (min-width: 1024px) {
+    #views {
+      width: calc(100% - 10vw);
+    }
+  }
+
   #root {
     box-sizing: border-box;
     visibility: visible;
@@ -185,16 +122,16 @@
     opacity: 1;
   }
 
-  [role="panel"]:not(#root) {
+  #views section[role="panel"]:not(#root) {
     position: absolute;
     top: 0;
     width: calc(100% - 32rem);
     height: 100%;
   }
-  html[dir="ltr"] [role="panel"]:not(#root) {
+  html[dir="ltr"] #views section[role="panel"]:not(#root) {
     left: 32rem;
   }
-  html[dir="rtl"] [role="panel"]:not(#root) {
+  html[dir="rtl"] #views section[role="panel"]:not(#root) {
     right: 32rem;
   }
 }

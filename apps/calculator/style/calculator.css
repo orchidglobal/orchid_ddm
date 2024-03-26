@@ -168,7 +168,7 @@
 .keyboard-row-y input.confirm,
 .keyboard-row-block > .row input.confirm {
   background-color: var(--accent-color);
-  color: var(--accent-color-plus);
+  color: var(--accent-text-color);
 }
 
 .keyboard-row-x input.label,

@@ -167,7 +167,7 @@
     },
 
     handleWindowOpen: function (data) {
-      const appWindow = new AppWindow('http://browser.localhost:8081/manifest.json', {
+      const appWindow = new AppWindow('http://browser.localhost:8081/manifest.webapp', {
         url: data.url
       });
     },

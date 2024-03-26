@@ -33,7 +33,6 @@ dotenv.config();
 import OrchidNotification from './vanilla/notifications';
 import ModalDialogs from './vanilla/modal_dialogs';
 import Narrator from './modules/narrator';
-import SettingsHandler from './modules/settings_handler';
 import MediaPlayback from './modules/media_playback';
 import WebviewHandler from './modules/webview_handler';
 import Keybinds from './modules/keybinds';
@@ -103,6 +102,8 @@ const InternalPreload = {
     eventRegistery.set('update-available', 'update-available');
     eventRegistery.set('update-download-progress', 'update-download-progress');
     eventRegistery.set('update-downloaded', 'update-downloaded');
+    eventRegistery.set('maximized', 'maximized');
+    eventRegistery.set('unmaximized', 'unmaximized');
 
     for (const [key, value] of eventRegistery) {
       this.registerEvent(key, value);
@@ -194,7 +195,6 @@ const InternalPreload = {
 
   handleDOMContentLoaded: function () {
     Narrator.init();
-    SettingsHandler.init();
     MediaPlayback.init();
     WebviewHandler.init();
     Keybinds.init();
@@ -207,6 +207,9 @@ const InternalPreload = {
         top: scrollingElement?.scrollTop
       });
     });
+
+    document.addEventListener('mousedown', this.onMouseDown.bind(this));
+    document.addEventListener('mouseover', this.onMouseOver.bind(this));
   },
 
   updateTextSelection: function () {
@@ -247,13 +250,10 @@ const InternalPreload = {
   },
 
   onMouseOver: function (event: MouseEvent) {
-    if (deviceType && deviceType !== 'desktop') {
-      return;
-    }
     const targetElement = event.target as HTMLElement;
 
     if (targetElement && targetElement.nodeName !== 'WEBVIEW' && targetElement.getAttribute('title')) {
-      if (!this.isMouseDown && !this.isEventPending) {
+      if (!this.isMouseDown || !this.isEventPending) {
         this.isEventPending = true;
 
         ipcRenderer.send('message', {

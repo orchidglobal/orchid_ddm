@@ -12,5 +12,5 @@
     }
   };
 
-  exports.Homescreen = Homescreen;
+  SettingsApp.Homescreen = Homescreen;
 })(window);
