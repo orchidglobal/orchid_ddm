@@ -31,7 +31,7 @@ npm run build-windows-x86_64 # x86_64
 npm run build-windows-aarch64 # aarch64
 ```
 
-**macOS**
+**MacOS**
 ```sh
 npm run build-mac-x86_64 # x86_64
 npm run build-mac-aarch64 # aarch64
