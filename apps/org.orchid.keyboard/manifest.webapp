@@ -1,0 +1,20 @@
+{
+  "id": "org.orchid.keyboard",
+  "version": "%system_version%",
+  "role": "keyboard",
+  "name": "Keyboard",
+  "description": "Type swiftly with haptic keys",
+  "launch_path": "/index.html",
+  "icons": {
+    "48": "/style/icons/keyboard.png"
+  },
+  "developer": {
+    "name": "Orchid",
+    "url": "https://orchid.thats-the.name/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait-primary",
+  "permissions": {
+    "settings": {}
+  }
+}

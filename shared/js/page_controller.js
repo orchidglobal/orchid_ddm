@@ -18,6 +18,8 @@
 
     UNDRAGGABLE_ELEMENTS: ['A', 'BUTTON', 'INPUT', 'IMG', 'UL', 'LI', 'WEBVIEW'],
 
+    SOUND_PANEL_SLIDE: new Audio(OrchidJS.sharedUrl + '/resources/sounds/panel_slide.wav'),
+
     /**
      * Initialize the page controller.
      *
@@ -28,7 +30,8 @@
      * - setting up the page button event listeners
      */
     init: function () {
-      this.panels = document.querySelectorAll('[role="panel"]');
+      this.tablist = document.querySelector('.bb-tablist');
+      this.panels = document.querySelectorAll('app-panel');
 
       // Bind scroll events to the panels
       this.bindScrollEvents();
@@ -48,7 +51,7 @@
         });
       });
 
-      const panels = document.querySelectorAll('[role="panel"]');
+      const panels = document.querySelectorAll('app-panel');
       panels.forEach((panel, index) => {
         panel.dataset.index = index;
         panel.classList.add('next');
@@ -62,11 +65,10 @@
 
       const selectedButtons = document.querySelectorAll('.selected');
       const selectableButtons = document.querySelectorAll('[data-page-id]');
-      const selectedPanel = document.querySelector('[role="panel"].visible');
+      const selectedPanel = document.querySelector('app-panel.visible');
 
       if (panelValue && selectedPanel.id !== panelValue) {
-        window.addEventListener('load', () =>
-          this.togglePanelVisibility(selectedPanel.id, panelValue));
+        window.addEventListener('load', () => this.togglePanelVisibility(selectedPanel.id, panelValue));
 
         if (selectedButtons) {
           selectedButtons.forEach((selectedButton) => {
@@ -108,10 +110,13 @@
      * Binds scroll events to panels
      */
     bindScrollEvents: function () {
-      this.panels.forEach((panel) => {
+      const headerWidths = [];
+      const backButtonWidths = [];
+
+      this.panels.forEach((panel, index) => {
         // Query elements for each panel
         const header = panel.querySelector(':scope > header:first-child');
-        const backButton = panel.querySelector(':scope > header:first-child .back-button');
+        const backButton = header && header.querySelector('.back-button');
         const content = panel.querySelector(':scope > section');
 
         // Ignore panel if it doesn't have a content section
@@ -119,104 +124,42 @@
           return;
         }
 
-        // Set back button width on localized event
-        document.addEventListener('localized', () => {
-          setTimeout(() => {
-            if (backButton) {
-              header.style.setProperty('--back-button-width', backButton.scrollWidth + 15 + 'px');
-            }
-          }, 1000);
-        });
-
         // Set transition delays on children
         const children = content.querySelectorAll(':scope > *');
         children.forEach((child, index) => {
           child.style.transitionDelay = 300 + index * 30 + 'ms';
         });
 
-        this.setProgress(panel, 0, 1);
+        const headerWidth = header ? header.scrollWidth + 15 : 0;
+        const backButtonWidth = backButton ? backButton.scrollWidth + 15 : 0;
 
-        // Initialize Scrollbar if available
-        if ('Scrollbar' in window) {
-          const scrollbar = Scrollbar.init(content, {
-            plugins: {
-              overscroll: {
-                /**
-                 * Custom overscroll effect
-                 * @param {Object} params - Scrollbar params
-                 */
-                onScroll: (params) => {
-                  // Ignore if there's no overscroll
-                  if (params.y >= 0) {
-                    return;
-                  }
+        headerWidths.push(headerWidth);
+        backButtonWidths.push(backButtonWidth);
 
-                  const scrollPosition = params.y * -1;
-                  let progress = scrollPosition / 300;
-                  if (progress >= 1) {
-                    progress = 1;
-                  }
-
-                  if (backButton) {
-                    header.style.setProperty('--back-button-width', backButton.scrollWidth + 15 + 'px');
-                  }
-
-                  this.setOverscrollProgress(panel, progress);
-                }
-              }
-            }
-          });
-
-          // Scrollbar listener
-          scrollbar.addListener(() => {
-            const scrollPosition = scrollbar.offset.y;
-            let progress = scrollPosition / 40;
-            if (progress >= 1) {
-              progress = 1;
-            }
-
-            if (backButton) {
-              header.style.setProperty('--back-button-width', backButton.scrollWidth + 15 + 'px');
-            }
-
-            this.setProgress(panel, progress);
-            this.setOverscrollProgress(panel, 0);
-          });
-        }
-
-        // Scroll event listener
         content.addEventListener('scroll', () => {
           const scrollPosition = content.scrollTop;
-          let progress = Math.min(1, scrollPosition / 100);
+          const progress = Math.min(1, scrollPosition / 100);
 
           const totalScrollHeight = content.scrollHeight - content.clientHeight;
           // Calculate how far the user has scrolled from the bottom
-          const scrolledFromBottom = content.scrollTop - (totalScrollHeight);
+          const scrolledFromBottom = scrollPosition - totalScrollHeight;
           // Calculate the progress within the last 100 pixels scrolled from the bottom
           const progressTabs = Math.max(0, Math.min(1, (scrolledFromBottom / 100) * -1));
 
-          if (backButton) {
-            header.style.setProperty('--back-button-width', backButton.scrollWidth + 15 + 'px');
-          }
           this.setProgress(panel, progress, progressTabs);
-        });
-
-        // Mouse wheel event listener
-        ['wheel', 'pointerdown', 'pointermove', 'pointerup'].forEach((eventType) => {
-          content.addEventListener(eventType, () => {
-            if (backButton) {
-              header.style.setProperty('--back-button-width', backButton.scrollWidth + 15 + 'px');
-            }
-          });
         });
       });
     },
+
 
     // Set progress value on the header bar
     setProgress: function (panel, progress, progressTabs) {
       panel.style.setProperty('--panel-progress', progress);
       panel.style.setProperty('--panel-progress-expo', this.cubicBezier(progress, 0, 0, 0, 1));
-      document.documentElement.style.setProperty('--tablist-progress', progressTabs);
+
+      if (this.tablist) {
+        this.tablist.style.setProperty('--tablist-progress', progressTabs);
+      }
     },
 
     setOverscrollProgress: function (panel, progress) {
@@ -265,7 +208,7 @@
       const id = button.dataset.pageId;
       const selectedButtons = document.querySelectorAll('.selected');
       const selectableButtons = document.querySelectorAll('[data-page-id]');
-      const selectedPanel = document.querySelector('[role="panel"].visible');
+      const selectedPanel = document.querySelector('app-panel.visible');
 
       if (selectedButtons) {
         selectedButtons.forEach((selectedButton) => {
@@ -297,12 +240,16 @@
       url.searchParams.set('panel', targetPanelId);
       history.pushState({}, '', url);
 
+      document.documentElement.style.setProperty('--tablist-progress', 1);
+
       const selectedPanel = document.getElementById(selectedPanelId);
-      const selectedPanels = document.querySelectorAll('[role="panel"].visible');
+      const selectedPanels = document.querySelectorAll('app-panel.visible');
       const targetPanel = document.getElementById(targetPanelId);
       if (!selectedPanel) {
         return;
       }
+
+      this.playStereoWhoosh(selectedPanel.dataset.index >= targetPanel.dataset.index);
 
       if (targetPanel.dataset.previousPageId) {
         this.previousPanelId = targetPanel.dataset.previousPageId;
@@ -348,7 +295,10 @@
 
         if (targetPageBootstrap in window) {
           if (targetPageObject) {
-            if (window[targetPageBootstrap][targetPageObject] && !window[targetPageBootstrap][targetPageObject].isLoaded) {
+            if (
+              window[targetPageBootstrap][targetPageObject] &&
+              !window[targetPageBootstrap][targetPageObject].isLoaded
+            ) {
               window[targetPageBootstrap][targetPageObject].init();
               window[targetPageBootstrap][targetPageObject].isLoaded = true;
             }
@@ -370,6 +320,15 @@
           }
         }
       }
+    },
+
+    playStereoWhoosh: function (isNext) {
+      this.SOUND_PANEL_SLIDE.currentTime = 0;
+      this.SOUND_PANEL_SLIDE.playbackRate = 1.5;
+      this.SOUND_PANEL_SLIDE.volume = 0.1;
+      this.SOUND_PANEL_SLIDE.play();
+
+      // TODO: Add stereo panning
     }
   };
 

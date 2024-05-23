@@ -5,46 +5,6 @@
     exports.OrchidJS = {};
   }
 
-  const Vividus2D = {
-    children: [],
-    worldBrightness: 1,
-
-    /**
-     * Checks if two boxes intersect.
-     *
-     * @param {Object} box1 First box to check. Must have 'x', 'y', 'width', and 'height' properties.
-     * @param {Element} viewport The viewport element to check against.
-     * @returns {boolean} True if the boxes intersect, false otherwise.
-     */
-    areaIntersects: function (box1, box2) {
-      // Checks if the boxes intersect by comparing their corners
-      return !(
-        (
-          box1.x > box2.x + box2.width || // right of viewport
-          box1.x + box1.width < box2.x || // left of viewport
-          box1.y > box2.y + box2.height || // below viewport
-          box1.y + box1.height < box2.y
-        ) // above viewport
-      );
-    },
-
-    /**
-     * Sets the world brightness, which affects the color of all sprites
-     * rendered by the canvas renderer. The brightness value ranges from 0 to
-     * 1, where 0 is completely black and 1 is the original color.
-     *
-     * @param {number} brightness The new world brightness value.
-     */
-    setWorldBrightness: function (brightness) {
-      /**
-       * The current world brightness, which is used to modify the color of all
-       * sprites rendered by the canvas renderer.
-       * @type {number}
-       */
-      this.worldBrightness = brightness;
-    }
-  };
-
   class CanvasRenderer {
     /**
      * Constructs a new CanvasRenderer instance.
@@ -63,6 +23,7 @@
        * @type {CanvasRenderingContext2D}
        */
       this.context = this.canvas.getContext('2d', { willReadFrequently: true });
+      this.context.imageSmoothingEnabled = false;
 
       /**
        * The current render instance that the canvas renderer is using.
@@ -86,13 +47,13 @@
        * The viewport width of the canvas in pixels.
        * @type {number}
        */
-      this.viewWidth = 0;
+      this.viewportWidth = 1280;
 
       /**
        * The viewport height of the canvas in pixels.
        * @type {number}
        */
-      this.viewHeight = 0;
+      this.viewportHeight = 720;
 
       /**
        * The current X coordinate of the mouse in the canvas.
@@ -120,57 +81,7 @@
       if (!this.canvas) {
         return;
       }
-
-      /**
-       * The device pixel ratio, which determines how much the canvas renderer
-       * should scale the canvas to match the display's resolution.
-       * @type {number}
-       */
-      const devicePixelRatio = window.devicePixelRatio || 1;
-
-      /**
-       * The width of the canvas in pixels.
-       * @type {number}
-       */
-      this.width = window.innerWidth;
-
-      /**
-       * The height of the canvas in pixels.
-       * @type {number}
-       */
-      this.height = window.innerHeight;
-
-      /**
-       * The viewport width of the canvas in pixels.
-       * @type {number}
-       */
-      this.viewWidth = window.innerWidth;
-
-      /**
-       * The viewport height of the canvas in pixels.
-       * @type {number}
-       */
-      this.viewHeight = window.innerHeight;
-
-      /**
-       * The width of the canvas in physical pixels, taking into account the
-       * device pixel ratio.
-       * @type {number}
-       */
-      this.canvas.width = this.width * devicePixelRatio;
-
-      /**
-       * The height of the canvas in physical pixels, taking into account the
-       * device pixel ratio.
-       * @type {number}
-       */
-      this.canvas.height = this.height * devicePixelRatio;
-
-      /**
-       * The 2D rendering context of the canvas.
-       * @type {CanvasRenderingContext2D}
-       */
-      this.context?.scale(devicePixelRatio, devicePixelRatio);
+      this.updateResolution();
 
       /**
        * Initializes the canvas renderer.
@@ -179,16 +90,19 @@
        */
       this.initialize();
 
-      /**
-       * The "pointermove" event listener bound to the renderer instance.
-       * @type {EventListener}
-       */
-      const handlePointerMove = this.handlePointerMove.bind(this);
+      document.addEventListener('pointermove', this.handlePointerMove.bind(this));
+      window.addEventListener('resize', this.handleResize.bind(this))
+    }
 
-      /**
-       * Adds a "pointermove" event listener to the document.
-       */
-      document.addEventListener('pointermove', handlePointerMove);
+    updateResolution() {
+      if (!this.canvas || !this.context) {
+        return;
+      }
+      const dpi = window.devicePixelRatio || 1;
+      this.width = window.innerWidth * dpi;
+      this.height = window.innerHeight * dpi;
+      this.canvas.width = this.width;
+      this.canvas.height = this.height;
     }
 
     /**
@@ -211,8 +125,17 @@
     }
 
     /**
-     * Sets the instance to use for rendering
-     * @param {Object} instance The instance to use for rendering
+     * Handles a resize event and updates the canvas's width and height
+     * to match the new viewport size.
+     */
+    handleResize() {
+      this.updateResolution();
+    }
+
+    /**
+     * Sets the instance to use for rendering.
+     *
+     * @param {Object} instance The instance to use for rendering.
      */
     setInstance(instance) {
       if (!this.renderInstance) {
@@ -432,18 +355,28 @@
         return;
       }
 
+      let viewportWidth = this.viewportWidth;
+      let viewportHeight = this.viewportHeight;
+      if (!viewportWidth) {
+        viewportWidth = 1280;
+      }
+      if (!viewportHeight) {
+        viewportHeight = 720;
+      }
+
+      this.scale(1 * (this.width / viewportWidth), 1 * (this.height / viewportHeight));
+
       // Clear the canvas with a black background
       this.context.translate(0, 0);
-      const devicePixelRatio = window.devicePixelRatio || 1;
       this.context.globalAlpha = 1;
-      this.context.clearRect(0, 0, this.width * devicePixelRatio, this.height * devicePixelRatio);
+      this.context.clearRect(0, 0, this.viewportWidth, this.viewportHeight);
 
       if (/KAIOS|B2G/i.test(navigator.userAgent)) {
         // Draw a black rectangle to cover the screen
-        this.drawRect('#101214', 0, 0, this.width, this.height);
+        this.drawRect('#101214', 0, 0, this.viewportWidth, this.viewportHeight);
 
         // Draw the "Unsupported platform" message
-        this.drawString('Unsupported platform', '#ffffff', 20, 30, 30, this.width - 60);
+        this.drawString('Unsupported platform', '#ffffff', 20, 30, 30, this.viewportWidth - 60);
 
         // Draw a message explaining that the user cannot run Vividus in this app
         this.drawString(
@@ -452,7 +385,7 @@
           14,
           30,
           50,
-          this.width - 60
+          this.viewportWidth - 60
         );
 
         // Draw a message explaining that the user cannot run Vividus in this app
@@ -471,12 +404,54 @@
         // this.context.finish2D();
       }
 
+      this.scale(1 / (this.width / viewportWidth), 1 / (this.height / viewportHeight));
+
       // Restore the default transformation matrix
       this.context?.transform(1, 0, 0, 1, 0, 0);
     }
   }
 
-  Vividus2D.CanvasRenderer = CanvasRenderer;
+  const Vividus2D = {
+    children: [],
+    worldBrightness: 1,
+
+    CanvasRenderer,
+
+    /**
+     * Checks if two boxes intersect.
+     *
+     * @param {Object} box1 First box to check. Must have 'x', 'y', 'width', and 'height' properties.
+     * @param {Element} viewport The viewport element to check against.
+     * @returns {boolean} True if the boxes intersect, false otherwise.
+     */
+    areaIntersects: function (box1, box2) {
+      // Checks if the boxes intersect by comparing their corners
+      return !(
+        (
+          box1.x > box2.x + box2.width || // right of viewport
+          box1.x + box1.width < box2.x || // left of viewport
+          box1.y > box2.y + box2.height || // below viewport
+          box1.y + box1.height < box2.y
+        ) // above viewport
+      );
+    },
+
+    /**
+     * Sets the world brightness, which affects the color of all sprites
+     * rendered by the canvas renderer. The brightness value ranges from 0 to
+     * 1, where 0 is completely black and 1 is the original color.
+     *
+     * @param {number} brightness The new world brightness value.
+     */
+    setWorldBrightness: function (brightness) {
+      /**
+       * The current world brightness, which is used to modify the color of all
+       * sprites rendered by the canvas renderer.
+       * @type {number}
+       */
+      this.worldBrightness = brightness;
+    }
+  };
 
   OrchidJS.Vividus2D = Vividus2D;
 })(window);

@@ -1,0 +1,36 @@
+{
+  "id": "org.orchid.store",
+  "version": "%system_version%",
+  "name": "Orchid Store",
+  "short_name": "Store",
+  "description": "Get and install webapps and games safely at ease",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "/icons/store_16.png",
+    "32": "/icons/store_32.png",
+    "48": "/icons/store_48.png",
+    "64": "/icons/store_64.png",
+    "128": "/icons/store_128.png",
+    "256": "/icons/store_256.png"
+  },
+  "artworks": {
+    "360": "/style/artwork/store.svg"
+  },
+  "developer": {
+    "name": "Orchid",
+    "url": "https://orchid.thats-the.name/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait-primary",
+  "permissions": {
+    "settings": { "access": "readwrite" },
+    "webapps-manage": {}
+  },
+  "display": "immersive",
+  "platforms": [
+    "desktop",
+    "mobile",
+    "smart_tv",
+    "!server"
+  ]
+}

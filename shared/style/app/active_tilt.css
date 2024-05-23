@@ -1,0 +1,19 @@
+.tilt-top-left {
+  transform: perspective(100vh) rotate3d(-1, -1, 0, 10deg);
+  transform-origin: top right;
+}
+
+.tilt-top-right {
+  transform: perspective(100vh) rotate3d(-1, 1, 0, 10deg);
+  transform-origin: top left;
+}
+
+.tilt-bottom-left {
+  transform: perspective(100vh) rotate3d(1, -1, 0, 10deg);
+  transform-origin: bottom right;
+}
+
+.tilt-bottom-right {
+  transform: perspective(100vh) rotate3d(1, 1, 0, 10deg);
+  transform-origin: bottom left;
+}

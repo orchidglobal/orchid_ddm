@@ -1,0 +1,29 @@
+{
+  "id": "org.orchid.calculator",
+  "version": "%system_version%",
+  "name": "Calculator",
+  "description": "Do your subdivisions, multiplications, and subtractions here.",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "/style/icons/calculator_16.png",
+    "32": "/style/icons/calculator_32.png",
+    "48": "/style/icons/calculator_48.png",
+    "64": "/style/icons/calculator_64.png",
+    "128": "/style/icons/calculator_128.png",
+    "256": "/style/icons/calculator_256.png"
+  },
+  "developer": {
+    "name": "Orchid",
+    "url": "https://orchid.thats-the.name/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait-primary",
+  "permissions": {},
+  "display": "immersive",
+  "window_bounds": {
+    "left": 36,
+    "top": 24,
+    "width": 320,
+    "height": 568
+  }
+}

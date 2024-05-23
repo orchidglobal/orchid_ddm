@@ -1,14 +1,24 @@
-footer[role="toolbar"] {
+section[role="panel"] > [role="toolbar"] {
   box-sizing: border-box;
   display: flex;
+  z-index: 10;
+  position: absolute;
+  bottom: 0;
   width: 100%;
   height: calc(4.5rem + var(--software-buttons-height));
   margin-top: calc(var(--software-buttons-height) * -1);
   padding: 0.5rem 0.5rem var(--software-buttons-height);
   gap: 0.5rem;
+  background-color: rgba(var(--headerbar-background-r), var(--headerbar-background-g), var(--headerbar-background-b), var(--tablist-progress, 0));
 }
 
-footer[role="toolbar"] .safezone {
+.active section[role="panel"] > [role="toolbar"] {
+  outline: solid 0.1rem rgba(255, 255, 255, calc(0.1 * var(--tablist-progress)));
+  backdrop-filter: blur(calc(20px * var(--tablist-progress, 0))) saturate(calc(100% + (80% * var(--tablist-progress, 0))));
+  background-color: rgba(var(--headerbar-background-r), var(--headerbar-background-g), var(--headerbar-background-b), calc(0.8 * var(--tablist-progress, 0)));
+}
+
+section[role="panel"] > [role="toolbar"] .safezone {
   display: flex;
   width: 100%;
   max-width: calc(var(--safezone-width) - 1rem);
@@ -16,7 +26,7 @@ footer[role="toolbar"] .safezone {
   gap: 0.5rem;
 }
 
-footer[role="toolbar"] button {
+section[role="panel"] > [role="toolbar"] button {
   width: 100%;
   height: 4rem;
   margin: 0;
@@ -27,15 +37,15 @@ footer[role="toolbar"] button {
   text-align: center;
 }
 
-footer[role="toolbar"] button:hover {
+section[role="panel"] > [role="toolbar"] button:hover {
   background-color: var(--item-hover);
 }
 
-footer[role="toolbar"] button:active {
+section[role="panel"] > [role="toolbar"] button:active {
   background-color: var(--item-active);
   color: var(--text-color-faded);
 }
 
-footer[role="toolbar"] button[data-icon]::before {
+section[role="panel"] > [role="toolbar"] button[data-icon]::before {
   position: static;
 }

@@ -65,7 +65,7 @@ export default (function () {
   });
 
   OrchidUI.window.webContents.session.setPermissionRequestHandler((webContents, permission, callback) => {
-    OrchidUI.window?.webContents.send('permissionrequest', {
+    OrchidUI.window?.webContents.send('permission-request', {
       type: permission,
       origin: webContents.getURL(),
       title: webContents.getTitle()
@@ -243,11 +243,17 @@ export default (function () {
     }
     OrchidUI.window?.webContents.send('deviceputdown', data);
   });
-  ipcMain.on('settingschange', (event, data) => {
+  ipcMain.on('settings-updated', (event, data) => {
     if (DEBUG) {
-      console.log(`[openorchid-events] ${colors.magenta}settingschange${colors.reset} ${JSON.stringify(data)}`);
+      console.log(`[openorchid-events] ${colors.magenta}settings-updated${colors.reset} ${JSON.stringify(data)}`);
     }
-    OrchidUI.window?.webContents.send('settingschange', data);
+    OrchidUI.window?.webContents.send('settings-updated', data);
+  });
+  ipcMain.on('data-storage-updated', (event, data) => {
+    if (DEBUG) {
+      console.log(`[openorchid-events] ${colors.magenta}settings-updated${colors.reset} ${JSON.stringify(data)}`);
+    }
+    OrchidUI.window?.webContents.send('settings-updated', data);
   });
   ipcMain.on('mediadevicechange', (event, data) => {
     if (DEBUG) {
@@ -282,11 +288,17 @@ export default (function () {
       });
     }
   });
-
-  ipcMain.on('requestlogin', (event, data) => {
+  ipcMain.on('pwa-detected', (event, data) => {
     if (DEBUG) {
-      console.log(`[openorchid-events] ${colors.magenta}requestlogin${colors.reset} ${JSON.stringify(data)}`);
+      console.log(`[openorchid-events] ${colors.magenta}pwa-detected${colors.reset} ${JSON.stringify(data)}`);
     }
-    OrchidUI.window?.webContents.send('requestlogin', data);
+    OrchidUI.window?.webContents.send('pwa-detected', data);
+  });
+
+  ipcMain.on('request-login', (event, data) => {
+    if (DEBUG) {
+      console.log(`[openorchid-events] ${colors.magenta}request-login${colors.reset} ${JSON.stringify(data)}`);
+    }
+    OrchidUI.window?.webContents.send('request-login', data);
   });
 });

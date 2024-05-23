@@ -1,0 +1,483 @@
+#lockscreen {
+  --accent-color-primary-r: var(--lockscreen-accent-color-primary-r);
+  --accent-color-primary-g: var(--lockscreen-accent-color-primary-g);
+  --accent-color-primary-b: var(--lockscreen-accent-color-primary-b);
+  --accent-color-secondary-r: var(--lockscreen-accent-color-secondary-r);
+  --accent-color-secondary-g: var(--lockscreen-accent-color-secondary-g);
+  --accent-color-secondary-b: var(--lockscreen-accent-color-secondary-b);
+  --lockscreen-text-color: rgb(
+    calc(192 + ((var(--accent-color-secondary-r) / 255) * 64)),
+    calc(192 + ((var(--accent-color-secondary-g) / 255) * 64)),
+    calc(192 + ((var(--accent-color-secondary-b) / 255) * 64))
+  );
+  --lockscreen-text-color-faded: rgb(
+    calc(128 + ((var(--accent-color-secondary-r) / 255) * 128)),
+    calc(128 + ((var(--accent-color-secondary-g) / 255) * 128)),
+    calc(128 + ((var(--accent-color-secondary-b) / 255) * 128))
+  );
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.light #lockscreen {
+  --lockscreen-text-color: rgb(
+    calc((var(--accent-color-secondary-r) / 255) * 64),
+    calc((var(--accent-color-secondary-g) / 255) * 64),
+    calc((var(--accent-color-secondary-b) / 255) * 64)
+  );
+  --lockscreen-text-color-faded: rgb(
+    calc((var(--accent-color-secondary-r) / 255) * 128),
+    calc((var(--accent-color-secondary-g) / 255) * 128),
+    calc((var(--accent-color-secondary-b) / 255) * 128)
+  );
+}
+
+#lockscreen.transitioning {
+  transition: all 0.5s cubic-bezier(0.2, 0.9, 0.1, 1);
+}
+
+#lockscreen.visible {
+  visibility: unset;
+  opacity: 1;
+}
+
+#lockscreen-statusbar {
+  --motion-progress: 0;
+  --statusbar-icon-color: var(--lockscreen-text-color);
+  --statusbar-icon-color-faded: var(--lockscreen-text-color-faded);
+  z-index: 10;
+  transition: transform 0.5s ease 0.3s, opacity 0.5s ease 0.3s, visibility 0.5s ease 0.3s;
+}
+
+#lockscreen.always-on-display #lockscreen-statusbar {
+  visibility: hidden;
+  transform: translateY(1rem);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#lockscreen-statusbar .timedate {
+  display: none;
+}
+
+#lockscreen-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(var(--accent-color-primary-r), var(--accent-color-primary-g), var(--accent-color-primary-b), calc(var(--motion-progress, 1) * 0.5)); */
+  transition: transform 0.3s ease;
+}
+
+#lockscreen.always-on-display #lockscreen-container {
+  background-color: transparent;
+}
+
+#lockscreen.transitioning #lockscreen-container {
+  transition: all 1s cubic-bezier(0.2, 0.9, 0.1, 1);
+}
+
+.screen.close-reach #lockscreen-container {
+  transform: translateY(calc(40vh + (-100vh * (1 - var(--motion-progress, 1)))));
+}
+
+#lockscreen.pin-lock-visible #lockscreen-container {
+  visibility: hidden;
+  opacity: 0;
+}
+
+#lockscreen.pin-lock.transitioning #lockscreen-container {
+  transition: all 0.5s ease;
+}
+
+.lockscreen-rows {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 40rem;
+  height: 100%;
+  margin: 0 auto;
+  padding: var(--statusbar-height) 1.5rem 2.5rem;
+  gap: 1rem;
+}
+
+.screen.software-buttons-enabled .lockscreen-rows {
+  padding: var(--statusbar-height) 1.5rem 1.5rem;
+}
+
+.lockscreen-rows .row {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  opacity: var(--motion-progress, 1);
+  transition: transform 0.3s ease;
+}
+
+.lockscreen-rows .row.fit {
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 100%;
+}
+
+.lockscreen-rows .row > .label {
+  color: var(--lockscreen-text-color-faded);
+  font-weight: var(--generic-label-weight);
+  font-size: 1.6rem;
+}
+
+.lockscreen-rows .row.clock {
+  padding-top: 1.5rem;
+  transition: transform 1s cubic-bezier(0.5, 0.8, 0, 1), padding-top 1s cubic-bezier(0.5, 0.8, 0, 1);
+}
+
+#lockscreen.notifications-visible .lockscreen-rows .row.clock {
+  padding-top: 0;
+}
+
+#lockscreen.always-on-display .lockscreen-rows .row.clock {
+  transform: translateY(3rem);
+}
+
+.lockscreen-rows .row.hide-in-aod {
+  transition: transform 0.5s cubic-bezier(0.5, 0.8, 0, 1), opacity 0.5s cubic-bezier(0.5, 0.8, 0, 1), visibility 0.5s ease;
+}
+
+#lockscreen.always-on-display .lockscreen-rows .row.hide-in-aod {
+  visibility: hidden;
+  transform: scale(0.95);
+  opacity: 0;
+}
+
+#lockscreen-statusbar-aod {
+  --motion-progress: 0;
+  --statusbar-icon-color: var(--lockscreen-text-color);
+  --statusbar-icon-color-faded: var(--lockscreen-text-color-faded);
+  --statusbar-height: 2rem;
+  visibility: hidden;
+  z-index: 10;
+  position: static;
+  margin: 0 0 calc(var(--statusbar-height) * -1);
+  transform: translateY(0);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease, margin 0.5s ease, visibility 0.5s ease;
+}
+
+#lockscreen.always-on-display #lockscreen-statusbar-aod {
+  visibility: visible;
+  margin: 0;
+  transform: translateY(3rem);
+  opacity: 1;
+  transition: transform 1s cubic-bezier(0.5, 0.8, 0, 1) 0.5s, opacity 0.5s cubic-bezier(0.5, 0.8, 0, 1) 0.5s, margin 0.5s cubic-bezier(0.5, 0.8, 0, 1) 0.5s, visibility 0.5s ease;
+}
+
+#lockscreen-statusbar-aod .statusbar-icons {
+  position: static;
+  margin: 0;
+}
+
+#lockscreen-statusbar-aod .statusbar-icons > div {
+  position: static;
+  width: 100%;
+  margin: 0;
+}
+
+#lockscreen-statusbar-aod .statusbar-icons > .left {
+  display: none;
+}
+
+#lockscreen-statusbar-aod .statusbar-icons > .right {
+  flex-direction: row;
+  justify-content: start;
+}
+
+#lockscreen-clock {
+  position: relative;
+  width: var(--lockscreen-clock-width);
+  height: 1.75em;
+  color: var(--lockscreen-text-color);
+  font-weight: var(--time-label-weight);
+  font-size: 10rem;
+  line-height: 0.9em;
+  transition: all 0.3s ease;
+}
+
+#lockscreen.notifications-visible #lockscreen-clock {
+  width: calc(var(--lockscreen-clock-hours-width) + var(--lockscreen-clock-mins-width) + 0.3em);
+  height: 0.9em;
+}
+
+#lockscreen.transitioning #lockscreen-clock {
+  transition: all 1s ease;
+}
+
+#lockscreen-clock > #lockscreen-clock-hours {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--lockscreen-clock-width);
+  font-family: 'Orchid Brand';
+  text-align: start;
+}
+
+#lockscreen.notifications-visible #lockscreen-clock > #lockscreen-clock-hours {
+  width: unset;
+}
+
+#lockscreen-clock > #lockscreen-clock-mins {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: var(--lockscreen-clock-width);
+  font-family: 'Orchid Brand';
+  text-align: start;
+  transition: all 0.3s ease;
+}
+
+#lockscreen.notifications-visible #lockscreen-clock > #lockscreen-clock-mins {
+  width: unset;
+  transform: translateX(calc(var(--lockscreen-clock-hours-width) + 0.3em));
+}
+
+#lockscreen-clock > .seperator {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: var(--lockscreen-clock-hours-width);
+  width: 0.3em;
+  text-align: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+#lockscreen.notifications-visible #lockscreen-clock > .seperator {
+  visibility: unset;
+  opacity: 0.5;
+}
+
+#lockscreen-date {
+  font-weight: var(--date-label-weight);
+  font-size: 1.6rem;
+}
+
+#lockscreen-notifications-badge {
+  box-sizing: border-box;
+  display: flex;
+  z-index: 2;
+  position: absolute;
+  top: calc(100% - 3rem);
+  left: 50%;
+  align-items: center;
+  width: max-content;
+  height: 3rem;
+  padding: 0 1.5rem;
+  gap: 1rem;
+  translate: -50% 0;
+  border-radius: 3rem;
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(51, 51, 51, 0.3);
+  color: var(--lockscreen-text-color);
+  font-weight: var(--generic-label-weight);
+  font-size: 1.3rem;
+  line-height: 3rem;
+  transition: all 0.3s ease;
+}
+
+#lockscreen:not(.always-on-display) #lockscreen-notifications-badge.active {
+  top: 0;
+  translate: 0 0;
+}
+html[dir="ltr"] #lockscreen-notifications-badge.active {
+  left: 0;
+}
+html[dir="rtl"] #lockscreen-notifications-badge.active {
+  right: 0;
+}
+
+#lockscreen.always-on-display #lockscreen-notifications-badge {
+  color: var(--lockscreen-text-color);
+}
+
+#lockscreen-notifications-badge[data-icon] {
+  padding-inline-start: 3.6rem;
+}
+
+#lockscreen-notifications-badge[data-icon]::before {
+  position: absolute;
+  top: 0;
+  height: 3rem;
+  color: var(--lockscreen-text-color-faded);
+  font-size: 1.6rem;
+  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.1, 1);
+}
+html[dir="ltr"] #lockscreen-notifications-badge[data-icon]::before {
+  left: 1rem;
+}
+html[dir="rtl"] #lockscreen-notifications-badge[data-icon]::before {
+  right: 1rem;
+}
+
+#lockscreen-notifications-badge.active[data-icon]::before {
+  transform: rotate(180deg);
+}
+
+#lockscreen-notifications {
+  visibility: hidden;
+  z-index: 2;
+  position: absolute;
+  top: 4rem;
+  width: 100%;
+  height: calc(100% - 4rem);
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  transform: scale(0.75);
+  border-radius: var(--tray-button-radius);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+html[dir="ltr"] #lockscreen-notifications {
+  left: 0;
+}
+html[dir="rtl"] #lockscreen-notifications {
+  right: 0;
+}
+
+#lockscreen #lockscreen-notifications.visible,
+#lockscreen.always-on-display #lockscreen-notifications {
+  visibility: unset;
+  transform: scale(1);
+  opacity: 1;
+}
+
+.screen.gpu-capable #lockscreen.visible #lockscreen-notifications .notification {
+  backdrop-filter: blur(20px) saturate(180%);
+}
+
+#lockscreen.always-on-display #lockscreen-notifications .notification {
+  visibility: hidden;
+  transform: translateY(3rem);
+  opacity: 0;
+}
+
+#lockscreen-notifications::-webkit-scrollbar {
+  display: none;
+}
+
+#lockscreen-notifications .notification {
+  width: 100%;
+  margin: 0 0 1rem;
+  list-style: none;
+}
+
+#lockscreen .icon-container {
+  width: 100%;
+  height: 3rem;
+  margin: 1.5rem 0 1rem;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#lockscreen .icon-container > .icon {
+  mask-position-x: calc(1rem + (0.7rem * (10 - (var(--motion-progress, 1) * 10)))),
+    calc(1rem - (0.3rem * (10 - (var(--motion-progress, 1) * 10))));
+  display: block;
+  width: 5rem;
+  height: 3rem;
+  margin: 0 auto;
+  background-color: var(--lockscreen-text-color);
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.2));
+  mask: url(images/lock_base.png) no-repeat center / 3rem,
+    url(images/lock_head.png) no-repeat center / 3rem;
+  transition: all 0.3s ease;
+}
+
+#lockscreen.transitioning .icon-container > .icon {
+  transition: all 1s ease;
+}
+
+#lockscreen .icon-container > .icon.fail-unlock {
+  animation: fail-unlock 0.75s ease;
+}
+
+@keyframes fail-unlock {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(1rem) scale(1.1);
+  }
+  40% {
+    transform: translateX(-0.75rem) scale(1.1);
+  }
+  60% {
+    transform: translateX(0.5rem) scale(1.1);
+  }
+  80% {
+    transform: translateX(-0.25rem) scale(1.1);
+  }
+}
+
+#lockscreen-toolbar {
+  box-sizing: border-box;
+  display: flex;
+  visibility: unset;
+  z-index: 2;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  gap: 1rem;
+  opacity: 1;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#lockscreen.always-on-display #lockscreen-toolbar {
+  visibility: hidden;
+  opacity: 0;
+}
+
+#lockscreen-toolbar > button {
+  width: 5rem;
+  height: 5rem;
+  margin: 0;
+  padding: 0 1rem;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(51, 51, 51, 0.3);
+  color: var(--lockscreen-text-color);
+  line-height: 5rem;
+  transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.1, 1.2);
+}
+
+#lockscreen-toolbar > button:hover {
+  transform: scale(1.1);
+  background-color: #fff;
+  color: #333;
+}
+
+#lockscreen-toolbar > button:active {
+  transform: scale(0.9);
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #333;
+}
+
+.screen.gpu-capable #lockscreen.visible #lockscreen-toolbar > button {
+  backdrop-filter: blur(20px) saturate(180%);
+}
+
+#lockscreen-toolbar > button[data-icon]::before {
+  position: static;
+  width: 100%;
+  height: 5rem;
+  font-size: 2.4rem;
+  line-height: 5rem;
+  text-align: center;
+}

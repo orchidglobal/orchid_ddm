@@ -1,0 +1,53 @@
+#notification-toaster {
+  position: absolute;
+  top: var(--statusbar-height);
+  width: calc(100% - 2rem);
+  margin: 0 1rem;
+  transform: translateY(calc(-100% - var(--statusbar-height) - 4.5rem));
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.2);
+  transition: all 0.5s cubic-bezier(0.8, 0.1, 0.9, 0);
+}
+html[dir="ltr"] #notification-toaster {
+  right: 0;
+}
+html[dir="rtl"] #notification-toaster {
+  left: 0;
+}
+
+#notification-toaster.visible {
+  transform: translateY(0);
+  transition: all 0.5s cubic-bezier(0.2, 0.9, 0.1, 1.1);
+}
+
+.screen.gpu-capable #notification-toaster.visible {
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: var(--acrylic-background-plus);
+}
+
+#notifications-container {
+  position: absolute;
+  top: calc(5rem + (6rem * var(--overflow-progress)));
+  left: 1.5rem;
+  width: calc(100% - 3rem);
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  border-radius: var(--tray-button-radius);
+}
+
+.screen.software-buttons-enabled #notifications-container {
+  height: calc(100% - var(--software-buttons-height) - (5rem + (6rem * var(--overflow-progress))));
+}
+
+#utility-tray-motion.transitioning #notifications-container {
+  transition: all 0.5s cubic-bezier(0, 0, 0, 1.1);
+}
+
+#notifications-container::-webkit-scrollbar {
+  display: none;
+}
+
+.screen.software-buttons-enabled #notifications-container {
+  height: calc(100% - (5rem + (6rem * var(--overflow-progress))) - var(--software-buttons-height));
+}

@@ -1,0 +1,30 @@
+{
+  "id": "org.orchid.music",
+  "version": "%system_version%",
+  "name": "Music",
+  "description": "Play and listen to your favorite music",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "/style/icons/music_16.png",
+    "32": "/style/icons/music_32.png",
+    "48": "/style/icons/music_48.png",
+    "64": "/style/icons/music_64.png",
+    "128": "/style/icons/music_128.png",
+    "256": "/style/icons/music_256.png"
+  },
+  "developer": {
+    "name": "Orchid",
+    "url": "https://orchid.thats-the.name/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait-primary",
+  "permissions": {
+    "ipc": {},
+    "settings": {},
+    "storage": {},
+    "device-storage:home": {},
+    "device-storage:audio": {},
+    "device-storage:music": {}
+  },
+  "display": "immersive"
+}

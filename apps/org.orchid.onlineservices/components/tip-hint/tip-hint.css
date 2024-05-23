@@ -1,0 +1,92 @@
+:host {
+  visibility: hidden;
+  z-index: 1000000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: visibility 0.3s ease;
+}
+
+:host(.visible) {
+  visibility: visible;
+}
+
+:host > .tour {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+:host(.no-focus) > .tour {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+:host > .tour .focus {
+  position: absolute;
+  top: calc(0.1rem * var(--offset-y, 100));
+  left: calc(0.1rem * var(--offset-x, 100));
+  width: calc(0.1rem * var(--radius, 50));
+  height: calc(0.1rem * var(--radius, 50));
+  transform: scale(1.5);
+  translate: -50% -50%;
+  border-radius: 50%;
+  outline: solid 0.5rem #ffc000;
+  box-shadow: 0 0 0 calc(100vw + 100vh) rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+:host(.visible:not(.no-focus)) > .tour .focus {
+  transform: scale(1);
+  opacity: 1;
+}
+
+:host > .tour .character {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  aspect-ratio: 1 / 1;
+  width: 50vw;
+  max-width: 60vh;
+  height: 50vw;
+  max-height: 60vh;
+  transform: translateX(100%);
+  background: url(images/mort_fursona.png) no-repeat top / cover;
+  transition: transform 0.3s cubic-bezier(0.5, 0.8, 0, 1);
+}
+
+:host(.visible) > .tour .character {
+  transform: translateX(0%);
+  transition: transform 0.3s cubic-bezier(0.5, 0.8, 0, 1.1);
+}
+
+:host > .tour .character .character-speech {
+  position: absolute;
+  top: 50%;
+  right: 25vw;
+  width: calc(100% - 4rem);
+  max-width: 40rem;
+  padding: 1rem 1.5rem;
+  transform: scale(0);
+  transform-origin: bottom right;
+  border-radius: 3rem 0.5rem 3rem 3rem;
+  background-color: #fff;
+  color: #454545;
+  font-weight: normal;
+  font-size: 1.4rem;
+  transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.1, 1);
+}
+
+:host(.visible) > .tour .character .character-speech {
+  transform: scale(1);
+  transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.1, 1.3);
+}

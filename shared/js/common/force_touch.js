@@ -68,8 +68,12 @@
           this.element.addEventListener('animationend', () => {
             this.element.classList.remove('click');
           });
+
+          navigator.vibrate([50, 100, 50]);
         } else {
           this.menu();
+
+          navigator.vibrate([50, 100, 25]);
         }
 
         this.isReady = true;

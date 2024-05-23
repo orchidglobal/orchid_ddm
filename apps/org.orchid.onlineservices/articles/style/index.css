@@ -1,0 +1,190 @@
+#wolf-message {
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+#views {
+  position: absolute;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 1024px) {
+  #views {
+    width: calc(100% - 10vw);
+    margin: 0 5vw;
+  }
+}
+
+@media screen and (min-width: 1024px) and (orientation: landscape) {
+  #views {
+    width: calc(100% - 10vw - 9rem);
+  }
+}
+
+#home,
+#post {
+  transform: translateX(0) !important;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#home > app-content > *:not(.scroll-content, .scrollbar-track),
+#post > app-content > *:not(.scroll-content, .scrollbar-track),
+#home > app-content > .scroll-content > *,
+#post > app-content > .scroll-content > * {
+  visibility: unset !important;
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+#post .post::after {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  #root {
+    z-index: 5;
+    width: 90%;
+    border-radius: 0;
+    box-shadow: 0 0 0 calc(100vw + 100vh) rgba(0, 0, 0, 0.8);
+  }
+  html[dir="ltr"] #root {
+    transform: translateX(-100%);
+  }
+  html[dir="rtl"] #root {
+    transform: translateX(100%);
+  }
+
+  html[dir="ltr"] #root.visible,
+  html[dir="rtl"] #root.visible {
+    transform: translateX(0);
+  }
+
+  html[dir="ltr"] #home,
+  html[dir="rtl"] #home {
+    visibility: visible;
+    /* transform: translateX(0); */
+    opacity: 1;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #home > app-header > a {
+    display: none;
+  }
+
+  #home > app-header > h1 {
+    transform: translateY(calc((3.6rem * (1 - var(--panel-progress, 0))) + (29.5rem * var(--panel-progress-overscroll, 0))));
+  }
+
+  .bb-tablist {
+    display: none;
+  }
+
+  #views {
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media screen and (min-width: 1024px) {
+    #views {
+      width: calc(100% - 10vw);
+    }
+  }
+
+  #root {
+    box-sizing: border-box;
+    visibility: visible;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    width: 32rem;
+    height: 100%;
+    transform: none;
+    opacity: 1;
+  }
+  html[dir="ltr"] #root {
+    left: 0;
+  }
+  html[dir="rtl"] #root {
+    right: 0;
+  }
+
+  #root.visible {
+    width: 100%;
+    border-inline-end: none;
+  }
+
+  #root > app-content > *:not(.scroll-content, .scrollbar-track, .bb-emptyscreen),
+  #root > app-content > .scroll-content > *:not(.bb-emptyscreen) {
+    visibility: visible;
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  #views app-panel:not(#root) {
+    position: absolute;
+    top: 0;
+    width: calc(100% - 32rem);
+    height: 100%;
+  }
+  html[dir="ltr"] #views app-panel:not(#root) {
+    left: 32rem;
+  }
+  html[dir="rtl"] #views app-panel:not(#root) {
+    right: 32rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  #root.visible {
+    width: calc(100% - 32rem);
+  }
+
+  #home > app-header > menu[role="toolbar"] a,
+  #trending > app-header > a {
+    display: none;
+  }
+
+  #trending > app-header > h1 {
+    transform: translateY(calc((3.6rem * (1 - var(--panel-progress, 0))) + (29.5rem * var(--panel-progress-overscroll, 0))));
+  }
+
+  [role="panel"]:not(#root, #trending) {
+    position: absolute;
+    top: 0;
+    width: calc(100% - 64rem) !important;
+    height: 100%;
+  }
+
+  #trending {
+    visibility: visible;
+    width: 32rem !important;
+    transform: none;
+    opacity: 1;
+  }
+  html[dir="ltr"] #trending {
+    right: 0;
+    left: unset !important;
+  }
+  html[dir="rtl"] #trending {
+    right: unset !important;
+    left: 0;
+  }
+
+  #trending > section > *:not(.scroll-content, .scrollbar-track, .bb-emptyscreen),
+  #trending > section > .scroll-content > *:not(.bb-emptyscreen) {
+    visibility: visible;
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

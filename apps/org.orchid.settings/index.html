@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f0f6ff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+  <link rel="shortcut icon" href="/style/icons/settings.svg" type="image/x-icon">
+  <title data-l10n-id="title"></title>
+  <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/tablists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/progress_activity.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/lists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/switches.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/checkboxes.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/radios.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/seekbars.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/input_areas.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/skeletons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/selectors.css" />
+  <link rel="stylesheet" type="text/css" href="style/settings.css" />
+  <link rel="stylesheet" type="text/css" href="style/devices.css" />
+  <link rel="stylesheet" type="text/css" href="style/system_update.css" />
+  <script type="module" src="https://orchid-f39a9.web.app/orchid_services.js"></script>
+  <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <script type="text/javascript" src="/shared/js/utils/file_picker.js"></script>
+  <script type="text/javascript" src="/shared/js/utils/compress_image.js"></script>
+  <script defer type="text/javascript" src="/shared/js/utils/file_indexer.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <!-- <script defer type="text/javascript" src="js/pages/root/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/account/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/devices/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/wifi/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/bluetooth/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/general/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/webapps/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/languages/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/audio/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/display/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/display/accent_color.js"></script>
+  <script defer type="text/javascript" src="js/pages/display/font_settings.js"></script>
+  <script defer type="text/javascript" src="js/pages/homescreen/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/homescreen/change.js"></script>
+  <script defer type="text/javascript" src="js/pages/battery/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/storage/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/accessibility/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/about/main.js"></script>
+  <script defer type="text/javascript" src="js/battery_icon.js"></script> -->
+
+  <meta name="defaultLanguage" content="en-US">
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi">
+  <link rel="localization" href="/shared/locales/branding/branding.{locale}.properties">
+  <link rel="localization" href="/shared/locales/services/services.{locale}.properties">
+  <link rel="localization" href="/shared/locales/sounds/sounds.{locale}.properties">
+  <link rel="localization" href="/shared/locales/units/units.{locale}.properties">
+  <link rel="localization" href="/locales/main.{locale}.properties">
+</head>
+
+<body>
+  <main id="app" role="app">
+    <app-panel id="root" class="visible">
+      <app-header>
+        <h1 data-l10n-id="title"></h1>
+        <app-header-toolbar>
+          <orchid-account-button id="account-button"></orchid-account-button>
+          <a href="#" data-icon="search"></a>
+        </app-header-toolbar>
+      </app-header>
+
+      <app-content id="root-content" class="lists">
+        <div class="searchbox">
+          <form action="" id="search" role="search">
+            <input type="text" name="" id="search-input" data-l10n-id="type-here-to-search">
+            <button type="reset" id="search-clear-button" data-icon="close"></button>
+            <button type="submit" data-icon="search"></button>
+          </form>
+        </div>
+
+        <!-- TODO: Notify user of incoming updates -->
+        <!-- <ul id="update-button-holder">
+          <li id="update-button" class="page hbox" data-page-id="update">
+            <img src="" alt="" id="update-button-avatar">
+            <div class="vbox">
+              <p id="update-button-name"></p>
+              <p>
+                <span id="update-button-size"></span>
+                <span class="separator"></span>
+                <span id="update-button-version"></span>
+              </p>
+            </div>
+          </li>
+        </ul> -->
+
+        <ul id="online-options">
+          <li id="account-button" class="page hbox" data-page-id="account">
+            <img src="" alt="" id="account-button-avatar">
+            <div class="vbox">
+              <p id="account-button-username"></p>
+              <p id="account-button-contact"></p>
+            </div>
+          </li>
+          <li id="login-button" class="page" data-icon="orchid">
+            <p data-l10n-id="accountLogin"></p>
+          </li>
+        </ul>
+
+        <header data-l10n-id="networking"></header>
+        <ul>
+          <li data-icon="airplane">
+            <div class="pack-switch">
+              <label for="airplane-switch">
+                <p data-l10n-id="airplaneMode"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="airplane-switch" id="airplane-switch" />
+              </span>
+            </div>
+          </li>
+          <li data-icon="location">
+            <div class="pack-switch">
+              <label for="gps-switch">
+                <p data-l10n-id="gps"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="gps-switch" id="gps-switch" />
+              </span>
+            </div>
+          </li>
+          <li class="page" data-icon="wifi" data-page-id="wifi">
+            <p data-l10n-id="wifi"></p>
+          </li>
+          <li class="page" data-icon="bluetooth" data-page-id="bluetooth">
+            <p data-l10n-id="bluetooth"></p>
+          </li>
+          <li class="page" data-icon="data" data-page-id="connectivity">
+            <p data-l10n-id="connectivity"></p>
+          </li>
+        </ul>
+
+        <header data-l10n-id="personalize"></header>
+        <ul>
+          <li class="page" data-icon="settings" data-page-id="general">
+            <p data-l10n-id="general"></p>
+          </li>
+          <li class="page" data-icon="audio" data-page-id="audio">
+            <p data-l10n-id="audio"></p>
+          </li>
+          <li class="page" data-icon="display" data-page-id="display">
+            <p data-l10n-id="display"></p>
+          </li>
+          <li class="page" data-icon="home" data-page-id="homescreen">
+            <p data-l10n-id="homescreen"></p>
+          </li>
+          <li class="page" data-icon="lock" data-page-id="lockscreen">
+            <p data-l10n-id="lockScreen"></p>
+          </li>
+          <li class="page" data-icon="date" data-page-id="date-and-time">
+            <p data-l10n-id="date-and-time"></p>
+          </li>
+          <li class="page" data-icon="shield" data-page-id="privacy">
+            <p data-l10n-id="privacy"></p>
+          </li>
+        </ul>
+
+        <header data-l10n-id="device"></header>
+        <ul>
+          <li class="page" data-icon="storage" data-page-id="storage">
+            <p data-l10n-id="storage"></p>
+          </li>
+        </ul>
+
+        <header data-l10n-id="system"></header>
+        <ul>
+          <li class="page" data-icon="about" data-page-id="about">
+            <p data-l10n-id="about"></p>
+          </li>
+          <li id="listItem-battery" class="page" data-icon="battery-70" data-page-id="battery">
+            <p data-l10n-id="battery"></p>
+          </li>
+          <li class="page" data-icon="user" data-page-id="profiles">
+            <p data-l10n-id="profiles"></p>
+          </li>
+          <li class="page" data-icon="accessibility" data-page-id="accessibility">
+            <p data-l10n-id="accessibility"></p>
+          </li>
+          <li class="page" data-icon="power" data-page-id="system">
+            <p data-l10n-id="system"></p>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="account" data-page-object="SettingsApp.Account" data-previous-page-id="root">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="account"></h1>
+        <app-header-toolbar>
+          <a href="#" data-icon="users"></a>
+        </app-header-toolbar>
+      </app-header>
+
+      <app-content class="lists">
+        <orchid-account-banner id="account-banner"></orchid-account-banner>
+
+        <ul>
+          <li class="page" data-icon="parental-control" data-page-id="parental-control">
+            <p data-l10n-id="parental-control"></p>
+          </li>
+          <li class="page" data-icon="devices" data-page-id="devices">
+            <p data-l10n-id="devices"></p>
+          </li>
+        </ul>
+
+        <header data-l10n-id="account-personal"></header>
+        <ul>
+          <li class="page" data-icon="edit" data-page-id="account-edit">
+            <p data-l10n-id="account-edit"></p>
+          </li>
+          <li class="page" data-icon="email" data-page-id="account-email">
+            <p data-l10n-id="account-email"></p>
+            <p id="account-email"></p>
+          </li>
+          <li class="page" data-icon="call" data-page-id="account-phone-number">
+            <p data-l10n-id="account-phone-number"></p>
+            <p id="account-phone-number"></p>
+          </li>
+          <li class="page" data-icon="lock" data-page-id="account-password">
+            <p data-l10n-id="account-password"></p>
+          </li>
+          <li id="accountListItem-avatar" class="page" data-icon="user">
+            <p data-l10n-id="account-avatar"></p>
+          </li>
+          <li id="accountListItem-banner" class="page" data-icon="wallpaper">
+            <p data-l10n-id="account-banner"></p>
+          </li>
+        </ul>
+
+        <header data-l10n-id="account-etc"></header>
+        <ul>
+          <li class="page" data-icon="achievement" data-page-id="account-achievements">
+            <p data-l10n-id="account-achievements"></p>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="parental-control" data-previous-page-id="account">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="account"></a>
+        <h1>
+          <img src="/images/pc.svg" alt="">
+          <span data-l10n-id="parental-control"></span>
+        </h1>
+        <app-header-toolbar>
+          <a href="#" id="parental-control-feedback-button" data-icon="feedback"></a>
+        </app-header-toolbar>
+      </app-header>
+
+      <app-content class="lists">
+        <ul>
+          <li>
+            <p>Specified Content Age</p>
+            <input type="range" name="" id="">
+            <p>18 Years</p>
+          </li>
+          <li class="page">
+            <p>App Blocklist</p>
+          </li>
+          <li class="page">
+            <p>Browser Blocklist</p>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="devices" data-previous-page-id="account">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="account"></a>
+        <h1 data-l10n-id="devices"></h1>
+        <app-header-toolbar>
+          <a href="#" id="devices-reload-button" data-icon="reload"></a>
+        </app-header-toolbar>
+      </app-header>
+
+      <app-content>
+        <ul id="devices-container"></ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="account-edit" data-previous-page-id="account">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="account"></a>
+        <h1 data-l10n-id="account-edit"></h1>
+        <app-header-toolbar>
+          <a href="#" id="account-edit-confirm-button" data-icon="tick"></a>
+        </app-header-toolbar>
+      </app-header>
+
+      <app-content class="lists">
+        <ul>
+          <li>
+            <p data-l10n-id="account-edit-username"></p>
+            <input type="text" id="account-edit-username-input">
+          </li>
+          <li>
+            <p data-l10n-id="account-edit-handlename"></p>
+            <input type="text" id="account-edit-handle-name-input">
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="wifi" data-page-object="SettingsApp.Wifi" data-previous-page-id="root">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="wifi"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul>
+          <li data-icon="wifi">
+            <div class="pack-switch">
+              <label for="wifi-switch">
+                <p data-l10n-id="enableWifi"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="wifi-switch" id="wifi-switch" />
+              </span>
+            </div>
+          </li>
+          <li id="saved-networks-button" class="page" data-icon="list" data-page-id="savedNetworks">
+            <p data-l10n-id="wifi-savedNetworks"></p>
+          </li>
+          <li id="wifi-reload-button" data-icon="reload">
+            <p data-l10n-id="wifi-refresh"></p>
+          </li>
+        </ul>
+
+        <header data-l10n-id="wifi-availableNetworks"></header>
+        <ul id="available-networks"></ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="bluetooth" data-page-object="SettingsApp.Bluetooth" data-previous-page-id="root">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="bluetooth"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul>
+          <li data-icon="bluetooth">
+            <div class="pack-switch">
+              <label for="bluetooth-switch">
+                <p data-l10n-id="enableBluetooth"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="bluetooth-switch" id="bluetooth-switch" />
+              </span>
+            </div>
+          </li>
+          <li id="reload-button" data-icon="reload">
+            <p data-l10n-id="bluetoothReload"></p>
+          </li>
+        </ul>
+
+        <header data-l10n-id="bluetooth-pairedDevices"></header>
+        <ul id="paired-devices"></ul>
+
+        <header data-l10n-id="bluetooth-availableDevices"></header>
+        <ul id="available-devices"></ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="general" data-page-object="SettingsApp.General" data-previous-page-id="root">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="general"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul>
+          <li class="page" data-icon="focus" data-page-id="focus-mode">
+            <p data-l10n-id="focus-mode"></p>
+          </li>
+        </ul>
+
+        <header data-l10n-id="webapps"></header>
+        <ul>
+          <li class="page" data-icon="web" data-page-id="browser">
+            <p data-l10n-id="browser"></p>
+          </li>
+          <li class="page" data-icon="crowd-play" data-page-id="gaming">
+            <p data-l10n-id="gaming"></p>
+          </li>
+          <li class="page" data-icon="apps" data-page-id="webapps">
+            <p data-l10n-id="webapps"></p>
+          </li>
+          <li class="page" data-icon="addons" data-page-id="addons">
+            <p data-l10n-id="addons"></p>
+          </li>
+        </ul>
+
+        <header data-l10n-id="localization"></header>
+        <ul>
+          <li class="page" data-icon="languages" data-page-id="languages">
+            <p data-l10n-id="languages"></p>
+          </li>
+          <li class="page" data-icon="direction" data-page-id="language-direction">
+            <p data-l10n-id="changeLanguageDirection"></p>
+          </li>
+          <li class="page" data-icon="numeric" data-page-id="numeric-language">
+            <p data-l10n-id="changeNumericLanguage"></p>
+          </li>
+          <li class="page" data-icon="price" data-page-id="currency">
+            <p data-l10n-id="changeCurrency"></p>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="focus-mode" data-page-object="SettingsApp.General" data-previous-page-id="root">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="general"></a>
+        <h1 data-l10n-id="focus-mode"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <orchid-icon-selector id="focus-mode-selector"></orchid-icon-selector>
+
+        <ul>
+          <li data-icon="focus">
+            <div class="pack-switch">
+              <label for="focus-mode-switch">
+                <p data-l10n-id="enableFocusMode"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="focus-mode-switch" id="focus-mode-switch" />
+              </span>
+            </div>
+          </li>
+          <li class="page">
+            <p data-l10n-id="focus-mode-icon"></p>
+          </li>
+          <li class="page">
+            <p data-l10n-id="focus-mode-name"></p>
+          </li>
+          <li data-icon="bell-off">
+            <div class="pack-switch">
+              <label for="focus-mode-mute-switch">
+                <p data-l10n-id="enableFocusModeMute"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="focus-mode-mute-switch" id="focus-mode-mute-switch" />
+              </span>
+            </div>
+          </li>
+          <li data-icon="vibrate">
+            <div class="pack-switch">
+              <label for="focus-mode-vibrate-switch">
+                <p data-l10n-id="enableFocusModeVibrate"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="focus-mode-vibrate-switch" id="focus-mode-vibrate-switch" />
+              </span>
+            </div>
+          </li>
+        </ul>
+
+        <ul>
+          <li class="danger" data-icon="delete">
+            <p data-l10n-id="focus-mode-remove"></p>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="browser" data-previous-page-id="general">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="general"></a>
+        <h1 data-l10n-id="browser"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul>
+          <li data-icon="browser-moveup">
+            <p data-l10n-id="chromePosition"></p>
+            <select name="" id="display-chromePosition">
+              <option value="top">Top</option>
+              <option value="bottom">Bottom</option>
+            </select>
+          </li>
+        </ul>
+
+        <header data-l10n-id="browser-webBrowsing"></header>
+        <ul>
+          <li data-icon="js">
+            <div class="pack-checkbox">
+              <label for="general-js-checkbox">
+                <p data-l10n-id="enableJavascript"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="general-js-checkbox" id="general-js-checkbox" />
+              </span>
+            </div>
+          </li>
+          <li data-icon="cookies">
+            <div class="pack-checkbox">
+              <label for="general-cookies-checkbox">
+                <p data-l10n-id="enableCookies"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="general-cookies-checkbox" id="general-cookies-checkbox" />
+              </span>
+            </div>
+          </li>
+          <li data-icon="cookies-off">
+            <p data-l10n-id="browser-deleteCookies"></p>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="webapps" data-page-object="SettingsApp.Webapps" data-previous-page-id="general">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="general"></a>
+        <h1 data-l10n-id="webapps"></h1>
+        <app-header-toolbar>
+          <a href="#" id="webapps-edit-button" data-icon="edit"></a>
+        </app-header-toolbar>
+      </app-header>
+
+      <app-content class="lists">
+        <div class="searchbox">
+          <form action="" id="webapps-search" role="search">
+            <input type="text" name="" id="webapps-search-input" data-l10n-id="type-here-to-search">
+            <button type="reset" id="webapps-search-clear-button" data-icon="close"></button>
+            <button type="submit" data-icon="search"></button>
+          </form>
+        </div>
+
+        <ul>
+          <li data-icon="download">
+            <div class="pack-checkbox">
+              <label for="general-3rd-party-sources-checkbox">
+                <p data-l10n-id="enable3rdParty"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="general-3rd-party-sources-checkbox"
+                  id="general-3rd-party-sources-checkbox" />
+              </span>
+            </div>
+          </li>
+        </ul>
+
+        <ul id="webapps-list"></ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="webapp-info" data-previous-page-id="webapps">
+      <app-header class="compact auto-hide">
+        <a href="#" data-icon="arrow-back" data-page-id="webapps"></a>
+        <h1 id="webapp-info-header">
+          <img src="" alt="" id="webapp-info-header-icon">
+          <span id="webapp-info-header-name"></span>
+        </h1>
+      </app-header>
+
+      <app-content class="lists">
+        <div class="webapp-header">
+          <figure>
+            <img src="" alt="" id="webapp-info-icon">
+            <figcaption>
+              <div id="webapp-info-name"></div>
+              <div id="webapp-info-version"></div>
+              <div id="webapp-info-id"></div>
+              <a href="#" id="webapp-info-author"></a>
+            </figcaption>
+          </figure>
+          <div class="buttons">
+            <button id="webapp-info-uninstall-button" class="danger" data-l10n-id="webapp-info-uninstall"></button>
+            <button id="webapp-info-store-button" data-l10n-id="webapp-info-store"></button>
+          </div>
+        </div>
+
+        <ul>
+          <li class="noclick">
+            <p data-l10n-id="webapp-info-description"></p>
+            <p id="webapp-info-description"></p>
+          </li>
+        </ul>
+
+        <header data-l10n-id="webapp-info-access"></header>
+        <ul>
+          <li class="page" data-icon="list">
+            <p data-l10n-id="webapp-info-permissions"></p>
+          </li>
+        </ul>
+
+        <header data-l10n-id="webapp-info-storage"></header>
+        <ul>
+          <li class="page" data-icon="stopwatch">
+            <p data-l10n-id="webapp-info-cache"></p>
+          </li>
+          <li class="page" data-icon="save">
+            <p data-l10n-id="webapp-info-app-data"></p>
+          </li>
+        </ul>
+
+        <header data-l10n-id="webapp-info-entry-points"></header>
+        <ul id="webapp-info-entry-points"></ul>
+
+        <header data-l10n-id="webapp-info-activities"></header>
+        <ul id="webapp-info-activities"></ul>
+
+        <header data-l10n-id="webapp-info-actions"></header>
+        <ul>
+          <li class="page" data-icon="external">
+            <p data-l10n-id="webapp-info-launch"></p>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="languages" data-page-object="SettingsApp.Languages" data-previous-page-id="general">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="general"></a>
+        <h1 data-l10n-id="languages"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul id="languages-list"></ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="audio" data-page-object="SettingsApp.Audio" data-previous-page-id="root">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="audio"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul>
+          <li data-icon="call">
+            <div class="pack-slider">
+              <label for="audio-ringtones-slider">
+                <p data-l10n-id="audio-ringtones"></p>
+              </label>
+              <span>
+                <input type="range" name="audio-ringtones-slider" id="audio-ringtones-slider" />
+              </span>
+            </div>
+          </li>
+          <li data-icon="notification">
+            <div class="pack-slider">
+              <label for="audio-notifications-slider">
+                <p data-l10n-id="audio-notifications"></p>
+              </label>
+              <span>
+                <input type="range" name="audio-notifications-slider" id="audio-notifications-slider" />
+              </span>
+            </div>
+          </li>
+          <li data-icon="audio">
+            <div class="pack-slider">
+              <label for="audio-media-slider">
+                <p data-l10n-id="audio-media"></p>
+              </label>
+              <span>
+                <input type="range" name="audio-media-slider" id="audio-media-slider" />
+              </span>
+            </div>
+          </li>
+          <li data-icon="music">
+            <div class="pack-slider">
+              <label for="audio-music-slider">
+                <p data-l10n-id="audio-music"></p>
+              </label>
+              <span>
+                <input type="range" name="audio-music-slider" id="audio-music-slider" />
+              </span>
+            </div>
+          </li>
+          <li data-icon="bike-mode">
+            <div class="pack-checkbox">
+              <label for="audio-bike-mode-checkbox">
+                <p data-l10n-id="enableBikeMode"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="audio-bike-mode-checkbox" id="audio-bike-mode-checkbox" />
+              </span>
+            </div>
+          </li>
+        </ul>
+        <detail class="opaque" data-l10n-id="bikeModeTitle" data-icon="bike-mode"></detail>
+        <detail data-l10n-id="bikeModeDesc"></detail>
+        <detail data-l10n-id="bikeModeDesc-dos1"></detail>
+        <detail data-l10n-id="bikeModeDesc-dos2"></detail>
+
+        <ul>
+          <li data-icon="do-not-disturb">
+            <div class="pack-switch">
+              <label for="audio-do-not-disturb-switch">
+                <p data-l10n-id="enableDoNotDisturb"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="audio-do-not-disturb-switch" id="audio-do-not-disturb-switch" />
+              </span>
+            </div>
+          </li>
+        </ul>
+        <detail class="opaque" data-l10n-id="doNotDisturbTitle" data-icon="do-not-disturb"></detail>
+        <detail data-l10n-id="doNotDisturbDesc"></detail>
+
+        <header data-l10n-id="audio-customize"></header>
+        <ul>
+          <li class="page" data-icon="call" data-page-id="change-ringtone">
+            <p data-l10n-id="changeRingtone"></p>
+          </li>
+          <li class="page" data-icon="notification" data-page-id="change-notification-sound">
+            <p data-l10n-id="changeNotificationSound"></p>
+          </li>
+          <li data-icon="vibrate">
+            <div class="pack-switch">
+              <label for="audio-vibrate-switch">
+                <p data-l10n-id="enableVibrate"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="audio-vibrate-switch" id="audio-vibrate-switch" />
+              </span>
+            </div>
+          </li>
+        </ul>
+        <detail class="opaque" data-l10n-id="vibrateTitle" data-icon="vibrate"></detail>
+        <detail data-l10n-id="vibrateDesc"></detail>
+        <detail class="notice opaque" data-l10n-id="vibrateNotice" data-icon="bell-off"></detail>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="change-ringtone" data-page-object="SettingsApp.ChangeRingtone" data-previous-page-id="audio">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="audio"></a>
+        <h1 data-l10n-id="changeRingtone"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul id="change-ringtone-list"></ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="change-notification-sound" data-page-object="SettingsApp.ChangeNotificationSound"
+      data-previous-page-id="audio">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="audio"></a>
+        <h1 data-l10n-id="changeNotificationSound"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul id="change-notification-sound-list"></ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="display" data-page-object="SettingsApp.Display" data-previous-page-id="root">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="display"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul>
+          <li data-icon="brightness">
+            <div class="pack-slider">
+              <label for="display-brightness-slider">
+                <p data-l10n-id="display-brightness"></p>
+              </label>
+              <span>
+                <input type="range" name="display-brightness-slider" id="display-brightness-slider" />
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="pack-checkbox">
+              <label for="display-auto-brightness-checkbox">
+                <p data-l10n-id="enableAutoBrightness"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="display-auto-brightness-checkbox" id="display-auto-brightness-checkbox" />
+              </span>
+            </div>
+          </li>
+          <li data-icon="filter">
+            <div class="pack-switch">
+              <label for="display-environment-tuning-switch">
+                <p data-l10n-id="enableEnvironmentTuning"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="display-environment-tuning-switch"
+                  id="display-environment-tuning-switch" />
+              </span>
+            </div>
+          </li>
+        </ul>
+
+        <header data-l10n-id="display-interface"></header>
+        <ul>
+          <li data-icon="dark-mode">
+            <div class="pack-switch">
+              <label for="display-dark-mode-switch">
+                <p data-l10n-id="enableDarkMode"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="display-dark-mode-switch" id="display-dark-mode-switch" />
+              </span>
+            </div>
+          </li>
+          <li data-icon="eye">
+            <div class="pack-switch">
+              <label for="display-warm-colors-switch">
+                <p data-l10n-id="enableWarmColors"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="display-warm-colors-switch" id="display-warm-colors-switch" />
+              </span>
+            </div>
+          </li>
+        </ul>
+        <detail data-l10n-id="warmColorsTitle" data-icon="eye"></detail>
+        <detail data-l10n-id="warmColorsDesc"></detail>
+
+        <ul>
+          <li class="page" data-icon="book-mode" data-page-id="reader-mode">
+            <p data-l10n-id="reader-mode"></p>
+          </li>
+          <li class="page" data-icon="tabs" data-page-id="refresh-rate">
+            <p data-l10n-id="refresh-rate"></p>
+          </li>
+          <li data-icon="eye-off">
+            <div class="pack-switch">
+              <label for="display-red-light-point-switch">
+                <p data-l10n-id="enableRedLightPoint"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="display-red-light-point-switch" id="display-red-light-point-switch" />
+              </span>
+            </div>
+          </li>
+        </ul>
+        <detail data-l10n-id="redLightPointTitle" data-icon="eye"></detail>
+        <detail data-l10n-id="redLightPointDesc"></detail>
+
+        <header data-l10n-id="display-personalize"></header>
+        <ul>
+          <li class="page" data-icon="themes">
+            <p data-l10n-id="changeTheme"></p>
+          </li>
+          <li class="page" data-icon="paint" data-page-id="accent-color">
+            <p data-l10n-id="changeAccentColor"></p>
+          </li>
+          <li class="page" data-icon="reader-mode">
+            <p data-l10n-id="changeFontFamily"></p>
+          </li>
+          <li class="page" data-icon="edit" data-page-id="font-settings">
+            <p data-l10n-id="changeFontSettings"></p>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="reader-mode" data-page-object="SettingsApp.ReaderMode" data-previous-page-id="display">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="display"></a>
+        <h1 data-l10n-id="reader-mode"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul>
+          <li data-icon="book-mode">
+            <div class="pack-switch">
+              <label for="display-reader-mode-switch">
+                <p data-l10n-id="enableReaderMode"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="display-reader-mode-switch" id="display-reader-mode-switch" />
+              </span>
+            </div>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="accent-color" data-page-object="SettingsApp.AccentColor" data-previous-page-id="display">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="display"></a>
+        <h1 data-l10n-id="accentColor"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <div class="accent-color-preview-holder">
+          <div id="accent-color-preview-content lists">
+            <header data-l10n-id="accentColor-testHeader"></header>
+            <ul>
+              <li>
+                <p data-l10n-id="accentColor-testItem"></p>
+              </li>
+              <li>
+                <p data-l10n-id="accentColor-testItemRow1"></p>
+                <p data-l10n-id="accentColor-testItemRow2"></p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="accent-color-selector">
+          <div class="accent-color-row">
+            <div id="accent-color-wallpaper-accent" class="color wallpaper"></div>
+            <div id="accent-color-recents" class="colors"></div>
+          </div>
+          <div class="accent-color-row">
+            <div id="accent-color-colorways" class="colors"></div>
+          </div>
+        </div>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="font-settings" data-page-object="SettingsApp.FontSettings" data-previous-page-id="display">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="display"></a>
+        <h1 data-l10n-id="fontSettings"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <div class="font-settings-preview-holder">
+          <div id="font-settings-preview-text">
+            لمّا كان الاعتراف بالكرامة المتأصلة في جميع
+          </div>
+        </div>
+
+        <div class="font-settings-sliders">
+          <input type="range" name="" id="font-settings-size-slider">
+          <input type="range" name="" id="font-settings-weight-slider">
+        </div>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="homescreen" data-page-object="SettingsApp.Homescreen" data-previous-page-id="root">
+      <app-header class="no-rounded-corners">
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="homescreen"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <div id="wallpaper" data-page-id="homescreen-wallpaper">
+          <div class="wallpaper-image-container">
+            <img src="" alt="" id="wallpaper-image">
+          </div>
+          <div class="edit-button" data-icon="edit"></div>
+        </div>
+
+        <header data-l10n-id="homescreen-customize"></header>
+        <ul>
+          <li class="page" data-icon="home" data-page-id="homescreen-change">
+            <p data-l10n-id="changeHomescreen"></p>
+          </li>
+        </ul>
+
+        <header data-l10n-id="homescreen-gestures"></header>
+        <ul>
+          <li data-icon="gestures">
+            <div class="pack-checkbox">
+              <label for="homescreen-software-buttons-checkbox">
+                <p data-l10n-id="enableSoftwareButtons"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="homescreen-software-buttons-checkbox"
+                  id="homescreen-software-buttons-checkbox" />
+              </span>
+            </div>
+          </li>
+        </ul>
+
+        <header data-l10n-id="homescreen-layout"></header>
+        <ul>
+          <li data-icon="paint">
+            <div class="pack-checkbox">
+              <label for="homescreen-accented-checkbox">
+                <p data-l10n-id="enableAccentedIcons"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="homescreen-accented-checkbox" id="homescreen-accented-checkbox" />
+              </span>
+            </div>
+          </li>
+          <li class="page" data-icon="grid">
+            <div class="pack-selector">
+              <label>
+                <p data-l10n-id="homescreenGrid"></p>
+              </label>
+              <span>
+                <select name="" id="homescreen-grid">
+                  <option value="4x6">4 by 6</option>
+                  <option value="4x5">4 by 5</option>
+                </select>
+              </span>
+            </div>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="homescreen-change" data-page-object="SettingsApp.HomescreenChange" data-previous-page-id="root">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="changeHomescreen"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul id="homescreen-change-list"></ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="lockscreen" data-previous-page-id="root">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="lockScreen"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul>
+          <li class="page" data-icon="unlock" data-page-id="lockScreen-mode">
+            <p data-l10n-id="lockScreen-mode"></p>
+          </li>
+          <li class="page" data-icon="usb">
+            <p data-l10n-id="lockScreen-safePass"></p>
+          </li>
+        </ul>
+
+        <header data-l10n-id="lockScreen-biometric"></header>
+        <ul>
+          <li class="page" data-icon="fingerprint">
+            <p data-l10n-id="lockScreen-fingerprint"></p>
+          </li>
+          <li class="page" data-icon="face-recognition">
+            <p data-l10n-id="lockScreen-faceRecognition"></p>
+          </li>
+          <li class="page" data-icon="accessibility">
+            <p data-l10n-id="lockScreen-irisScanner"></p>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="lockScreen-mode" data-previous-page-id="lockScreen">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="lockscreen"></a>
+        <h1 data-l10n-id="lockScreen-mode"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul>
+          <li id="lockscreen-mode-swipe" class="page" data-page-id="lockscreen">
+            <p data-l10n-id="lockScreen-mode-swipe"></p>
+          </li>
+          <li class="page" data-page-id="lockscreen-mode-pinLock">
+            <p data-l10n-id="lockScreen-mode-pinLock"></p>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="lockScreen-mode-pinLock" data-page-object="SettingsApp.LockscreenPIN"
+      data-previous-page-id="lockScreen-mode">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="lockScreen-mode"></a>
+        <h1 data-l10n-id="lockScreen-mode-pinLock"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul>
+          <li>
+            <p data-l10n-id="lockScreen-mode-pinLock-pin"></p>
+            <input type="number" name="" id="lockScreen-mode-pinLock-pin">
+          </li>
+          <li>
+            <p data-l10n-id="lockScreen-mode-pinLock-confirmPin"></p>
+            <input type="number" name="" id="lockScreen-mode-pinLock-confirmPin">
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="date-and-time" data-page-object="SettingsApp.DateAndTime" data-previous-page-id="root">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="date-and-time"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul>
+          <li>
+            <p data-l10n-id="date-and-time-time"></p>
+            <input type="time" name="" id="date-and-time-time">
+          </li>
+          <li>
+            <p data-l10n-id="date-and-time-date"></p>
+            <input type="date" name="" id="date-and-time-date">
+          </li>
+        </ul>
+
+        <header data-l10n-id="date-and-time-clock"></header>
+        <ul>
+          <li>
+            <div class="pack-checkbox">
+              <label for="date-and-time-12-hour-clock-checkbox">
+                <p data-l10n-id="date12HourTime"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="date-and-time-12-hour-clock-checkbox"
+                  id="date-and-time-12-hour-clock-checkbox" />
+              </span>
+            </div>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="privacy" data-page-object="SettingsApp.Privacy" data-previous-page-id="root">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="privacy"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul>
+          <li data-icon="privacy">
+            <div class="pack-switch">
+              <label for="privacy-privateBrowsing-switch">
+                <p data-l10n-id="privateBrowsing"></p>
+                <p data-l10n-id="privateBrowsing-detail"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="privacy-privateBrowsing-switch" id="privacy-privateBrowsing-switch" />
+              </span>
+            </div>
+          </li>
+          <li class="page" data-icon="list" data-page-id="settings">
+            <p data-l10n-id="privacy-permissions"></p>
+          </li>
+        </ul>
+
+        <header data-l10n-id="privacy-advanced"></header>
+        <ul>
+          <li data-icon="forbidden">
+            <div class="pack-switch">
+              <label for="privacy-overkillPrivateBrowsing-switch">
+                <p data-l10n-id="overkillPrivateBrowsing"></p>
+                <p data-l10n-id="overkillPrivateBrowsing-detail"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="privacy-overkillPrivateBrowsing-switch"
+                  id="privacy-overkillPrivateBrowsing-switch" />
+              </span>
+            </div>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="battery" data-page-object="SettingsApp.Battery" data-previous-page-id="root">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="battery"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <div class="battery-header">
+          <div id="battery-percentage" data-l10n-id="battery-percentage"></div>
+          <div id="battery-charge-state"></div>
+        </div>
+        <ul>
+          <li data-icon="power-saver">
+            <div class="pack-switch">
+              <label for="power-saver-switch">
+                <p data-l10n-id="enablePowerSaver"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="power-saver-switch" id="power-saver-switch" />
+              </span>
+            </div>
+          </li>
+          <li data-icon="power-saver-ultra">
+            <div class="pack-switch">
+              <label for="power-ultraSaver-switch">
+                <p data-l10n-id="enableUltraPowerSaver"></p>
+                <p data-l10n-id="enableUltraPowerSaver-desc"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="power-ultraSaver-switch" id="power-ultraSaver-switch" />
+              </span>
+            </div>
+          </li>
+        </ul>
+
+        <header data-l10n-id="battery-statusbar"></header>
+        <ul>
+          <li data-icon="battery-charging-90">
+            <div class="pack-switch">
+              <label for="battery-percentage-switch">
+                <p data-l10n-id="enableBatteryPercentage"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="battery-percentage-switch" id="battery-percentage-switch" />
+              </span>
+            </div>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="storage" data-page-object="SettingsApp.Storage" data-previous-page-id="root">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="storage"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <div id="storage-used-space-progress"></div>
+        <ul id="storage-list"></ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="accessibility" data-page-object="SettingsApp.Accessibility" data-previous-page-id="root">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="accessibility"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul>
+          <li data-icon="speech">
+            <div class="pack-switch">
+              <label for="accessibility-narrator-switch">
+                <p data-l10n-id="enableNarrator"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="accessibility-narrator-switch" id="accessibility-narrator-switch" />
+              </span>
+            </div>
+          </li>
+        </ul>
+
+        <header data-l10n-id="text-visibility"></header>
+        <ul>
+          <li data-icon="bold">
+            <div class="pack-switch">
+              <label for="accessibility-text-bold-switch">
+                <p data-l10n-id="enableBoldText"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="accessibility-text-bold-switch" id="accessibility-text-bold-switch" />
+              </span>
+            </div>
+          </li>
+          <li data-icon="contrast">
+            <div class="pack-switch">
+              <label for="accessibility-text-contrast-switch">
+                <p data-l10n-id="enableContrastText"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="accessibility-text-contrast-switch"
+                  id="accessibility-text-contrast-switch" />
+              </span>
+            </div>
+          </li>
+          <li data-icon="text">
+            <div class="pack-slider">
+              <label for="accessibility-text-scaling-slider">
+                <p data-l10n-id="accessibility-text-scaling"></p>
+              </label>
+              <span>
+                <input type="range" name="accessibility-text-scaling-slider" id="accessibility-text-scaling-slider" />
+              </span>
+            </div>
+          </li>
+        </ul>
+
+        <form action="">
+          <header data-l10n-id="color-blindness"></header>
+          <ul>
+            <li>
+              <div class="pack-radio">
+                <label for="accessibility-color-blindness-none-radio">
+                  <p data-l10n-id="color-blindness-none"></p>
+                </label>
+                <span>
+                  <input type="radio" name="accessibility-color-blindness-radio"
+                    id="accessibility-color-blindness-none-radio" value="none" />
+                </span>
+              </div>
+            </li>
+            <li>
+              <div class="pack-radio">
+                <label for="accessibility-color-blindness-protanopia-radio">
+                  <p data-l10n-id="color-blindness-protanopia"></p>
+                </label>
+                <span>
+                  <input type="radio" name="accessibility-color-blindness-radio"
+                    id="accessibility-color-blindness-protanopia-radio" value="protanopia" />
+                </span>
+              </div>
+            </li>
+            <li>
+              <div class="pack-radio">
+                <label for="accessibility-color-blindness-deuteranopia-radio">
+                  <p data-l10n-id="color-blindness-deuteranopia"></p>
+                </label>
+                <span>
+                  <input type="radio" name="accessibility-color-blindness-radio"
+                    id="accessibility-color-blindness-deuteranopia-radio" value="deuteranopia" />
+                </span>
+              </div>
+            </li>
+            <li>
+              <div class="pack-radio">
+                <label for="accessibility-color-blindness-tritanopia-radio">
+                  <p data-l10n-id="color-blindness-tritanopia"></p>
+                </label>
+                <span>
+                  <input type="radio" name="accessibility-color-blindness-radio"
+                    id="accessibility-color-blindness-tritanopia-radio" value="tritanopia" />
+                </span>
+              </div>
+            </li>
+            <li>
+              <div class="pack-radio">
+                <label for="accessibility-color-blindness-achromatopsia-radio">
+                  <p data-l10n-id="color-blindness-achromatopsia"></p>
+                </label>
+                <span>
+                  <input type="radio" name="accessibility-color-blindness-radio"
+                    id="accessibility-color-blindness-achromatopsia-radio" value="achromatopsia" />
+                </span>
+              </div>
+            </li>
+          </ul>
+        </form>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="system" data-previous-page-id="root">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="system"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <ul>
+          <li class="page" data-icon="sync" data-page-id="system-update">
+            <p data-l10n-id="systemUpdate"></p>
+          </li>
+        </ul>
+        <ul>
+          <li class="page" data-icon="edit" data-page-id="devel-options">
+            <p data-l10n-id="devOptions"></p>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="devel-options" data-previous-page-id="system">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="system"></a>
+        <h1 data-l10n-id="devOptions"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <header data-l10n-id="devOptions-debugging"></header>
+        <ul>
+          <li data-icon="desktop">
+            <div class="pack-switch">
+              <label for="devOptions-debugging-switch">
+                <p data-l10n-id="enableDebugging"></p>
+                <p data-l10n-id="enableDebugging-detail"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="devOptions-debugging-switch" id="devOptions-debugging-switch" />
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="vbox">
+              <p data-l10n-id="debuggingPort"></p>
+              <input type="text" name="" id="">
+            </div>
+          </li>
+        </ul>
+
+        <header data-l10n-id="devOptions-features"></header>
+        <ul>
+          <li>
+            <div class="pack-checkbox">
+              <label for="devOptions-profilerStats-checkbox">
+                <p data-l10n-id="enableProfilerStats"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="devOptions-profilerStats-checkbox"
+                  id="devOptions-profilerStats-checkbox" />
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="pack-checkbox">
+              <label for="devOptions-visibleTouches-checkbox">
+                <p data-l10n-id="enableVisibleTouches"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="devOptions-visibleTouches-checkbox"
+                  id="devOptions-visibleTouches-checkbox" />
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="pack-checkbox">
+              <label for="devOptions-music-checkbox">
+                <p data-l10n-id="enableMusic"></p>
+              </label>
+              <span>
+                <input type="checkbox" name="devOptions-music-checkbox" id="devOptions-music-checkbox" />
+              </span>
+            </div>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="system-update" data-page-object="SettingsApp.SystemUpdate" data-previous-page-id="system">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="system"></a>
+        <h1 data-l10n-id="systemUpdate"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <div class="updates">
+          <div id="current-update" class="update current" data-page-id="patch-logs">
+            <div class="artwork"></div>
+
+            <div class="text-holder">
+              <h1 class="release-number" id="current-update-release-number">4</h1>
+              <p class="name" id="current-update-name">Developer Update</p>
+              <div class="stats">
+                <span class="version" id="current-update-version">4.0.1</span>
+                <div class="separator"></div>
+                <span class="size" id="current-update-size">0.9GB</span>
+              </div>
+              <div class="updated-apps" id="current-update-apps">
+                <img src="style/icons/settings_64.png" alt="">
+              </div>
+            </div>
+          </div>
+          <div id="updates-list"></div>
+        </div>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="patch-logs" data-previous-page-id="system-update">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="system-update"></a>
+        <h1 data-l10n-id="patchLogs"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <div id="patch-logs-content"></div>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="about" data-page-object="SettingsApp.About" data-previous-page-id="root">
+      <app-header class="compact auto-hide">
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="about"></h1>
+      </app-header>
+
+      <app-content class="lists">
+        <div class="about-header">
+          <div id="about-logo" class="logo"></div>
+        </div>
+        <ul>
+          <li class="page">
+            <p data-l10n-id="about-hostname"></p>
+            <p id="about-hostname"></p>
+          </li>
+          <li class="page" data-page-id="about-credits">
+            <p data-l10n-id="credits"></p>
+          </li>
+          <li class="page" data-page-id="about-discord">
+            <p data-l10n-id="join-discord"></p>
+          </li>
+        </ul>
+        <ul>
+          <li class="noclick">
+            <p data-l10n-id="about-systemName"></p>
+            <p id="about-systemName"></p>
+          </li>
+          <li class="noclick">
+            <p data-l10n-id="about-systemVersion"></p>
+            <p id="about-systemVersion"></p>
+          </li>
+          <li class="noclick">
+            <p data-l10n-id="about-hardwareId"></p>
+            <p id="about-hardwareId"></p>
+          </li>
+          <li class="noclick">
+            <p data-l10n-id="about-arch"></p>
+            <p id="about-arch"></p>
+          </li>
+          <li class="noclick">
+            <p data-l10n-id="about-endianness"></p>
+            <p id="about-endianness"></p>
+          </li>
+          <li class="noclick">
+            <p data-l10n-id="about-type"></p>
+            <p id="about-type"></p>
+          </li>
+        </ul>
+      </app-content>
+    </app-panel>
+
+    <app-panel id="about-credits" data-previous-page-id="about">
+      <app-header>
+        <a href="#" data-icon="arrow-back" data-page-id="about"></a>
+        <h1 data-l10n-id="credits"></h1>
+        <app-header-toolbar>
+          <a href="#" data-icon="external"></a>
+        </app-header-toolbar>
+      </app-header>
+
+      <app-content class="lists">
+        <div class="content">
+          <div class="credits-category">
+            <header data-l10n-id="credits-head"></header>
+            <p>MortCodesWeb</p>
+          </div>
+          <div class="credits-category">
+            <header data-l10n-id="credits-sound"></header>
+            <p>periyuh</p>
+          </div>
+          <div class="credits-category">
+            <header data-l10n-id="credits-design"></header>
+            <p>kilobyte</p>
+            <p>Matei</p>
+            <p>Pixel</p>
+          </div>
+          <div class="credits-category">
+            <header data-l10n-id="credits-artwork"></header>
+            <p>Sourmind67</p>
+          </div>
+          <div class="credits-category">
+            <header data-l10n-id="credits-hosting"></header>
+            <p>Alex</p>
+          </div>
+        </div>
+      </app-content>
+    </app-panel>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+#controls {
+  box-sizing: border-box;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  justify-content: space-between;
+  width: 100%;
+  height: calc(6.5rem + var(--software-buttons-height) + 1rem);
+  padding: 1rem 1.5rem;
+  padding-bottom: calc(var(--software-buttons-height) + 1rem);
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+#shutter-button {
+  width: 5rem;
+  height: 5rem;
+  margin: 0;
+  border-radius: 2.5rem;
+  outline: solid 0.5rem #fff;
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #858585;
+  line-height: 5rem;
+  text-align: center;
+}
+
+#shutter-button[data-icon]::before {
+  height: 5rem;
+  font-size: 2.4rem;
+  line-height: 5rem;
+}
+
+#switch-button {
+  width: 5rem;
+  height: 5rem;
+  margin: 0;
+  border-radius: 2.5rem;
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  line-height: 5rem;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+#switch-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.1s ease;
+}
+
+#switch-button:active {
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: background-color 0.1s ease;
+}
+
+#switch-button[data-icon]::before {
+  height: 5rem;
+  font-size: 2.4rem;
+  line-height: 5rem;
+}
+
+#gallery-button {
+  width: 5rem;
+  height: 5rem;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 2.5rem;
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: #858585;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#gallery-button > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

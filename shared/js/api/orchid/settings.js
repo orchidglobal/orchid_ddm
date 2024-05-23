@@ -11,7 +11,7 @@
         // Backward compatibility
         return await Settings.getValue(key, file);
       } else {
-        return await fetch('http://localhost:8081/api/data/settings/get?name=' + key)
+        return await fetch('http://localhost:9920/api/data/settings/get?name=' + key)
           .then((response) => response.text())
           .then((data) => data.trim())
           .then((data) => {
@@ -32,7 +32,15 @@
         // Backward compatibility
         return await Settings.setValue(key, value, file);
       } else {
-        return await fetch('http://localhost:8081/api/data/settings/set?name=' + key + '&value=' + value)
+        const postOptions = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json', // Specify the content type if sending JSON data
+            'User-Agent': ('OrchidJS' in window) ? OrchidJS.apiUserAgent : 'Orchid/1.0 (OrchidJS_API 1.0)'
+          },
+          body: JSON.stringify(value)
+        };
+        return await fetch('http://localhost:9920/api/data/settings/set?name=' + key + '&value=' + value, postOptions)
           .then((response) => response.text())
           .catch((error) => localStorage.setItem(key, value));
       }
@@ -43,7 +51,7 @@
         // Backward compatibility
         return await Settings.addObserver(key, callback);
       } else {
-        return await fetch('http://localhost:8081/api/data/settings/observe?name=' + key)
+        return await fetch('http://localhost:9920/api/data/settings/observe?name=' + key)
           .then((response) => response.text());
       }
     }

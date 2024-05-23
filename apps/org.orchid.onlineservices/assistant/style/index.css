@@ -1,0 +1,103 @@
+html, body {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+#app {
+  --safezone-width: 102.4rem;
+  background-color: transparent;
+}
+
+section[role="panel"] {
+  display: flex;
+  top: unset;
+  bottom: calc(var(--software-buttons-height) + 1rem);
+  left: 1rem;
+  flex-direction: column;
+  justify-content: end;
+  width: calc(100% - 2rem);
+  height: max-content;
+  max-height: calc(100vh - var(--statusbar-height) - var(--software-buttons-height) - 2rem - (20vh * (1 - var(--panel-progress, 0))));
+  overflow: hidden;
+  border-radius: 2rem;
+  background-color: var(--background);
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.2);
+}
+
+section[role="panel"] > header:first-child {
+  --statusbar-height: 0rem;
+}
+
+section[role="panel"] > header:first-child h1 {
+  font-family: 'Readex Pro';
+}
+
+section[role="panel"] > section {
+  --statusbar-height: 0rem;
+  position: relative;
+  flex-grow: unset;
+  height: max-content;
+  padding-bottom: 7.6rem;
+}
+
+.messagebox-container {
+  box-sizing: border-box;
+  z-index: 5;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 7.6rem;
+  padding: 1.5rem;
+  outline: solid 0.1rem rgba(255, 255, 255, calc(0.1 * var(--tablist-progress)));
+  backdrop-filter: blur(calc(20px * var(--tablist-progress, 0))) saturate(calc(100% + (80% * var(--tablist-progress, 0))));
+  background-color: rgba(var(--headerbar-background-r), var(--headerbar-background-g), var(--headerbar-background-b), calc(0.75 * var(--tablist-progress, 0)));
+}
+
+.messagebox-container .bb-messagebox {
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  #root {
+    box-sizing: border-box;
+    visibility: visible;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    width: 32rem;
+    height: 100%;
+    transform: none;
+    filter: none;
+    opacity: 1;
+  }
+  html[dir="ltr"] #root {
+    left: 0;
+  }
+  html[dir="rtl"] #root {
+    right: 0;
+  }
+
+  #root.visible {
+    width: 100%;
+    border-inline-end: none;
+  }
+
+  #root > section > *:not(.scroll-content, .scrollbar-track, .bb-emptyscreen),
+  #root > section > .scroll-content > *:not(.bb-emptyscreen) {
+    visibility: visible;
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  [role="panel"]:not(#root) {
+    position: absolute;
+    top: 0;
+    width: calc(100% - 32rem);
+    height: 100%;
+  }
+  html[dir="ltr"] [role="panel"]:not(#root) {
+    left: 32rem;
+  }
+  html[dir="rtl"] [role="panel"]:not(#root) {
+    right: 32rem;
+  }
+}

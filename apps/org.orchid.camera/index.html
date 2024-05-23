@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#000000">
+  <title>Camera</title>
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/app/transitions.css" />
+  <link rel="stylesheet" type="text/css" href="style/camera.css">
+  <link rel="stylesheet" type="text/css" href="style/viewfinder.css">
+  <link rel="stylesheet" type="text/css" href="style/toolbar.css">
+  <link rel="stylesheet" type="text/css" href="style/controls.css">
+  <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <script defer type="text/javascript" src="/shared/js/utils/transitions.js"></script>
+  <script defer type="text/javascript" src="js/camera.js"></script>
+  <script defer type="text/javascript" src="js/viewfinder.js"></script>
+
+  <meta name="defaultLanguage" content="en-US">
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi">
+  <link rel="localization" href="/locales/main.{locale}.properties">
+</head>
+
+<body>
+  <main role="app">
+    <section id="root" class="visible" role="panel">
+      <header>
+        <a href="#" data-icon="chevron-down"></a>
+        <a href="#">1080P</a>
+        <h1></h1>
+        <menu role="toolbar">
+          <a href="#" data-icon="settings"></a>
+          <a href="#" data-icon="flash-auto"></a>
+          <a href="#" data-icon="filter"></a>
+        </menu>
+      </header>
+
+      <video id="viewfinder" autoplay></video>
+
+      <div id="controls">
+        <div id="switch-button" data-icon="sync"></div>
+        <div id="shutter-button"></div>
+        <div id="gallery-button"></div>
+      </div>
+    </section>
+  </main>
+</body>
+
+</html>

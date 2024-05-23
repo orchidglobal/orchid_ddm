@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f0f6ff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+  <link rel="shortcut icon" href="/style/icons/music.svg" type="image/x-icon">
+  <title data-l10n-id="title"></title>
+  <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/tablists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/seekbars.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/action_buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/app/transitions.css" />
+  <link rel="stylesheet" type="text/css" href="style/music.css" />
+  <link rel="stylesheet" type="text/css" href="style/grid.css" />
+  <link rel="stylesheet" type="text/css" href="style/playlists.css" />
+  <link rel="stylesheet" type="text/css" href="style/artists.css" />
+  <link rel="stylesheet" type="text/css" href="style/albums.css" />
+  <link rel="stylesheet" type="text/css" href="style/player.css" />
+  <script type="module" src="https://orchid-f39a9.web.app/orchid_services.js"></script>
+  <script type="text/javascript" src="/shared/js/jsmediatags.js"></script>
+  <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <script defer type="text/javascript" src="/shared/js/utils/file_indexer.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script defer type="text/javascript" src="js/views.js"></script>
+  <script defer type="text/javascript" src="js/views/grid/main.js"></script>
+  <script defer type="text/javascript" src="js/views/playlists/main.js"></script>
+  <script defer type="text/javascript" src="js/views/artists/main.js"></script>
+  <script defer type="text/javascript" src="js/views/albums/main.js"></script>
+  <script defer type="text/javascript" src="js/player.js"></script>
+
+  <script type="text/javascript" src="/shared/js/intl/l10n.js"></script>
+  <meta name="defaultLanguage" content="en-US">
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi">
+  <link rel="localization" href="/locales/main.{locale}.properties">
+</head>
+
+<body>
+  <main id="app" role="app">
+    <nav class="bb-tablist">
+      <ul>
+        <li><a href="#grid" class="selected" data-page-id="grid">
+            <span data-icon="grid"></span>
+            <span data-l10n-id="grid"></span>
+          </a></li>
+        <li><a href="#playlists" data-page-id="playlists">
+            <span data-icon="list"></span>
+            <span data-l10n-id="playlists"></span>
+          </a></li>
+        <li><a href="#artists" data-page-id="artists">
+            <span data-icon="users"></span>
+            <span data-l10n-id="artists"></span>
+          </a></li>
+        <li><a href="#albums" data-page-id="albums">
+            <span data-icon="groups"></span>
+            <span data-l10n-id="albums"></span>
+          </a></li>
+      </ul>
+    </nav>
+
+    <div id="views" class="bb-tablist-views">
+      <section id="grid" class="visible" role="panel">
+        <header>
+          <h1 data-l10n-id="title-short"></h1>
+          <menu role="toolbar">
+            <orchid-account-button id="account-button"></orchid-account-button>
+            <a href="#" data-icon="search" data-page-id="search"></a>
+            <a href="#" id="player-show-button" data-icon="play"></a>
+            <orchid-cast-button id="cast-button"></orchid-cast-button>
+          </menu>
+        </header>
+        <section>
+          <div id="grid-local-container" class="grid"></div>
+          <div id="grid-online-container" class="grid"></div>
+        </section>
+      </section>
+
+      <section id="playlists" role="panel">
+        <header>
+          <h1 data-l10n-id="playlists"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="options"></a>
+          </menu>
+        </header>
+        <section></section>
+      </section>
+
+      <section id="artists" role="panel">
+        <header>
+          <h1 data-l10n-id="artists"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="options"></a>
+          </menu>
+        </header>
+        <section></section>
+      </section>
+
+      <section id="albums" role="panel">
+        <header>
+          <h1 data-l10n-id="albums"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="options"></a>
+          </menu>
+        </header>
+        <section></section>
+      </section>
+
+      <menu class="bb-actions">
+        <button data-icon="upload" data-page-id="publish"></button>
+        <button class="recommend" data-icon="feedback"></button>
+      </menu>
+    </div>
+
+    <section id="player" role="panel">
+      <header class="compact">
+        <a href="#" id="player-back-button" data-icon="arrow-back"></a>
+        <h1 id="player-name"></h1>
+      </header>
+      <section>
+        <div class="player-cols">
+          <div class="player-artwork">
+            <img src="" alt="" id="player-artwork-image">
+          </div>
+
+          <div class="player-footer">
+            <!-- <form action="" class="star-rating">
+              <input type="radio" name="" id="" value="1">
+              <input type="radio" name="" id="" value="2">
+              <input type="radio" name="" id="" value="3">
+              <input type="radio" name="" id="" value="4">
+              <input type="radio" name="" id="" value="5">
+            </form> -->
+            <div class="track">
+              <div id="player-track-current-time">00:00</div>
+              <input type="range" name="" id="player-track-slider">
+              <div id="player-track-duration">00:00</div>
+            </div>
+            <div class="controls">
+              <button id="player-lyrics-button" class="small" data-icon="reader-mode"></button>
+              <button id="player-skip-back-button" data-icon="skip-back-alt"></button>
+              <button id="player-playpause-button" data-icon="play-alt"></button>
+              <button id="player-skip-forward-button" data-icon="skip-forward-alt"></button>
+              <button id="player-fine-tune-button" class="small" data-icon="settings"></button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+</body>
+
+</html>

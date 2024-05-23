@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f0f6ff" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000" />
+  <link rel="shortcut icon" href="/icons/store.svg" type="image/x-icon" />
+  <title data-l10n-id="title"></title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="/orchidjs/org__orchid__default_theme/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/panels.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/tablists.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/lists.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/switches.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/tablists.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/input_areas.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/action_buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/empty_screen.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/empty_screen/account.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/banners.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/filters.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/search_ui.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/alertbars.css" />
+  <link rel="stylesheet" type="text/css" href="/orchidjs/shared/style/transitions.css" />
+  <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/panels.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/tablists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/lists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/switches.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/tablists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/input_areas.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/action_buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/empty_screen.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/empty_screen/account.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/banners.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/filters.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/search_ui.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/alertbars.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/app/transitions.css" />
+  <link rel="stylesheet" type="text/css" href="style/index.css" />
+  <link rel="stylesheet" type="text/css" href="style/views.css" />
+  <link rel="stylesheet" type="text/css" href="style/webapp.css" />
+  <link rel="stylesheet" type="text/css" href="style/webapps.css" />
+
+  <!-- Scripts -->
+  <script type="module" src="https://orchid-f39a9.web.app/js/lib/services.js"></script>
+  <script type="text/javascript" src="/orchidjs/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/orchidjs/shared/js/orchidjs.js"></script>
+  <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <script defer="" type="text/javascript" src="/shared/js/common/color_picker.js"></script>
+  <script defer="" type="text/javascript" src="/shared/js/utils/transitions.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script defer="" type="text/javascript" src="js/login_banner.js"></script>
+  <!-- <script defer type="text/javascript" src="js/webapps.js"></script> -->
+
+  <meta name="defaultLanguage" content="en-US" />
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi" />
+  <link rel="localization" href="/shared/locales/services/services.{locale}.properties">
+  <link rel="localization" href="/locales/main.{locale}.properties" />
+</head>
+
+<body>
+  <main id="app" role="app">
+    <nav class="bb-tablist">
+      <ul>
+        <li><a href="#home" class="selected" data-page-id="home">
+            <span data-icon="apps"></span>
+            <span data-l10n-id="webapps"></span>
+          </a></li>
+        <li><a href="#games" data-page-id="games">
+            <span data-icon="crowd-play"></span>
+            <span data-l10n-id="games"></span>
+          </a></li>
+        <li><a href="#trending" data-page-id="trending">
+            <span data-icon="trending"></span>
+            <span data-l10n-id="trending"></span>
+          </a></li>
+        <li><a href="#installed" data-page-id="installed">
+            <span data-icon="download"></span>
+            <span data-l10n-id="installed"></span>
+          </a></li>
+      </ul>
+    </nav>
+
+    <div id="views" class="bb-tablist-views">
+      <section id="root" role="panel">
+        <header>
+          <div class="safezone">
+            <h1>
+              <span data-l10n-id="title-short"></span>
+              <span class="beta">BETA</span>
+            </h1>
+            <menu role="toolbar">
+              <orchid-account-button id="account-button"></orchid-account-button>
+            </menu>
+          </div>
+        </header>
+
+        <section class="lists">
+          <ul>
+            <li class="selected" data-icon="apps" data-page-id="home">
+              <p data-l10n-id="webapps"></p>
+            </li>
+            <li data-icon="crowd-play" data-page-id="games">
+              <p data-l10n-id="games"></p>
+            </li>
+            <li data-icon="trending" data-page-id="trending">
+              <p data-l10n-id="trending"></p>
+            </li>
+            <li data-icon="download" data-page-id="installed">
+              <p data-l10n-id="installed"></p>
+            </li>
+          </ul>
+        </section>
+      </section>
+
+      <section id="home" class="visible" role="panel">
+        <header>
+          <div class="safezone">
+            <a href="#" data-icon="menu" data-page-id="root"></a>
+            <h1 data-l10n-id="webapps"></h1>
+            <menu role="toolbar">
+              <orchid-account-button id="account-button"></orchid-account-button>
+              <a href="#" data-icon="bell" data-page-id="notifications"></a>
+              <a href="#" data-icon="search" data-page-id="search"></a>
+            </menu>
+          </div>
+        </header>
+
+        <section class="lists">
+          <div id="alertbar-unsupported" class="bb-alertbar">
+            <div class="text-holder">
+              <p data-l10n-id="alertbar-unsupported"></p>
+            </div>
+            <nav>
+              <a href="#" data-l10n-id="learnMore"></a>
+            </nav>
+          </div>
+
+          <slide-show id="slideshow">
+            <slide-show-card>
+              <img src="images/creator.png" alt="" class="artwork">
+              <h1>Card 1</h1>
+            </slide-show-card>
+            <slide-show-card>
+              <img src="images/creator.png" alt="" class="artwork">
+              <h1>Card 2</h1>
+            </slide-show-card>
+            <slide-show-card>
+              <img src="images/creator.png" alt="" class="artwork">
+              <h1>Card 3</h1>
+            </slide-show-card>
+          </slide-show>
+
+          <div id="webapps"></div>
+        </section>
+
+        <div id="root-no-account" class="bb-emptyscreen">
+          <div class="container">
+            <div class="illustration-holder">
+              <div class="illustration account">
+                <div class="computer">
+                  <div class="pin-input"></div>
+                  <div class="pin"></div>
+                  <div class="check-bg"></div>
+                  <div class="check-circle"></div>
+                  <div class="check"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="content">
+              <div class="content">
+                <div class="text-holder">
+                  <h1 data-l10n-id="orchidAccount"></h1>
+                  <p data-l10n-id="orchidAccount-detail"></p>
+                </div>
+                <menu>
+                  <button class="recommend" data-l10n-id="orchidAccount-login"></button>
+                </menu>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="search" role="panel">
+        <header class="compact">
+          <div class="safezone">
+            <a href="#" data-icon="arrow-back" data-page-id="home"></a>
+            <form action="" id="searchbox" role="search">
+              <input type="text" name="" id="" data-l10n-id="type-here-to-search" />
+              <button data-icon="mic"></button>
+              <button type="reset" data-icon="close"></button>
+              <button type="submit" data-icon="search"></button>
+            </form>
+          </div>
+        </header>
+
+        <section class="lists">
+          <div class="bb-filters">
+            <div class="filter" data-icon="privacy">
+              <select name="" id="">
+                <option value="">Privacy</option>
+              </select>
+            </div>
+            <div class="filter" data-icon="history">
+              <select name="" id="">
+                <option value="">Time</option>
+              </select>
+            </div>
+            <div class="filter icon">
+              <button data-icon="settings"></button>
+            </div>
+          </div>
+
+          <header>History</header>
+          <div class="bb-search-ui">
+            <div class="results">
+              <div class="result">Result 1</div>
+              <div class="result">Result 2</div>
+              <div class="result">Result 3</div>
+              <div class="result">Result 4</div>
+              <div class="result">Result 5</div>
+              <div class="result">Result 6</div>
+              <div class="result">Result 7</div>
+              <div class="result">Result 8</div>
+              <div class="result">Result 9</div>
+              <div class="result">Result 10</div>
+              <div class="result">Result 11</div>
+              <div class="result">Result 12</div>
+              <div class="result" data-icon="options"></div>
+            </div>
+          </div>
+
+          <header>Trending</header>
+          <div class="bb-search-ui">
+            <div class="results">
+              <div class="result">Result 1</div>
+              <div class="result">Result 2</div>
+              <div class="result">Result 3</div>
+              <div class="result">Result 4</div>
+              <div class="result">Result 5</div>
+              <div class="result">Result 6</div>
+              <div class="result">Result 7</div>
+              <div class="result">Result 8</div>
+              <div class="result">Result 9</div>
+              <div class="result">Result 10</div>
+              <div class="result">Result 11</div>
+              <div class="result">Result 12</div>
+              <div class="result" data-icon="options"></div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section id="webapp" role="panel">
+        <header class="compact auto-hide">
+          <div class="safezone">
+            <a href="#" data-icon="arrow-back" data-page-id="home"></a>
+            <img src="" alt="" id="webapp-header-icon" />
+            <h1 id="webapp-header-name"></h1>
+            <menu role="toolbar">
+              <a href="#" data-icon="search" data-page-id="search"></a>
+            </menu>
+          </div>
+        </header>
+
+        <section class="lists">
+          <div class="banner-container">
+            <img src="" alt="" id="webapp-banner" />
+          </div>
+
+          <div class="webapp-header">
+            <figure>
+              <img src="" alt="" id="webapp-icon" />
+              <figcaption>
+                <div id="webapp-name"></div>
+                <div id="webapp-authors"></div>
+                <div id="webapp-categories"></div>
+              </figcaption>
+            </figure>
+            <div class="buttons">
+              <button class="recommend" data-l10n-id="webappGet"></button>
+              <button data-l10n-id="webappCancel"></button>
+            </div>
+          </div>
+
+          <ul>
+            <li class="page">
+              <p data-l10n-id="webappPatchNotes"></p>
+            </li>
+          </ul>
+
+          <div class="webapp-row">
+            <div class="item">
+              <span data-icon="storage"></span>
+              <div class="text-holder">
+                <p>Install Size</p>
+                <p>12.8MB</p>
+              </div>
+            </div>
+            <div class="item">
+              <span data-icon="download"></span>
+              <div class="text-holder">
+                <p data-l10n-id="webappDownloads"></p>
+                <p id="webapp-downloads"></p>
+              </div>
+            </div>
+            <div class="item">
+              <span data-icon="privacy"></span>
+              <div class="text-holder">
+                <p>Privacy Rating</p>
+                <p>8/10</p>
+              </div>
+            </div>
+          </div>
+
+          <ul>
+            <li class="page" data-page-id="description">
+              <p data-l10n-id="webappDescription"></p>
+            </li>
+            <li id="webapp-license-item" class="page">
+              <p data-l10n-id="webappLicense"></p>
+              <p id="webapp-license"></p>
+            </li>
+            <li class="page">
+              <p data-l10n-id="webappGitRepo"></p>
+              <p id="webapp-git-repo"></p>
+            </li>
+            <li class="noclick">
+              <p data-l10n-id="webappIncludesAds"></p>
+              <p id="webapp-includes-ads"></p>
+            </li>
+            <li class="noclick">
+              <p data-l10n-id="webappIncludesTracking"></p>
+              <div id="webapp-included-tracking"></div>
+            </li>
+          </ul>
+        </section>
+      </section>
+
+      <section id="description" role="panel">
+        <header>
+          <div class="safezone">
+            <a href="#" data-icon="arrow-back" data-page-id="webapp"></a>
+            <h1 data-l10n-id="description"></h1>
+          </div>
+        </header>
+
+        <section>
+          <p id="webapp-description"></p>
+        </section>
+      </section>
+
+      <section id="trending" role="panel">
+        <header>
+          <div class="safezone">
+            <a href="#" data-icon="menu" data-page-id="root"></a>
+            <!-- <img src="icons/store.svg" alt=""> -->
+            <h1 class="logo">
+              <span data-l10n-id="orchid-trends"></span>
+              <span class="beta">BETA</span>
+            </h1>
+            <menu role="toolbar">
+              <orchid-account-button id="account-button"></orchid-account-button>
+            </menu>
+          </div>
+        </header>
+
+        <section class="lists"></section>
+      </section>
+
+      <section id="publish" role="panel">
+        <header>
+          <div class="safezone">
+            <a href="#" data-icon="arrow-back" data-page-id="home"></a>
+            <h1 data-l10n-id="publish"></h1>
+            <menu role="toolbar">
+              <a href="#" id="publish-confirm-button" data-icon="tick"></a>
+            </menu>
+          </div>
+        </header>
+
+        <section class="lists">
+          <div id="publish-options">
+            <ul>
+              <li>
+                <p data-l10n-id="publish-webappFile"></p>
+                <form action="" id="publish-webapp-file-form">
+                  <input type="file" name="Webapp File" id="publish-webapp-file-input" />
+                </form>
+              </li>
+            </ul>
+
+            <header data-l10n-id="publish-public"></header>
+            <ul>
+              <li>
+                <p data-l10n-id="publish-icon"></p>
+                <form action="" id="publish-webapp-icon-form">
+                  <input type="file" name="Webapp Icon" id="publish-webapp-icon-input" />
+                </form>
+              </li>
+              <li>
+                <p data-l10n-id="publish-displayName"></p>
+                <form action="" id="publish-webapp-name-form">
+                  <input type="text" name="" id="publish-webapp-name-input" />
+                </form>
+              </li>
+              <li>
+                <p data-l10n-id="publish-description"></p>
+                <p data-l10n-id="publish-descriptionQOLNote"></p>
+                <textarea id="publish-webapp-description-input"></textarea>
+              </li>
+              <li>
+                <p data-l10n-id="publish-categories"></p>
+                <div id="publish-webapp-categories" class="bb-editable"></div>
+              </li>
+              <li>
+                <p data-l10n-id="publish-tags"></p>
+                <div id="publish-webapp-tags" class="bb-editable"></div>
+              </li>
+              <li>
+                <p data-l10n-id="publish-license"></p>
+                <select name="" id="publish-webapp-license"></select>
+              </li>
+            </ul>
+          </div>
+
+          <div id="publish-no-account" class="bb-emptyscreen">
+            <div class="container">
+              <div class="illustration-holder">
+                <div class="illustration account">
+                  <div class="computer">
+                    <div class="pin-input"></div>
+                    <div class="pin"></div>
+                    <div class="check-bg"></div>
+                    <div class="check-circle"></div>
+                    <div class="check"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="content">
+                <div class="text-holder">
+                  <h1 data-l10n-id="orchidAccount"></h1>
+                  <p data-l10n-id="orchidAccount-detail"></p>
+                </div>
+                <menu>
+                  <button class="recommend" data-l10n-id="orchidAccount-login"></button>
+                </menu>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <menu class="bb-actions">
+        <button data-icon="upload" data-page-id="publish"></button>
+        <button class="recommend" data-icon="feedback"></button>
+      </menu>
+    </div>
+
+    <section id="notifications" role="panel">
+      <header class="compact">
+        <div class="safezone">
+          <a href="#" data-icon="arrow-back" data-page-id="home"></a>
+          <h1 data-l10n-id="notifications"></h1>
+        </div>
+      </header>
+
+      <section class="lists"></section>
+    </section>
+
+    <section id="login-banner" role="banner" class="visible">
+      <section>
+        <h1 data-l10n-id="loginWithOrchid-title"></h1>
+        <p data-l10n-id="loginWithOrchid-detail"></p>
+      </section>
+      <menu>
+        <button id="login-banner-cancel" data-l10n-id="cancel"></button>
+        <button id="login-banner-confirm" class="recommend" data-l10n-id="confirm"></button>
+      </menu>
+    </section>
+  </main>
+</body>
+
+</html>

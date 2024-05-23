@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f0f6ff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+  <link rel="shortcut icon" href="/style/icons/files.svg" type="image/svg">
+  <title data-l10n-id="files"></title>
+  <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/panels.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/tablists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/activity_bars.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/lists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/switches.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/seekbars.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/menus.css" />
+  <link rel="stylesheet" type="text/css" href="style/files.css" />
+  <link rel="stylesheet" type="text/css" href="style/views.css" />
+  <link rel="stylesheet" type="text/css" href="style/quick_previews.css" />
+  <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <script defer type="text/javascript" src="js/files.js"></script>
+
+  <script type="text/javascript" src="/shared/js/intl/l10n.js"></script>
+  <meta name="defaultLanguage" content="en-US">
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi">
+  <link rel="localization" href="/locales/main.{locale}.properties">
+</head>
+
+<body>
+  <main id="app" role="app">
+    <nav class="bb-tablist">
+      <ul>
+        <li><a href="#root" class="selected" data-page-id="root">
+            <span data-icon="folder"></span>
+            <span data-l10n-id="files"></span>
+          </a></li>
+        <li><a href="#vault" data-page-id="vault">
+            <span data-icon="password"></span>
+            <span data-l10n-id="vault"></span>
+          </a></li>
+        <li><a href="#ipfs" data-page-id="ipfs">
+            <span data-icon="upload"></span>
+            <span data-l10n-id="ipfs"></span>
+          </a></li>
+      </ul>
+    </nav>
+
+    <div id="views" class="bb-tablist-views">
+      <app-panel id="root" class="visible">
+        <app-header>
+          <h1 data-l10n-id="files"></h1>
+          <app-header-toolbar>
+            <a href="#" data-icon="options"></a>
+            <a href="#" data-icon="search"></a>
+          </app-header-toolbar>
+        </app-header>
+
+        <app-content class="lists">
+          <header data-l10n-id="quickAccess"></header>
+          <ul id="quick-access"></ul>
+
+          <header data-l10n-id="thisDevice"></header>
+          <ul id="devices-list"></ul>
+
+          <header data-l10n-id="tags"></header>
+          <ul id="tags-list"></ul>
+        </app-content>
+      </app-panel>
+
+      <app-panel id="content">
+        <app-header class="compact">
+          <a href="#" id="back-button" data-icon="arrow-back" data-page-id="root"></a>
+          <h1 id="path-name"></h1>
+          <app-header-toolbar>
+            <a href="#" id="content-grid-button" data-icon="grid"></a>
+            <a href="#" id="content-reload-button" data-icon="reload"></a>
+            <a href="#" data-icon="search"></a>
+          </app-header-toolbar>
+        </app-header>
+
+        <app-content>
+          <div id="content-files"></div>
+        </app-content>
+      </app-panel>
+    </div>
+
+    <div id="quick-preview">
+      <img src="" alt="" id="quick-preview-image">
+      <video src="" id="quick-preview-video"></video>
+    </div>
+
+    <div class="bb-menu">
+      <ul>
+        <li class="nav">
+          <ul>
+            <li data-icon="copy"></li>
+            <li data-icon="cut"></li>
+            <li data-icon="share"></li>
+            <li data-icon="delete"></li>
+          </ul>
+        </li>
+        <li class="separator"></li>
+        <li data-icon="file">
+          <span>Open</span>
+        </li>
+        <li data-icon="external">
+          <span>Open With</span>
+        </li>
+        <li data-icon="select-all">
+          <span>Rename</span>
+        </li>
+        <li data-icon="package">
+          <span>Extract Here</span>
+        </li>
+        <li data-icon="package">
+          <span>Extract To...</span>
+        </li>
+        <li class="separator"></li>
+        <li data-icon="folder">
+          <span>Add Folder</span>
+        </li>
+        <li data-icon="reader-mode">
+          <span>Add Text File</span>
+        </li>
+        <li class="separator"></li>
+        <li data-icon="about">
+          <span>Properties</span>
+        </li>
+      </ul>
+    </div>
+  </main>
+</body>
+
+</html>

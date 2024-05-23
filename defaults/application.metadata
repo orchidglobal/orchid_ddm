@@ -1,0 +1,6 @@
+{
+  "system.blank.url": "http://org__orchid__system.localhost:9920/blank.html",
+  "system.main.url": "http://org__orchid__system.localhost:9920/index.html",
+  "system.net_error.url": "http://org__orchid__system.localhost:9920/net_error.html",
+  "system.edition": "mobile"
+}

@@ -1,0 +1,72 @@
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_540_102)">
+<g filter="url(#filter0_d_540_102)">
+<rect x="4" y="4" width="64" height="64" rx="16" fill="url(#paint0_linear_540_102)"/>
+</g>
+<mask id="mask0_540_102" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="4" width="64" height="64">
+<rect x="4" y="4" width="64" height="64" rx="16" fill="white"/>
+</mask>
+<g mask="url(#mask0_540_102)">
+<g filter="url(#filter1_diiii_540_102)">
+<path d="M12 24C12 20.3396 13.6748 16.6792 20.0897 13.0188C21.2113 12.3788 22.6159 12.6159 23.529 13.529L29.8787 19.8787C31.0502 21.0502 31.0551 22.9546 29.9998 24.2319C28.2547 26.3442 25.9999 29.5479 25.9999 32C25.9999 36 26.9999 39 29.9999 42C32.9999 45 36 46 40 46C42.4521 46 45.6558 43.7452 47.7681 42.0001C49.0454 40.9449 50.9497 40.9497 52.1213 42.1213L58.471 48.471C59.3841 49.3841 59.6212 50.7887 58.9812 51.9103C55.3208 58.3252 51.6604 60 48 60C44 60 33.9999 54 25.9999 46C17.9999 38 12 28 12 24Z" fill="url(#paint1_linear_540_102)"/>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_540_102" x="0" y="0" width="72" height="72" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_540_102"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_540_102" result="shape"/>
+</filter>
+<filter id="filter1_diiii_540_102" x="0" y="0.658112" width="71.3419" height="75.3419" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="6"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_540_102"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_540_102" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="-12"/>
+<feGaussianBlur stdDeviation="6"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+<feBlend mode="normal" in2="shape" result="effect2_innerShadow_540_102"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="-6"/>
+<feGaussianBlur stdDeviation="3"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.313726 0 0 0 0 1 0 0 0 0 0.439216 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="effect2_innerShadow_540_102" result="effect3_innerShadow_540_102"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="-3"/>
+<feGaussianBlur stdDeviation="1.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.3 0"/>
+<feBlend mode="normal" in2="effect3_innerShadow_540_102" result="effect4_innerShadow_540_102"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="2"/>
+<feGaussianBlur stdDeviation="1"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="effect4_innerShadow_540_102" result="effect5_innerShadow_540_102"/>
+</filter>
+<linearGradient id="paint0_linear_540_102" x1="36" y1="4" x2="36" y2="68" gradientUnits="userSpaceOnUse">
+<stop stop-color="#50FF70"/>
+<stop offset="1" stop-color="#20C060"/>
+</linearGradient>
+<linearGradient id="paint1_linear_540_102" x1="36" y1="12" x2="36" y2="60" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#F0F6FF"/>
+</linearGradient>
+<clipPath id="clip0_540_102">
+<rect width="72" height="72" fill="white"/>
+</clipPath>
+</defs>
+</svg>

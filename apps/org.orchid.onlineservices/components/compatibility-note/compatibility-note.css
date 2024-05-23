@@ -1,0 +1,234 @@
+:host {
+  display: block;
+  width: 100%;
+  margin: 0 0 1rem;
+}
+
+:host > .message {
+  box-sizing: border-box;
+  width: calc(100% - 3rem);
+  max-width: calc(var(--safezone-width) - 3rem);
+  min-height: 6rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background-color: var(--background-plus);
+  transition: height 0.3s cubic-bezier(0.2, 0.9, 0.1, 1);
+}
+
+:host > .message > .header {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 6rem;
+  padding: 1rem 0;
+  gap: 1rem;
+}
+
+:host(.widescreen) > .message > .header {
+  flex-direction: row;
+  align-items: center;
+}
+
+:host > .message > .header > .icon-holder {
+  display: flex;
+  align-items: center;
+  width: 4rem;
+  height: 100%;
+  gap: 1rem;
+}
+
+:host > .message > .header > .icon-holder .icon {
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  background-image: linear-gradient(to bottom, var(--color-yellow), var(--color-orange));
+  content: '';
+  mask: url(images/partially-compatible.svg) no-repeat center / cover;
+}
+
+:host > .message > .header > .text-holder {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+:host > .message > .header > .text-holder .title {
+  margin: 0;
+  color: var(--text-color);
+  font-weight: var(--generic-label-weight);
+  font-size: 1.6rem;
+}
+
+:host > .message > .header > .text-holder .detail {
+  margin: 0;
+  color: var(--text-color-faded);
+  font-weight: var(--generic-label-weight);
+  font-size: 1.4rem;
+}
+
+:host > .message > .header > .browsers {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  height: 100%;
+  gap: 0.5rem;
+}
+
+:host(.widescreen) > .message > .header > .browsers {
+  gap: 1rem;
+}
+
+:host > .message > .header > .browsers .engine {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  padding: 0.6rem 1rem;
+  gap: 1rem;
+  border-radius: 3rem;
+  background-color: var(--background-minus);
+}
+
+:host > .message > .header > .browsers .engine .browser {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+:host > .message > .header > .browsers .engine .browser::before {
+  display: block;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  background: none no-repeat center / cover;
+  content: '';
+}
+
+:host > .message > .header > .browsers .engine .browser.chrome::before {
+  background-image: url(images/chrome.svg);
+}
+:host > .message > .header > .browsers .engine .browser.edge::before {
+  background-image: url(images/edge.svg);
+}
+:host > .message > .header > .browsers .engine .browser.orchid-browser::before {
+  background-image: url(images/orchid_browser.svg);
+}
+:host > .message > .header > .browsers .engine .browser.firefox::before {
+  background-image: url(images/firefox.svg);
+}
+:host > .message > .header > .browsers .engine .browser.kaios::before {
+  background-image: url(images/kaios.svg);
+}
+:host > .message > .header > .browsers .engine .browser.safari::before {
+  background-image: url(images/safari.svg);
+}
+:host > .message > .header > .browsers .engine .browser.orchid::before {
+  background-image: url(images/orchid.svg);
+}
+
+:host > .message > .header > .browsers .engine .browser::after {
+  display: block;
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+  background-color: #858585;
+  content: '';
+  mask: none no-repeat center / cover;
+}
+
+:host > .message > .header > .browsers .engine .browser.blocked::after {
+  background-color: var(--color-red);
+  mask-image: url(images/forbidden.svg);
+}
+
+:host > .message > .header > .browsers .engine .browser.unsupported::after {
+  background-color: var(--color-yellow);
+  mask-image: url(images/cross.svg);
+}
+
+:host > .message > .header > .browsers .engine .browser.supported::after {
+  background-color: var(--color-green);
+  mask-image: url(images/tick.svg);
+}
+
+:host > .message > .header > .expand-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  width: 1.6rem;
+  height: 100%;
+  margin: 0 0.5rem;
+}
+
+:host > .message > .header > .expand-icon > .expand {
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+  background: url(images/chevron-down.svg) no-repeat center / cover;
+  transition: transform 0.5s cubic-bezier(1, 0, 0, 1);
+}
+
+:host > .message > .header > .expand-icon > .expand.active {
+  transform: rotate(180deg);
+}
+
+:host > .message > .content {
+  display: flex;
+  visibility: hidden;
+  padding: 1.5rem 0;
+  gap: 1rem;
+  border-top: solid 0.1rem var(--item-plus);
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+:host > .message > .content.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+:host > .message > .content > .icon-holder {
+  display: flex;
+  width: 4rem;
+  height: 100%;
+  gap: 1rem;
+}
+
+:host > .message > .content > .icon-holder .icon {
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  background: url(images/firefox.svg) no-repeat center / cover;
+  content: '';
+}
+
+:host > .message > .content > .text-holder {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+:host > .message > .content > .text-holder .title {
+  margin: 0;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  font-weight: var(--generic-label-weight);
+  font-size: 1.6rem;
+}
+
+:host > .message > .content > .text-holder .summary {
+  margin: 0;
+  margin-bottom: 1rem;
+  color: var(--text-color-faded);
+  font-weight: var(--generic-label-weight);
+  font-size: 1.4rem;
+}

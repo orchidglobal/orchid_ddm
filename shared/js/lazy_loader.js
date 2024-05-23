@@ -35,7 +35,7 @@
             } else if (extension === 'js') {
               const script = document.createElement('script');
               script.src = asset;
-              script.async = true;
+              script.setAttribute('async', 'true');
               document.body.appendChild(script);
               script.onload = () => {
                 LazyLoader.loadedFiles.add(asset);

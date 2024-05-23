@@ -1,0 +1,56 @@
+:host {
+  display: block;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: transform 1s cubic-bezier(0.2, 0.9, 0.1, 1), opacity 0.25s cubic-bezier(0.2, 0.9, 0.1, 1), visibility 1s ease;
+}
+
+:host(.previous:dir(ltr)) {
+  transform: translateX(-3rem);
+}
+:host(.previous:dir(rtl)) {
+  transform: translateX(3rem);
+}
+
+:host(.next:dir(ltr)) {
+  transform: translateX(3rem);
+}
+:host(.next:dir(rtl)) {
+  transform: translateX(-3rem);
+}
+
+:host(.visible:dir(ltr)),
+:host(.visible:dir(rtl)) {
+  visibility: visible;
+  transform: translate(0, calc(var(--statusbar-height, 0px) - (var(--statusbar-height, 0px) * var(--card-progress, 1)))) scale(calc(0.9 + (0.1 * var(--card-progress, 1))));
+  opacity: 1;
+  transition: transform 1s cubic-bezier(0.2, 0.9, 0.1, 1), opacity 0.5s cubic-bezier(0.2, 0.9, 0.1, 1) 0.25s, visibility 1s ease;
+}
+
+:host > .panel {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--background);
+}
+
+::slotted(app-header) {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+::slotted(app-content) {
+  --padding-top: calc(var(--statusbar-height) + 9rem);
+}

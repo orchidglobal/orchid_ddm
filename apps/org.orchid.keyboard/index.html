@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="js/api/keyboard_event.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/lists.css" />
+  <link rel="stylesheet" type="text/css" href="style/keyboard.css">
+  <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <script type="text/javascript" src="js/api/keyboard_event.js"></script>
+  <script defer type="text/javascript" src="js/keyboard.js"></script>
+  <script defer type="text/javascript" src="js/voice_typing.js"></script>
+
+  <meta name="defaultLanguage" content="en-US">
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi">
+  <link rel="localization" href="/locales/main.{locale}.properties">
+</head>
+
+<body>
+  <div id="keyboard" role="app">
+    <div id="keyboard-container">
+      <div id="suggestions"></div>
+      <div id="keys"></div>
+      <div id="toolbar">
+        <button id="layout-button"></button>
+        <button id="voice-typing-button"></button>
+      </div>
+    </div>
+
+    <div id="languages" class="lists">
+      <ul id="languages-list"></ul>
+    </div>
+
+    <div id="keyboard-voice-typing">
+      <canvas id="soundwaves"></canvas>
+      <div class="toolbar">
+        <button id="listen-button"></button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

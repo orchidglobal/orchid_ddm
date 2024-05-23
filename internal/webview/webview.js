@@ -48,7 +48,7 @@
         // loadJavascript('orchid://adblock/adblock.js');
         loadJavascript('orchid://preloads/override.js');
 
-        if (/^http:\/\/.*\.localhost:8081\//.test(node.getURL())) {
+        if (/^http:\/\/.*\.localhost:9920\//.test(node.getURL())) {
           node.setAttribute('nodeintegration', true);
           node.setAttribute('nodeintegrationinsubframes', true);
         } else {

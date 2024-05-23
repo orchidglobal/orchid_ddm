@@ -7,7 +7,7 @@
     "name": "Orchid",
     "email": "mortcodesweb+orchidsupport@proton.me"
   },
-  "version": "1.0.145",
+  "version": "1.0.146",
   "main": "build_ts/src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -24,7 +24,7 @@
     "build-mac-aarch64": "tsc && electron-builder --mac --arm64",
     "build-mac-x86_64": "tsc && electron-builder --mac --x64"
   },
-  "license": "GPL-2.0",
+  "license": "GPL-2.0-only",
   "dependencies": {
     "adm-zip": "^0.5.10",
     "archiver": "^5.3.1",
@@ -46,6 +46,7 @@
     "node-wifi": "^2.0.16",
     "rimraf": "^5.0.5",
     "running-apps": "^1.0.2",
+    "sqlite3": "^5.1.7",
     "translate": "^2.0.2",
     "uuid": "^9.0.0"
   },
@@ -61,6 +62,7 @@
     "@types/noble": "^0.0.44",
     "@types/node": "^20.11.5",
     "@types/node-wifi": "^2.0.2",
+    "@types/sqlite3": "^3.1.11",
     "@types/uuid": "^9.0.7",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",

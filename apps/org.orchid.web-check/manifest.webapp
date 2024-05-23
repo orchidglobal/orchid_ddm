@@ -1,0 +1,19 @@
+{
+  "id": "org.orchid.web_check",
+  "version": "%system_version%",
+  "name": "Web Check",
+  "description": "Helps websites check if Orchid features are available",
+  "role": "system",
+  "icons": {
+    "16": "/icons/webcheck_16.png",
+    "32": "/icons/webcheck_32.png",
+    "48": "/icons/webcheck_48.png",
+    "64": "/icons/webcheck_64.png",
+    "128": "/icons/webcheck_128.png",
+    "256": "/icons/webcheck_256.png"
+  },
+  "developer": {
+    "name": "Orchid",
+    "url": "https://openorchid.github.io/"
+  }
+}

@@ -1,0 +1,113 @@
+.homepage {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.homepage.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.homepage .header {
+  box-sizing: border-box;
+  display: flex;
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--statusbar-height) + 5rem);
+  padding: var(--statusbar-height) 1rem 0;
+  gap: 1rem;
+}
+
+.homepage .header h1 {
+  flex-grow: 1;
+  width: 100%;
+  height: 5rem;
+  overflow: hidden;
+  color: #fff;
+  font-weight: var(--header-label-scroll-weight);
+  font-size: 1.8rem;
+  line-height: 5rem;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+
+.homepage .header a {
+  box-sizing: border-box;
+  display: inline-block;
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  margin: 0.5rem 0;
+  padding: 0 1rem;
+  border-radius: 0.6rem;
+  color: #fff;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.homepage .header a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.1s ease;
+}
+
+.homepage .header a:active {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.1s ease;
+}
+
+.homepage .header a[data-icon]::before {
+  height: 4rem;
+  font-size: 2rem;
+}
+
+.homepage .header menu[role="toolbar"] {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: max-content;
+  height: 5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.homepage .content {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: calc(var(--statusbar-height) + 5rem);
+  padding-bottom: calc(var(--software-buttons-height) + 10rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.homepage .content > .logo-header {
+  width: 100%;
+  margin: 0 0 3rem;
+  padding: 5rem 0 0;
+}
+
+.homepage .content > .logo-header .logo {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  margin: 0 auto;
+  gap: 1rem;
+}
+
+.homepage .content > .logo-header .logo .wordmark {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: 1rem;
+  color: #fff;
+  font-weight: 600;
+  font-size: 5rem;
+  font-family: 'Orchid Brand';
+}

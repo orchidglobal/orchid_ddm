@@ -79,7 +79,7 @@ const AppsManager = {
           const appId = file || v4();
           const installedAt = new Date().toISOString();
           const manifestUrl = {
-            'en-US': `http://${appId}.localhost:${location.port}/manifest.webapp`
+            'en-US': `http://${appId.replaceAll('.', '__')}.localhost:${location.port}/manifest.webapp`
           } as ManifestUrls;
 
           let webappAssets = fs.readdirSync(path.join(path.resolve(Renderer.webappsPath as string), file));
@@ -92,7 +92,7 @@ const AppsManager = {
               continue;
             }
             const langCode = manifest.split('.')[1];
-            manifestUrl[langCode] = `http://${appId}.localhost:${location.port}/manifest.${langCode}.webapp`;
+            manifestUrl[langCode] = `http://${appId.replaceAll('.', '__')}.localhost:${location.port}/manifest.${langCode}.webapp`;
           }
 
           return { appId, installedAt, manifestUrl };
@@ -132,7 +132,7 @@ const AppsManager = {
           const appEntry = {
             appId: `{${appId}}`,
             installedAt: new Date().toISOString(),
-            manifestUrl: `http://{${appId}}.localhost:8081/manifest.webapp`
+            manifestUrl: `http://{${appId}}.localhost:9920/manifest.webapp`
           };
 
           appList.push(appEntry);
@@ -184,7 +184,7 @@ const AppsManager = {
         const appEntry = {
           appId: `{${appId}}`,
           installedAt: new Date().toISOString(),
-          manifestUrl: `http://{${appId}}.localhost:8081/manifest.webapp`,
+          manifestUrl: `http://{${appId}}.localhost:9920/manifest.webapp`,
           origin: url.origin
         };
 

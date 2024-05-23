@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assistant</title>
+  <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/lists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/input_areas.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/skeletons.css" />
+  <link rel="stylesheet" href="style/index.css">
+  <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="js/chatbot.js"></script>
+  <script defer type="text/javascript" src="model/intents/small_talk.js"></script>
+  <script defer type="text/javascript" src="model/intents/internet.js"></script>
+  <script defer type="text/javascript" src="model/intents/internet_humor.js"></script>
+  <script defer type="text/javascript" src="model/intents/jokes.js"></script>
+  <script defer type="text/javascript" src="model/intents/math.js"></script>
+
+  <meta name="defaultLanguage" content="en-US">
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi">
+  <link rel="localization" href="./locales/main.{locale}.properties">
+</head>
+<body>
+  <div id="app" role="app">
+    <section id="root" class="visible" role="panel">
+      <header class="compact">
+        <h1>Assistant</h1>
+      </header>
+
+      <section class="lists">
+        <detail id="user-reply"></detail>
+
+        <ul>
+          <li>
+            <p id="response-text"></p>
+          </li>
+        </ul>
+      </section>
+
+      <div class="messagebox-container">
+        <form action="" id="messagebox" class="bb-messagebox">
+          <button type="button" id="messagebox-camera-button" data-icon="camera"></button>
+          <input type="text" name="" id="messagebox-input" data-l10n-id="type-a-request" autocomplete="off" />
+          <button type="button" id="messagebox-emojis-button" data-icon="emojis"></button>
+          <button type="submit" id="messagebox-send-button" data-icon="send"></button>
+        </form>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

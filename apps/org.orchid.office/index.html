@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f0f6ff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+  <link rel="shortcut icon" href="/style/icons/office.svg" type="image/svg">
+  <title data-l10n-id="title"></title>
+  <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/panels.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/input_areas.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/lists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/switches.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/action_buttons.css" />
+  <link rel="stylesheet" type="text/css" href="style/index.css" />
+  <script defer type="text/javascript" src="/shared/js/page_controller.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script defer type="text/javascript" src="js/views.js"></script>
+  <script defer type="text/javascript" src="js/views/alarms.js"></script>
+  <script defer type="text/javascript" src="js/views/world_clock.js"></script>
+  <script defer type="text/javascript" src="js/views/stopwatch.js"></script>
+  <script defer type="text/javascript" src="js/views/timer.js"></script>
+
+  <script type="text/javascript" src="/shared/js/intl/l10n.js"></script>
+  <meta name="defaultLanguage" content="en-US">
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi">
+  <link rel="localization" href="/locales/main.{locale}.properties">
+</head>
+
+<body>
+  <main id="app" role="app">
+    <section id="alarms" class="visible" role="panel">
+      <header class="compact csd">
+        <a href="#" data-icon="apps"></a>
+        <img src="style/icons/office.svg" alt="">
+
+        <form action="" role="search" id="searchbox">
+          <input type="text" name="" id="">
+          <button type="reset" data-icon="close"></button>
+          <button type="submit" data-icon="search"></button>
+        </form>
+
+        <menu role="toolbar">
+          <a href="#" data-icon="options"></a>
+        </menu>
+      </header>
+
+      <section class="lists">
+        <header>Recent Documents</header>
+        <div class="documents">
+          <div class="document">
+            <div class="preview-holder">
+              <div class="preview"></div>
+            </div>
+            <div class="text-holder">
+              <div class="name">Document Name</div>
+              <div class="date">Jan 19 2024</div>
+              <div class="author">Mort</div>
+            </div>
+          </div>
+          <div class="document">
+            <div class="preview-holder">
+              <div class="preview"></div>
+            </div>
+            <div class="text-holder">
+              <div class="name">Document Name</div>
+              <div class="date">Jan 19 2024</div>
+              <div class="author">Mort</div>
+            </div>
+          </div>
+          <div class="document">
+            <div class="preview-holder">
+              <div class="preview"></div>
+            </div>
+            <div class="text-holder">
+              <div class="name">Document Name</div>
+              <div class="date">Jan 19 2024</div>
+              <div class="author">Mort</div>
+            </div>
+          </div>
+        </div>
+
+        <header>Documents</header>
+        <ul>
+          <li data-icon="verified" class="hbox">
+            <img src="" alt="">
+            <div class="vbox">
+              <p>Document Name</p>
+              <p><span>Jan 19 2024</span><span class="separator"></span><span>Mort</span></p>
+            </div>
+          </li>
+          <li data-icon="verified" class="hbox">
+            <img src="" alt="">
+            <div class="vbox">
+              <p>Document Name</p>
+              <p><span>Jan 19 2024</span><span class="separator"></span><span>Mort</span></p>
+            </div>
+          </li>
+          <li data-icon="verified" class="hbox">
+            <img src="" alt="">
+            <div class="vbox">
+              <p>Document Name</p>
+              <p><span>Jan 19 2024</span><span class="separator"></span><span>Mort</span></p>
+            </div>
+          </li>
+          <li data-icon="verified" class="hbox">
+            <img src="" alt="">
+            <div class="vbox">
+              <p>Document Name</p>
+              <p><span>Jan 19 2024</span><span class="separator"></span><span>Mort</span></p>
+            </div>
+          </li>
+          <li data-icon="verified" class="hbox">
+            <img src="" alt="">
+            <div class="vbox">
+              <p>Document Name</p>
+              <p><span>Jan 19 2024</span><span class="separator"></span><span>Mort</span></p>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    <menu class="bb-actions">
+      <button class="recommend" data-icon="add"></button>
+    </menu>
+  </main>
+</body>
+
+</html>

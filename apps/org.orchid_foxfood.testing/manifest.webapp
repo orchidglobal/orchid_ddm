@@ -1,0 +1,18 @@
+{
+  "id": "org.orchid_foxfood.testing",
+  "version": "%system_version%-dev",
+  "name": "Testing",
+  "description": "",
+  "launch_path": "/index.html",
+  "icons": {
+    "48": "/style/icons/test.png"
+  },
+  "developer": {
+    "name": "Orchid Team",
+    "url": "https://orchid.thats-the.name/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait-primary",
+  "permissions": {},
+  "display": "immersive"
+}

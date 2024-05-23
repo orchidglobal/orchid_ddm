@@ -89,10 +89,16 @@
 [role="dialog"][data-type="confirm"] > menu {
   box-sizing: border-box;
   display: flex;
+  width: 100%;
   height: 6rem;
   margin: 0;
   padding: 0.5rem 1.5rem 1.5rem;
   gap: 1rem;
+}
+
+[role="dialog"][data-type="confirm"] > menu.columns {
+  flex-direction: column;
+  height: auto;
 }
 
 [role="dialog"][data-type="confirm"] > menu button {
@@ -114,6 +120,12 @@
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+[role="dialog"][data-type="confirm"] > menu.columns button {
+  height: 4.4rem;
+  border-radius: 1.25rem;
+  background-color: var(--background-plus);
 }
 
 [role="dialog"][data-type="confirm"] > menu button.recommend {

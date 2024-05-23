@@ -1,0 +1,299 @@
+:host {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+:host > .browser {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--theme-color, var(--background));
+}
+
+:host(.transparent) > .browser {
+  background-color: transparent;
+}
+
+:host > .browser .statusbar-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--statusbar-height);
+  background-color: var(--theme-color, var(--background));
+}
+
+:host(.transparent) > .browser .statusbar-background {
+  background-color: transparent;
+}
+
+:host > .browser .toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+:host([data-hidden="true"]) > .browser .toolbar {
+  visibility: hidden;
+}
+
+:host > .browser .toolbar .controls {
+  box-sizing: border-box;
+  display: flex;
+  padding: 0 1rem;
+}
+
+:host > .browser .toolbar .controls button {
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  margin: 0.5rem 0;
+  padding: 0 1rem;
+  border: none;
+  border-radius: 1rem;
+  outline: none;
+  background-color: transparent;
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 4rem;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+:host > .browser .toolbar .controls button:hover {
+  background-color: var(--item-hover);
+  transition: background-color 0.1s ease;
+}
+
+:host > .browser .toolbar .controls button:active {
+  background-color: var(--item-active);
+  transition: background-color 0.1s ease;
+}
+
+:host > .browser .toolbar .controls button:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+:host > .browser .toolbar .controls button[data-icon]::before {
+  height: 4rem;
+  font-size: 2rem;
+}
+
+:host > .browser .toolbar .controls button > .small {
+  font-size: 1.2rem;
+}
+
+:host > .browser .toolbar .controls .urlbar {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  height: 4rem;
+  margin: 0 0.5rem 1rem;
+  overflow: hidden;
+  border-radius: 2rem;
+  background-color: var(--browser-urlbar-normal);
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+  /* margin-inline-end: 0.5rem; */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+:host > .browser .toolbar .controls .urlbar:hover {
+  background-color: var(--browser-urlbar-hover);
+}
+
+:host > .browser .toolbar .controls .urlbar.hold {
+  transform: scale(1.05);
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.2);
+  transition: background-color 1s ease, box-shadow 1s ease, transform 1s ease;
+}
+
+:host(:not(.desktop)) > .browser.bottom .toolbar .controls .urlbar {
+  margin: 1rem 0.5rem;
+}
+
+:host > .browser .toolbar .controls .urlbar > button {
+  height: 4rem;
+  margin: 0;
+  line-height: 4rem;
+}
+
+:host > .browser .toolbar .controls .urlbar > button[data-icon]::before {
+  height: 4rem;
+}
+
+:host > .browser .toolbar .controls .urlbar > input {
+  display: none;
+  flex-grow: 1;
+  width: 100%;
+  height: 4rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 4rem;
+}
+
+:host > .browser .toolbar .controls .urlbar:hover > input {
+  display: block;
+}
+
+:host > .browser .toolbar .controls .urlbar > .urlbar-display-url {
+  flex-grow: 1;
+  width: 100%;
+  height: 4rem;
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 4rem;
+}
+
+:host > .browser .toolbar .controls .urlbar:hover > .urlbar-display-url {
+  display: none;
+}
+
+:host > .browser .toolbar .header-bar {
+  display: none;
+  z-index: 10;
+}
+
+:host > .browser .toolbar .urlbar-holder {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(5rem + var(--statusbar-height));
+  padding-top: var(--statusbar-height);
+  border-bottom: solid 0.1rem var(--separator-color);
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: var(--browser-toolbar-color);
+}
+
+:host(:not(.desktop)) > .browser.bottom .toolbar .urlbar-holder {
+  top: unset;
+  bottom: calc(5rem + var(--software-buttons-height));
+  height: 5rem;
+  padding-top: 0;
+  border-bottom: none;
+  backdrop-filter: none;
+  background-color: transparent;
+}
+
+:host > .browser .toolbar .navbar {
+  z-index: 10;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: calc(5rem + var(--software-buttons-height));
+  padding-bottom: var(--software-buttons-height);
+  border-top: solid 0.1rem var(--separator-color);
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: var(--browser-toolbar-color);
+  transition: height 0.5s cubic-bezier(0.2, 0.9, 0.1, 1), padding-top 0.5s cubic-bezier(0.2, 0.9, 0.1, 1);
+}
+
+:host(:not(.desktop)) > .browser.bottom .toolbar .navbar {
+  height: calc(5rem + 5rem + var(--software-buttons-height));
+  padding-top: 5rem;
+}
+
+:host(.desktop) > .browser.bottom .toolbar .navbar {
+  top: 0;
+  bottom: unset;
+  height: calc(5rem + 5rem + var(--statusbar-height));
+  padding-top: calc(5rem + var(--statusbar-height));
+  padding-bottom: 0;
+}
+
+:host(:not(.desktop)) > .browser .toolbar .navbar > button,
+:host(.desktop) > .browser .toolbar .navbar > .urlbar-space {
+  flex-grow: 1;
+  flex-shrink: unset;
+  width: 100%;
+}
+
+:host > .browser .toolbar .navbar > .addons,
+:host > .browser .toolbar .navbar > .navbar-split-button,
+:host > .browser .toolbar .navbar > .navbar-downloads-button,
+:host > .browser .toolbar .navbar > .navbar-library-button,
+:host > .browser .toolbar .navbar > .navbar-bookmark-button {
+  display: none;
+}
+
+:host > .browser .browser-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  height: calc(100% - var(--statusbar-height) - var(--software-buttons-height) - 10rem);
+  margin-top: calc(var(--statusbar-height) + 5rem);
+  margin-bottom: calc(var(--software-buttons-height) + 5rem);
+}
+
+:host(:not(.desktop)) > .browser.bottom .browser-container {
+  margin-top: var(--statusbar-height);
+  margin-bottom: calc(var(--software-buttons-height) + 10rem);
+}
+
+:host([data-hidden="true"]) > .browser .browser-container {
+  height: calc(100% - var(--statusbar-height) - var(--software-buttons-height));
+  margin-top: var(--statusbar-height);
+  margin-bottom: var(--software-buttons-height);
+}
+
+:host([data-hidden="true"].immersive) > .browser .browser-container,
+:host([data-hidden="true"].fullscreen) > .browser .browser-container {
+  height: 100%;
+  margin: 0;
+}
+
+:host > .browser .browser-container > web-view {
+  display: none;
+  background-color: transparent;
+}
+
+:host > .browser .browser-container > web-view.active {
+  display: block;
+}
+
+:host > .browser .web-panel {
+  box-sizing: border-box;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: calc(var(--statusbar-height) + 5rem);
+  padding-bottom: calc(var(--software-buttons-height) + 5rem);
+  background-color: var(--background);
+}
+
+:host(:not(.desktop)) > .browser.bottom .web-panel {
+  padding-top: var(--statusbar-height);
+  padding-bottom: calc(var(--software-buttons-height) + 10rem);
+}
+
+:host([data-hidden="true"]) > .browser .web-panel {
+  padding-top: var(--statusbar-height);
+  padding-bottom: var(--software-buttons-height);
+}
+
+:host > .browser .web-panel.visible {
+  visibility: visible;
+}

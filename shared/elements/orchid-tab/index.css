@@ -3,6 +3,7 @@ orchid-tab {
   flex-grow: 1;
   width: 100%;
   height: 100%;
+  padding: 0 1rem;
   border-radius: 1rem;
   background-color: transparent;
   color: var(--text-color);

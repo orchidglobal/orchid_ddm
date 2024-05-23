@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f0f6ff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+  <link rel="shortcut icon" href="/style/icons/clock.svg" type="image/svg">
+  <title data-l10n-id="title"></title>
+  <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/panels.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/lists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/alertbars.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/footers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/app/transitions.css" />
+  <link rel="stylesheet" type="text/css" href="style/index.css" />
+  <link rel="stylesheet" type="text/css" href="style/slideshow.css" />
+  <script type="module" src="https://orchid-f39a9.web.app/orchid_services.js"></script>
+  <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <script defer type="text/javascript" src="/shared/js/common/color_picker.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+
+  <meta name="defaultLanguage" content="en-US">
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi">
+  <link rel="localization" href="/shared/locales/services/services.{locale}.properties">
+  <link rel="localization" href="./locales/main.{locale}.properties">
+</head>
+
+<body>
+  <main id="app" role="web">
+    <section id="root" class="visible" role="panel">
+      <header>
+        <div class="safezone">
+          <a href="#" class="logo">Orchid</a>
+          <nav>
+            <ul>
+              <li><a href="#">Products</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Games</a></li>
+              <li><a href="#">Contacts</a></li>
+              <li><a href="#">About Us</a></li>
+            </ul>
+          </nav>
+          <h1></h1>
+          <menu role="toolbar">
+            <orchid-account-button id="account-button"></orchid-account-button>
+            <a href="#" data-icon="cart"></a>
+            <a href="#" data-icon="search"></a>
+          </menu>
+        </div>
+      </header>
+
+      <section>
+        <div class="first-view">
+          <compatibility-note></compatibility-note>
+
+          <div id="slideshow-container">
+            <div id="slideshow"></div>
+            <div id="slideshow-dots"></div>
+
+            <button id="slideshow-previous-button" data-icon="chevron-left"></button>
+            <button id="slideshow-next-button" data-icon="chevron-right"></button>
+          </div>
+        </div>
+
+        <div class="bb-footer">
+          <div class="footer-rows">
+            <div class="row">
+              <div class="footer-columns">
+                <div class="column">
+                  <h2></h2>
+
+                  <nav>
+                    <a href="#">Web Docs</a>
+                    <div class="separator"></div>
+                    <a href="#">Partner</a>
+                    <div class="separator"></div>
+                    <a href="#">Join Us</a>
+                    <div class="separator"></div>
+                    <a href="#">Parental</a>
+                    <div class="separator"></div>
+                    <a href="#">Education</a>
+                    <div class="separator"></div>
+                    <a href="#">Business</a>
+                  </nav>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="footerbar">
+                <div class="left">
+                  <ul>
+                    <li data-icon="web"><a href="#">English (US)</a></li>
+                  </ul>
+                </div>
+
+                <div class="right">
+                  <span class="copyright">Orchid 2024 (CL)</span>
+                  <ul>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Guidelines</a></li>
+                    <li><a href="#">Privacy</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+</body>
+
+</html>

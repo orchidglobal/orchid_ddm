@@ -1,10 +1,17 @@
+orchid-tabs-holder {
+  display: block;
+  width: 100%;
+  max-width: var(--safezone-width);
+  margin: 0 auto 1rem;
+}
+
 orchid-tabs {
   box-sizing: border-box;
   display: block;
   position: relative;
   width: calc(100% - 3rem);
   max-width: calc(var(--safezone-width) - 3rem);
-  margin: 0 auto 1rem;
+  margin: 0 1.5rem 1rem;
   padding: 0.5rem;
   overflow: hidden;
   border: solid 0.1rem var(--list-background-border);
@@ -31,6 +38,12 @@ orchid-tabs .select-overlay {
   margin: 0 0.5rem;
   transform: translateX(calc(var(--tab-offset) * (100% + 0.5rem) - 0.5rem));
   border-radius: 1rem;
-  background-color: var(--item-plus);
+  background-color: var(--list-item-selected);
   transition: all 0.3s cubic-bezier(0.5, 0.8, 0, 1);
+}
+
+@media screen and (min-width: 768px) {
+  orchid-tabs {
+    width: 32rem;
+  }
 }

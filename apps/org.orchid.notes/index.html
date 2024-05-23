@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f0f6ff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+  <link rel="shortcut icon" href="/style/icons/notes.svg" type="image/x-icon">
+  <title data-l10n-id="title"></title>
+  <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/tablists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/seekbars.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/action_buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/app/transitions.css" />
+  <link rel="stylesheet" type="text/css" href="style/music.css" />
+  <link rel="stylesheet" type="text/css" href="style/grid.css" />
+  <link rel="stylesheet" type="text/css" href="style/playlists.css" />
+  <link rel="stylesheet" type="text/css" href="style/artists.css" />
+  <link rel="stylesheet" type="text/css" href="style/albums.css" />
+  <link rel="stylesheet" type="text/css" href="style/player.css" />
+  <script type="module" src="https://orchid-f39a9.web.app/orchid_services.js"></script>
+  <script type="text/javascript" src="/shared/js/jsmediatags.js"></script>
+  <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <script defer type="text/javascript" src="/shared/js/utils/file_indexer.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script defer type="text/javascript" src="js/views.js"></script>
+  <script defer type="text/javascript" src="js/views/grid/main.js"></script>
+  <script defer type="text/javascript" src="js/views/playlists/main.js"></script>
+  <script defer type="text/javascript" src="js/views/artists/main.js"></script>
+  <script defer type="text/javascript" src="js/views/albums/main.js"></script>
+  <script defer type="text/javascript" src="js/player.js"></script>
+
+  <script type="text/javascript" src="/shared/js/intl/l10n.js"></script>
+  <meta name="defaultLanguage" content="en-US">
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi">
+  <link rel="localization" href="/locales/main.{locale}.properties">
+</head>
+
+<body>
+  <main id="app" role="app">
+    <nav class="bb-tablist">
+      <ul>
+        <li><a href="#notes" class="selected" data-page-id="notes">
+            <span data-icon="list"></span>
+            <span data-l10n-id="notes"></span>
+          </a></li>
+        <li><a href="#todo" data-page-id="todo">
+            <span data-icon="tick"></span>
+            <span data-l10n-id="todo"></span>
+          </a></li>
+      </ul>
+    </nav>
+
+    <div id="views" class="bb-tablist-views">
+      <section id="notes" class="visible" role="panel">
+        <header>
+          <h1 data-l10n-id="title-short"></h1>
+          <menu role="toolbar">
+            <orchid-account-button id="account-button"></orchid-account-button>
+            <a href="#" data-icon="search" data-page-id="search"></a>
+            <a href="#" id="add-button" data-icon="add"></a>
+          </menu>
+        </header>
+        <section>
+          <div id="notes-container" class="notes"></div>
+        </section>
+      </section>
+
+      <section id="todo" role="panel">
+        <header>
+          <h1 data-l10n-id="todo"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="options"></a>
+          </menu>
+        </header>
+        <section></section>
+      </section>
+
+      <menu class="bb-actions">
+        <button class="recommend" data-icon="feedback"></button>
+      </menu>
+    </div>
+  </main>
+</body>
+
+</html>

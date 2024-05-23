@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f0f6ff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+  <link rel="shortcut icon" href="/style/icons/gallery.svg" type="image/x-icon">
+  <title data-l10n-id="title"></title>
+  <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/tablists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/toolbars.css" />
+  <link rel="stylesheet" type="text/css" href="style/gallery.css" />
+  <link rel="stylesheet" type="text/css" href="style/library.css" />
+  <link rel="stylesheet" type="text/css" href="style/folders.css" />
+  <link rel="stylesheet" type="text/css" href="style/memories.css" />
+  <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <script defer type="text/javascript" src="/shared/js/utils/file_indexer.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script defer type="text/javascript" src="js/views.js"></script>
+  <script defer type="text/javascript" src="js/views/library.js"></script>
+  <script defer type="text/javascript" src="js/views/folders.js"></script>
+  <script defer type="text/javascript" src="js/views/memories.js"></script>
+  <script defer type="text/javascript" src="js/viewer.js"></script>
+
+  <script type="text/javascript" src="/shared/js/intl/l10n.js"></script>
+  <meta name="defaultLanguage" content="en-US">
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi">
+  <link rel="localization" href="/locales/main.{locale}.properties">
+</head>
+
+<body>
+  <main id="app" role="app">
+    <nav class="bb-tablist">
+      <ul>
+        <li><a href="#library" class="selected" data-page-id="library">
+            <span data-icon="library"></span>
+            <span data-l10n-id="library"></span>
+          </a></li>
+        <li><a href="#folders" data-page-id="folders">
+            <span data-icon="folder"></span>
+            <span data-l10n-id="folders"></span>
+          </a></li>
+        <li><a href="#memories" data-page-id="memories">
+            <span data-icon="memories"></span>
+            <span data-l10n-id="memories"></span>
+          </a></li>
+      </ul>
+    </nav>
+
+    <div id="views" class="bb-tablist-views">
+      <section id="library" class="visible" role="panel">
+        <header>
+          <h1 data-l10n-id="library"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="options"></a>
+          </menu>
+        </header>
+        <section>
+          <div id="images-container"></div>
+        </section>
+      </section>
+
+      <section id="folders" role="panel">
+        <header>
+          <h1 data-l10n-id="folders"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="options"></a>
+          </menu>
+        </header>
+        <section></section>
+      </section>
+
+      <section id="memories" role="panel">
+        <header>
+          <h1 data-l10n-id="memories"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="options"></a>
+          </menu>
+        </header>
+        <section></section>
+      </section>
+    </div>
+
+    <section id="viewer" role="panel">
+      <header class="compact">
+        <a href="#" id="viewer-back-button" data-icon="arrow-back"></a>
+        <h1 id="viewer-title"></h1>
+        <menu role="toolbar">
+          <a href="#" data-icon="about"></a>
+        </menu>
+      </header>
+      <div role="toolbar">
+        <div class="safezone">
+          <button id="viewer-camera" data-icon="camera"></button>
+          <button id="viewer-edit-image" data-icon="edit"></button>
+          <button id="viewer-share" data-icon="share"></button>
+          <button id="viewer-info" data-icon="about"></button>
+          <button id="viewer-delete" data-icon="delete"></button>
+        </div>
+      </div>
+      <section>
+        <div id="images-container"></div>
+      </section>
+    </section>
+  </main>
+</body>
+
+</html>

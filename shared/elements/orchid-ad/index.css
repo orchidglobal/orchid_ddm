@@ -1,0 +1,19 @@
+orchid-ad {
+  display: block;
+  position: relative;
+  width: calc(100% - 3rem);
+  margin: 0 auto 1rem;
+  overflow: hidden;
+  border: solid 0.1rem var(--list-background-border);
+  border-radius: var(--list-radius);
+  background-color: var(--list-background);
+}
+
+orchid-ad iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}

@@ -1,0 +1,27 @@
+:host {
+  flex-shrink: 1;
+  width: 100%;
+  color: #fff;
+}
+
+:host > .text-holder {
+  display: flex;
+  width: 100%;
+}
+
+:host > .text-holder .text {
+  width: 100%;
+  color: currentColor;
+  font-weight: var(--time-label-weight);
+  font-size: 7.2rem;
+  line-height: 1em;
+  font-family: 'Orchid Brand';
+}
+
+:host > .text-holder .text {
+  width: 100%;
+  color: currentColor;
+  font-weight: var(--time-label-weight);
+  font-size: 7.2rem;
+  font-family: 'Orchid Brand';
+}

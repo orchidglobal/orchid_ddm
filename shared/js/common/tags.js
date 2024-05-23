@@ -1,6 +1,10 @@
 !(function (exports) {
   'use strict';
 
+  if (!('OrchidJS' in window)) {
+    exports.OrchidJS = {};
+  }
+
   class Tags {
     constructor(element) {
       this.element = element;
@@ -57,5 +61,5 @@
     }
   }
 
-  exports.Tags = Tags;
+  OrchidJS.Tags = Tags;
 })(window);

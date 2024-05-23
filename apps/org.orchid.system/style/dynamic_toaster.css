@@ -1,0 +1,240 @@
+#dynamic-toaster {
+  --deadzone-width: 3rem;
+  --dynamic-toaster-background: #000;
+  --dynamic-toaster-text-color: #e7e7e7;
+  --dynamic-toaster-text-color-faded: rgba(231, 231, 231, 0.5);
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50vh;
+  pointer-events: none;
+}
+
+.screen.desktop #dynamic-toaster {
+  --dynamic-toaster-background: var(--background);
+  --dynamic-toaster-text-color: var(--text-color);
+  --dynamic-toaster-text-color-faded: var(--text-color-faded);
+}
+
+#dynamic-toaster.expanded {
+  backdrop-filter: blur(4px) saturate(150%);
+  background-color: rgba(51, 51, 51, 0.1);
+  mask-image: linear-gradient(to bottom, white, white calc(0.5rem + (var(--screen-radius) - 0.5rem) * 2), transparent);
+}
+
+.screen.desktop #dynamic-toaster.expanded {
+  mask-image: linear-gradient(to bottom, white, white calc(3.2rem + var(--titlebar-height) + (var(--screen-radius) - 0.5rem) * 2), transparent);
+}
+
+#dynamic-toaster-main {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--statusbar-height);
+  transform: translateY(-100%);
+  background-color: var(--dynamic-toaster-background);
+  pointer-events: auto;
+  transition: all 0.5s cubic-bezier(0.5, 0.8, 0, 1), scale 0.3s ease 0.5s, opacity 0.3s ease 0.5s, visibility 1s ease;
+}
+
+#dynamic-toaster-main::before {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 2rem;
+  height: 4rem;
+  border-radius: 2rem 0 0 0;
+  box-shadow: 0 -2rem 0 var(--background);
+  content: '';
+}
+
+#dynamic-toaster-main::after {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 2rem;
+  height: 4rem;
+  border-radius: 0 2rem 0 0;
+  box-shadow: 0 -2rem 0 var(--background);
+  content: '';
+}
+
+#dynamic-toaster.visible #dynamic-toaster-main {
+  visibility: visible;
+  transform: translateY(0);
+}
+
+#dynamic-toaster.expanded #dynamic-toaster-main {
+  height: 8rem;
+}
+
+.screen.desktop #dynamic-toaster.expanded #dynamic-toaster-main {
+  top: var(--titlebar-height);
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.2);
+}
+
+#dynamic-toaster-small,
+#dynamic-toaster-big {
+  display: flex;
+  visibility: hidden;
+  z-index: 1;
+  position: absolute;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+  filter: blur(5px);
+  opacity: 0;
+  transition: filter 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#dynamic-toaster-small {
+  height: 100%;
+}
+
+#dynamic-toaster.visible:not(.expanded) #dynamic-toaster-main > #dynamic-toaster-small {
+  visibility: unset;
+  filter: blur(0px);
+  opacity: 1;
+}
+
+#dynamic-toaster.expanded #dynamic-toaster-main > #dynamic-toaster-big {
+  visibility: unset;
+  filter: blur(0px);
+  opacity: 1;
+}
+
+#dynamic-toaster-small > .icon-holder {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  width: 8rem;
+  height: 3rem;
+  padding-inline-start: var(--statusbar-padding-left);
+}
+
+#dynamic-toaster-small > .icon-holder > img {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+#dynamic-toaster-small > .icon-holder > canvas {
+  width: 3rem;
+  height: 2.4rem;
+}
+
+#dynamic-toaster-small > .deadzone {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+}
+
+#dynamic-toaster-small > .text-holder {
+  flex-shrink: 0;
+  padding-inline-end: var(--statusbar-padding-right);
+}
+
+#dynamic-toaster-small > .text-holder > .label {
+  color: var(--dynamic-toaster-text-color);
+  font-weight: normal;
+  font-size: 1.4rem;
+}
+
+#dynamic-toaster-big {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 8rem;
+}
+
+#dynamic-toaster-big > .icon-holder {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: 1rem 0;
+  margin-inline-start: 1.75rem;
+}
+
+#dynamic-toaster-big > .icon-holder > img {
+  position: absolute;
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+#dynamic-toaster-big > .icon-holder > canvas {
+  position: absolute;
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+#dynamic-toaster-big > .text-holder {
+  box-sizing: border-box;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 8rem;
+  padding-top: calc(var(--statusbar-height) - 1rem);
+  padding-inline-start: 1rem;
+}
+
+.screen.desktop #dynamic-toaster-big > .text-holder {
+  padding-top: 0;
+}
+
+#dynamic-toaster-big > .text-holder > .title {
+  color: var(--dynamic-toaster-text-color);
+  font-weight: normal;
+  font-size: 1.5rem;
+}
+
+#dynamic-toaster-big > .text-holder > .detail {
+  color: var(--dynamic-toaster-text-color-faded);
+  font-weight: normal;
+  font-size: 1.3rem;
+}
+
+#dynamic-toaster-big > .buttons {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  height: 100%;
+  padding-inline-end: 2rem;
+  gap: 0.75rem;
+}
+
+#dynamic-toaster-big > .buttons > button {
+  width: 4rem;
+  height: 4rem;
+  margin: 0;
+  padding: 0 1rem;
+}
+
+#dynamic-toaster-big > .buttons > button[data-icon]::before {
+  position: static;
+  font-size: 2rem;
+}
+
+#dynamic-toaster-icon {
+  visibility: hidden;
+  position: absolute;
+  top: calc(var(--statusbar-height) / 2 - 3rem / 2);
+  width: 3rem;
+  height: 3rem;
+  overflow: hidden;
+  transform: scale(0.75);
+  border-radius: 3rem;
+  background-color: var(--dynamic-toaster-background);
+  opacity: 0;
+  pointer-events: auto;
+}
+html[dir="ltr"] #dynamic-toaster-icon {
+  right: calc(50% - var(--deadzone-width) / 2 - 8rem);
+}
+html[dir="rtl"] #dynamic-toaster-icon {
+  left: calc(50% - var(--deadzone-width) / 2 - 8rem);
+}

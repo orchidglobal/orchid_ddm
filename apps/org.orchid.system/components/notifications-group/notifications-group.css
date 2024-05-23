@@ -1,0 +1,44 @@
+:host {
+  display: block;
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  transition: height 0.1s ease;
+}
+
+:host > .group {
+  position: relative;
+  width: 100%;
+}
+
+:host > .group .header {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 4rem;
+  transition: height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+:host > .group.collapsed .header {
+  visibility: hidden;
+  height: 0rem;
+  opacity: 0;
+}
+
+:host > .group .header > h3 {
+  box-sizing: border-box;
+  flex-grow: 1;
+  width: 100%;
+  height: 4rem;
+  margin: 0;
+  padding: 0 1rem;
+  color: #fff;
+  font-weight: var(--generic-label-weight);
+  font-size: 1.8rem;
+  line-height: 4rem;
+}
+
+:host > .group .content {
+  position: relative;
+  width: 100%;
+}

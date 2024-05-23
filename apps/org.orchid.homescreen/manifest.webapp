@@ -1,0 +1,28 @@
+{
+  "id": "org.orchid.homescreen",
+  "version": "%system_version%",
+  "role": "homescreen",
+  "name": "Homescreen",
+  "description": "Quickly launch webapps with the tap of a finger",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "/style/icons/homescreen_16.png",
+    "32": "/style/icons/homescreen_32.png",
+    "48": "/style/icons/homescreen_48.png",
+    "64": "/style/icons/homescreen_64.png",
+    "128": "/style/icons/homescreen_128.png",
+    "256": "/style/icons/homescreen_256.png"
+  },
+  "developer": {
+    "name": "Orchid",
+    "url": "https://orchid.thats-the.name/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait-primary",
+  "permissions": {
+    "ipc": {},
+    "webapps-manage": {}
+  },
+  "transparent": true,
+  "display": "immersive"
+}

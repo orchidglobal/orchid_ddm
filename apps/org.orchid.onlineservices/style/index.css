@@ -1,0 +1,51 @@
+@font-face {
+  src: url(/fonts/ReadexPro-VariableFont_HEXP.ttf);
+  font-family: 'Orchid Brand';
+}
+
+@font-face {
+  src: url(/fonts/Rubik-VariableFont_wght.ttf);
+  font-family: -orchid-standard-font;
+}
+
+@font-face {
+  font-style: italic;
+  src: url(/fonts/Rubik-Italic-VariableFont_wght.ttf);
+  font-family: -orchid-standard-font;
+}
+
+*,
+::placeholder,
+::-webkit-file-upload-button {
+  font-family: -orchid-standard-font, 'Rubik', 'Jali Arabic', 'IBM Plex Sans Arabic', 'IBM Plex Sans', 'Fira Sans', 'Open Sans', 'Noto Sans', system-ui, sans-serif;
+}
+
+pre,
+textarea {
+  font-family: monospace;
+}
+
+
+[role="web"] {
+  --safezone-width: 128rem;
+}
+
+.first-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .first-view {
+    height: calc(100% - 5rem);
+  }
+}
+
+.first-view .bb-alertbar {
+  flex-shrink: 0;
+}
+
+.first-view #slideshow-container {
+  flex-grow: 1;
+}

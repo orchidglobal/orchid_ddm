@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "name": "Example",
+  "long_name": "Example App",
+  "description": "A Template Example App",
+  "launch_path": "/index.xhtml",
+  "icons": {
+    "16": "/style/icons/icon_16.png",
+    "32": "/style/icons/icon_32.png",
+    "48": "/style/icons/icon_48.png",
+    "64": "/style/icons/icon_64.png",
+    "128": "/style/icons/icon_128.png",
+    "256": "/style/icons/icon_256.png"
+  },
+  "developer": {
+    "name": "Orchid Org.",
+    "url": "https://orchid.thats-the.name/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait-primary",
+  "permissions": {
+    "settings": {},
+    "storage": {},
+    "device-storage:home": {},
+    "device-storage:photos": {}
+  },
+  "display": "immersive"
+}

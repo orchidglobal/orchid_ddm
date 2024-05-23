@@ -1,0 +1,529 @@
+#launcher {
+  display: flex;
+  visibility: hidden;
+  position: absolute;
+  bottom: calc(var(--dock-height) + 2rem);
+  left: calc(50% - 28rem);
+  flex-direction: column;
+  width: 56rem;
+  height: 48rem;
+  overflow: hidden;
+  transform: translateY(calc(100% + var(--dock-height) + 2rem));
+  border-radius: 2rem;
+  background-color: var(--background);
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s cubic-bezier(0.5, 0.2, 1, 0), visibility 0.5s ease;
+}
+
+.screen.gpu-capable #launcher {
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: var(--acrylic-background);
+}
+
+#launcher.shortcuts-visible {
+  background-color: var(--background);
+}
+
+#launcher.visible {
+  visibility: visible;
+  transform: translateY(0);
+  transition: transform 0.5s cubic-bezier(0.5, 0.8, 0, 1), visibility 0.5s ease;
+}
+
+#launcher.maximized {
+  box-sizing: border-box;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem 1.5rem calc(var(--dock-height) + 2rem);
+  transform: scale(1.1);
+  translate: 0 0;
+  border-radius: 0;
+  backdrop-filter: none;
+  background-color: var(--acrylic-background);
+  transition: backdrop-filter 0.5s ease, transform 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.screen.gpu-capable #launcher.maximized.visible {
+  backdrop-filter: blur(20px) saturate(180%);
+  opacity: 1;
+}
+
+#launcher.maximized.visible {
+  transform: scale(1);
+}
+
+#launcher .header {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  height: 7rem;
+  padding: 1.5rem;
+  gap: 1rem;
+}
+
+#launcher.maximized .header {
+  padding-inline-start: 6.5rem;
+}
+
+#launcher-search {
+  background-color: var(--search-background);
+}
+
+#launcher.maximized #launcher-search {
+  width: 50rem;
+  margin: 0 auto;
+}
+
+#launcher .footer {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  height: 7rem;
+  padding: 1.5rem;
+  gap: 1rem;
+}
+
+#launcher .footer > div {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  gap: 1rem;
+}
+
+#launcher .footer > .right {
+  flex-direction: row-reverse;
+}
+
+#launcher .header > button,
+#launcher .footer > button,
+#launcher .header > div > button,
+#launcher .footer > div > button {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  padding: 0 1rem;
+  line-height: 4rem;
+}
+
+#launcher .header button[data-icon]::before,
+#launcher .footer button[data-icon]::before {
+  position: static;
+}
+
+#launcher .footer figure {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  height: 4rem;
+  margin: 0;
+  padding: 0 1.5rem;
+  padding-inline-start: 0.2rem;
+  gap: 1rem;
+  border-radius: 2rem;
+}
+
+#launcher .footer figure:hover {
+  background-color: var(--item-hover);
+}
+
+#launcher .footer figure:active {
+  background-color: var(--item-active);
+}
+
+#launcher-account-avatar {
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  background-color: var(--background-plus);
+}
+
+#launcher .footer figure > figcaption {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+#launcher-account-username {
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+}
+
+/* Grid */
+#launcher-grid {
+  display: flex;
+  position: relative;
+  top: 0;
+  left: 0;
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+#launcher.maximized #launcher-grid {
+  width: 75%;
+  margin: 0 auto;
+}
+
+.page {
+  display: grid;
+  position: absolute;
+  top: 0;
+  left: 0;
+  grid-template-rows: repeat(var(--grid-rows), 1fr);
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  perspective: 100vw;
+  scroll-snap-align: start;
+}
+
+.page .icon {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  list-style: none;
+}
+
+.page .icon.dragging {
+  transition: none;
+}
+
+.page .icon .icon-holder {
+  position: relative;
+  width: max-content;
+  margin: 0 auto;
+  padding-top: 0.4rem;
+}
+
+.page .icon .icon-holder > img {
+  display: block;
+  position: relative;
+  width: 5.4rem;
+  height: 5.4rem;
+  image-rendering: optimizeSpeed;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.page .icon .icon-holder > iframe {
+  display: block;
+  position: relative;
+  width: 4.8rem;
+  height: 4.8rem;
+  margin: 0.3rem;
+  border-radius: 25%;
+  image-rendering: optimizeSpeed;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.page .icon.dragging .icon-holder > img {
+  transform: scale(1.25);
+}
+
+.page .icon:active .icon-holder > img {
+  filter: brightness(0.75);
+}
+
+[data-edit-mode="true"] .page .icon:not(.dragging) .icon-holder > img {
+  transform-origin: center !important;
+  animation: icon-edit-wiggle 0.3s ease-in-out infinite;
+}
+
+[data-edit-mode="true"] .page .icon:not(.dragging):nth-child(3n-1) .icon-holder > img {
+  animation-delay: 0.2s;
+}
+
+[data-edit-mode="true"] .page .icon:not(.dragging):nth-child(3n) .icon-holder > img {
+  animation-delay: 0.1s;
+}
+
+@keyframes icon-edit-wiggle {
+  0% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(-5deg);
+  }
+}
+
+.page .icon .icon-holder > .notification-badge {
+  box-sizing: border-box;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: -0.5rem;
+  min-width: 2.4rem;
+  height: 2.4rem;
+  margin: 0;
+  padding: 0 0.5rem;
+  transform: scale(0);
+  border-radius: 2.4rem;
+  background-color: #c00040;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: normal;
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+  text-align: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.page .icon .icon-holder > .uninstall-button {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  right: -0.5rem;
+  width: 3rem;
+  height: 3rem;
+  margin: 0;
+  padding: 0 0.7rem;
+  transform: scale(0);
+  border: none;
+  border-radius: 50%;
+  background-color: #c00040;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 3rem;
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+[data-edit-mode="true"] .page .icon .icon-holder > .uninstall-button {
+  visibility: visible;
+  transform: scale(1);
+  opacity: 1;
+}
+
+.page .icon .icon-holder > .uninstall-button[data-icon]::before {
+  height: 3rem;
+  font-size: 1.6rem;
+  line-height: 4rem;
+}
+
+.page .icon .name {
+  width: 100%;
+  margin: 0.4rem 0 1rem;
+  overflow: hidden;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+#app.light .page .icon .name {
+  color: rgba(0, 0, 0, 0.75);
+  font-weight: bold;
+  text-shadow: none;
+}
+
+.page .icon.page .icon.dragging .name {
+  opacity: 0;
+}
+
+[data-edit-mode="true"] .page .icon:not(.dragging) .name {
+  transform-origin: 50% -3rem !important;
+  animation: icon-edit-wiggle 0.3s ease-in-out infinite;
+}
+
+[data-edit-mode="true"] .page .icon:not(.dragging):nth-child(3n-1) .name {
+  animation-delay: 0.2s;
+}
+
+[data-edit-mode="true"] .page .icon:not(.dragging):nth-child(3n) .name {
+  animation-delay: 0.1s;
+}
+
+/* Pagination Bar */
+#launcher-paginationBar {
+  display: flex;
+  flex-shrink: 0;
+  margin: 0 auto;
+  margin-top: 1rem;
+  gap: 0.5rem;
+}
+
+#launcher-paginationBar > .dot {
+  width: calc(0.8rem + (0.8rem * var(--pagination-progress, 0)));
+  height: 0.8rem;
+  border-radius: 1rem;
+  background-color: var(--text-color);
+  opacity: calc(0.5 + (0.5 * var(--pagination-progress, 0)));
+  transition: all 0.3s ease;
+}
+
+#launcher-paginationBar > .dot.active {
+  width: 1.6rem;
+  opacity: 1;
+}
+
+/* Shortcuts */
+#launcher-shortcuts {
+  visibility: hidden;
+  z-index: 50;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+#launcher-shortcuts.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+#launcher-shortcuts-fake-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5.6rem;
+  height: 5.6rem;
+  background-color: transparent;
+}
+
+#launcher-shortcuts-menu {
+  position: absolute;
+  width: max-content;
+  border-radius: 1.5rem;
+  background-color: var(--acrylic-background-plus);
+  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.2);
+}
+
+#launcher-shortcuts-menu > ul {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0.5rem;
+  border-bottom: solid 0.5rem var(--item-plus);
+}
+
+#launcher-shortcuts-menu > ul:last-child {
+  border-bottom: none;
+}
+
+#launcher-shortcuts-menu > ul li {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  height: 4rem;
+  margin: 0;
+  padding: 0 1rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 4rem;
+  list-style: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#launcher-shortcuts-menu > ul li:hover {
+  background: var(--item-hover);
+}
+
+#launcher-shortcuts-menu > ul li:active {
+  background: var(--item-active);
+}
+
+#launcher-shortcuts-menu > ul li::after {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  width: calc(100% - 3rem);
+  height: 100%;
+  border-top: solid 0.1rem var(--separator-color);
+  content: '';
+  pointer-events: none;
+}
+
+#launcher-shortcuts-menu > ul li:hover::after,
+#launcher-shortcuts-menu > ul li:active::after,
+#launcher-shortcuts-menu > ul li:hover + li::after,
+#launcher-shortcuts-menu > ul li:active + li::after,
+#launcher-shortcuts-menu > ul li:first-child::after,
+#context-menu-content .separator + li::after {
+  border-top: none !important;
+}
+
+#launcher-shortcuts-menu > ul li[disabled] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+#launcher-shortcuts-menu > ul li[data-icon] {
+  -moz-padding-start: 4rem;
+  padding-inline-start: 4rem;
+}
+
+#launcher-shortcuts-menu > ul li[data-icon]:before {
+  position: absolute;
+  top: 0;
+  width: 2rem;
+  height: 100%;
+  font-size: 2rem;
+}
+html[dir='ltr'] #launcher-shortcuts-menu > ul li[data-icon]:before {
+  left: 1rem;
+}
+html[dir='rtl'] #launcher-shortcuts-menu > ul li[data-icon]:before {
+  right: 1rem;
+}
+
+#launcher-shortcuts-menu > #launcher-shortcuts-menu-options li {
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  gap: 1rem;
+  line-height: 5rem;
+}
+
+#launcher-shortcuts-menu > #launcher-shortcuts-menu-options li > .icon-holder {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  height: 100%;
+  padding: 0.5rem 0;
+}
+
+#launcher-shortcuts-menu > #launcher-shortcuts-menu-options li > .icon-holder > img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 25%;
+}
+
+#launcher-shortcuts-menu > #launcher-shortcuts-menu-options li > .name {
+  box-sizing: border-box;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem 0;
+  line-height: 2.2rem;
+}

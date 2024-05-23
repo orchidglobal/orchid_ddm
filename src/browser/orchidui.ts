@@ -80,7 +80,7 @@ const OrchidUI = {
     if (Main.launchOptions.type) {
       this.edition = Main.launchOptions.type.trim().toLowerCase();
     } else {
-      this.edition = await Settings.getValue('system.edition', 'internal.json');
+      this.edition = await Settings.getValue('system.edition', 'application.metadata');
     }
   },
 
@@ -88,16 +88,10 @@ const OrchidUI = {
     this.window = new BrowserWindow({
       icon: path.join(__dirname, '..', '..', 'apps', 'browser', 'style', 'icons', 'browser_128.png'),
       title: `OrchidUI ${app.getVersion()} ${this.editionConfig[this.edition].agent_type}`,
-      minWidth: 320,
-      minHeight: 480,
-      width:
-        process.platform !== 'win32'
-          ? this.editionConfig[this.edition].simulator_width
-          : this.editionConfig[this.edition].simulator_width + 14,
-      height:
-        process.platform !== 'win32'
-          ? this.editionConfig[this.edition].simulator_height
-          : this.editionConfig[this.edition].simulator_height + 37,
+      minWidth: 322,
+      minHeight: 522,
+      width: this.editionConfig[this.edition].simulator_width + 2,
+      height: this.editionConfig[this.edition].simulator_height + 42,
       autoHideMenuBar: true,
       backgroundColor: '#000000',
       frame: false,
@@ -172,12 +166,12 @@ const OrchidUI = {
     }
 
     const userAgentProduct = `Mozilla/5.0`;
-    const userAgentVersion = `OrchidOS ${app.getVersion()}; Linux`;
-    const userAgentComment = `AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${process.versions.chrome} Safari/537.36 OrchidChr/${app.getVersion()} ${this.editionConfig[this.edition].agent_type}/${systemJson.device_model_name}`;
+    const userAgentVersion = `Linux; Bloom Kernel; OrchidOS ${app.getVersion()}; ${this.editionConfig[this.edition].agent_type}; ${systemJson.manufacturer} ${systemJson.device_model_name}`;
+    const userAgentComment = `AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${process.versions.chrome} ${this.editionConfig[this.edition].agent_type === 'Mobile' ? 'Mobile' : ''} Safari/537.36 OrchidChr/${app.getVersion()}`;
     const userAgent = `${userAgentProduct} (${userAgentVersion}) ${userAgentComment}`;
 
     // and load the index.html of the app.
-    Settings.getValue('system.main.url', 'internal.json').then((value) => {
+    Settings.getValue('system.main.url', 'application.metadata').then((value) => {
       if (!this.window) {
         throw new Error('Window not found');
       }

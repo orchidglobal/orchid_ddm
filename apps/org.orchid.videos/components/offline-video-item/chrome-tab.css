@@ -1,0 +1,13 @@
+:host {
+  flex-shrink: 1;
+  width: 24rem;
+  min-width: 10rem;
+  height: 100%;
+}
+
+:host > .tab {
+  width: 100%;
+  height: 100%;
+  /* background-color: var(--browser-selected-tab); */
+  
+}

@@ -1,0 +1,203 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 8rem;
+  margin: 0;
+  border-radius: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+:host(:hover) {
+  background-color: var(--item-hover);
+  transition: background-color 0.1s ease;
+}
+
+:host(:active) {
+  background-color: var(--item-active);
+  transition: background-color 0.1s ease;
+}
+
+:host > .webapp {
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0 1rem;
+  gap: 1rem;
+}
+
+:host > .webapp > .number-holder {
+  box-sizing: border-box;
+  display: none;
+  flex-shrink: 0;
+  align-items: center;
+  width: max-content;
+  height: 100%;
+  padding: 1rem 0;
+}
+
+:host > .webapp > .number-holder.visible {
+  display: flex;
+}
+
+:host > .webapp > .number-holder > .number {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background-color: var(--item-plus);
+  color: var(--text-color);
+  font-weight: var(--generic-label-width);
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+  text-align: center;
+}
+
+:host > .webapp > .icon-holder {
+  box-sizing: border-box;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  width: max-content;
+  height: 100%;
+  padding: 1rem 0;
+}
+
+:host > .webapp > .icon-holder > .icon {
+  width: 6rem;
+  height: 6rem;
+  object-fit: contain;
+  background-color: var(--background-plus);
+  mask: url(images/icon_mask.svg) no-repeat center / cover;
+}
+
+:host > .webapp > .text-holder {
+  box-sizing: border-box;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 1rem 0;
+  overflow: hidden;
+}
+
+:host > .webapp > .text-holder > .name {
+  display: block;
+  width: 100%;
+  height: 2.2rem;
+  margin: 0;
+  color: var(--text-color);
+  font-weight: var(--generic-label-width);
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host > .webapp > .text-holder > .author {
+  display: block;
+  width: 100%;
+  height: 2.2rem;
+  margin: 0;
+  color: var(--accent-color);
+  font-weight: var(--generic-label-width);
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host > .webapp > .text-holder > .stats {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 2rem;
+  gap: 0.5rem;
+  line-height: 2rem;
+}
+
+:host > .webapp > .text-holder > .stats > span {
+  display: flex;
+  flex-shrink: 0;
+  width: max-content;
+  height: 2rem;
+  margin: 0;
+  color: var(--text-color-faded);
+  font-weight: var(--generic-label-width);
+  font-size: 1.4rem;
+  line-height: 2rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host > .webapp > .text-holder > .stats > .separator {
+  display: block;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background-color: var(--text-color);
+}
+
+:host > .webapp > .price-holder {
+  box-sizing: border-box;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: center;
+  width: max-content;
+  height: 100%;
+  padding: 1rem 0;
+}
+
+@media screen and (max-width: 767px) {
+  :host > .webapp > .price-holder {
+    display: none;
+  }
+}
+
+:host > .webapp > .price-holder > .buttons {
+  display: flex;
+  height: 3rem;
+  gap: 0.5rem;
+}
+
+:host > .webapp > .price-holder > .buttons button {
+  box-sizing: border-box;
+  width: max-content;
+  height: 3rem;
+  padding: 0 1.5rem;
+  border: none;
+  border-radius: 3rem;
+  background-color: var(--item-plus);
+  color: var(--text-color);
+  line-height: 3rem;
+}
+
+:host > .webapp > .price-holder > .buttons button:hover {
+  background-color: var(--item-hover-plus);
+}
+
+:host > .webapp > .price-holder > .buttons button:active {
+  background-color: var(--item-active-plus);
+}
+
+:host > .webapp > .price-holder > .buttons button.recommend {
+  background-color: var(--accent-color);
+  color: var(--accent-text-color);
+}
+
+:host > .webapp > .price-holder > .price {
+  display: block;
+  width: 100%;
+  height: 2rem;
+  margin: 0;
+  color: var(--text-color-faded);
+  font-weight: var(--generic-label-width);
+  font-size: 1.4rem;
+  line-height: 2rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

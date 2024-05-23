@@ -1,3 +1,26 @@
+# OrchidOS - Developer Build v146
+
+This is a continuation of Build v145
+
+## OrchidUI
+- Updated Audio Icon
+
+## OrchidJS
+- Removed Layout Support Of The Terribly-Revived Already Obsolete And Mostly Overpriced "Smart" Featurephones That Pretty Much Don't Do Jack Shit Right And Cost as Much as a Cheap Smartphone. Sometimes More (Not Recommended Dosen't Even Begin To Describe This Lazy E-Waste Revival)
+  - KaiOS "Smart" Featurephones
+
+
+## System
+- Added Time & Date To Notification Tray Header
+- Added Dark Mode Tray Toggle
+- Added Expand Icons To Indicate Tray Buttons Being Expandable To a Menu
+- Added Carrier Label
+- Added Landscape Orientation Support
+-
+
+## Vividus 2D
+- Added Partial Support For Window Resizing
+
 # OrchidOS - Developer Build v145
 
 Prepare because this is one hell of a changelog for OrchidOS
@@ -35,13 +58,13 @@ NOTICE: This build is not shared CSS backward compatible with existing webapps
 - Apps Now Get The `active` Class When In Focus
 - Apps Now Get The `maximized` Class When Maximized Whilst Running Directly In Simulator Webview
 - Added Panel Tabs Translucency Similar to Panel Header Translucency
-  - Panel Tabs Translucency  
+  - Panel Tabs Translucency
   <img src="images/tabs_normal.png">
-  - Panel Tabs Translucency (Scrolled)  
+  - Panel Tabs Translucency (Scrolled)
   <img src="images/tabs_scrolled.png">
-  - Panel Header Translucency  
+  - Panel Header Translucency
   <img src="images/header_normal.png">
-  - Panel Header Translucency (Scrolled)  
+  - Panel Header Translucency (Scrolled)
   <img src="images/header_scrolled.png">
 - Added HTML Elements
   - `orchid-account-banner` - Account Profile Banner. Example Of How To Use:
@@ -99,7 +122,7 @@ NOTICE: This build is not shared CSS backward compatible with existing webapps
   - Optimized Gestures
   - Moved Date Alongside The Large Clock
 - Fixed Desktop Window Resizing Bugs
-- Added A Simulator Beta Badge To Indicate System Is Unfinished
+- Added a Simulator Beta Badge To Indicate System Is Unfinished
 
 ## Default Theme
 - Updated Colors To OLED-Friendly Color Scheme
@@ -124,7 +147,7 @@ NOTICE: This build is not shared CSS backward compatible with existing webapps
 - Updated Account User Profile
 - Added Golden Verification Which Only The Owner (MortCodesWeb) Has. It's Meant To Avoid Owner Impersonation From Verified Users
 - Regular Verification Is Now Blue
-- Added A Default Banner
+- Added a Default Banner
 - Added a Work-in-progress Change Ringtones Panel
 - Added a Work-in-progress Change Notification Sound Panel
 - Storage Bar Height Shrunk Down
@@ -133,7 +156,7 @@ NOTICE: This build is not shared CSS backward compatible with existing webapps
 - Updated Account User Profile
 - Added Golden Verification Which Only The Owner (MortCodesWeb) Has. It's Meant To Avoid Owner Impersonation From Verified Users
 - Regular Verification Is Now Blue
-- Added A Default Banner
+- Added a Default Banner
 - Added URL Paramater Support
 - Added Reply Posts
 - Added User Profile Panels
@@ -154,7 +177,7 @@ NOTICE: This build is not shared CSS backward compatible with existing webapps
 - Migrated To OrchidJS
 
 ## Video
-- Added A Proper Base UI
+- Added a Proper Base UI
 - Migrated To OrchidJS
 
 ## Gallery
@@ -165,5 +188,5 @@ NOTICE: This build is not shared CSS backward compatible with existing webapps
 
 ## Camera
 - Updated UI And Redesigned Toolbars
-- Added A Shutter Animation
+- Added a Shutter Animation
 - Migrated To OrchidJS

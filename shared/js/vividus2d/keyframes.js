@@ -9,13 +9,15 @@
   }
 
   class Keyframes {
-    constructor(frames, duration) {
+    constructor(frames, duration, cubicBezier, looped = false) {
       this.frames = frames;
       this.currentFrameIndex = 0;
-      this.duration = duration / (frames.length - 1) || 1000; // default duration in milliseconds
+      this.duration = duration / frames.length || 1000; // default duration in milliseconds
       this.startTime = performance.now();
-      this.looped = false;
+      this.looped = looped;
+      this.cubicBezier = cubicBezier || [0, 0, 1, 1];
       this.initializeValues();
+      this.onFinish = null;
     }
 
     initializeValues() {
@@ -29,8 +31,21 @@
       return start + t * (end - start);
     }
 
-    cubicEaseInOut(t) {
-      return t < 0.5 ? 4 * t ** 3 : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    easing(t) {
+      const [p1x, p1y, p2x, p2y] = this.cubicBezier;
+
+      const cx = 3 * p1x;
+      const bx = 3 * (p2x - p1x) - cx;
+      const ax = 1 - cx - bx;
+
+      const cy = 3 * p1y;
+      const by = 3 * (p2y - p1y) - cy;
+      const ay = 1 - cy - by;
+
+      const t2 = t * t;
+      const t3 = t2 * t;
+
+      return ay * t3 + by * t2 + cy * t + p1y;
     }
 
     update() {
@@ -42,18 +57,22 @@
         this[property] = this.lerp(
           this.frames[this.currentFrameIndex][property],
           this.frames[(this.currentFrameIndex + 1) % this.frames.length][property],
-          this.cubicEaseInOut(t)
+          this.easing(t)
         );
       }
 
       if (t >= 1) {
+        if (typeof this.onFinish === 'function') {
+          this.onFinish();
+        }
         this.currentFrameIndex = (this.currentFrameIndex + 1) % this.frames.length;
         this.startTime = currentTime;
         this.initializeValues();
       }
     }
 
-    play() {
+    play(looped = false) {
+      this.looped = looped;
       this.currentFrameIndex = 0;
       this.startTime = performance.now();
       this.initializeValues();

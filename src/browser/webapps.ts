@@ -39,107 +39,94 @@ export default function (app: App) {
   const files = fs.readdirSync(path.resolve(Main.webappsPath as string));
 
   files.forEach((dir: string) => {
-    const subdomain = dir.split('.')[0];
-
     const localServer = http.createServer((req: IncomingMessage, res: any) => {
       if (!Main.webappsPath || !req.url) {
         throw new Error('Webapps path or request URL not found');
       }
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+      res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+      res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
 
-      // Check if the request is meant for the Express app
-      if (req.url?.startsWith('/api/data')) {
-        expressServer(req, res);
-      } else {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+      function sendRequest(data: any, contentType: string) {
+        res.setHeader('Content-Type', contentType);
+        res.writeHead(200);
+        res.end(data);
+      }
 
-        const host = req.headers.host || '';
-        const subdomain = host.split('.')[0];
-
-        function sendRequest(data: any, contentType: string) {
-          res.setHeader('Content-Type', contentType); // Set the content type header
-          res.writeHead(200);
-          // console.log(
-          //   `[openorchid-localhost] ${colors.green}GET${colors.reset} http://${subdomain}.localhost:8081${cleanUrl} 200`
-          // );
-          res.end(data);
-        }
-
-        let filePath: string;
-        const cleanUrl = req.url.split('?')[0];
-        if (!subdomain && cleanUrl) {
-          filePath = path.join(internalDir, cleanUrl);
-
-          fs.readFile(filePath, (error: NodeJS.ErrnoException | null, data: Buffer) => {
-            if (error) {
-              res.writeHead(404);
-              res.end('File not found');
-              // console.log(
-              //   `[openorchid-localhost] ${colors.red}FAILED${colors.reset} http://${subdomain}.localhost:8081${cleanUrl} 404`
-              // );
-              return;
-            }
-            const contentType = mime.getType(path.extname(filePath));
-            sendRequest(data, contentType as string); // Pass the content type to sendRequest
-          });
-
+      const handleError = (error: NodeJS.ErrnoException | null) => {
+        if (error) {
+          res.writeHead(404);
+          res.end('File not found');
           return;
         }
+      };
 
-        if (process.env.NODE_ENV === 'production') {
-          const zipFilePath = path.join(Main.webappsPath, subdomain, 'webapp.zip');
-          const zip = new AdmZip(zipFilePath);
+      const host = req.headers.host || '';
+      const subdomain = host.split('.')[0].replaceAll('__', '.');
+      const cleanUrl = req.url.split('?')[0];
+      let filePath: string;
 
-          const requestPath = cleanUrl === '/' ? '/index.html' : cleanUrl;
-          const zipEntry = zip.getEntry(requestPath.substring(1)); // Use the correct request path
-
-          if (!zipEntry) {
-            res.writeHead(404);
-            res.end('File not found');
-            // console.log(
-            //   `[openorchid-localhost] ${colors.red}FAILED${colors.reset} http://${subdomain}.localhost:8081${cleanUrl} 404`
-            // );
-            return;
-          }
-
-          const data = zipEntry.getData();
-          const contentType = mime.getType(path.extname(zipEntry.entryName));
-          sendRequest(data, contentType as string); // Pass the content type to sendRequest
+      // Check if the request is meant for the shared directory
+      if (cleanUrl.startsWith('/api/data')) {
+        expressServer(req, res);
+        return;
+      } else if (cleanUrl.startsWith('/shared')) {
+        if (Main.DEBUG) {
+          filePath = path.join(process.cwd(), 'shared', cleanUrl.slice(8));
         } else {
-          if (Main.DEBUG && subdomain === 'shared') {
-            filePath = path.join(process.cwd(), subdomain, cleanUrl);
-          } else {
-            filePath = path.join(Main.webappsPath, subdomain, cleanUrl);
-          }
-
-          fs.readFile(filePath, (err, data) => {
-            if (err) {
-              res.writeHead(404);
-              res.end('File not found');
-              // console.log(
-              //   `[openorchid-localhost] ${colors.red}FAILED${colors.reset} http://${subdomain}.localhost:8081${cleanUrl} 404`
-              // );
-              return;
-            }
-            const contentType = mime.getType(path.extname(filePath));
-            sendRequest(data, contentType as string); // Pass the content type to sendRequest
-          });
+          filePath = path.join(Main.webappsPath, 'shared', cleanUrl.slice(8));
         }
+
+        fs.readFile(filePath, (err, data) => {
+          const contentType = mime.getType(path.extname(filePath)) || '';
+          handleError(err);
+          sendRequest(data, contentType);
+        });
+
+        return;
       }
+
+      // Handle internal requests
+      if (!subdomain && cleanUrl) {
+        filePath = path.join(internalDir, cleanUrl);
+
+        fs.readFile(filePath, (error, data) => {
+          const contentType = mime.getType(path.extname(filePath)) || '';
+          handleError(error);
+          sendRequest(data, contentType);
+        });
+
+        return;
+      }
+
+      // Handle webapp requests
+      if (Main.DEBUG && subdomain === 'shared') {
+        filePath = path.join(process.cwd(), subdomain, cleanUrl);
+      } else {
+        filePath = path.join(Main.webappsPath, subdomain, cleanUrl);
+      }
+
+      fs.readFile(filePath, (error, data) => {
+        const contentType = mime.getType(path.extname(filePath)) || '';
+        handleError(error);
+        sendRequest(data, contentType);
+      });
     });
 
-    localServer.listen(8081, 'localhost', () => {
-      // console.log('Server running at http:\/\/*.localhost:8081');
+    localServer.listen(9920, 'localhost', () => {
+      console.log('Server running at http:\/\/*.localhost:9920');
     });
 
     app.on('will-quit', () => {
       localServer.close(() => {
-        // console.log(`Ending webapp runtime server for ${subdomain}...`);
+        console.log(`Ending webapp runtime server for ${dir}...`);
       });
     });
   });
-};
+}
 
 const headers = {
   'Access-Control-Allow-Origin': '*',

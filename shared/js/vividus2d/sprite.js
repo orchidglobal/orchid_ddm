@@ -21,7 +21,8 @@
       // this.lightmapImageUrl = imagePath.replace('.png', '@lightmap.png');
 
       this.isContainer = false;
-      this.isLightingAffected = false;
+      this.isLightingAffected = true;
+      this.isAlwaysShown = false;
 
       this.width = width;
       this.height = height;
@@ -31,6 +32,8 @@
 
       this.x = 0;
       this.y = 0;
+      this.translateX = 0;
+      this.translateY = 0;
       this.rotation = 0;
       this.rotationY = 180;
       this.scaleX = 1;
@@ -66,13 +69,13 @@
     }
 
     draw() {
-      if (!this.parent && !this.isVisible()) {
+      if (!this.parent && !this.isAlwaysShown && !this.isVisible()) {
         return;
       }
 
       if (!this.parent) {
-        this.renderX = this.x;
-        this.renderY = this.y;
+        this.renderX = this.x + this.translateX;
+        this.renderY = this.y + this.translateY;
         this.renderScaleX = this.scaleX;
         this.renderScaleY = this.scaleY;
       }
@@ -90,7 +93,7 @@
 
       // Translate to the sprite's position
       this.renderer.context.translate(this.renderX + this.pivotX, this.renderY + this.pivotY);
-      this.renderer.context.rotate((360 * this.rotation) / Math.PI);
+      this.renderer.context.rotate((this.rotation / 360) * Math.PI);
       this.renderer.context.translate(
         -this.pivotX + this.pivotX * (1 - this.renderScaleX),
         -this.pivotY + this.pivotY * (1 - this.renderScaleY)
@@ -110,11 +113,10 @@
 
       // Draw the image
       if (this.isLightingAffected) {
-        this.renderer.context.filter = `brightness(${OrchidJS.Vividus2D.worldBrightness})`;
-      }
-      this.renderer.context.drawImage(this.image, 0, 0, this.width, this.height);
-      if (this.isLightingAffected) {
-        this.renderer.context.filter = 'none';
+        this.renderer.context.drawImage(this.image, 0, 0, this.width, this.height);
+        // this.renderer.context.filter = 'none';
+      } else {
+        this.renderer.context.drawImage(this.image, 0, 0, this.width, this.height);
       }
 
       // try {
@@ -185,8 +187,8 @@
 
     drawChild(child) {
       if (child.isContainer) {
-        child.renderX = child.x;
-        child.renderY = child.y;
+        child.renderX = child.x + child.translateX;
+        child.renderY = child.y + child.translateY;
         child.renderScaleX = child.scaleX;
         child.renderScaleY = child.scaleY;
         child.draw();
@@ -196,8 +198,8 @@
       const scale = this.degToScale(this.rotationY);
       const offset = this.degToOffset(this.rotationY);
 
-      child.renderX = child.x;
-      child.renderY = child.y;
+      child.renderX = child.x + child.translateX;
+      child.renderY = child.y + child.translateY;
       child.renderScaleX = child.scaleX * scale;
       child.renderScaleY = child.scaleY;
       child.draw();

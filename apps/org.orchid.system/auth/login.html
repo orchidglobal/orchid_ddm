@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f0f6ff" />
+  <meta name="theme-color" content="#101214" media="(prefers-color-scheme: dark)" />
+  <title data-l10n-id="title"></title>
+  <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/panels.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/tablists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/activity_bars.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/lists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/switches.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/checkboxes.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/seekbars.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/input_areas.css" />
+  <link rel="stylesheet" type="text/css" href="style/login.css" />
+  <script type="module" src="https://orchid-f39a9.web.app/orchid_services.js"></script>
+  <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script defer type="text/javascript" src="js/pages/login/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/signup/main.js"></script>
+  <script defer type="text/javascript" src="js/pages/profiles/main.js"></script>
+
+  <script type="text/javascript" src="/shared/js/intl/l10n.js"></script>
+  <meta name="defaultLanguage" content="en-US" />
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi" />
+  <link rel="localization" href="/locales/frp.{locale}.properties" />
+</head>
+
+<body>
+  <main id="app" role="app">
+    <div id="container">
+      <section id="login" class="visible" role="panel">
+        <header class="compact">
+          <h1>
+            <span class="logo">Orchid</span>
+            <span class="label" data-l10n-id="login"></span>
+          </h1>
+          <menu role="toolbar">
+            <a href="#" id="login-confirm-button" data-icon="tick"></a>
+          </menu>
+        </header>
+        <section class="lists">
+          <h1 data-l10n-id="login"></h1>
+          <ul>
+            <li class="noclick">
+              <label for="" class="pack-input">
+                <div>
+                  <p data-l10n-id="email"></p>
+                </div>
+                <span>
+                  <input type="email" name="" id="login-email" data-l10n-id="emailInput" />
+                </span>
+              </label>
+            </li>
+            <li class="noclick">
+              <label for="" class="pack-input">
+                <div>
+                  <p data-l10n-id="password"></p>
+                </div>
+                <span>
+                  <input type="password" name="" id="login-password" data-l10n-id="passwordInput" />
+                </span>
+              </label>
+            </li>
+          </ul>
+
+          <header data-l10n-id="otherOptions"></header>
+          <ul>
+            <li class="page" data-page-id="signup">
+              <p data-l10n-id="notRegistered-title"></p>
+              <p data-l10n-id="notRegistered-detail"></p>
+            </li>
+          </ul>
+
+          <header data-l10n-id="savedLogins"></header>
+          <ul id="login-profiles"></ul>
+        </section>
+      </section>
+
+      <section id="signup" role="panel">
+        <header class="compact">
+          <h1>
+            <span class="logo">Orchid</span>
+            <span class="label" data-l10n-id="signup"></span>
+          </h1>
+          <menu role="toolbar">
+            <a href="#" id="signup-confirm-button" data-icon="tick"></a>
+          </menu>
+        </header>
+        <section class="lists">
+          <h1 data-l10n-id="signup"></h1>
+          <ul>
+            <li class="noclick">
+              <label for="" class="pack-input">
+                <div>
+                  <p data-l10n-id="username"></p>
+                </div>
+                <span>
+                  <input type="text" name="" id="signup-username" data-l10n-id="usernameInput" />
+                </span>
+              </label>
+            </li>
+            <li class="noclick">
+              <label for="" class="pack-input">
+                <div>
+                  <p data-l10n-id="handleName"></p>
+                </div>
+                <span>
+                  <input type="text" name="" id="signup-handle-name" data-l10n-id="handleNameInput" />
+                </span>
+              </label>
+            </li>
+            <li class="noclick">
+              <label for="" class="pack-input">
+                <div>
+                  <p data-l10n-id="email"></p>
+                </div>
+                <span>
+                  <input type="email" name="" id="signup-email" data-l10n-id="emailInput" />
+                </span>
+              </label>
+            </li>
+            <li class="noclick">
+              <label for="" class="pack-input">
+                <div>
+                  <p data-l10n-id="password"></p>
+                </div>
+                <span>
+                  <input type="password" name="" id="signup-password" data-l10n-id="passwordInput" />
+                </span>
+              </label>
+            </li>
+            <li class="noclick">
+              <label for="" class="pack-input">
+                <div>
+                  <p data-l10n-id="confirmPassword"></p>
+                </div>
+                <span>
+                  <input type="password" name="" id="signup-password-confirm" data-l10n-id="passwordInput" />
+                </span>
+              </label>
+            </li>
+            <li class="noclick">
+              <label for="" class="pack-input">
+                <div>
+                  <p data-l10n-id="birthDate"></p>
+                </div>
+                <span>
+                  <input type="date" name="" id="signup-birth-date" />
+                </span>
+              </label>
+            </li>
+          </ul>
+
+          <header data-l10n-id="otherOptions"></header>
+          <ul>
+            <li class="page" data-page-id="login">
+              <p data-l10n-id="alreadyRegistered-title"></p>
+              <p data-l10n-id="alreadyRegistered-detail"></p>
+            </li>
+          </ul>
+        </section>
+      </section>
+    </div>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+:host {
+  position: relative;
+  width: 100%;
+}
+
+:host > .devices {
+  position: relative;
+  width: 100%;
+}
+
+:host > .devices .grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+  gap: 1rem;
+}
+
+:host > .devices .grid > .item {
+  display: block;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: 100%;
+  background-color: var(--tray-button-background);
+  mask: url(images/tray_button_mask.svg) no-repeat center / contain;
+}
+
+:host > .devices .grid > .item[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+:host > .devices .current-devices {
+  visibility: hidden;
+  transform: scale(0.75);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+:host > .devices .current-devices.visible {
+  visibility: unset;
+  transform: scale(1);
+  opacity: 1;
+}
+
+:host > .devices .empty-devices {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(0.75);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+:host > .devices .empty-devices.visible {
+  visibility: unset;
+  transform: scale(1);
+  opacity: 1;
+}
+
+:host > .devices .empty-devices > .empty-message {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100%;
+  translate: 0 -50%;
+}
+
+:host > .devices .empty-devices > .empty-message .label {
+  width: 100%;
+  color: var(--text-color);
+  font-weight: var(--generic-label-weight);
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+:host > .devices .offline-server {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  aspect-ratio: 4.46 / 1;
+  width: 100%;
+  transform: scale(0.75);
+  border-radius: var(--tray-button-radius);
+  background-color: var(--tray-button-background);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+:host > .devices .offline-server.visible {
+  visibility: unset;
+  transform: scale(1);
+  opacity: 1;
+}
+
+:host > .devices .offline-server > .offline-message {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 1rem 1.5rem;
+}
+
+:host > .devices .offline-server > .offline-message .label {
+  flex-grow: 1;
+  width: 100%;
+  margin: 0;
+  color: var(--tray-button-text-color-faded);
+  font-weight: var(--generic-label-weight);
+  font-size: 1.5rem;
+  text-align: center;
+}

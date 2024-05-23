@@ -1,0 +1,174 @@
+:host {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+:host > .button {
+  display: inline-flex;
+  position: absolute;
+  position: relative;
+  top: 0;
+  left: 0;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--tray-button-background);
+  color: var(--tray-button-text-color);
+  text-decoration: none;
+  mask: url(images/tray_button_mask.svg) no-repeat center / contain;
+}
+
+:host > .button.enabled {
+  background-color: var(--accent-color);
+  color: var(--accent-text-color);
+}
+
+/* .quick-settings-rows .row > #quick-settings-flashlight.enabled {
+  background-color: #fff;
+  color: #c00040;
+}
+
+.quick-settings-rows .row > #quick-settings-screen-capture.enabled {
+  background-color: #c00040;
+  color: rgba(255, 255, 255, 0.75);
+} */
+
+:host(.media-playback) > .button {
+  transition: transform 0.3s ease;
+}
+
+:host > .button {
+  transition: transform 0.3s ease, scale 0.3s ease, background-color 0.3s ease;
+}
+
+:host > .button:active {
+  scale: 0.95;
+  transition: transform 0.3s ease, scale 0.2s ease, background-color 0.3s ease;
+}
+
+:host > .button.hold {
+  scale: 1.05;
+  transition: transform 0.3s ease, scale 1s ease, filter 1s ease, background-color 1s ease;
+}
+
+:host(.expandable) > .button::after {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 1rem;
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--tray-button-background-plus);
+  content: '';
+  mask: url(images/expand.svg) no-repeat center / cover;
+}
+:host(.expandable:dir(ltr)) > .button::after {
+  right: 1rem;
+}
+:host(.expandable:dir(rtl)) > .button::after {
+  left: 1rem;
+  transform: scaleX(-1);
+}
+
+:host(.expandable) > .button.enabled::after {
+  background-color: var(--accent-color-plus);
+}
+
+:host(.icon) ::slotted(svg),
+:host ::slotted(span[data-icon]) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 2.8rem;
+  height: 2.8rem;
+  transform: translateZ(10rem);
+  translate: -50% -50%;
+  font-size: 2.8rem;
+}
+
+:host(.double-width) > .button {
+  box-sizing: border-box;
+  padding-inline-start: 6.5rem;
+}
+
+:host(.double-width.icon) > .button ::slotted(svg),
+:host(.double-width) > .button ::slotted(span[data-icon]) {
+  display: inline-flex;
+  position: absolute;
+  top: 50%;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  translate: 0 -50%;
+  border-radius: 50%;
+  background-color: var(--tray-button-background-plus);
+  font-size: 2.4rem;
+}
+:host(.double-width.icon:dir(ltr)) > .button ::slotted(svg),
+:host(.double-width:dir(ltr)) > .button ::slotted(span[data-icon]) {
+  left: 1rem;
+}
+:host(.double-width.icon:dir(rtl)) > .button ::slotted(svg),
+:host(.double-width:dir(rtl)) > .button ::slotted(span[data-icon]) {
+  right: 1rem;
+}
+
+:host(.double-width.icon) > .button.enabled ::slotted(svg),
+:host(.double-width) > .button.enabled > ::slotted(span[data-icon]) {
+  background-color: var(--accent-color-plus);
+}
+
+:host(.double-width) > .button ::slotted(.text-holder) {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  font-weight: var(--generic-label-weight);
+  font-size: 1.3rem;
+}
+
+:host(.double-width) > .button ::slotted(.text-holder) .name {
+  width: 100%;
+  overflow: hidden;
+  font-weight: var(--generic-label-weight);
+  font-size: 1.3rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:host(.double-width) > .button ::slotted(.text-holder) .detail {
+  width: 100%;
+  overflow: hidden;
+  font-weight: var(--generic-label-weight);
+  font-size: 1.1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0.5;
+}
+
+:host(.backlight) > .button {
+  display: none;
+}
+
+:host(.double-width) > .button {
+  grid-column: span 2;
+  aspect-ratio: 2.1 / 1;
+  mask: url(images/tray_button_wide_mask.svg) no-repeat center / contain;
+}
+
+:host(.double-height) > .button {
+  grid-row: span 2;
+  aspect-ratio: 1 / 2.1;
+  mask: url(images/tray_button_tall_mask.svg) no-repeat center / contain;
+}
+
+:host(.double-size) > .button {
+  grid-row: span 2;
+  grid-column: span 2;
+  aspect-ratio: 2.1 / 2.1;
+  mask: url(images/tray_button_big_mask.svg) no-repeat center / contain;
+}

@@ -177,7 +177,7 @@ select {
   padding-inline-end: 3.6rem;
   overflow: hidden;
   border: none;
-  border-radius: 1rem;
+  border-radius: 2rem;
   outline: none;
   background-image: url(buttons/images/light/expand.png);
   background-size: 1.6rem;
@@ -197,10 +197,6 @@ html[dir="ltr"] select {
 }
 html[dir="rtl"] select {
   background-position: left 1rem center;
-}
-
-.lists ul li select {
-  margin: 0;
 }
 
 @media screen and (prefers-color-scheme: dark) {

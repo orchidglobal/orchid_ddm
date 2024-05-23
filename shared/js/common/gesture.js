@@ -6,11 +6,14 @@
   }
 
   class Gesture {
-    constructor(element, direction = [0, 1], range, callback) {
+    constructor(element, direction = [0, 1], range) {
       this.element = element;
       this.direction = direction;
       this.range = range;
-      this.callback = callback;
+
+      this.onStart = null;
+      this.onProgress = null;
+      this.onEnd = null;
 
       this.pointers = new Map();
 
@@ -29,13 +32,17 @@
 
     onPointerDown(event) {
       this.pointers.set(event.pointerId, {
-        startX: event.clientX,
-        startY: event.clientY,
-        currentX: event.clientX,
-        currentY: event.clientY,
+        startX: event.clientX * this.direction[0],
+        startY: event.clientY * this.direction[1],
+        currentX: event.clientX * this.direction[0],
+        currentY: event.clientY * this.direction[1],
         distance: 0,
       });
       event.target.setPointerCapture(event.pointerId);
+
+      if (typeof this.onStart === 'function') {
+        this.onStart(event);
+      }
     }
 
     onPointerMove(event) {
@@ -43,12 +50,15 @@
       if (!pointer) {
         return;
       }
-      pointer.currentX = event.clientX;
-      pointer.currentY = event.clientY;
-      pointer.distance = Math.hypot(pointer.currentX - pointer.startX, pointer.currentY - pointer.startY);
-      const progress = Math.min(1, pointer.distance / this.range);
+      pointer.currentX = event.clientX * this.direction[0];
+      pointer.currentY = event.clientY * this.direction[1];
+      pointer.distance = (pointer.currentX - pointer.startX) + (pointer.currentY - pointer.startY);
+      const progress = Math.max(-1, Math.min(1, pointer.distance / this.range));
       const overflowProgress = Math.max(1, pointer.distance / this.range) - 1;
-      this.callback(progress, overflowProgress);
+
+      if (typeof this.onProgress === 'function') {
+        this.onProgress(event, progress, overflowProgress);
+      }
     }
 
     onPointerUp(event) {
@@ -56,8 +66,14 @@
       if (!pointer) {
         return;
       }
+      const progress = Math.max(-1, Math.min(1, pointer.distance / this.range));
+      const overflowProgress = Math.max(1, pointer.distance / this.range) - 1;
       this.pointers.delete(event.pointerId);
       event.target.releasePointerCapture(event.pointerId);
+
+      if (typeof this.onEnd === 'function') {
+        this.onEnd(event, progress, overflowProgress);
+      }
     }
 
     onPointerCancel(event) {

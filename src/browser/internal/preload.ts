@@ -7,6 +7,7 @@ import Bluetooth2 from '../../bluetooth';
 import SDCardManager from '../../storage';
 import TimeManager from '../../time';
 import Settings from '../../settings';
+import DataStorage from '../../settings/data_storage';
 import AppsManager from '../../webapps';
 import ChildProcess from '../../child-process';
 import VirtualManager from '../../virtual';
@@ -96,7 +97,7 @@ const InternalPreload = {
     eventRegistery.set('mediadevicechange', 'mediadevicechange');
     eventRegistery.set('downloadrequest', 'downloadrequest');
     eventRegistery.set('downloadprogress', 'downloadprogress');
-    eventRegistery.set('permissionrequest', 'permissionrequest');
+    eventRegistery.set('permission-request', 'permission-request');
     eventRegistery.set('screenshotted', 'screenshotted');
     eventRegistery.set('narrate', 'narrate');
     eventRegistery.set('update-available', 'update-available');
@@ -104,6 +105,7 @@ const InternalPreload = {
     eventRegistery.set('update-downloaded', 'update-downloaded');
     eventRegistery.set('maximized', 'maximized');
     eventRegistery.set('unmaximized', 'unmaximized');
+    eventRegistery.set('pwa-detected', 'pwa-detected');
 
     for (const [key, value] of eventRegistery) {
       this.registerEvent(key, value);
@@ -131,6 +133,7 @@ const InternalPreload = {
     apiRegistery['wifi-manage'] = ['WifiManager', WifiManager];
     apiRegistery.bluetooth = ['Bluetooth2', Bluetooth2];
     apiRegistery.settings = ['Settings', Settings];
+    apiRegistery['data-storage'] = ['DataStorage', DataStorage];
     apiRegistery.storage = ['SDCardManager', SDCardManager];
     apiRegistery['webapps-manage'] = ['AppsManager', AppsManager];
     apiRegistery.time = ['TimeManager', TimeManager];
@@ -210,6 +213,15 @@ const InternalPreload = {
 
     document.addEventListener('mousedown', this.onMouseDown.bind(this));
     document.addEventListener('mouseover', this.onMouseOver.bind(this));
+
+    const manifestLink = document.querySelector<HTMLLinkElement>("link[rel='manifest']");
+    const manifestUrl = manifestLink?.href;
+    if (manifestUrl) {
+      ipcRenderer.send('pwa-detected', {
+        origin: location.href,
+        manifestUrl
+      });
+    }
   },
 
   updateTextSelection: function () {

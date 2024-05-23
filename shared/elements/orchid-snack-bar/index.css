@@ -1,0 +1,37 @@
+orchid-snack-bar {
+  box-sizing: border-box;
+  display: block;
+  visibility: hidden;
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  width: max-content;
+  max-width: calc(100% - 2rem);
+  padding: 0.5rem 1.5rem;
+  transform: scale(0.9);
+  translate: -50% -50%;
+  border-radius: 1.5rem;
+  backdrop-filter: blur(20px) saturate(180%);
+  background-color: #333;
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.2);
+  line-height: 2.2rem;
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+orchid-snack-bar.visible {
+  visibility: visible;
+  transform: scale(1);
+  opacity: 1;
+}
+
+orchid-snack-bar .label {
+  color: transparent;
+  font-weight: normal;
+  font-size: 1.6rem;
+  transition: color 0.3s ease;
+}
+
+orchid-snack-bar.visible .label {
+  color: #e7e7e7;
+}

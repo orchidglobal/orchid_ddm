@@ -1,0 +1,122 @@
+app-frame .titlebar {
+  box-sizing: border-box;
+  display: flex;
+  z-index: 50;
+  position: absolute;
+  top: 0;
+  align-items: center;
+  width: 100%;
+  height: var(--titlebar-height);
+  padding: 0 1.5rem;
+  gap: 1rem;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+html[dir='ltr'] app-frame .titlebar {
+  right: 0;
+}
+html[dir='rtl'] app-frame .titlebar {
+  left: 0;
+}
+
+app-frame.active .titlebar {
+  opacity: 1;
+}
+
+app-frame.fullscreen .titlebar {
+  transform: translateY(calc((var(--titlebar-height) * -1) + 1rem));
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+}
+
+app-frame.fullscreen .titlebar:hover {
+  transform: translateY(0);
+  background-color: var(--background);
+  opacity: 1;
+}
+
+app-frame.frameless .titlebar {
+  display: none;
+}
+
+app-frame.browser:not(.fullscreen) .titlebar {
+  width: max-content;
+  height: var(--chrome-titlebar-height);
+}
+
+app-frame .titlebar > .titlebar-grippy {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  cursor: move;
+}
+
+app-frame .titlebar > .titlebar-buttons {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: row-reverse;
+  height: 2.5rem;
+  gap: 1rem;
+}
+
+app-frame .titlebar button {
+  position: relative;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--item-plus);
+  line-height: 2.5rem;
+}
+
+app-frame .titlebar button:hover {
+  background-color: var(--item-hover-plus);
+}
+
+app-frame .titlebar button:active {
+  background-color: var(--item-active-plus);
+}
+
+app-frame .titlebar button::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  content: '';
+  opacity: 0.8;
+  transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.1, 1);
+}
+
+app-frame .titlebar .close-button::before {
+  mask: url(images/close.png) no-repeat center / 1.6rem;
+}
+
+app-frame .titlebar .resize-button::before {
+  mask: url(images/maximize.png) no-repeat center / 1.6rem;
+}
+
+app-frame.maximized .titlebar .resize-button::before {
+  transform: rotate(360deg);
+  mask: url(images/restore.png) no-repeat center / 1.6rem;
+}
+
+app-frame .titlebar .minimize-button::before {
+  mask: url(images/minimize.png) no-repeat center / 1.6rem;
+}
+
+app-frame.light .titlebar button::before {
+  background-color: #000;
+}
+
+app-frame.dark .titlebar button::before {
+  background-color: #fff;
+}
+
+@media screen and (prefers-color-scheme: light) {
+  app-frame.light .titlebar button::before {
+    background-color: #000;
+  }
+}

@@ -1,0 +1,433 @@
+orchid-account-dropdown {
+  box-sizing: border-box;
+  display: flex;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-top: calc(var(--statusbar-height) + 4.3rem);
+  gap: 1rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.5, 0.8, 0, 1), visibility 0.5s ease;
+}
+
+html[class*="browser"] orchid-account-dropdown {
+  --statusbar-height: 0rem;
+}
+
+orchid-account-dropdown.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+orchid-account-dropdown .container {
+  width: calc(100% - 2rem);
+  max-height: calc(100% - 2rem);
+  overflow: hidden;
+  transform: scale(0.9);
+  border-radius: 2rem;
+  background-color: var(--background);
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s cubic-bezier(0.5, 0.8, 0, 1);
+}
+
+orchid-account-dropdown.visible .container {
+  transform: scale(1);
+}
+
+orchid-account-dropdown .container > .user-figure {
+  display: flex;
+  width: calc(100% - 3rem);
+  margin: 1.5rem;
+  gap: 1rem;
+}
+
+orchid-account-dropdown .container > .user-figure .avatar {
+  flex-shrink: 0;
+  width: 6rem;
+  height: 6rem;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+orchid-account-dropdown .container > .user-figure .text-holder {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  width: 100%;
+}
+
+orchid-account-dropdown .container > .user-figure .text-holder > .username {
+  width: 100%;
+  overflow: hidden;
+  overflow: hidden;
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.8rem;
+  font-family: 'Orchid Brand';
+}
+
+orchid-account-dropdown .container > .user-figure .text-holder > .stats {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 2rem;
+  overflow: hidden;
+  color: var(--text-color-faded);
+  font-weight: var(--generic-font-weight);
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+orchid-account-dropdown .container > .user-figure .text-holder > .stats > .separator {
+  width: 0.4rem;
+  height: 0.4rem;
+  margin: 0 0.5rem;
+  border-radius: 50%;
+  background-color: var(--text-color);
+}
+
+orchid-account-dropdown .container > .user-figure .text-holder > .points {
+  width: 100%;
+  overflow: hidden;
+  overflow: hidden;
+  color: var(--text-color-faded);
+  font-weight: var(--generic-font-weight);
+  font-size: 1.4rem;
+}
+
+orchid-account-dropdown .container > .user-figure .text-holder > .profile-link {
+  width: max-content;
+  margin: 1rem 0 0;
+  color: var(--accent-color);
+  font-weight: var(--generic-font-weight);
+  font-size: 1.6rem;
+  text-decoration: none;
+  transition: box-shadow 0.2s ease;
+}
+
+orchid-account-dropdown .container > .user-figure .text-holder > .profile-link:hover {
+  box-shadow: 0 0.2rem 0 var(--accent-color);
+}
+
+orchid-account-dropdown .container > .user-figure .text-holder > .profile-link:active {
+  opacity: 0.75;
+}
+
+orchid-account-dropdown .list {
+  box-sizing: border-box;
+  width: calc(100% - 3rem);
+  max-width: calc(var(--safezone-width) - 3rem);
+  margin: 0 auto 1rem;
+  padding: 0.5rem;
+  overflow: hidden;
+  border: solid 0.1rem var(--list-background-border);
+  border-radius: var(--list-radius);
+  background-color: var(--list-background);
+}
+
+orchid-account-dropdown .list .item {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  min-height: 5rem;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  overflow: hidden;
+  border-radius: var(--list-item-radius);
+  outline: none;
+  color: var(--text-color);
+  font-weight: var(--list-label-weight);
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  list-style: none;
+  text-overflow: ellipsis;
+  text-shadow: var(--label-text-shadow);
+  transition: background-color 0.3s ease;
+}
+
+orchid-account-dropdown .list .item:not(.hbox, .vbox) {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+orchid-account-dropdown .list .item:not(.noclick):focus,
+orchid-account-dropdown .list .item:not(.noclick):hover {
+  background-color: var(--list-item-hover);
+  transition: background-color 0.1s ease;
+}
+
+orchid-account-dropdown .list .item:not(.noclick):active {
+  background-color: var(--list-item-active);
+  transition: background-color 0.1s ease;
+}
+
+orchid-account-dropdown .list .item:not(.noclick).selected {
+  background-color: var(--list-item-selected);
+  color: var(--accent-color);
+}
+
+orchid-account-dropdown .list .item[data-icon] {
+  padding-inline-start: 4.5rem;
+}
+
+orchid-account-dropdown .list .item[data-icon]::before {
+  position: absolute;
+  top: 50%;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-top: -1.2rem;
+  color: var(--text-color);
+  font-size: 2.4rem;
+  line-height: 2.4rem;
+}
+html[dir="ltr"] .list .item[data-icon]::before {
+  left: 1.2rem;
+}
+html[dir="rtl"] .list .item[data-icon]::before {
+  right: 1.2rem;
+}
+
+orchid-account-dropdown .list .item[data-icon].recommend::before {
+  color: var(--accent-color);
+}
+
+orchid-account-dropdown .list .item[data-icon].danger::before {
+  color: var(--color-red);
+}
+
+orchid-account-dropdown .list .item[data-icon].selected::before {
+  color: var(--accent-color);
+}
+
+orchid-account-dropdown .list .item::after {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  width: calc(100% - 2rem);
+  height: 100%;
+  border-top: solid 0.1rem var(--separator-color);
+  content: '';
+  pointer-events: none;
+}
+
+orchid-account-dropdown .list .item:not(.noclick):hover::after,
+orchid-account-dropdown .list .item:not(.noclick):active::after,
+orchid-account-dropdown .list .item:not(.noclick):hover + li::after,
+orchid-account-dropdown .list .item:not(.noclick):active + li::after,
+orchid-account-dropdown .list .item:first-child::after {
+  border-top: none;
+}
+
+orchid-account-dropdown .list .item.page {
+  padding-inline-end: 3rem;
+}
+
+orchid-account-dropdown .list .item.page::after {
+  background: url(lists/images/forward.svg) no-repeat center right / 1.5rem;
+  content: '';
+}
+html[dir="rtl"] .list .item.page::after {
+  transform: scaleX(-1);
+}
+
+orchid-account-dropdown .list .item.page.selected::after {
+  color: var(--accent-color);
+  opacity: 0.5;
+}
+
+orchid-account-dropdown .list .item > img {
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  margin-inline-start: -0.5rem;
+  margin-inline-end: 1rem;
+  border-radius: 50%;
+  background-color: var(--background-minus);
+}
+
+orchid-account-dropdown .list .item > .avatar {
+  position: relative;
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  margin-inline-start: -0.5rem;
+  margin-inline-end: 1rem;
+}
+
+orchid-account-dropdown .list .item > .avatar img {
+  position: absolute;
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: var(--background-minus);
+}
+
+orchid-account-dropdown .list .item > .avatar .activity {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  flex-shrink: 0;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  outline: solid 0.3rem var(--background-plus);
+  background-color: var(--background-plus);
+  box-shadow: inset 0 0 0 0.3rem #858585;
+}
+
+orchid-account-dropdown .list .item.selected > .avatar .activity {
+  outline: solid 0.3rem var(--list-background);
+  background-color: var(--list-background);
+  box-shadow: inset 0 0 0 0.3rem var(--accent-color);
+}
+
+orchid-account-dropdown .list .item > .avatar .activity.online {
+  box-shadow: inset 0 0 0 0.6rem #40a060;
+}
+
+orchid-account-dropdown .list .item > .avatar .activity.focus {
+  box-shadow: inset -0.5rem -0.5rem 0 #ffc000;
+}
+
+orchid-account-dropdown .list .item > .avatar .activity.do-not-disturb {
+  box-shadow: inset 0 -1.5rem 0 -1rem #c00040, inset 0 1.5rem 0 -1rem #C00040, inset 0.2rem 0 0 #c00040, inset -0.2rem 0 0 #c00040;
+}
+
+orchid-account-dropdown .list .item a {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  color: var(--text-color);
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  text-decoration: none;
+  text-overflow: ellipsis;
+}
+
+orchid-account-dropdown .list .item p {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  color: var(--text-color);
+  font-weight: var(--list-label-weight);
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  text-overflow: ellipsis;
+  text-shadow: var(--label-text-shadow);
+}
+
+orchid-account-dropdown .list .item.recommend a,
+orchid-account-dropdown .list .item.recommend p {
+  color: var(--accent-color);
+}
+
+orchid-account-dropdown .list .item.danger a,
+orchid-account-dropdown .list .item.danger p {
+  color: var(--color-red);
+}
+
+orchid-account-dropdown .list .item.selected a,
+orchid-account-dropdown .list .item.selected p {
+  color: var(--accent-color);
+}
+
+orchid-account-dropdown .list .item p:not(:first-child) {
+  color: var(--text-color-faded);
+  font-size: 1.4rem;
+  line-height: 1.9rem;
+}
+
+orchid-account-dropdown .list .item.recommend p:not(:first-child) {
+  color: var(--accent-color);
+  opacity: 0.5;
+}
+
+orchid-account-dropdown .list .item.danger p:not(:first-child) {
+  color: var(--color-red);
+  opacity: 0.5;
+}
+
+orchid-account-dropdown .list .item.selected p:not(:first-child) {
+  color: var(--accent-color);
+  opacity: 0.5;
+}
+
+orchid-account-dropdown .list .item p > span {
+  flex-shrink: 0;
+  width: max-content;
+}
+
+orchid-account-dropdown .list .item p > span.long {
+  flex-shrink: 1;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+orchid-account-dropdown .list .item p > .separator {
+  width: 0.4rem;
+  height: 0.4rem;
+  margin: 0 0.5rem;
+  border-radius: 50%;
+  background-color: var(--text-color-faded);
+}
+
+orchid-account-dropdown .list .item p:not(:first-child) > .separator {
+  background-color: var(--text-color);
+}
+
+orchid-account-dropdown .container > .links {
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(100% - 3rem);
+  margin: 0 1.5rem 1.5rem;
+  gap: 1rem;
+}
+
+orchid-account-dropdown .container > .links > a {
+  flex-shrink: 0;
+  color: var(--text-color-faded);
+  font-weight: var(--generic-font-weight);
+  font-size: 1.3rem;
+  text-decoration: none;
+  transition: box-shadow 0.2s ease;
+}
+
+orchid-account-dropdown .container > .links > a:hover {
+  box-shadow: 0 0.2rem 0 var(--text-color-faded);
+}
+
+orchid-account-dropdown .container > .links > a:active {
+  opacity: 0.75;
+}
+
+@media screen and (min-width: 768px) {
+  orchid-account-dropdown {
+    top: calc(var(--statusbar-height) + 4.3rem);
+    left: var(--x-offset);
+    width: 32rem;
+    height: max-content;
+    padding: 0;
+    background-color: transparent;
+  }
+
+  orchid-account-dropdown.right {
+    translate: calc(-100% + 3.6rem) 0;
+  }
+
+  orchid-account-dropdown .container {
+    width: 100%;
+  }
+}

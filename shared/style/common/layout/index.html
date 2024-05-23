@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Layout</title>
-  <link rel="stylesheet" type="text/css" href="http://default_theme.localhost:8081/style/index.css">
+  <link rel="stylesheet" type="text/css" href="http://default_theme.localhost:9920/style/index.css">
   <link rel="stylesheet" type="text/css" href="../../../default_theme/style/index.css">
   <link rel="stylesheet" type="text/css" href="../icons/icons.css">
   <link rel="stylesheet" type="text/css" href="../layout.css">
@@ -16,6 +16,7 @@
   <link rel="stylesheet" type="text/css" href="../seekbars.css">
   <link rel="stylesheet" type="text/css" href="../radios.css">
   <link rel="stylesheet" type="text/css" href="../input_areas.css">
+  <link rel="stylesheet" type="text/css" href="../selectors.css">
   <link rel="stylesheet" type="text/css" href="../videos.css">
   <script type="text/javascript" src="/js/lazy_loader.js"></script>
   <script type="text/javascript" src="/js/orchidjs.js"></script>
@@ -36,34 +37,7 @@
       </header>
 
       <section class="lists">
-        <div class="bb-video">
-          <video src=""></video>
-
-          <div class="controls">
-            <button data-icon="seek-back-seconds"></button>
-            <button data-icon="skip-back-alt"></button>
-            <button class="playpause-button" data-icon="pause-alt"></button>
-            <button data-icon="skip-forward-alt"></button>
-            <button data-icon="seek-forward-seconds"></button>
-          </div>
-
-          <div class="toolbar">
-            <div class="scrubber">
-              <div class="time">
-                <div class="current-time">1:00</div>
-                <div class="separator"></div>
-                <div class="duration">10:00</div>
-              </div>
-              <div class="slider-holder">
-                <input type="range" name="" id="">
-              </div>
-            </div>
-            <div class="buttons">
-              <button data-icon="picture-in-picture"></button>
-              <button data-icon="fullscreen"></button>
-            </div>
-          </div>
-        </div>
+        <orchid-video src="test.mp4" id="video"></orchid-video>
 
         <header>List Items</header>
         <ul>
@@ -95,6 +69,24 @@
           </li>
           <li>
             <button class="danger">Danger</button>
+          </li>
+        </ul>
+
+        <header>Selectors</header>
+        <ul>
+          <li>
+            <div class="pack-selector">
+              <label>
+                <p>Selector</p>
+              </label>
+              <span>
+                <select>
+                  <option value="">Option 1</option>
+                  <option value="">Option 2</option>
+                  <option value="">Option 3</option>
+                </select>
+              </span>
+            </div>
           </li>
         </ul>
 

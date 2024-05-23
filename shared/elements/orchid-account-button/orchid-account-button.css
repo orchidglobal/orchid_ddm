@@ -1,0 +1,18 @@
+orchid-account-button {
+  display: inline-block;
+}
+
+orchid-account-button img {
+  animation: account-button-image 0.3s ease;
+}
+
+@keyframes account-button-image {
+  from {
+    transform: scale(0.75);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

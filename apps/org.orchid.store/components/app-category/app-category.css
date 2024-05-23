@@ -1,0 +1,82 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: var(--safezone-width);
+  margin: 0 auto 1rem;
+}
+
+:host > .category {
+  position: relative;
+  width: calc(100% - 3rem);
+  height: 100%;
+  margin: 0 auto;
+}
+
+:host > .category > .header {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  height: 4rem;
+  margin: 0;
+  padding: 0;
+  gap: 1rem;
+}
+
+:host > .category > .header h3 {
+  flex-grow: 1;
+  width: 100%;
+  height: 4rem;
+  margin: 0;
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 4rem;
+  transition: all 0.3s ease;
+}
+
+:host > .category > .header nav {
+  display: flex;
+  flex-shrink: 0;
+  height: 4rem;
+  gap: 1rem;
+  line-height: 4rem;
+}
+
+:host > .category > .header nav a {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: row-reverse;
+  height: 4rem;
+  gap: 1rem;
+  color: var(--accent-color);
+  font-weight: bold;
+  font-size: 1.6rem;
+  line-height: 4rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+:host > .category > .header nav a[data-icon]::before {
+  height: 4rem;
+  font-size: 2rem;
+  line-height: 4rem;
+  transition: all 0.5s cubic-bezier(1, 0, 0, 1);
+}
+
+:host > .category.expanded > .header nav a[data-icon]::before {
+  transform: rotate(180deg);
+}
+
+:host > .category > .content {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+  transform-origin: top;
+  transition: all 0.3s ease;
+}
+
+@media screen and (min-width: 768px) {
+  :host > .category > .content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

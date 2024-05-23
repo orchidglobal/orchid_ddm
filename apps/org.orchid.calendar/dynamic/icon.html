@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calendar {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: url(icon/calendar_bg.svg) no-repeat center / cover;
+      overflow: hidden;
+    }
+
+    .month {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      line-height: 55vh;
+      text-align: center;
+      font-size: calc((100vw / 72) * 16);
+      color: rgba(51, 51, 51, 0.5);
+      font-family: -orchid-standard-font, system-ui, sans-serif;
+    }
+
+    .day {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      line-height: 120vh;
+      text-align: center;
+      font-size: calc((100vw / 72) * 32);
+      color: #333;
+      font-family: -orchid-standard-font, system-ui, sans-serif;
+    }
+  </style>
+
+  <meta name="defaultLanguage" content="en-US">
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi">
+</head>
+
+<body>
+  <div class="calendar" id="calendar">
+    <div class="month" id="month"></div>
+    <div class="day" id="day"></div>
+  </div>
+
+  <script>
+    function setCalendar() {
+      const calendar = document.getElementById('calendar');
+      const monthNumber = document.getElementById('month');
+      const dayNumber = document.getElementById('day');
+
+      const currentDate = new Date();
+      const month = currentDate.toLocaleDateString(OrchidJS.L10n.currentLanguage === 'ar' ? 'ar-SA' : OrchidJS.L10n.currentLanguage, { month: 'short' });
+      const day = currentDate.getDate().toLocaleString(OrchidJS.L10n.currentLanguage === 'ar' ? 'ar-SA' : OrchidJS.L10n.currentLanguage);
+
+      monthNumber.textContent = month;
+      dayNumber.textContent = day;
+    }
+
+    setInterval(setCalendar, 1000); // Update the calendar every second
+    setCalendar(); // Set the initial position of the calendar hands
+  </script>
+</body>
+
+</html>

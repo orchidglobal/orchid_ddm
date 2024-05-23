@@ -1,0 +1,26 @@
+{
+  "do-not-disturb": {
+    "icon": "do-not-disturb",
+    "label": "Do Not Disturb",
+    "l10n_id": "focusMode-doNotDisturb",
+    "mute": true,
+    "vibrate": false,
+    "lockscreen": null
+  },
+  "work": {
+    "icon": "edit",
+    "label": "Work",
+    "l10n_id": "focusMode-work",
+    "mute": false,
+    "vibrate": true,
+    "lockscreen": null
+  },
+  "sleep": {
+    "icon": "focus",
+    "label": "Sleep",
+    "l10n_id": "focusMode-sleep",
+    "mute": true,
+    "vibrate": true,
+    "lockscreen": null
+  }
+}

@@ -1,0 +1,132 @@
+@font-face {
+  src: url(/fonts/ReadexPro-VariableFont_HEXP.ttf);
+  font-family: 'Orchid Brand';
+}
+
+#splashscreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+}
+
+#splashscreen.hidden {
+  visibility: hidden;
+  background-color: transparent;
+  transition: all 0.5s ease 1s, background-color 0.3s;
+}
+
+#splashscreen-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  object-fit: cover;
+  translate: -50% -50%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+#splashscreen.logo #splashscreen-video {
+  opacity: 1;
+}
+
+#splashscreen .safety-warning {
+  display: flex;
+  visibility: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  flex-direction: column;
+  width: calc(100% - 5rem);
+  max-width: 40rem;
+  gap: 1rem;
+  transform: scale(0.5);
+  translate: -50% -50%;
+  opacity: 0;
+  transition: all 0.5s ease, opacity 0.5s ease;
+}
+
+#splashscreen.safety-warning .safety-warning {
+  visibility: visible;
+  transform: scale(1);
+  opacity: 1;
+}
+
+#splashscreen .safety-warning span[data-icon] {
+  color: #fff;
+}
+
+#splashscreen .safety-warning span[data-icon]::before {
+  width: 3rem;
+  height: 3rem;
+  font-size: 3rem;
+  line-height: 3rem;
+}
+
+#splashscreen .safety-warning p {
+  margin: 0;
+  color: #fff;
+  font-weight: var(--generic-label-weight);
+  font-size: 1.6rem;
+}
+
+#splashscreen .os-logo {
+  z-index: 5;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  width: 12rem;
+  height: 12rem;
+  translate: -50% -50%;
+  background: url(http://shared.localhost:9920/resources/branding/official/oslogo_light.svg) no-repeat center / contain;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+#splashscreen.logo .os-logo {
+  opacity: 1;
+}
+
+#splashscreen .splashscreen-images {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+#splashscreen.logo .splashscreen-images {
+  opacity: 1;
+}
+
+#splashscreen.hidden .splashscreen-images {
+  transform: rotate(25deg) scale(50);
+  opacity: 0;
+}
+
+#splashscreen .splashscreen-images > .mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(splashscreen/images/mask.png) no-repeat center / cover;
+}
+
+#splashscreen .splashscreen-images > .splash {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(splashscreen/images/splash.png) no-repeat center / cover;
+  transition: opacity 0.5s ease;
+}
+
+#splashscreen.hidden .splashscreen-images > .splash {
+  opacity: 0;
+}

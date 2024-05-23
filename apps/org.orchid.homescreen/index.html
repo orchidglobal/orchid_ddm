@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000">
+    <title>Homescreen</title>
+    <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+    <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+    <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+    <link rel="stylesheet" type="text/css" href="/shared/style/common/lists.css" />
+    <link rel="stylesheet" type="text/css" href="/shared/style/common/input_areas.css" />
+    <link rel="stylesheet" type="text/css" href="style/homescreen.css" />
+    <link rel="stylesheet" type="text/css" href="style/grid.css" />
+    <link rel="stylesheet" type="text/css" href="style/paginationBar.css" />
+    <link rel="stylesheet" type="text/css" href="style/dockbar.css" />
+    <link rel="stylesheet" type="text/css" href="style/shortcuts.css" />
+    <link rel="stylesheet" type="text/css" href="style/search.css" />
+    <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+    <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+    <script type="text/javascript" src="/shared/js/effects/directional_scale.js"></script>
+    <script type="text/javascript" src="/shared/js/utils/transitions.js"></script>
+    <script defer type="text/javascript" src="js/homescreen.js"></script>
+    <script defer type="text/javascript" src="js/grid.js"></script>
+    <!-- <script defer type="text/javascript" src="js/icon.js"></script>
+    <script defer type="text/javascript" src="js/apps.js"></script> -->
+    <!-- <script defer type="text/javascript" src="js/search_motion.js"></script>
+    <script defer type="text/javascript" src="js/search.js"></script> -->
+
+    <script type="text/javascript" src="/shared/js/intl/l10n.js"></script>
+    <meta name="defaultLanguage" content="en-US">
+    <meta name="availableLanguages"
+      content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi">
+    <link rel="localization" href="/locales/main.{locale}.properties">
+  </head>
+  <body>
+    <main id="app" role="app">
+      <section id="home" class="visible" role="panel">
+        <div id="grid"></div>
+        <div id="paginationBar">
+          <div class="dots"></div>
+          <div class="search-button" data-icon="search" data-l10n-id="searchButton"></div>
+        </div>
+        <ul id="dockbar"></ul>
+        <div id="shortcuts">
+          <img src="" alt="" id="shortcuts-fake-icon">
+          <div id="shortcuts-menu">
+            <ul id="shortcuts-menu-options"></ul>
+            <ul>
+              <li id="shortcuts-edit-button" data-icon="edit" data-l10n-id="shortcuts-edit"></li>
+              <li id="shortcuts-uninstall-button" data-icon="delete" data-l10n-id="shortcuts-uninstall"></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="search" role="panel">
+        <header class="compact translucent">
+          <form action="" id="searchbox" role="search">
+            <input type="text" name="" id="">
+            <button type="reset" data-icon="close"></button>
+            <button type="submit" data-icon="search"></button>
+          </form>
+        </header>
+
+        <section class="lists">
+          <ul id="search-results"></ul>
+        </section>
+      </section>
+
+      <div id="tour-ui">
+        <div class="tour-page dashboard"></div>
+        <div class="tour-page search"></div>
+        <div class="tour-page finish"></div>
+      </div>
+    </>
+  </body>
+</html>

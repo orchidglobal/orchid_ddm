@@ -1,10 +1,20 @@
-!(function (exports) {
-  'use strict';
+'use strict';
 
-  if (!('OrchidJS' in window)) {
-    exports.OrchidJS = {};
+!(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define([], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // Node/CommonJS
+    module.exports = factory(require);
+  } else if (typeof root === 'object' && typeof root.OrchidJS === 'object') {
+    // OrchidJS
+    root.OrchidJS.L10n = factory(null);
+  } else {
+    // Browser globals
+    root.L10n = factory(null);
   }
-
+}(typeof self !== 'undefined' ? self : this, function (require) {
   const L10n = {
     _: {
       currentLanguage: 'en-US'
@@ -242,5 +252,5 @@
     }
   };
 
-  OrchidJS.L10n = L10n;
-})(window);
+  return L10n;
+}));

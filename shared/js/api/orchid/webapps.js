@@ -12,7 +12,7 @@
           // Backward compatibility
           resolve(await AppsManager.getAll());
         } else {
-          const appsList = await fetch('http://localhost:8081/api/data/webapps/getall').then((response) =>
+          const appsList = await fetch('http://localhost:9920/api/data/webapps/getall').then((response) =>
             response.json()
           );
 
@@ -70,7 +70,7 @@
         // Backward compatibility
         return await AppsManager.installPackage();
       } else {
-        return await fetch('http://localhost:8081/api/data/webapps/install?path=' + path).then((response) =>
+        return await fetch('http://localhost:9920/api/data/webapps/install?path=' + path).then((response) =>
           response.json()
         );
       }
@@ -81,7 +81,7 @@
         // Backward compatibility
         return await AppsManager.uninstall();
       } else {
-        return await fetch('http://localhost:8081/api/data/webapps/uninstall?id=' + appId).then((response) =>
+        return await fetch('http://localhost:9920/api/data/webapps/uninstall?id=' + appId).then((response) =>
           response.json()
         );
       }

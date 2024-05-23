@@ -1,0 +1,113 @@
+.panel {
+  visibility: hidden;
+  background-color: var(--background);
+  transition: all 0.5s cubic-bezier(1, 0, 0, 1);
+}
+
+.panel.previous {
+  transform: translateX(-100%);
+}
+
+.panel.next {
+  transform: translateX(100%);
+}
+
+.panel.visible {
+  visibility: visible;
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.grid {
+  width: 100%;
+}
+
+.grid .category {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.grid .category > .artist {
+  box-sizing: border-box;
+  width: 100%;
+  height: 3rem;
+  padding: 0 1.5rem;
+  color: #858585;
+  font-weight: bold;
+  font-size: 1.6rem;
+  line-height: 3rem;
+  text-transform: uppercase;
+}
+
+.grid .category .container {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  width: 100%;
+  padding: 0 1.5rem;
+  gap: 0.5rem;
+}
+
+.grid .music {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background-color: #000;
+}
+
+.grid .music:first-child {
+  grid-row: span 2;
+  grid-column: span 2;
+}
+
+.grid .music > img {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+.grid .music > .text-holder {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.6rem 1rem;
+}
+
+.grid .music > .text-holder .title {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  color: #fff;
+  font-weight: 400;
+  font-size: 1.2rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.grid .music > .text-holder .artist {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  color: #fff;
+  font-weight: normal;
+  font-size: 1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0.5;
+}
+
+.grid .music:first-child > .text-holder {
+  padding: 1rem 1.5rem;
+}
+
+.grid .music:first-child > .text-holder .title {
+  font-size: 1.6rem;
+}
+
+.grid .music:first-child > .text-holder .artist {
+  font-size: 1.4rem;
+}

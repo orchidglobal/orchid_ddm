@@ -1,0 +1,42 @@
+#create-post {
+  visibility: hidden;
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#create-post.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+#create-post > section[role="panel"] > section {
+  position: static;
+}
+
+#create-post-input {
+  resize: none;
+}
+
+@media screen and (min-width: 768px) {
+  #create-post > section[role="panel"] {
+    --statusbar-height: 0rem;
+    --software-buttons-height: 0rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    max-width: 50rem;
+    height: max-content;
+    max-height: 100%;
+    translate: -50% -50%;
+    border-radius: 2rem;
+    box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.2);
+  }
+}

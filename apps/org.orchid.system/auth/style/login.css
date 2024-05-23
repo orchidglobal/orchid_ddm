@@ -1,0 +1,64 @@
+@font-face {
+  src: url(/fonts/ReadexPro-VariableFont_HEXP.ttf);
+  font-family: 'Orchid Brand';
+}
+
+.logo {
+  font-weight: 600 !important;
+  font-family: 'Orchid Brand';
+}
+
+#app {
+  --safezone-width: 48rem;
+}
+
+section[role="panel"] > header:first-child h1 > .label {
+  margin-inline-start: 0.2rem;
+  transform: translateY(calc(1rem * (1 - var(--panel-progress))));
+  opacity: var(--panel-progress);
+  transition: all 0.3s ease;
+}
+
+section[role="panel"] > section {
+  position: relative;
+  height: max-content;
+  padding-bottom: 1.5rem;
+}
+
+section[role="panel"] > section h1 {
+  box-sizing: border-box;
+  margin: 0 0 1.5rem;
+  padding: 0 1.5rem;
+  color: var(--text-color);
+  font-weight: normal;
+  font-size: 3rem;
+  filter: opacity(calc(1 - var(--panel-progress)));
+  transition: filter 0.3s ease;
+}
+
+@media screen and (min-width: 768px) {
+  #app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--background-minus);
+  }
+
+  section[role="panel"] {
+    --statusbar-height: 0rem;
+    --software-buttons-height: 0rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--safezone-width);
+    height: max-content;
+    max-height: 100%;
+    translate: -50% -50%;
+    border-radius: 2rem;
+    box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.1);
+  }
+
+  section[role="panel"] > section {
+    padding-bottom: 0.5rem;
+  }
+}

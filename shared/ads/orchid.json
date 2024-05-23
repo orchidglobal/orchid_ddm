@@ -1,0 +1,15 @@
+{
+  "ads": [
+    {
+      "type": "try-out",
+      "is_beta": true,
+      "publisher_id": "@orchid",
+      "name": "Orchid Office",
+      "detail": "A office suite that gets it done in mere moments",
+      "l10n_name": "-orchid-advert-office-name",
+      "l10n_detail": "-orchid-advert-office-detail",
+      "external": "#",
+      "store_id": ""
+    }
+  ]
+}

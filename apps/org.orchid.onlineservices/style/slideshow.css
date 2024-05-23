@@ -1,0 +1,281 @@
+#slideshow-container {
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--safezone-width);
+  height: 100%;
+  margin: 0 auto 1.5rem;
+  padding: 0;
+}
+
+#slideshow {
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  width: calc(100% - 3rem);
+  height: 100%;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background-color: var(--item-hover);
+}
+
+#slideshow > .slideshow {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background-color: #858585;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
+  transition: transform 1s cubic-bezier(0.2, 0.9, 0.1, 1), opacity 1s cubic-bezier(0.2, 0.9, 0.1, 1), visibility 1s ease;
+}
+
+#slideshow > .slideshow.previous {
+  transform: scale(0.9);
+  opacity: 0;
+}
+
+#slideshow > .slideshow.next {
+  transform: translateX(100%);
+}
+
+#slideshow > .slideshow.active {
+  visibility: visible;
+  z-index: 1;
+}
+
+#slideshow > .slideshow .artwork {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1s cubic-bezier(0.2, 0.9, 0.1, 1);
+}
+
+#slideshow > .slideshow.next .artwork {
+  transform: translateX(-50%);
+}
+
+#slideshow > .slideshow .text-holder {
+  box-sizing: border-box;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 5rem;
+}
+html[dir="ltr"] #slideshow > .slideshow .text-holder {
+  background: linear-gradient(to right, var(--slideshow-accent, #000) 20%, transparent);
+}
+html[dir="rtl"] #slideshow > .slideshow .text-holder {
+  background: linear-gradient(to left, var(--slideshow-accent, #000) 20%, transparent);
+}
+
+#slideshow > .slideshow .text-holder h1 {
+  width: 100%;
+  max-width: 40rem;
+  margin: 0;
+  overflow: hidden;
+  color: #fff;
+  font-weight: 600;
+  font-size: 3rem;
+  font-family: 'Orchid Brand';
+  text-overflow: ellipsis;
+  text-shadow: 0 0.4rem 1.6rem var(--slideshow-accent, #000);
+  white-space: nowrap;
+}
+
+#slideshow > .slideshow .text-holder p {
+  width: 100%;
+  max-width: 40rem;
+  margin: 0;
+  color: #fff;
+  font-weight: normal;
+  font-size: 1.4rem;
+  text-overflow: ellipsis;
+  text-shadow: 0 0.4rem 1.6rem var(--slideshow-accent, #000);
+}
+
+#slideshow > .slideshow.light .text-holder h1,
+#slideshow > .slideshow.light .text-holder p {
+  color: #333;
+}
+
+#slideshow > .slideshow .text-holder nav {
+  display: flex;
+  height: 3.2rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  gap: 0.5rem;
+}
+
+#slideshow > .slideshow .text-holder nav a {
+  box-sizing: border-box;
+  display: inline-block;
+  height: 3.2rem;
+  margin: 0;
+  padding: 0 1rem;
+  overflow: hidden;
+  border-radius: 2rem;
+  outline: none;
+  /* backdrop-filter: blur(20px) saturate(180%); */
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-weight: normal;
+  font-size: 1.4rem;
+  line-height: 3.2rem;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media screen and (min-width: 768px) {
+  #slideshow > .slideshow .text-holder h1 {
+    font-size: 4rem;
+  }
+
+  #slideshow > .slideshow .text-holder p {
+    font-size: 1.6rem;
+  }
+
+  #slideshow > .slideshow .text-holder nav {
+    gap: 1rem;
+  }
+
+  #slideshow > .slideshow .text-holder nav a {
+    height: 4rem;
+    padding: 0 2rem;
+    font-size: 1.6rem;
+    line-height: 4rem;
+  }
+}
+
+#slideshow > .slideshow .text-holder nav a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+#slideshow > .slideshow .text-holder nav a:active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+#slideshow > .slideshow.light .text-holder nav a {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+#slideshow > .slideshow.light .text-holder nav a:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+#slideshow > .slideshow.light .text-holder nav a:active {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+#slideshow > .slideshow .text-holder nav a.recommend {
+  background-color: #fff;
+  color: #333;
+}
+
+#slideshow > .slideshow .text-holder nav a.recommend:hover {
+  background-color: #e0e0e0;
+}
+
+#slideshow > .slideshow .text-holder nav a.recommend:active {
+  background-color: #d0d0d0;
+}
+
+#slideshow > .slideshow.light .text-holder nav a.recommend {
+  background-color: #333;
+  color: #e7e7e7;
+}
+
+#slideshow > .slideshow.light .text-holder nav a.recommend:hover {
+  background-color: #444;
+}
+
+#slideshow > .slideshow.light .text-holder nav a.recommend:active {
+  background-color: #555;
+}
+
+#slideshow-dots {
+  display: flex;
+  z-index: 5;
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  height: 1rem;
+  gap: 0.5rem;
+  translate: -50% 0;
+}
+
+#slideshow-dots > .dot {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  padding: 0;
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: background-color 0.3s cubic-bezier(0.5, 0.8, 0, 1), width 0.3s cubic-bezier(0.5, 0.8, 0, 1);
+}
+
+#root.light #slideshow-dots > .dot {
+  background-color: rgba(51, 51, 51, 0.5);
+}
+
+#slideshow-dots > .dot:hover {
+  background-color: var(--accent-color);
+}
+
+#slideshow-dots > .dot.active {
+  width: 3rem;
+  background-color: #fff;
+}
+
+#root.light #slideshow-dots > .dot.active {
+  background-color: #333;
+}
+
+#slideshow-previous-button,
+#slideshow-next-button {
+  z-index: 5;
+  position: absolute;
+  top: calc((100% - 2rem - 10rem) / 2);
+  width: 4rem;
+  height: 10rem;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  color: #fff;
+  line-height: 10rem;
+  transition: color 0.3s ease;
+}
+
+#root.light #slideshow-previous-button,
+#root.light #slideshow-next-button {
+  color: #333;
+}
+
+#slideshow-previous-button {
+  left: 1.5rem;
+}
+
+#slideshow-next-button {
+  right: 1.5rem;
+}
+
+#slideshow-previous-button[data-icon]::before,
+#slideshow-next-button[data-icon]::before {
+  position: static;
+  height: 100%;
+}

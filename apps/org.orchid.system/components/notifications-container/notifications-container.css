@@ -1,0 +1,70 @@
+:host {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+:host > .container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+:host > .container .list {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  gap: 1rem;
+  scrollbar-width: none;
+}
+
+:host > .container .buttons {
+  display: flex;
+  position: absolute;
+  bottom: var(--software-buttons-height);
+  left: 0;
+  justify-content: center;
+  width: 100%;
+  height: 4.5rem;
+  margin: 1rem 0;
+  gap: 1rem;
+}
+
+:host > .container .buttons > button {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: 0;
+  padding: 0 1rem;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: var(--tray-text-color);
+  line-height: 4.5rem;
+  text-decoration: none;
+  text-shadow: 0 0 0.4rem var(--tray-text-shadow);
+}
+
+:host > .container .buttons > button:hover {
+  background-color: rgba(64, 64, 64, 0.3);
+}
+
+:host > .container .buttons > button:active {
+  background-color: rgba(128, 128, 128, 0.3);
+}
+
+:host > .container .buttons > button[data-icon]::before {
+  height: 4rem;
+  font-size: 2rem;
+  line-height: 4rem;
+}

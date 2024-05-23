@@ -1,0 +1,35 @@
+{
+  "id": "org.orchid.files",
+  "version": "%system_version%",
+  "name": "Files",
+  "description": "Storage and filesystem managment",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "/style/icons/files_16.png",
+    "32": "/style/icons/files_32.png",
+    "48": "/style/icons/files_48.png",
+    "64": "/style/icons/files_64.png",
+    "128": "/style/icons/files_128.png",
+    "256": "/style/icons/files_256.png"
+  },
+  "developer": {
+    "name": "Orchid",
+    "url": "https://orchid.thats-the.name/"
+  },
+  "default_locale": "en",
+  "orientation": "portrait-primary",
+  "permissions": {
+    "ipc": {},
+    "settings": {},
+    "storage": {},
+    "device-storage:audio": {},
+    "device-storage:books": {},
+    "device-storage:downloads": {},
+    "device-storage:movies": {},
+    "device-storage:music": {},
+    "device-storage:others": {},
+    "device-storage:photos": {},
+    "webapps-manage": {}
+  },
+  "display": "immersive"
+}

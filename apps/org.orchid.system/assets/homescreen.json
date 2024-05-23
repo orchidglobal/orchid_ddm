@@ -1,0 +1,36 @@
+{
+  "dock": [
+    { "manifest_url": "http://browser.localhost:9920/manifest.webapp", "entry_id": null },
+    { "manifest_url": "http://sms.localhost:9920/manifest.webapp", "entry_id": null },
+    { "manifest_url": "http://communications.localhost:9920/manifest.webapp", "entry_id": "dialer" },
+    { "manifest_url": "http://music.localhost:9920/manifest.webapp", "entry_id": null }
+  ],
+  "pages": [
+    { "manifest_url": "http://calculator.localhost:9920/manifest.webapp", "entry_id": null },
+    { "manifest_url": "http://calendar.localhost:9920/manifest.webapp", "entry_id": null },
+    { "manifest_url": "http://camera.localhost:9920/manifest.webapp", "entry_id": null },
+    { "manifest_url": "http://clock.localhost:9920/manifest.webapp", "entry_id": null },
+    { "manifest_url": "http://communications.localhost:9920/manifest.webapp", "entry_id": "contacts" },
+    { "manifest_url": "http://email.localhost:9920/manifest.webapp", "entry_id": null },
+    { "manifest_url": "http://files.localhost:9920/manifest.webapp", "entry_id": null },
+    { "manifest_url": "http://fm.localhost:9920/manifest.webapp", "entry_id": null },
+    { "manifest_url": "http://gallery.localhost:9920/manifest.webapp", "entry_id": null },
+    { "manifest_url": "http://notes.localhost:9920/manifest.webapp", "entry_id": null },
+    {
+      "type": "folder",
+      "apps": [
+        { "manifest_url": "http://orchidservices.localhost:9920/manifest.webapp", "entry_id": "articles" },
+        { "manifest_url": "http://orchidservices.localhost:9920/manifest.webapp", "entry_id": "assistant" },
+        { "manifest_url": "http://orchidservices.localhost:9920/manifest.webapp", "entry_id": "news" },
+        { "manifest_url": "http://orchidservices.localhost:9920/manifest.webapp", "entry_id": "pc" },
+        { "manifest_url": "http://orchidservices.localhost:9920/manifest.webapp", "entry_id": "stocks" },
+        { "manifest_url": "http://orchidservices.localhost:9920/manifest.webapp", "entry_id": "translator" },
+        { "manifest_url": "http://orchidservices.localhost:9920/manifest.webapp", "entry_id": "weather" }
+      ]
+    },
+    { "manifest_url": "http://settings.localhost:9920/manifest.webapp", "entry_id": null },
+    { "manifest_url": "http://sketch.localhost:9920/manifest.webapp", "entry_id": null },
+    { "manifest_url": "http://store.localhost:9920/manifest.webapp", "entry_id": null },
+    { "manifest_url": "http://videos.localhost:9920/manifest.webapp", "entry_id": null }
+  ]
+}

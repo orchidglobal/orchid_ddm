@@ -1,0 +1,252 @@
+orchid-video {
+  display: block;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  max-width: var(--safezone-width);
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: var(--item-plus);
+}
+
+orchid-video > .video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+orchid-video > .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+orchid-video > .skip-overlay {
+  display: flex;
+  visibility: hidden;
+  z-index: 5;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.5, 0.8, 0, 1), visibility 0.5s cubic-bezier(0.5, 0.8, 0, 1);
+}
+
+orchid-video > .skip-overlay.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+orchid-video > .skip-overlay.back {
+  left: 0;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent);
+}
+
+orchid-video > .skip-overlay.forward {
+  right: 0;
+  background-image: linear-gradient(to left, rgba(0, 0, 0, 0.5), transparent);
+}
+
+orchid-video > .skip-overlay > .icon {
+  display: flex;
+  visibility: hidden;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  overflow: hidden;
+  transform: scale(0.9);
+  color: #fff;
+  font-size: 1.6rem;
+  text-align: center;
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.5, 0.8, 0, 1), opacity 0.5s cubic-bezier(0.5, 0.8, 0, 1), visibility 0.5s ease;
+}
+
+orchid-video > .skip-overlay > .icon::before {
+  position: absolute;
+  font-size: 3rem;
+}
+
+orchid-video > .skip-overlay.visible > .icon {
+  visibility: visible;
+  transform: scale(1);
+  opacity: 1;
+  transition: transform 0.5s cubic-bezier(0.5, 0.8, 0, 1.1), opacity 0.5s cubic-bezier(0.5, 0.8, 0, 1), visibility 0.5s ease;
+}
+
+orchid-video > .skip-overlay.back > .icon {
+  transform: scale(0.9) translateX(100%);
+}
+
+orchid-video > .skip-overlay.back.visible > .icon {
+  transform: scale(1) translateX(-100%);
+}
+
+orchid-video > .skip-overlay.forward > .icon {
+  transform: scale(0.9) translateX(-100%);
+}
+
+orchid-video > .skip-overlay.forward.visible > .icon {
+  transform: scale(1) translateX(100%);
+}
+
+orchid-video > .loading {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  align-items: center;
+  translate: -50% -50%;
+}
+
+orchid-video > .overlay .controls {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  align-items: center;
+  width: max-content;
+  translate: -50% -50%;
+}
+
+orchid-video > .overlay .controls button {
+  width: 4rem;
+  height: 4rem;
+  margin: 0;
+  padding: 0 1rem;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #fff;
+  line-height: 4rem;
+  text-align: center;
+}
+
+orchid-video > .overlay .controls button[data-icon]::before {
+  position: static;
+  height: 4rem;
+  line-height: 4rem;
+}
+
+orchid-video > .overlay .controls .playpause-button {
+  position: relative;
+  width: 7rem;
+  height: 7rem;
+  margin: 0 0.5rem;
+  padding: 0;
+  color: var(--accent-text-color);
+}
+
+orchid-video > .overlay .controls .playpause-button > .spinner {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 7rem;
+  height: 7rem;
+  padding: 0 1rem;
+  background-color: var(--accent-color);
+  line-height: 7rem;
+  text-align: center;
+  mask: url(images/play_button_mask.svg) no-repeat center / cover;
+  transition: transform 0.3s ease;
+}
+
+orchid-video > .overlay .controls .playpause-button > .icon {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 7rem;
+  height: 7rem;
+  height: 7rem;
+  padding: 0 1rem;
+  line-height: 7rem;
+}
+
+orchid-video > .overlay .controls .playpause-button > .icon[data-icon]::before {
+  height: 7rem;
+  font-size: 2rem;
+  line-height: 7rem;
+}
+
+orchid-video > .toolbar {
+  box-sizing: border-box;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  gap: 0.5rem;
+}
+
+orchid-video > .toolbar .scrubber {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+orchid-video > .toolbar .scrubber .time {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: #fff;
+  font-weight: var(--video-label-weight);
+  font-size: 1.6rem;
+}
+
+orchid-video > .toolbar .scrubber .time > .separator {
+  width: 0.6rem;
+  height: 0.6rem;
+  margin: 0 1rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+orchid-video > .toolbar .scrubber .slider-holder {
+  width: 100%;
+}
+
+orchid-video > .toolbar .scrubber .slider-holder > input {
+  width: 100%;
+  height: 1rem;
+  margin: 0;
+}
+
+orchid-video > .toolbar .scrubber .slider-holder > input::-webkit-slider-thumb {
+  height: 1rem;
+  border-width: 0.3rem;
+}
+
+orchid-video > .toolbar .buttons {
+  box-sizing: border-box;
+  display: flex;
+  flex-shrink: 0;
+  width: max-content;
+}
+
+orchid-video > .toolbar .buttons > button {
+  width: 4rem;
+  height: 4rem;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+orchid-video > .toolbar .buttons > button[data-icon]::before {
+  position: static;
+}

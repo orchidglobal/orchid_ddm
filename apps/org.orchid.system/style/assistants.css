@@ -1,0 +1,54 @@
+#assistants {
+  box-sizing: border-box;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(0px) saturate(100%);
+  background-color: transparent;
+  transition: background-color 0.5s ease, backdrop-filter 0.5s ease, visibility 0.5s ease;
+}
+
+#assistants.motion-visible {
+  visibility: visible;
+  backdrop-filter: blur(calc(5px * (1 - var(--assistant-progress, 1)))) saturate(calc(100% + (80% * (1 - var(--assistant-progress, 1)))));
+  background-color: rgba(var(--lockscreen-accent-color-primary-r), var(--lockscreen-accent-color-primary-g), var(--lockscreen-accent-color-primary-b), calc(var(--assistant-progress, 0) * 0.3));
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+#assistants.visible {
+  visibility: visible;
+  backdrop-filter: blur(5px) saturate(180%);
+  background-color: var(--acrylic-background);
+  background-color: rgba(var(--lockscreen-accent-color-primary-r), var(--lockscreen-accent-color-primary-g), var(--lockscreen-accent-color-primary-b), 0.3);
+  transition: transform 0.75s cubic-bezier(0.2, 0.9, 0.1, 1), background-color 0.5s ease, backdrop-filter 0.5s ease, visibility 0.5s ease;
+}
+
+.screen.keyboard-visible #assistants {
+  height: 60%;
+}
+
+.speechframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.8, 0.1, 0.9, 0);
+}
+
+#assistants.visible .speechframe {
+  transform: translateY(0);
+  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.1, 1);
+}
+
+.speechframe .browser {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

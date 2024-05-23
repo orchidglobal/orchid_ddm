@@ -1,0 +1,75 @@
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1218_22)">
+<g filter="url(#filter0_d_1218_22)">
+<rect x="4" y="4" width="64" height="64" rx="16" fill="url(#paint0_linear_1218_22)"/>
+</g>
+<mask id="mask0_1218_22" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="4" width="64" height="64">
+<rect x="4" y="4" width="64" height="64" rx="16" fill="white"/>
+</mask>
+<g mask="url(#mask0_1218_22)">
+<g filter="url(#filter1_i_1218_22)">
+<rect x="14" y="13" width="44" height="20" rx="10" fill="url(#paint1_linear_1218_22)"/>
+</g>
+<rect x="42" y="17" width="12" height="12" rx="6" fill="url(#paint2_linear_1218_22)"/>
+<g filter="url(#filter2_i_1218_22)">
+<rect x="14" y="39" width="44" height="20" rx="10" fill="url(#paint3_linear_1218_22)"/>
+</g>
+<rect x="18.4" y="43" width="12" height="12" rx="6" fill="url(#paint4_linear_1218_22)"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_1218_22" x="0" y="0" width="72" height="72" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1218_22"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1218_22" result="shape"/>
+</filter>
+<filter id="filter1_i_1218_22" x="14" y="13" width="44" height="22" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="3"/>
+<feGaussianBlur stdDeviation="1"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
+<feBlend mode="normal" in2="shape" result="effect1_innerShadow_1218_22"/>
+</filter>
+<filter id="filter2_i_1218_22" x="14" y="39" width="44" height="22" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="3"/>
+<feGaussianBlur stdDeviation="1"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
+<feBlend mode="normal" in2="shape" result="effect1_innerShadow_1218_22"/>
+</filter>
+<linearGradient id="paint0_linear_1218_22" x1="36" y1="4" x2="36" y2="68" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#F0F6FF"/>
+</linearGradient>
+<linearGradient id="paint1_linear_1218_22" x1="36" y1="13" x2="36" y2="33" gradientUnits="userSpaceOnUse">
+<stop stop-color="#606275"/>
+<stop offset="1" stop-color="#404265"/>
+</linearGradient>
+<linearGradient id="paint2_linear_1218_22" x1="48" y1="17" x2="48" y2="29" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#F0F6FF"/>
+</linearGradient>
+<linearGradient id="paint3_linear_1218_22" x1="36" y1="39" x2="36" y2="59" gradientUnits="userSpaceOnUse">
+<stop stop-color="#B0B2D5"/>
+<stop offset="1" stop-color="#D0D2E5"/>
+</linearGradient>
+<linearGradient id="paint4_linear_1218_22" x1="24.4" y1="43" x2="24.4" y2="55" gradientUnits="userSpaceOnUse">
+<stop stop-color="#606275"/>
+<stop offset="1" stop-color="#404265"/>
+</linearGradient>
+<clipPath id="clip0_1218_22">
+<rect width="72" height="72" fill="white"/>
+</clipPath>
+</defs>
+</svg>

@@ -30,7 +30,7 @@
   /**
    * Function to block ads on web pages. Please use responsibly and consider the ethical
    * implications. Be aware that some websites rely on ad revenue to provide free content.
-   * Blocking ads on specific domains (e.g., openorchid.github.io and orchid*.localhost:8081)
+   * Blocking ads on specific domains (e.g., openorchid.github.io and orchid*.localhost:9920)
    * may have legal and ethical considerations, especially if using code provided by Orchid.
    * It's important to respect licensing terms and the efforts of content creators.
    */

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f0f6ff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+  <link rel="shortcut icon" href="/style/icons/calculator.svg" type="image/svg">
+  <title data-l10n-id="title"></title>
+  <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/counters.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/lists.css" />
+  <link rel="stylesheet" type="text/css" href="style/calculator.css">
+  <script defer type="text/javascript" src="js/calculator.js"></script>
+  <script defer type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script defer type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <script defer type="text/javascript" src="/shared/js/common/counters.js"></script>
+
+  <script type="text/javascript" src="/shared/js/intl/l10n.js"></script>
+  <meta name="defaultLanguage" content="en-US">
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi">
+  <link rel="localization" href="/locales/main.{locale}.properties">
+</head>
+
+<body>
+  <div id="app" role="app">
+    <section id="root" class="visible" role="panel">
+      <header class="compact">
+        <a href="#" data-icon="menu"></a>
+        <h1 data-l10n-id="title"></h1>
+        <menu role="toolbar">
+          <a href="#" data-icon="history" data-page-id="history"></a>
+        </menu>
+      </header>
+      <section class="lists">
+        <div class="panel">
+          <div id="display">
+            <div id="display-input" contenteditable="true" role="counter"></div>
+          </div>
+
+          <div class="keyboards">
+            <div class="keyboard-group">
+              <header>Regular</header>
+              <div class="keyboard">
+                <div class="keyboard-row-x">
+                  <input type="button" class="double-width danger" value="C" data-type="command" />
+                  <input type="button" class="small" value="÷" id="add" data-type="operator" />
+                  <input type="button" class="small" value="×" id="multiply" data-type="operator" />
+                </div>
+                <div class="keyboard-row-block">
+                  <div class="row">
+                    <input type="button" class="small" value="7" data-type="value" />
+                    <input type="button" class="small" value="8" data-type="value" />
+                    <input type="button" class="small" value="9" data-type="value" />
+                  </div>
+                  <div class="row">
+                    <input type="button" class="small" value="4" data-type="value" />
+                    <input type="button" class="small" value="5" data-type="value" />
+                    <input type="button" class="small" value="6" data-type="value" />
+                  </div>
+                  <div class="row">
+                    <input type="button" class="small" value="1" data-type="value" />
+                    <input type="button" class="small" value="2" data-type="value" />
+                    <input type="button" class="small" value="3" data-type="value" />
+                  </div>
+                  <div class="row">
+                    <input type="button" class="double-width" value="0" data-type="value" />
+                    <input type="button" class="small" value="." data-type="value" />
+                  </div>
+                </div>
+                <div class="keyboard-row-y">
+                  <input type="button" class="small" value="-" id="subtract" data-type="operator" />
+                  <input type="button" class="small" value="+" id="divide" data-type="operator" />
+                  <input type="button" class="double-height confirm" value="=" data-type="command" />
+                </div>
+              </div>
+            </div>
+
+            <div class="keyboard-group">
+              <header>Sientific</header>
+              <div class="keyboard">
+                <div class="keyboard-row-x">
+                  <input type="button" class="small label" value="sqrt" data-type="value" />
+                  <input type="button" class="small label" value="sqrt[]" data-type="value" />
+                  <input type="button" class="small" value="(" data-type="value" />
+                  <input type="button" class="small" value=")" data-type="value" />
+                </div>
+                <div class="keyboard-row-block">
+                  <div class="row">
+                    <input type="button" class="small label" value="sin" data-type="value" />
+                    <input type="button" class="small label" value="cos" data-type="value" />
+                    <input type="button" class="small label" value="tan" data-type="value" />
+                  </div>
+                  <div class="row">
+                    <input type="button" class="small label" value="sin-1" data-type="value" />
+                    <input type="button" class="small label" value="cos-1" data-type="value" />
+                    <input type="button" class="small label" value="tan-1" data-type="value" />
+                  </div>
+                  <div class="row">
+                    <input type="button" class="small label" value="mean" data-type="value" />
+                    <input type="button" class="small label-long" value="stdev" data-type="value" />
+                    <input type="button" class="small label-long" value="stdevp" data-type="value" />
+                  </div>
+                  <div class="row">
+                    <input type="button" class="small label" value="nPr" data-type="value" />
+                    <input type="button" class="small label" value="nCr" data-type="value" />
+                    <input type="button" class="small" value="!" data-type="value" />
+                  </div>
+                </div>
+                <div class="keyboard-row-y">
+                  <input type="button" class="small label" value="abs" data-type="value" />
+                  <input type="button" class="small label-long" value="round" data-type="value" />
+                  <input type="button" class="small label" value="ln" data-type="value" />
+                  <input type="button" class="small label" value="log" data-type="value" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section id="history" role="panel">
+      <header>
+        <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+        <h1 data-l10n-id="history"></h1>
+      </header>
+      <section class="lists">
+        <div id="history-list"></div>
+      </section>
+    </section>
+  </div>
+</body>
+
+</html>

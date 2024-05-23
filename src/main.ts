@@ -365,7 +365,7 @@ export const Main = {
    * - On Windows: `%APPDATA%\Orchid\OrchidInstalledApps.json`
    * - On macOS: `${os.homedir()}/Library/Application Support/OrchidInstalledApps.json`
    * - On Linux and other unix-like systems:
-   *   - If the user is running as root: `/usr/local/webapps.json`
+   *   - If the user is running as root: `/usr/local/webapps.metadata`
    *   - Otherwise: `${os.homedir()}/.installed_webapps`
    *
    * If the `ORCHID_WEBAPPS` environment variable is set, its value is used as
@@ -386,7 +386,7 @@ export const Main = {
       case 'freebsd':
       case 'android':
         if (this.isRunningAsRoot) {
-          this.webappsConfigPath = '/usr/local/webapps.json'; // Linux, FreeBSD, Android, root
+          this.webappsConfigPath = '/usr/local/webapps.metadata'; // Linux, FreeBSD, Android, root
         } else {
           this.webappsConfigPath = `${os.homedir()}/.installed_webapps`; // Linux, FreeBSD, Android, not root
         }

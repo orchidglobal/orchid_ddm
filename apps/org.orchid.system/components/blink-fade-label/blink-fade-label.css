@@ -1,0 +1,56 @@
+:host {
+  display: block;
+  position: relative;
+}
+
+:host > .text-holder {
+  position: relative;
+  height: 2.2rem;
+  line-height: 2.2rem;
+  transition: width 0.5s ease;
+}
+
+:host > .text-holder .old-text,
+:host > .text-holder .new-text {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: max-content;
+  height: 2.2rem;
+  color: #fff;
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+}
+
+:host > .text-holder .old-text,
+:host > .text-holder .new-text.hidden {
+  opacity: 0;
+}
+
+:host > .text-holder .old-text.fade-out {
+  animation: label-previous 0.5s ease;
+}
+
+@keyframes label-previous {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+:host > .text-holder .new-text.fade-in {
+  animation: label-next 0.5s ease;
+}
+
+@keyframes label-next {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f0f6ff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+  <link rel="shortcut icon" href="/style/icons/calendar.svg" type="image/svg">
+  <title data-l10n-id="title"></title>
+  <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/panels.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/tablists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/lists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/switches.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/toolbars.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/app/transitions.css" />
+  <link rel="stylesheet" type="text/css" href="style/year.css" />
+  <link rel="stylesheet" type="text/css" href="style/month.css" />
+  <link rel="stylesheet" type="text/css" href="style/week.css" />
+  <link rel="stylesheet" type="text/css" href="style/day.css" />
+  <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <script type="text/javascript" src="/shared/js/file_picker.js"></script>
+  <script defer type="text/javascript" src="js/bootstrap.js"></script>
+  <script defer type="text/javascript" src="js/month_grid.js"></script>
+  <script defer type="text/javascript" src="js/views/year/main.js"></script>
+  <script defer type="text/javascript" src="js/views/month/main.js"></script>
+  <script defer type="text/javascript" src="js/views/week/main.js"></script>
+  <script defer type="text/javascript" src="js/views/day/main.js"></script>
+
+  <script type="text/javascript" src="/shared/js/intl/l10n.js"></script>
+  <meta name="defaultLanguage" content="en-US">
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi">
+  <link rel="localization" href="/locales/main.{locale}.properties">
+</head>
+
+<body>
+  <main id="app" role="app">
+    <nav class="bb-tablist">
+      <ul>
+        <li><a href="#year" id="year-tab-button" data-page-id="year">
+            <span data-icon="date"></span>
+            <span data-l10n-id="year"></span>
+          </a></li>
+        <li><a href="#month" id="month-tab-button" data-page-id="month">
+            <span data-icon="grid"></span>
+            <span data-l10n-id="month"></span>
+          </a></li>
+        <li><a href="#week" data-page-id="week">
+            <span data-icon="list"></span>
+            <span data-l10n-id="week"></span>
+          </a></li>
+        <li><a href="#day" class="selected" data-page-id="day">
+            <span data-icon="alarm-clock"></span>
+            <span data-l10n-id="day"></span>
+          </a></li>
+      </ul>
+    </nav>
+
+    <div id="views" class="bb-tablist-views">
+      <section id="year" class="visible" role="panel">
+        <header>
+          <h1 id="year-label"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="options"></a>
+            <a href="#" data-icon="add"></a>
+          </menu>
+        </header>
+
+        <section>
+          <div id="year-grid"></div>
+        </section>
+      </section>
+
+      <section id="month" role="panel">
+        <header>
+          <h1 id="month-label"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="options"></a>
+            <a href="#" data-icon="add"></a>
+          </menu>
+        </header>
+
+        <section>
+          <div id="month-grid">
+            <div class="week">
+              <span data-l10n-id="monthName-sun">Sun</span>
+              <span data-l10n-id="monthName-mon">Mon</span>
+              <span data-l10n-id="monthName-tue">Tue</span>
+              <span data-l10n-id="monthName-wed">Wed</span>
+              <span data-l10n-id="monthName-thu">Thu</span>
+              <span data-l10n-id="monthName-fri">Fri</span>
+              <span data-l10n-id="monthName-sat">Sat</span>
+            </div>
+            <div id="month-grid-body"></div>
+          </div>
+        </section>
+      </section>
+
+      <section id="week" role="panel">
+        <header class="compact">
+          <h1 id="week-label"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="options"></a>
+            <a href="#" data-icon="add"></a>
+          </menu>
+        </header>
+
+        <section>
+          <!-- Content here -->
+        </section>
+      </section>
+
+      <section id="day" role="panel">
+        <header class="compact">
+          <h1 id="day-label"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="options"></a>
+            <a href="#" data-icon="add"></a>
+          </menu>
+        </header>
+
+        <section>
+          <!-- Content here -->
+        </section>
+      </section>
+    </div>
+  </main>
+</body>
+
+</html>

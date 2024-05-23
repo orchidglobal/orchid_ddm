@@ -4,11 +4,13 @@ import path from 'path';
 import Renderer from '../renderer';
 
 const memorySettings = {} as any;
+let writeInterval: NodeJS.Timeout | null = null;
+const WRITE_INTERVAL = 300000; // 5 minutes in milliseconds
 
 const Settings = {
   getValue: function (name: string, settingsFile: string = 'settings.json'): Promise<any> {
-    if (memorySettings[name]) {
-      return Promise.resolve(memorySettings[name]);
+    if (memorySettings[settingsFile] && memorySettings[settingsFile][name]) {
+      return Promise.resolve(memorySettings[settingsFile] && memorySettings[settingsFile][name]);
     }
     return new Promise((resolve, reject) => {
       if (!Renderer.profilePath) {
@@ -25,7 +27,6 @@ const Settings = {
           const settings = JSON.parse(data.toString());
           resolve(settings[name]);
         } catch (parseError) {
-          console.error(parseError);
           reject(parseError);
         }
       });
@@ -37,48 +38,70 @@ const Settings = {
       throw new Error('Unspecified profile path');
     }
 
-    memorySettings[name] = value;
-    const settingsFilePath = path.join(Renderer.profilePath, settingsFile);
-    fs.readFile(settingsFilePath, (error: NodeJS.ErrnoException | null, data: Buffer) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-      try {
-        const settings = JSON.parse(data.toString());
-        settings[name] = value;
-        const mergedSettings = Object.assign(settings, memorySettings);
-        const updatedSettings = JSON.stringify(mergedSettings, null, 2);
+    if (!memorySettings[settingsFile]) {
+      memorySettings[settingsFile] = {};
+    }
+    memorySettings[settingsFile][name] = value;
 
-        // Ensure the directory exists before writing the file
-        const settingsDir = path.dirname(settingsFilePath);
-        fs.mkdirSync(settingsDir, {
-          recursive: true
-        });
-        fs.writeFile(settingsFilePath, updatedSettings, (writeError: NodeJS.ErrnoException | null) => {
-          if (writeError) {
-            console.error(writeError);
-            return;
-          }
-          ipcRenderer.emit('settingschange', { name, [name]: value });
-          ipcRenderer.send('settingschange', { name, [name]: value });
-        });
-      } catch (parseError) {
-        console.error(parseError);
-      }
-    });
+    if (!writeInterval) {
+      writeInterval = setInterval(() => {
+        saveSettingsToFile(settingsFile);
+      }, WRITE_INTERVAL);
+    }
+
+    ipcRenderer.emit('settings-updated', { name, [name]: value });
+    ipcRenderer.send('settings-updated', { name, [name]: value });
   },
 
-  addObserver: function (name: string, callback: Function) {
-    ipcRenderer.on('settingschange', (event, data) => {
-      Settings.getValue(name).then((data) => {
-        callback(data);
-      });
+  addObserver: function (name: string, callback: Function, settingsFile: string = 'settings.json') {
+    ipcRenderer.on('settings-updated', (event, data) => {
       if (data && data[name]) {
         callback(data[name]);
+
+        if (!memorySettings[settingsFile]) {
+          memorySettings[settingsFile] = {};
+        }
+        memorySettings[settingsFile][name] = data[name];
+      } else {
+        Settings.getValue(name).then((data) => {
+          callback(data);
+
+          if (!memorySettings[settingsFile]) {
+            memorySettings[settingsFile] = {};
+          }
+          memorySettings[settingsFile][name] = data;
+        });
       }
     });
   }
 };
+
+function saveSettingsToFile(settingsFile: string) {
+  fs.readFile(path.join(Renderer.profilePath as string, settingsFile), (error: NodeJS.ErrnoException | null, data: Buffer) => {
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    const settings = JSON.parse(data.toString());
+    const settingsFilePath = path.join(Renderer.profilePath as string, settingsFile);
+    fs.writeFile(settingsFilePath, JSON.stringify(Object.assign(settings, memorySettings[settingsFile] || {}), null, 2), (writeError: NodeJS.ErrnoException | null) => {
+      if (writeError) {
+        console.error(writeError);
+      }
+    });
+  });
+}
+
+// Listen for beforeunload event on window to save settings before window is unloaded
+if (typeof window !== 'undefined') {
+  window.addEventListener('beforeunload', () => {
+    if (writeInterval) {
+      clearInterval(writeInterval);
+      writeInterval = null;
+      saveSettingsToFile('settings.json');
+    }
+  });
+}
 
 export default Settings;

@@ -81,6 +81,10 @@
       // finished loading.
     }
 
+    render() {
+      return null;
+    }
+
     /**
      * update
      *
@@ -122,8 +126,21 @@
     }
   }
 
+  class OrchidPage {}
+
   const OrchidJS = {
     instance: null,
+
+    userAgent: 'Mozilla/5.0 (OrchidOS2 1.0; Desktop; OrchidJS_API 1.0) OrchidChr/1.0 (KHTML, like Gecko)',
+    userAgentData: {
+      brands: [
+        { brand: 'Orchid Chrome', version: '1' },
+        { brand: 'Not:A-Brand', version: '8' }
+      ],
+      mobile: false,
+      platform: 'Linux'
+    },
+    apiUserAgent: 'Orchid/1.0 (OrchidJS_API 1.0; BrowserCompatible) OrchidOS2/20230702',
 
     isBrowser: false,
     isSupported: false,
@@ -131,6 +148,7 @@
     wallpaperUrl: '',
     sharedUrl: '',
     defaultThemeUrl: '',
+    pages: {},
 
     settings: [
       'accessibility.text.bold',
@@ -151,17 +169,18 @@
     SETTINGS_RED_LIGHT_POINT: 6,
     SETTINGS_WALLPAPER_IMAGE: 7,
 
-    OrchidFramework,
+    Framework: OrchidFramework,
+    Page: OrchidPage,
 
     /**
      * Sets the OrchidJS instance.
      *
-     * @param {OrchidFramework} instance The OrchidJS instance to set.
+     * @param {Framework} instance The OrchidJS instance to set.
      */
     setInstance: async function (instance) {
       /**
        * The OrchidJS instance.
-       * @type {OrchidFramework}
+       * @type {Framework}
        */
       this.instance = instance;
     },
@@ -172,8 +191,10 @@
      * initial values for all settings and observers for them.
      */
     init: function () {
-      this.sharedUrl = this.getOriginUrl('shared');
-      this.defaultThemeUrl = this.getOriginUrl('default_theme');
+      this.sharedUrl = '/shared';
+      this.defaultThemeUrl = this.getOriginUrl('org.orchid.default_theme');
+
+      this.SOUND_CLICK = new Audio(this.sharedUrl + '/resources/sounds/click.wav');
 
       this.prepareDeviceType();
 
@@ -182,6 +203,7 @@
       window.addEventListener('focus', this.handleFocus.bind(this));
       window.addEventListener('blur', this.handleBlur.bind(this));
       document.addEventListener('DOMContentLoaded', this.handleDOMContentLoaded.bind(this));
+      document.addEventListener('click', this.handleClick.bind(this));
 
       window.addEventListener('maximized', this.handleMaximized.bind(this));
       window.addEventListener('unmaximized', this.handleUnmaximized.bind(this));
@@ -207,14 +229,19 @@
         this.isBrowser = false;
         if (/Mobile|Phone|Tablet/i.test(userAgent)) {
           this.deviceType = 'mobile';
+          this.userAgent = 'Orchid/5.0 (OrchidOS2 1.0; Mobile; OrchidJS_API 1.0) OrchidChr/1.0';
         } else if (/TV/i.test(userAgent)) {
           this.deviceType = 'smart-tv';
+          this.userAgent = 'Orchid/5.0 (OrchidOS2 1.0; TV; OrchidJS_API 1.0) OrchidChr/1.0';
         } else if (/Headset|VR/i.test(userAgent)) {
           this.deviceType = 'vr';
+          this.userAgent = 'Orchid/5.0 (OrchidOS2 1.0; VR; OrchidJS_API 1.0) OrchidChr/1.0';
         } else if (/Home|Hub|Assistant/i.test(userAgent)) {
           this.deviceType = 'home';
+          this.userAgent = 'Orchid/5.0 (OrchidOS2 1.0; Home; OrchidJS_API 1.0) OrchidChr/1.0';
         } else if (/Watch|Wear/i.test(userAgent)) {
           this.deviceType = 'watch';
+          this.userAgent = 'Orchid/5.0 (OrchidOS2 1.0; Watch; OrchidJS_API 1.0) OrchidChr/1.0';
         } else {
           this.deviceType = 'desktop';
         }
@@ -222,8 +249,10 @@
         this.isBrowser = true;
         if (/Mobile|Phone|Tablet/i.test(userAgent)) {
           this.deviceType = 'browser mobile';
+          this.userAgent = 'Orchid/5.0 (OrchidOS2 1.0; Browser Mobile; OrchidJS_API 1.0) OrchidChr/1.0';
         } else {
           this.deviceType = 'browser generic';
+          this.userAgent = 'Orchid/5.0 (OrchidOS2 1.0; Browser; OrchidJS_API 1.0) OrchidChr/1.0';
         }
       }
 
@@ -601,33 +630,25 @@
         return;
       }
 
-      if (this.deviceType === 'featurephone' || this.deviceType === 'qwertyphone') {
-        document.documentElement.style.setProperty('--statusbar-height', '3.2rem');
-      } else if (this.deviceType === 'desktop') {
+      if (this.deviceType === 'desktop') {
         document.documentElement.style.setProperty('--statusbar-height', '3.6rem');
       } else {
         document.documentElement.style.setProperty('--statusbar-height', '4rem');
       }
 
-      if (this.deviceType === 'featurephone' || this.deviceType === 'qwertyphone') {
-        document.documentElement.style.setProperty('--software-buttons-height', '0rem');
+      if (value) {
+        document.documentElement.style.setProperty('--software-buttons-height', '4rem');
       } else {
-        if (value) {
-          document.documentElement.style.setProperty('--software-buttons-height', '4rem');
+        if (location.origin.includes(`homescreen.localhost:${location.port}`)) {
+          document.documentElement.style.setProperty('--software-buttons-height', '1rem');
         } else {
-          if (location.origin.includes(`homescreen.localhost:${location.port}`)) {
-            document.documentElement.style.setProperty('--software-buttons-height', '1rem');
-          } else {
-            document.documentElement.style.setProperty('--software-buttons-height', '2.5rem');
-          }
+          document.documentElement.style.setProperty('--software-buttons-height', '2.5rem');
         }
       }
     },
 
     handleRedLightPoint: function (value) {
-      if (document.documentElement) {
-        document.documentElement.dataset.redLightPoint = value;
-      }
+      document.documentElement.classList.toggle('red-light', value);
     },
 
     /**
@@ -701,13 +722,19 @@
      */
     handleDOMContentLoaded: function () {
       // Initialize the theme.
+      // this.traverseHTML(document.documentElement);
       this.initializeTheme();
+
+      // Prepare WebAssembly
+      // var module = new WebAssembly.Module(buffer);
+      // var instance = new WebAssembly.Instance(module, { js: { js: () => {} } }, {});
 
       // Mark the documentElement as active.
       document.documentElement.classList.add('active');
 
       // Enable features.
       this.enableFeature('uuid', null);
+      this.enableFeature('effects/active_tilt', null);
       this.enableFeature('spatial_navigation', this.handleSpatialNavigation.bind(this));
       this.enableFeature('intl/l10n', null);
       this.enableFeature('common/force_touch', null);
@@ -719,38 +746,52 @@
         this.enableFeature('external/litegl', () => {
           this.enableFeature('external/Canvas2DtoWebGL', null);
           this.enableFeature('vividus2d/vividus2d', null);
-          this.enableFeature('vividus2d/music', null);
-          this.enableFeature('vividus2d/panel', null);
-          this.enableFeature('vividus2d/scroller', null);
-          this.enableFeature('vividus2d/button', null);
-          this.enableFeature('vividus2d/slider', null);
-          this.enableFeature('vividus2d/keyframes', null);
           this.enableFeature('vividus2d/sprite', null);
+          this.enableFeature('vividus2d/keyframes', null);
         });
       });
-      // TODO: If Vividus Engine (3D) is bundled in, enable it here.
-      // this.enableFeature('vividus/vividus', null);
-      // this.enableFeature('vividus/mesh', null);
-      // this.enableFeature('vividus/texture', null);
       // TODO: If Orchid Studio IDE is made. Enable its development libraries if bundled.
       // this.enableFeature('developer/create', null);
-      // this.enableFeature('developer/console', null);
+      // this.enableFeature('developer/consolejs', null);
 
       // Register custom elements.
+      this.registerElement('app-panel');
+      this.registerElement('app-header');
+      this.registerElement('app-header-toolbar');
+      this.registerElement('app-content');
+      this.registerElement('orchid-ad');
+      this.registerElement('orchid-buttons');
       this.registerElement('orchid-account-button');
+      this.registerElement('orchid-account-dropdown');
       this.registerElement('orchid-account-banner');
       this.registerElement('orchid-cast-button');
-      this.registerElement('orchid-search-form');
-      this.registerElement('orchid-panel');
-      this.registerElement('orchid-buttons');
+      this.registerElement('orchid-snack-bar');
       this.registerElement('orchid-tab');
       this.registerElement('orchid-tabs');
+      this.registerElement('orchid-video');
 
       // Enable APIs
-      this.enableAPI('orchid/webapps', null);
       this.enableAPI('orchid/settings', this.handleSettings.bind(this));
-      this.enableAPI('orchid/sdcard', null);
-      // this.enableAPI('proxima/ysocial_connect');
+      this.enableAPI('orchid/webapps', null);
+      this.enableAPI('orchid/storage', null);
+    },
+
+    traverseHTML: function (node) {
+      this.replaceTextInAttributes(node);
+      for (let i = 0; i < node.children.length; i++) {
+        this.traverseHTML(node.children[i]);
+      }
+    },
+
+    replaceTextInAttributes: function (node) {
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        for (let i = 0; i < node.attributes.length; i++) {
+          let attr = node.attributes[i];
+          if (attr.value.includes('/shared/')) {
+            attr.value = attr.value.replace(/\/\$shared\//g, this.sharedUrl);
+          }
+        }
+      }
     },
 
     /**
@@ -762,7 +803,11 @@
      * default theme.
      */
     initializeTheme: async function () {
-      const isLocal = location.origin.includes('localhost:8081');
+      if ((!'OrchidJS') in window || (!'Settings') in OrchidJS) {
+        console.error('Settings permission is not enabled.');
+        return;
+      }
+      const isLocal = location.origin.includes('localhost:9920');
 
       if ('OrchidJS' in window && 'L10n' in OrchidJS) {
         // Try to load the theme from the settings.
@@ -823,7 +868,7 @@
      *        The callback function to be executed once the feature is loaded.
      */
     enableFeature: function (feature, callback) {
-      const isLocal = location.origin.includes('localhost:8081');
+      const isLocal = location.origin.includes('localhost:9920');
 
       if (isLocal) {
         LazyLoader.load(`${this.sharedUrl}/js/${feature}.js`, callback);
@@ -844,18 +889,22 @@
      *        The callback function to be executed once the element is loaded.
      */
     registerElement: function (tag, callback) {
-      const isLocal = location.origin.includes('localhost:8081');
+      const isLocal = location.origin.includes('localhost:9920');
 
       if (isLocal) {
-        LazyLoader.load(`${this.sharedUrl}/elements/${tag}/index.js`, callback);
+        LazyLoader.load(`${this.sharedUrl}/elements/${tag}/${tag}.js`, callback);
         // Load the stylesheet for the custom element
-        LazyLoader.load(`${this.sharedUrl}/elements/${tag}/index.css`);
+        LazyLoader.load(`${this.sharedUrl}/elements/${tag}/${tag}.css`);
       } else {
         // Load the script for the custom element
-        LazyLoader.load(`/orchidjs/shared/elements/${tag}/index.js`, callback);
+        LazyLoader.load(`/orchidjs/shared/elements/${tag}/${tag}.js`, callback);
         // Load the stylesheet for the custom element
-        LazyLoader.load(`/orchidjs/shared/elements/${tag}/index.css`);
+        LazyLoader.load(`/orchidjs/shared/elements/${tag}/${tag}.css`);
       }
+    },
+
+    registerComponent: function (tag, callback) {
+      LazyLoader.load(`/components/${tag}/${tag}.js`, callback);
     },
 
     /**
@@ -867,12 +916,36 @@
      *        The name of the API to enable.
      */
     enableAPI: function (name, callback) {
-      const isLocal = location.origin.includes('localhost:8081');
-
+      const isLocal = location.origin.includes('localhost:9920');
       if (isLocal) {
         LazyLoader.load(`${this.sharedUrl}/js/api/${name}.js`, callback);
       } else {
         LazyLoader.load(`/orchidjs/shared/js/api/${name}.js`, callback);
+      }
+    },
+
+    handleClick: function (event) {
+      const targetElement = event.target;
+
+      if (!targetElement) {
+        return;
+      }
+      const targetTag = targetElement.nodeName;
+
+      switch (targetTag) {
+        case 'INPUT':
+          if (!this.SOUND_CLICK) {
+            return;
+          }
+          if (targetElement.type !== 'checkbox') {
+            return;
+          }
+          this.SOUND_CLICK.currentTime = 0;
+          this.SOUND_CLICK.volume = 0.1;
+          this.SOUND_CLICK.play();
+
+          navigator.vibrate(50);
+          break;
       }
     },
 
@@ -946,7 +1019,11 @@
      *          The origin URL of the app.
      */
     getOriginUrl: function (appId) {
-      return `http://${appId}.localhost:8081`;
+      return `http://${appId.replaceAll('.', '__')}.localhost:9920`;
+    },
+
+    getManifestUrl: function (appId) {
+      return `http://${appId.replaceAll('.', '__')}.localhost:9920/manifest.webapp`;
     },
 
     /**
@@ -1022,7 +1099,7 @@
 
     convertBytes: function (byteSize, targetUnit = 'auto') {
       const units = [
-        { name: 'b', value: 1 },
+        { name: 'byte', value: 1 },
         { name: 'kb', value: 1024 },
         { name: 'mb', value: 1024 ** 2 },
         { name: 'gb', value: 1024 ** 3 },
@@ -1051,10 +1128,45 @@
       }
 
       return [Math.round(byteSize * 100) / 100, 'b']; // default to bytes if unit not recognized
+    },
+
+    /**
+     * Create and display a snackbar alert bubble with the given message.
+     *
+     * The alert bubble will be displayed at the bottom of the screen for
+     * 3 seconds (3000 milliseconds) and will be hidden with a CSS
+     * transition.
+     *
+     * @param {String} message - The message to display in the alert bubble.
+     */
+    snackbarAlert: function (message) {
+      // Create the alert bubble element
+      var snackbar = new HTMLOrchidSnackbarElement();
+      snackbar.innerText = message;
+
+      // Append the alert bubble to the document body
+      document.body.appendChild(snackbar);
+
+      // Trigger reflow to enable CSS transition
+      snackbar.offsetHeight;
+
+      // Display the alert bubble with animation
+      snackbar.classList.add('visible');
+
+      // Set a timeout to hide the alert bubble after 3 seconds (3000 milliseconds)
+      setTimeout(function () {
+        // Hide the alert bubble with animation
+        snackbar.classList.remove('visible');
+        // Remove the alert bubble element from the DOM after hiding
+        setTimeout(function () {
+          document.body.removeChild(snackbar);
+        }, 500); // Delay removal to match the transition duration
+      }, 3500);
     }
   };
 
-  if (/KAIOS|B2G/i.test(navigator.userAgent)) {
+  // Orchid Policy: Never support a platform that promotes harrassment, even if you could.
+  if (/KAIOS/i.test(navigator.userAgent)) {
     console.log('%cUnsupported platform', 'font-size:20px');
     console.log('%cVisit https://orchid.thats-the.name/support/platforms to learn more', 'font-size:14px');
   } else {

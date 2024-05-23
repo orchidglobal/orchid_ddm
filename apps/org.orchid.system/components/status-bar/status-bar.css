@@ -1,0 +1,36 @@
+:host {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: var(--statusbar-height);
+}
+
+:host(.status-only) {
+  --statusbar-height: 2.2rem;
+  position: relative;
+}
+
+:host(.status-only) .statusbar-icons {
+  flex-direction: row-reverse;
+  margin: 0;
+}
+
+:host .statusbar-icons > .left {
+  opacity: 1;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+:host(.left-hidden) .statusbar-icons > .left,
+:host(.right-hidden) .statusbar-icons > .right,
+:host(.status-only) .statusbar-icons > .left {
+  visibility: hidden;
+  opacity: 0;
+}
+
+:host(.status-only) .statusbar-icons > .right {
+  flex-direction: row;
+}
+
+:host(.lockscreen) .statusbar-icons > .left .timedate {
+  display: none;
+}

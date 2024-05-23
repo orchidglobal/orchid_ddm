@@ -1,0 +1,90 @@
+[
+  {
+    "version": "1.0",
+    "name": "2024-03 Hotfix Update",
+    "type": "hotfix",
+    "download_url": "about:blank",
+    "patch_logs": [
+      {
+        "type": "text",
+        "comment": "This update is meant to patch some of the bugs reported in our Discord server's #bug-reports channel"
+      },
+      {
+        "type": "patch",
+        "comment": "Fixed app launcher not closing on tab out"
+      },
+      {
+        "type": "patch",
+        "comment": "Fixed app launcher not closing on app launch"
+      },
+      {
+        "type": "patch",
+        "comment": "Fixed app launcher giving apps another dock icon"
+      },
+      {
+        "type": "patch",
+        "comment": "Fixed app launcher causing pinned dock icons to disappear upon closing"
+      }
+    ],
+    "updated_webapps": [
+      { "manifest_url": "http://system.localhost:9920/manifest.json", "entry_id": null },
+      { "manifest_url": "http://settings.localhost:9920/manifest.json", "entry_id": null }
+    ]
+  },
+  {
+    "version": "1.0.144",
+    "name": "2024-03 Hotfix Update",
+    "type": "hotfix",
+    "download_url": "about:blank",
+    "patch_logs": [
+      {
+        "type": "text",
+        "comment": "This update is meant to patch some of the bugs reported in our Discord server's #bug-reports channel"
+      },
+      {
+        "type": "patch",
+        "comment": "Fixed app launcher not closing on tab out"
+      },
+      {
+        "type": "patch",
+        "comment": "Fixed app launcher not closing on app launch"
+      },
+      {
+        "type": "patch",
+        "comment": "Fixed app launcher giving apps another dock icon"
+      },
+      {
+        "type": "patch",
+        "comment": "Fixed app launcher causing pinned dock icons to disappear upon closing"
+      }
+    ],
+    "updated_webapps": [
+      { "manifest_url": "http://system.localhost:9920/manifest.json", "entry_id": null },
+      { "manifest_url": "http://settings.localhost:9920/manifest.json", "entry_id": null }
+    ]
+  },
+  {
+    "version": "1.0.154",
+    "name": "2024-03 Cumulative Update",
+    "type": "feature",
+    "download_url": "about:blank",
+    "patch_logs": [
+      {
+        "type": "security",
+        "comment": "Fixed security exploit of JS code injection"
+      },
+      {
+        "type": "change",
+        "comment": "OrchidJS now blocks B2G due to b2G's embarrasingly bad security vulnerabilities"
+      }
+    ],
+    "updated_webapps": [
+      { "manifest_url": "http://system.localhost:9920/manifest.json", "entry_id": null },
+      { "manifest_url": "http://settings.localhost:9920/manifest.json", "entry_id": null },
+      { "manifest_url": "http://gallery.localhost:9920/manifest.json", "entry_id": null },
+      { "manifest_url": "http://store.localhost:9920/manifest.json", "entry_id": null },
+      { "manifest_url": "http://orchidservices.localhost:9920/manifest.json", "entry_id": "articles" },
+      { "manifest_url": "http://orchidservices.localhost:9920/manifest.json", "entry_id": "newspaper" }
+    ]
+  }
+]

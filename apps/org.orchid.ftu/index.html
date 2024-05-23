@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f0f6ff" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101214" />
+  <link rel="shortcut icon" href="/style/icons/ftu.svg" type="image/x-icon">
+  <title data-l10n-id="title"></title>
+  <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/panels.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/tablists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/activity_bars.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/lists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/switches.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/checkboxes.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/seekbars.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/input_areas.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/empty_screen.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/menus.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/app/transitions.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/skeletons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/confirm.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/illustrations.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/illustrations/account.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/illustrations/locales.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/common.css" />
+  <link rel="stylesheet" type="text/css" href="style/ftu.css" />
+  <script type="module" src="https://orchid-f39a9.web.app/orchid_services.js"></script>
+  <!-- <script defer type="text/javascript" src="/shared/js/external/smooth-scrollbar.js"></script>
+  <script defer type="text/javascript" src="/shared/js/external/plugins/overscroll.js"></script> -->
+  <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script defer type="text/javascript" src="js/pages/languages/main.js"></script>
+
+  <script type="text/javascript" src="/shared/js/intl/l10n.js"></script>
+  <meta name="defaultLanguage" content="en-US" />
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi" />
+  <link rel="localization" href="/locales/main.{locale}.properties" />
+</head>
+
+<body>
+  <main id="app" role="app">
+    <div class="container">
+      <section id="root" class="visible" role="panel">
+        <header class="compact no-rounded-corners">
+          <h1 data-l10n-id="title"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="accessibility"></a>
+          </menu>
+        </header>
+
+        <section class="lists">
+          <div class="ftu-blocks">
+            <div class="block"></div>
+            <div class="block interacts">
+              <div class="ftu-footer">
+                <div class="ftu-text-holder">
+                  <h1 class="title">A Better Yet Familiar Experience!</h1>
+                  <p class="detail">Experience Orchid with it's true quality.</p>
+                </div>
+                <menu class="ftu-buttons" role="buttons">
+                  <button class="recommend" data-page-id="languages">Let's Go!</button>
+                </menu>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section id="languages" role="panel" data-page-object="Languages">
+        <header class="compact">
+          <a href="#" data-icon="arrow-back" data-page-id="root"></a>
+          <h1 data-l10n-id="languages"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="tick" data-page-id="partitions"></a>
+          </menu>
+        </header>
+
+        <section class="lists">
+          <div class="ftu-blocks">
+            <div class="block center">
+              <div class="illustration-holder">
+                <div class="illustration locales">
+                  <div class="sender"></div>
+                  <div class="reciever"></div>
+                </div>
+              </div>
+            </div>
+            <div class="block interacts">
+              <ul id="languages-list"></ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section id="partitions" role="panel">
+        <header class="compact">
+          <a href="#" data-icon="arrow-back" data-page-id="languages"></a>
+          <h1 data-l10n-id="partitions"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="tick" data-page-id="account"></a>
+          </menu>
+        </header>
+
+        <section class="lists"></section>
+      </section>
+
+      <section id="account" role="panel">
+        <header class="compact">
+          <a href="#" data-icon="arrow-back" data-page-id="partitions"></a>
+          <h1 data-l10n-id="account"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="tick"></a>
+          </menu>
+        </header>
+
+        <section class="lists">
+          <div class="ftu-blocks">
+            <div class="block center">
+              <div class="illustration-holder">
+                <div class="illustration account">
+                  <div class="computer">
+                    <div class="pin-input"></div>
+                    <div class="pin"></div>
+                    <div class="check-bg"></div>
+                    <div class="check-circle"></div>
+                    <div class="check"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="block interacts">
+              <ul>
+                <li>Test</li>
+                <li>Test</li>
+                <li>Test</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+    </div>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,258 @@
+:host {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  translate: -50% -50%;
+  pointer-events: none;
+}
+
+:host(.development) {
+  height: calc(100vh - 4rem);
+}
+
+:host > .panel {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transform: translateY(100%);
+  background-color: #000;
+  pointer-events: auto;
+}
+
+:host(.active) > .panel {
+  visibility: unset;
+  transform: translateY(0);
+}
+
+:host(.transparent) > .panel {
+  background-color: transparent;
+}
+
+:host(.transitioning) > .panel {
+  transition: all 0.5s cubic-bezier(1, 0, 0, 1);
+}
+
+:host(.floating) > .panel {
+  visibility: unset;
+  width: var(--window-width, 100%);
+  height: var(--window-height, 100%);
+  transform: translateY(0);
+  translate: var(--window-translate, 0 0);
+}
+
+:host(.floating.maximized) > .panel {
+  width: 100%;
+  height: calc(100% - var(--dock-height) - 2rem);
+  translate: 0 0;
+}
+
+:host > .panel.expand {
+  border-radius: var(--screen-radius);
+  animation: expand 0.3s ease forwards;
+}
+
+@keyframes expand {
+  from {
+    transform: scale(0.75);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+:host > .panel.shrink {
+  border-radius: var(--screen-radius);
+  animation: shrink 0.3s ease forwards;
+}
+
+@keyframes shrink {
+  from {
+    transform: scale(var(--scale, 1)) translateY(var(--offset-y, 0));
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.75);
+    opacity: 0;
+  }
+}
+
+:host > .panel.shrink-to-homescreen {
+  z-index: 10;
+  border-radius: var(--screen-radius);
+  animation: shrink-to-homescreen 0.75s cubic-bezier(0.5, 0.8, 0, 1) forwards;
+}
+
+@keyframes shrink-to-homescreen {
+  from {
+    transform: translate(var(--offset-x, 0), var(--offset-y, 0)) scale(var(--scale, 1));
+  }
+  to {
+    transform: translate(var(--icon-pos-x), var(--icon-pos-y)) scale(var(--icon-scale-x), var(--icon-scale-y));
+    transform-origin: 0 0;
+    border-radius: calc((4.8rem / 4) / var(--icon-scale-x)) / calc((4.8rem / 4) / var(--icon-scale-y));
+  }
+}
+
+:host > .panel.shrink-to-dock {
+  border-radius: var(--screen-radius);
+  animation: shrink-to-dock 0.3s ease forwards;
+}
+
+@keyframes shrink-to-dock {
+  from {
+    transform: scale(var(--scale, 1)) translateY(var(--offset-y, 0));
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.75);
+    opacity: 0;
+  }
+}
+
+:host > .panel:not(.window).from-left {
+  border-radius: var(--screen-radius);
+  animation: from-left 0.5s cubic-bezier(0.5, 0.8, 0, 1.1);
+}
+
+@keyframes from-left {
+  from {
+    transform: translateX(calc(-100% - 2rem));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+:host > .panel:not(.window).from-right {
+  border-radius: var(--screen-radius);
+  animation: from-right 0.5s cubic-bezier(0.5, 0.8, 0, 1.1);
+}
+
+@keyframes from-right {
+  from {
+    transform: translateX(calc(100% + 2rem));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+:host > .panel:not(.window).to-left {
+  border-radius: var(--screen-radius);
+  animation: to-left 0.5s cubic-bezier(0.5, 0.8, 0, 1.1);
+}
+
+@keyframes to-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - 2rem));
+  }
+}
+
+:host > .panel:not(.window).to-right {
+  border-radius: var(--screen-radius);
+  animation: to-right 0.5s cubic-bezier(0.5, 0.8, 0, 1.1);
+}
+
+@keyframes to-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(100% + 2rem));
+  }
+}
+
+:host > .panel.zoom-in {
+  border-radius: var(--screen-radius);
+  animation: zoom-in 0.5s cubic-bezier(0.2, 0.9, 0.1, 1) forwards;
+}
+
+@keyframes zoom-in {
+  from {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+:host > .panel.zoom-out {
+  border-radius: var(--screen-radius);
+  animation: zoom-out 0.3s cubic-bezier(0.2, 0.9, 0.1, 1) forwards;
+}
+
+@keyframes zoom-out {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+
+:host > .panel.from-cards-view {
+  transform-origin: center !important;
+  border-radius: var(--screen-radius);
+  animation: from-cards-view 0.5s cubic-bezier(0.5, 0.8, 0, 1);
+  opacity: 1;
+}
+
+@keyframes from-cards-view {
+  from {
+    transform: scale(0.65);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+:host > .panel.to-cards-view {
+  transform-origin: center !important;
+  border-radius: var(--screen-radius);
+  animation: to-cards-view 0.5s cubic-bezier(0.5, 0.8, 0, 1);
+  opacity: 1 !important;
+}
+
+@keyframes to-cards-view {
+  from {
+    transform: scale(var(--scale, 1)) translateY(var(--offset-y, 0));
+  }
+  to {
+    transform: scale(0.65);
+  }
+}
+
+:host > .panel > * {
+  pointer-events: none;
+}
+
+:host(.active) > .panel > * {
+  pointer-events: unset;
+}
+
+:host-context(.dragging) > .panel > * {
+  pointer-events: none;
+}
+
+:host > .panel > .statusbar {
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}

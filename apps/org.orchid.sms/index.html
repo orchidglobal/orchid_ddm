@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" type="text/json" href="./pwa.json">
+  <meta name="msapplication-navbutton-color" media="(prefers-color-scheme: light)" content="#f0f6ff" />
+  <meta name="msapplication-navbutton-color" media="(prefers-color-scheme: dark)" content="#101214" />
+  <meta name="msapplication-TileColor" media="(prefers-color-scheme: light)" content="#0061e0" />
+  <meta name="msapplication-TileColor" media="(prefers-color-scheme: dark)" content="#00ddff" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f0f6ff" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#101214" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="shortcut icon" href="./style/icons/sms.svg" type="image/x-icon">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta property="og:title" content="Orchid Messages">
+  <meta property="og:description" content="Message your friends at anytime from anywhere.">
+  <!-- <meta property="og:image" content="https://example.com/image.jpg"> -->
+  <title data-l10n-id="title"></title>
+  <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/tablists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/activity_bars.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/lists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/switches.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/checkboxes.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/seekbars.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/input_areas.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/empty_screen.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/empty_screen/account.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/empty_screen/messages.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/menus.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/app/transitions.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/skeletons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/confirm.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/videos.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/alertbars.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/common.css" />
+  <link rel="stylesheet" type="text/css" href="style/sms.css" />
+  <link rel="stylesheet" type="text/css" href="style/modal_dialog.css" />
+  <link rel="stylesheet" type="text/css" href="style/media.css" />
+  <link rel="stylesheet" type="text/css" href="style/call.css" />
+  <script type="module" src="https://orchid-f39a9.web.app/orchid_services.js"></script>
+  <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <script type="text/javascript" src="/shared/js/utils/file_picker.js"></script>
+  <script type="text/javascript" src="/shared/js/utils/compress_image.js"></script>
+  <script defer type="text/javascript" src="/shared/js/utils/transitions.js"></script>
+  <script defer type="text/javascript" src="/shared/js/emojis/emoji_converter.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <!-- <script defer type="text/javascript" src="js/friends.js"></script> -->
+  <!-- <script defer type="text/javascript" src="js/pages/add_friend/main.js"></script> -->
+  <!-- <script defer type="text/javascript" src="js/pages/chat/main.js"></script> -->
+  <!-- <script defer type="text/javascript" src="js/pages/chat/emojis.js"></script> -->
+
+  <meta name="defaultLanguage" content="en-US" />
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi" />
+  <link rel="localization" href="/shared/locales/services/services.{locale}.properties">
+  <link rel="localization" href="/locales/main.{locale}.properties" />
+</head>
+
+<body>
+  <main id="app" role="app">
+    <section id="root" role="panel">
+      <header>
+        <div class="safezone">
+          <h1>
+            <span data-l10n-id="title-short"></span>
+            <span class="beta">BETA</span>
+          </h1>
+          <menu role="toolbar">
+            <!-- <orchid-account-button id="account-button"></orchid-account-button> -->
+            <a href="#" data-icon="search"></a>
+          </menu>
+        </div>
+      </header>
+
+      <section class="lists">
+        <div class="searchbox">
+          <form action="" id="search" role="search">
+            <input type="text" name="" id="search-input" data-l10n-id="type-here-to-search" />
+            <button type="reset" id="search-clear-button" data-icon="close"></button>
+            <button type="submit" data-icon="search"></button>
+          </form>
+        </div>
+
+        <ul>
+          <li class="page" data-icon="users" data-page-id="home">
+            <p data-l10n-id="friends"></p>
+          </li>
+          <li class="page" data-icon="price" data-page-id="shop">
+            <p data-l10n-id="shop"></p>
+          </li>
+        </ul>
+
+        <ul id="servers-list"></ul>
+
+        <header data-l10n-id="direct-messages"></header>
+        <ul id="direct-messages-list"></ul>
+
+        <div id="empty-screen-no-contacts" class="bb-emptyscreen">
+          <div class="container">
+            <div class="illustration-holder">
+              <div class="illustration messages">
+                <div class="app">
+                  <div class="app-header"></div>
+                  <div class="app-footer"></div>
+                  <div class="timeline"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="content">
+              <div class="text-holder">
+                <p data-l10n-id="noContacts"></p>
+              </div>
+              <menu>
+                <button class="recommend" data-l10n-id="addFriend"></button>
+              </menu>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section id="home" class="visible" role="panel">
+      <header>
+        <div class="safezone">
+          <a href="#" data-icon="menu" data-page-id="root"></a>
+          <h1 data-l10n-id="home"></h1>
+          <menu role="toolbar">
+            <orchid-account-button id="account-button"></orchid-account-button>
+            <a href="#" data-icon="search"></a>
+            <a href="#" data-icon="add" data-page-id="add-friend"></a>
+          </menu>
+        </div>
+      </header>
+
+      <section class="lists">
+        <div class="searchbox">
+          <form action="" id="search" role="search">
+            <input type="text" name="" id="search-input" data-l10n-id="type-here-to-search" />
+            <button type="reset" id="search-clear-button" data-icon="close"></button>
+            <button type="submit" data-icon="search"></button>
+          </form>
+        </div>
+
+        <div id="alertbar-unsupported" class="bb-alertbar">
+          <div class="text-holder">
+            <p data-l10n-id="alertbar-unsupported"></p>
+          </div>
+          <nav>
+            <a href="#" data-l10n-id="learnMore"></a>
+          </nav>
+        </div>
+
+        <header data-l10n-id="friends"></header>
+        <orchid-tabs-holder>
+          <orchid-tabs>
+            <orchid-tab>All</orchid-tab>
+            <orchid-tab>Online</orchid-tab>
+            <orchid-tab>Pending</orchid-tab>
+          </orchid-tabs>
+        </orchid-tabs-holder>
+        <ul id="friends-list"></ul>
+
+        <div id="empty-screen-no-account" class="bb-emptyscreen">
+          <div class="container">
+            <div class="illustration-holder">
+              <div class="illustration account">
+                <div class="computer">
+                  <div class="pin-input"></div>
+                  <div class="pin"></div>
+                  <div class="check-bg"></div>
+                  <div class="check-circle"></div>
+                  <div class="check"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="content">
+              <div class="text-holder">
+                <h1 data-l10n-id="orchidAccount"></h1>
+                <p data-l10n-id="orchidAccount-detail"></p>
+              </div>
+              <menu>
+                <button class="recommend" data-l10n-id="orchidAccount-login"></button>
+              </menu>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section id="chat" role="panel">
+      <header class="compact">
+        <div class="safezone">
+          <a href="#" data-icon="menu" data-page-id="root"></a>
+          <img src="" alt="" id="chat-avatar">
+          <h1 id="chat-name"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="options"></a>
+            <a href="#" data-icon="video"></a>
+            <a href="#" data-icon="call"></a>
+          </menu>
+        </div>
+      </header>
+
+      <section id="chat-messages" class="messages"></section>
+
+      <div id="activecall">
+        <ul id="activecall-users"></ul>
+        <menu>
+          <button id="activecall-hangup" class="danger" data-icon="activecall-hangup"></button>
+          <button id="activecall-video" data-icon="video"></button>
+          <button id="activecall-screen-cast" data-icon="tv"></button>
+          <button id="activecall-options" data-icon="options"></button>
+        </menu>
+      </div>
+
+      <div class="messagebox-container">
+        <div id="attached-media"></div>
+
+        <form action="" id="messagebox" class="bb-messagebox">
+          <button type="button" id="messagebox-attachment-button" data-icon="attachments"></button>
+          <input type="text" name="" id="messagebox-input" data-l10n-id="type-message" autocomplete="off" />
+          <button type="button" id="messagebox-emojis-button" data-icon="emojis"></button>
+          <button type="submit" id="messagebox-send-button" data-icon="send"></button>
+        </form>
+      </div>
+
+      <div id="chat-options" class="bb-menu">
+        <ul>
+          <li data-icon="user">Profile</li>
+          <li class="separator"></li>
+          <li data-icon="forbidden">Block</li>
+          <li data-icon="report">Report</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="add-friend" role="panel">
+      <header>
+        <div class="safezone">
+          <a href="#" data-icon="arrow-back" data-page-id="home"></a>
+          <h1 data-l10n-id="addFriend"></h1>
+          <menu role="toolbar">
+            <a href="#" id="add-friend-confirm-button" data-icon="tick"></a>
+          </menu>
+        </div>
+      </header>
+
+      <section class="lists">
+        <ul>
+          <li class="noclick">
+            <p data-l10n-id="addFriendHandle"></p>
+            <form action="" id="add-friend-form">
+              <input type="text" name="" id="add-friend-form-input" data-l10n-id="addFriendHandleInput" />
+            </form>
+            <p id="add-friend-notice" data-l10n-id="addFriendAdded"></p>
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="media-viewer" role="panel">
+      <header class="compact">
+        <a href="#" id="media-viewer-back-button" data-icon="arrow-back" data-page-id="chat"></a>
+        <h1 data-l10n-id="mediaViewer"></h1>
+      </header>
+
+      <div id="media-viewer-carousel"></div>
+    </section>
+
+    <div id="modal-dialog" data-z-index-layer="modal-dialogs">
+      <div id="modal-dialog-alert">
+        <form action="" role="dialog" data-type="confirm">
+          <section>
+            <h1 class="title"></h1>
+            <p class="detail"></p>
+          </section>
+          <menu>
+            <button class="recommend" data-l10n-id="ok"></button>
+          </menu>
+        </form>
+      </div>
+
+      <div id="modal-dialog-confirm">
+        <form action="" role="dialog" data-type="confirm">
+          <section>
+            <h1 class="title"></h1>
+            <p class="detail"></p>
+          </section>
+          <menu>
+            <button class="cancel" data-l10n-id="cancel"></button>
+            <button class="recommend" data-l10n-id="confirm"></button>
+          </menu>
+        </form>
+      </div>
+
+      <div id="modal-dialog-prompt">
+        <form action="" role="dialog" data-type="confirm">
+          <section>
+            <h1 class="title"></h1>
+            <p class="detail"></p>
+            <input type="text" name="" id="" class="inputbox">
+          </section>
+          <menu>
+            <button class="cancel" data-l10n-id="cancel"></button>
+            <button class="recommend" data-l10n-id="confirm"></button>
+          </menu>
+        </form>
+      </div>
+
+      <div id="modal-dialog-permission-request">
+        <form action="" role="dialog" data-type="confirm">
+          <section>
+            <h1 class="title"></h1>
+            <p class="detail"></p>
+          </section>
+          <menu>
+            <button class="cancel" data-l10n-id="cancel"></button>
+            <button class="recommend" data-l10n-id="confirm"></button>
+          </menu>
+        </form>
+      </div>
+
+      <div id="modal-dialog-value-selector">
+        <form action="" role="dialog" data-type="value-selector">
+          <header>
+            <h1 data-l10n-id="valueSelector"></h1>
+          </header>
+          <ul id="modal-dialog-value-selector-list"></ul>
+          <menu>
+            <button class="cancel" data-l10n-id="cancel"></button>
+            <button class="recommend" data-l10n-id="select"></button>
+          </menu>
+        </form>
+      </div>
+
+      <div id="modal-dialog-greetings">
+        <form action="" role="dialog" data-type="confirm">
+          <header>
+            <img src="" alt="" class="artwork">
+          </header>
+          <section>
+            <h1 class="title"></h1>
+            <p class="detail"></p>
+          </section>
+          <menu>
+            <button class="recommend" data-l10n-id="confirm"></button>
+          </menu>
+        </form>
+      </div>
+
+      <div id="modal-dialog-patch-logs">
+        <form action="" role="dialog" data-type="object">
+          <header>
+            <h1 data-l10n-id="patchLogs"></h1>
+          </header>
+          <section>
+            <img src="" alt="" class="artwork">
+
+            <ul></ul>
+          </section>
+          <menu>
+            <button class="recommend" data-l10n-id="confirm"></button>
+          </menu>
+        </form>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

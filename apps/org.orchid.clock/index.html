@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f0f6ff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+  <link rel="shortcut icon" href="/style/icons/clock.svg" type="image/svg">
+  <title data-l10n-id="title"></title>
+  <link rel="stylesheet" type="text/css" href="http://org__orchid__default_theme.localhost:9920/style/index.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/layout.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/icons/icons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/panels.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/headers.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/tablists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/buttons.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/lists.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/switches.css" />
+  <link rel="stylesheet" type="text/css" href="/shared/style/common/toolbars.css" />
+  <link rel="stylesheet" type="text/css" href="style/clock.css" />
+  <link rel="stylesheet" type="text/css" href="style/analog_clock.css" />
+  <link rel="stylesheet" type="text/css" href="style/stopwatch.css" />
+  <link rel="stylesheet" type="text/css" href="style/timer.css" />
+  <script type="text/javascript" src="/shared/js/lazy_loader.js"></script>
+  <script type="text/javascript" src="/shared/js/orchidjs.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script defer type="text/javascript" src="js/views.js"></script>
+  <script defer type="text/javascript" src="js/views/alarms.js"></script>
+  <script defer type="text/javascript" src="js/views/world_clock.js"></script>
+  <script defer type="text/javascript" src="js/views/stopwatch.js"></script>
+  <script defer type="text/javascript" src="js/views/timer.js"></script>
+  <script defer type="text/javascript" src="js/alarms_clock.js"></script>
+
+  <script type="text/javascript" src="/shared/js/intl/l10n.js"></script>
+  <meta name="defaultLanguage" content="en-US">
+  <meta name="availableLanguages"
+    content="af, ar, az, be, bg, bn, ca, cs, cy, da, de, el, eo, et, en-US, es, eu, fa, fi, fr, ga, gu, gl, he, hi, hr, ht, hu, id, is, it, ja, kn, ko, ku, lt, lv, mk, ms, nl, no, pl, pt, ro, ru, sq, sk, sl, sr, sw, ta, te, th, tl, tr, uk, ur, vi, yi, zh, fr-psaccent, ar-psbidi">
+  <link rel="localization" href="/locales/main.{locale}.properties">
+</head>
+
+<body>
+  <main id="app" role="app">
+    <nav class="bb-tablist">
+      <ul>
+        <li><a href="#alarms" class="selected" data-page-id="alarms">
+            <span data-icon="alarm-clock"></span>
+            <span data-l10n-id="alarms"></span>
+          </a></li>
+        <li><a href="#world-clock" data-page-id="world-clock">
+            <span data-icon="world-clock"></span>
+            <span data-l10n-id="worldClock"></span>
+          </a></li>
+        <li><a href="#stopwatch" data-page-id="stopwatch">
+            <span data-icon="stopwatch"></span>
+            <span data-l10n-id="stopwatch"></span>
+          </a></li>
+        <li><a href="#timer" data-page-id="timer">
+            <span data-icon="bell"></span>
+            <span data-l10n-id="timer"></span>
+          </a></li>
+      </ul>
+    </nav>
+
+    <div id="views" class="bb-tablist-views">
+      <section id="alarms" class="visible" role="panel">
+        <header class="compact">
+          <h1 data-l10n-id="alarms"></h1>
+          <menu role="toolbar">
+            <a href="#" data-icon="options"></a>
+            <a href="#" data-icon="add"></a>
+          </menu>
+        </header>
+
+        <section class="lists">
+          <div id="alarms-clock">
+            <div id="alarms-clock-analog" class="analog-clock">
+              <div class="analog-hour"></div>
+              <div class="analog-minute"></div>
+              <div class="analog-second"></div>
+            </div>
+            <div id="alarms-clock-digital"></div>
+          </div>
+
+          <ul id="alarms-list"></ul>
+        </section>
+      </section>
+
+      <section id="world-clock" role="panel">
+        <header class="compact" role="headerbar">
+          <div class="safezone">
+            <h1>Clock</h1>
+            <menu role="toolbar">
+              <a href="#" data-icon="more"></a>
+            </menu>
+          </div>
+        </header>
+
+        <section></section>
+      </section>
+
+      <section id="stopwatch" role="panel">
+        <header class="compact" role="headerbar">
+          <div class="safezone">
+            <h1 data-l10n-id="stopwatch"></h1>
+            <menu role="toolbar">
+              <a href="#" data-icon="more"></a>
+            </menu>
+          </div>
+        </header>
+
+        <div class="content lists">
+          <div id="stopwatch-timer">
+            <div id="stopwatch-timer-analog" class="stopwatch-timer">
+              <div class="stopwatch-hour"></div>
+              <div class="stopwatch-minute"></div>
+              <div class="stopwatch-second"></div>
+            </div>
+            <div id="stopwatch-timer-digital"></div>
+          </div>
+
+          <div class="buttons">
+            <button class="recommend" id="stopwatch-start" data-l10n-id="stopwatchStart"></button>
+            <button class="danger" id="stopwatch-stop" data-l10n-id="stopwatchStop"></button>
+            <button id="stopwatch-reset" data-l10n-id="stopwatchReset"></button>
+            <button id="stopwatch-lap" data-l10n-id="stopwatchLap"></button>
+          </div>
+        </div>
+
+        <ul id="stopwatch-laps"></ul>
+      </section>
+
+      <section id="timer" role="panel">
+        <header class="headerbar compact">
+          <div class="safezone">
+            <h1>Clock</h1>
+            <menu role="toolbar">
+              <a href="#" data-icon="more"></a>
+            </menu>
+          </div>
+        </header>
+
+        <div class="content">
+          <div id="timer-clock">
+            <div id="timer-clock-analog" class="timer-clock">
+              <div class="timer-second"></div>
+            </div>
+            <div id="timer-clock-digital"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+
+</html>

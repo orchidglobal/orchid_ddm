@@ -11,15 +11,19 @@
   width: 100%;
   height: 6.5rem;
   padding-bottom: var(--software-buttons-height);
-  outline: solid 0.1rem rgba(255, 255, 255, calc(0.1 * var(--tablist-progress)));
-  backdrop-filter: blur(calc(20px * var(--tablist-progress, 0))) saturate(calc(100% + (80% * var(--tablist-progress, 0))));
-  background-color: rgba(var(--headerbar-background-r), var(--headerbar-background-g), var(--headerbar-background-b), calc(0.75 * var(--tablist-progress, 0)));
+  background-color: rgba(var(--headerbar-background-r), var(--headerbar-background-g), var(--headerbar-background-b), var(--tablist-progress, 0));
 }
 html[dir="ltr"] .bb-tablist {
   left: 0;
 }
 html[dir="rtl"] .bb-tablist {
   right: 0;
+}
+
+.active .bb-tablist {
+  outline: solid 0.1rem rgba(255, 255, 255, calc(0.1 * var(--tablist-progress)));
+  backdrop-filter: blur(calc(20px * var(--tablist-progress, 0))) saturate(calc(100% + (80% * var(--tablist-progress, 0))));
+  background-color: rgba(var(--headerbar-background-r), var(--headerbar-background-g), var(--headerbar-background-b), calc(0.8 * var(--tablist-progress, 0)));
 }
 
 .bb-tablist ul {
@@ -40,45 +44,6 @@ html[dir="rtl"] .bb-tablist {
   margin: 0.5rem 0;
   overflow: hidden;
   list-style: none;
-}
-
-@media screen and (orientation: landscape) {
-  .bb-tablist-views {
-    position: absolute;
-    width: calc(100% - 9rem);
-    height: 100%;
-  }
-  html[dir="ltr"] .bb-tablist-views {
-    left: 9rem;
-  }
-  html[dir="rtl"] .bb-tablist-views {
-    right: 9rem;
-  }
-
-  .bb-tablist {
-    box-sizing: border-box;
-    width: 9rem;
-    height: 100%;
-    padding-top: var(--statusbar-height);
-    padding-bottom: var(--software-buttons-height);
-  }
-
-  .bb-tablist ul {
-    box-sizing: border-box;
-    flex-direction: column;
-    justify-content: center;
-    width: 9rem;
-    max-width: unset;
-    height: 100%;
-    padding: 0.5rem 0;
-    gap: 1rem;
-  }
-
-  .bb-tablist ul li {
-    flex-grow: 0;
-    height: 6rem;
-    margin: 0 0.5rem;
-  }
 }
 
 .bb-tablist ul li > a {
@@ -155,4 +120,46 @@ html[dir="rtl"] .bb-tablist {
   transform: scale(1);
   opacity: 1;
   transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+@media screen and (orientation: landscape) {
+  .bb-tablist-views {
+    position: absolute;
+    width: calc(100% - 9rem);
+    height: 100%;
+  }
+  html[dir="ltr"] .bb-tablist-views {
+    left: 9rem;
+  }
+  html[dir="rtl"] .bb-tablist-views {
+    right: 9rem;
+  }
+
+  .bb-tablist {
+    box-sizing: border-box;
+    width: 9rem;
+    height: 100%;
+    padding-top: var(--statusbar-height);
+    padding-bottom: var(--software-buttons-height);
+    outline: none !important;
+    backdrop-filter: none !important;
+    background-color: transparent !important;
+  }
+
+  .bb-tablist ul {
+    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: center;
+    width: 9rem;
+    max-width: unset;
+    height: 100%;
+    padding: 1.5rem 0;
+    gap: 1rem;
+  }
+
+  .bb-tablist ul li {
+    flex-grow: 0;
+    height: 6rem;
+    margin: 0 0.5rem;
+  }
 }

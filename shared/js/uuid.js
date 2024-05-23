@@ -5,21 +5,37 @@
     exports.OrchidJS = {};
   }
 
-  const UUIDv4 = function () {
-    let d = new Date().getTime();
-    let d2 = (typeof performance !== 'undefined' && performance.now && performance.now() * 1000) || 0;
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      let r = Math.random() * 16;
-      if (d > 0) {
-        r = (d + r) % 16 | 0;
-        d = Math.floor(d / 16);
-      } else {
-        r = (d2 + r) % 16 | 0;
-        d2 = Math.floor(d2 / 16);
-      }
-      return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
-    });
+  const UUID = {
+    generateID: function () {
+      let now = new Date().getTime();
+      const uuid = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = (now + Math.random() * 16) % 16 | 0;
+        now = Math.floor(now / 16);
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+      });
+      return uuid;
+    },
+
+    generateToken: function () {
+      let now = new Date().getTime();
+      const uuid = 'xxxxxxxxyyyyyyyy-xxxxyyyy-4xxxyyyy-yxxxyyyy-xxxxxxxxxxxxyyyyyyyyyyyyxxxx'.replace(/[xy]/g, function(c) {
+        const r = (now + Math.random() * 16) % 16 | 0;
+        now = Math.floor(now / 16);
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+      });
+      return uuid;
+    },
+
+    v4: function () {
+      let now = new Date().getTime();
+      const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = (now + Math.random() * 16) % 16 | 0;
+        now = Math.floor(now / 16);
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+      });
+      return uuid;
+    }
   };
 
-  OrchidJS.UUIDv4 = UUIDv4;
+  OrchidJS.UUID = UUID;
 })(window);
