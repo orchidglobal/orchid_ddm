@@ -41,7 +41,7 @@ npm run build-mac-aarch64 # aarch64
 This is one repository of the multiple repositories needed for piecing up the operating system
 
 # Secrets
-Any secrets like API keys or tokens should go in `.env.secret` and not `.env`
+Any secrets like API keys or tokens should go in `.env` and not `.env.secret`
 If people publicly see your secrets. They might do malicious things with your APIs
 
 Heres a template of a `.env.secret` file for you :\)
