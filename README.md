@@ -44,7 +44,7 @@ This is one repository of the multiple repositories needed for piecing up the op
 Any secrets like API keys or tokens should go in `.env` and not `.env.secret`
 If people publicly see your secrets. They might do malicious things with your APIs
 
-Heres a template of a `.env.secret` file for you :\)
+Heres a template of a `.env` file for you :\)
 ```ini
 # For APIs OpenOrchid uses to work
 API_KEY_ORCHID=YOUR_API_KEY_HERE
